@@ -14,7 +14,11 @@ import { useGetPrograms } from "@/lib/api/hooks/programs/programs.hooks";
 import QueryStateHandler from "@/components/query-state-handler";
 import { Badge } from "@/components/ui/badge";
 
-export default function ProgramGrowth({paddingTop = "lg:py-24"}: {paddingTop?: string}) {
+export default function ProgramGrowth({
+  paddingTop = "lg:py-24",
+}: {
+  paddingTop?: string;
+}) {
   const { data: programs, isLoading, isError, isFetching } = useGetPrograms();
 
   let typeVariant;
@@ -104,12 +108,8 @@ export default function ProgramGrowth({paddingTop = "lg:py-24"}: {paddingTop?: s
                 program || {};
 
               return (
-                <SwiperSlide
-                  key={id || index}
-                  className="h-auto"
-                >
-                  {" "}
-                  <div className="flex flex-col  h-full bg-[#F2F2F1] p-4 transition-shadow">
+                <SwiperSlide key={id || index} className="h-auto! flex">
+                  <div className="flex flex-col flex-1 bg-[#F2F2F1] p-4 transition-shadow">
                     {/* Image Placeholder */}
                     <div className="w-full object-top lg:object-center  aspect-3/2 mb-3 overflow-hidden relative">
                       <Image
@@ -138,7 +138,10 @@ export default function ProgramGrowth({paddingTop = "lg:py-24"}: {paddingTop?: s
                     </p>
 
                     {/* Link */}
-                    <Link href={`/programs/${id ?? ''}`} className="w-full mt-auto">
+                    <Link
+                      href={`/programs/${id ?? ""}`}
+                      className="w-full mt-auto"
+                    >
                       <Button
                         variant={"outline"}
                         className="border border-[#B1B4B1] text-regular text-[#072608] text-base w-full"
@@ -153,20 +156,6 @@ export default function ProgramGrowth({paddingTop = "lg:py-24"}: {paddingTop?: s
           )}
         </Swiper>
       </QueryStateHandler>
-      {/* make pagination dots white */}
-      {/* <style jsx global>{`
-         programs .swiper-pagination-bullet {
-          background: black !important;
-          opacity: 1 !important;
-          width: 0.75rem !important;
-          height: 0.75rem !important;
-        }
-        .swiper-pagination-bullet-active {
-          background: #ffffff !important;
-          width: 2rem !important;
-          border-radius: 1rem !important;
-        }
-      `}</style> */}
     </section>
   );
 }

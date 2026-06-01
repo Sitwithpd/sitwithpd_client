@@ -292,3 +292,8 @@ html[data-direction="back"] ::view-transition-new(root) {
 .contact-phone-input .PhoneInputCountrySelect option {
   padding: 0.5rem 0.75rem;
 }
+/* Programs Swiper Equal Height Fix */
+.programs .swiper-slide {
+  height: auto !important;
+  display: flex !important;
+}

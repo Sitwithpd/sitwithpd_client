@@ -57,15 +57,7 @@ export function Hero() {
               One-on-One Professional Consultation
             </h1>
           </div>
-          <div className="py-5 bg-[#A8D67599] w-full text-center rounded-[10px] ">
-            <p className="text-[#0C240A] text-sm">Start your journey today</p>
-            <p className="text-[#0C240A] font-semibold text-[1.875rem] ">
-              {formatCurrency(99)} per session
-            </p>
-            <p className="text-[#0C240A] text-base font-medium">
-              Start your journey today
-            </p>
-          </div>
+         <p className="text-[#F9FDF9] text-lg text-center  mx-auto lg:max-w-3xl font-medium">Get personalized guidance from experienced professionals in a confidential and supportive environment.</p>
           <div className="flex flex-col sm:flex-row justify-start sm:justify-center w-full gap-4 mt-4">
             <Button
               onClick={() =>

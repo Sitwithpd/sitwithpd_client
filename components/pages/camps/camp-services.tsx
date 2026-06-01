@@ -128,9 +128,9 @@ export default function CampServices() {
                       {service.location}
                     </span>
                   </div>
-                  <div className="text-regular-button font-medium text-sm">
+                  {/* <div className="text-regular-button font-medium text-sm">
                     {service.seatsRemaining} Seats left
-                  </div>
+                  </div> */}
                 </div>
                 <Link href={`/camps/${service.id}`} className="mt-auto">
                   <Button variant="regular" className="w-full group/btn">
