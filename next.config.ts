@@ -13,7 +13,6 @@ const nextConfig: NextConfig = {
       },
     ],
   },
-// hide console.log() in production
   compiler: {
     removeConsole: {
       exclude: ['error', 'warn'],

@@ -19,12 +19,6 @@ import Link from "next/link";
 import { useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
 
-const CHURCH_OPTIONS = [
-  {
-    label: "Ascending",
-    value: "ascending",
-  },
-];
 export default function ProgramOverview() {
   const searchParams = useSearchParams();
   const filteredItem = searchParams.get("type") ?? "";
@@ -45,14 +39,14 @@ export default function ProgramOverview() {
 
   const handleDeleteProgram = (id: string) => {
     console.log("this is the id of the selected program", id)
-    // mutate(id, {
-    //   onSuccess: () => {
-    //     closeModal("loading");
-    //   },
-    //   onError: () => {
-    //     closeModal("loading");
-    //   },
-    // });
+    mutate(id, {
+      onSuccess: () => {
+        closeModal("loading");
+      },
+      onError: () => {
+        closeModal("loading");
+      },
+    });
   };
 
    useEffect(() => {
@@ -107,7 +101,7 @@ export default function ProgramOverview() {
             isFetching={isFetching}
           >
             <ReuseableTable
-              columns={ProgramsColumn(handleDeleteProgram, editProgram, settings?.currency)}
+              columns={ProgramsColumn(handleDeleteProgram, settings?.currency)}
               tableData={programData?.data}
             />
           </QueryStateHandler>
