@@ -61,7 +61,7 @@ export default function ModulesPanel({
             >
               <div className="flex items-start gap-3">
                 {/* Module icon */}
-                <div className="mt-0.5 flex-shrink-0 text-[#98A2B3]">
+                <div className="mt-0.5 shrink-0 text-[#98A2B3]">
                   <svg
                     width="20"
                     height="20"
@@ -81,7 +81,7 @@ export default function ModulesPanel({
                     Module {index + 1}: {mod.title}
                   </p>
                   {mod.description && (
-                    <p className="text-xs text-primary-text">{mod.description}</p>
+                    <p className="text-xs whitespace-pre-wrap text-primary-text">{mod.description}</p>
                   )}
                   <div className="flex items-center gap-2 mt-1 flex-wrap">
                     {/* Type badge */}

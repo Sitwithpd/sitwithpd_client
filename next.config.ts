@@ -18,14 +18,14 @@ const nextConfig: NextConfig = {
       exclude: ['error', 'warn'],
     },
   },
-  // async rewrites() {
-  //   return [
-  //     {
-  //       source: "/api/:path*",
-  //       destination: "https://sit-with-pd-global-therapeutic-web-app-2f1l.onrender.com/api/:path*",
-  //     },
-  //   ];
-  // },
+  async rewrites() {
+    return [
+      {
+        source: "/api/:path*",
+        destination: "https://sit-with-pd-global-therapeutic-web-app-2f1l.onrender.com/api/:path*",
+      },
+    ];
+  },
 };
 
 export default nextConfig;
