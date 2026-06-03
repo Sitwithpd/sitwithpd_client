@@ -24,7 +24,7 @@ export default function ModulesPanel({
   modules,
   onAddModule,
   onRemoveModule,
-  onEditModule
+  onEditModule,
 }: ModulesPanelProps) {
   return (
     <div className="bg-dash-secondary-bg dark:border-none rounded-[12px] p-5 border border-[#EAECF0]">
@@ -57,9 +57,9 @@ export default function ModulesPanel({
           {modules.map((mod, index) => (
             <div
               key={index}
-              className="flex items-start justify-between border border-[#EAECF0] rounded-[10px] p-4"
+              className="flex items-start justify-between gap-4 border border-[#EAECF0] rounded-[10px] p-4"
             >
-              <div className="flex items-start gap-3">
+              <div className="flex items-start gap-3 min-w-0">
                 {/* Module icon */}
                 <div className="mt-0.5 shrink-0 text-[#98A2B3]">
                   <svg
@@ -76,12 +76,14 @@ export default function ModulesPanel({
                   </svg>
                 </div>
 
-                <div className="flex flex-col gap-1">
-                  <p className="text-sm font-semibold text-seconadary-text">
+                <div className="flex flex-col gap-1 min-w-0">
+                  <p className="text-sm font-semibold text-seconadary-text wrap-break-word">
                     Module {index + 1}: {mod.title}
                   </p>
                   {mod.description && (
-                    <p className="text-xs whitespace-pre-wrap text-primary-text">{mod.description}</p>
+                    <p className="text-xs whitespace-pre-wrap text-primary-text wrap-break-word">
+                      {mod.description}
+                    </p>
                   )}
                   <div className="flex items-center gap-2 mt-1 flex-wrap">
                     {/* Type badge */}
@@ -101,14 +103,26 @@ export default function ModulesPanel({
               </div>
 
               {/* Actions */}
-              <div className="flex flex-col gap-2 mt-1">
+              <div className="flex flex-col gap-2 mt-1 shrink-0">
                 {onEditModule && (
                   <button
                     type="button"
                     onClick={() => onEditModule(index)}
                     className="text-blue-500 hover:text-blue-700 cursor-pointer"
                   >
-                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M17 3a2.85 2.83 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5Z"/></svg>
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="16"
+                      height="16"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      strokeWidth="2"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                    >
+                      <path d="M17 3a2.85 2.83 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5Z" />
+                    </svg>
                   </button>
                 )}
                 {/* Delete module */}
