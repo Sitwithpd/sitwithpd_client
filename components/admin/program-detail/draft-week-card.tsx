@@ -27,13 +27,15 @@ export default function DraftWeekCard({
 }: DraftWeekCardProps) {
   return (
     <div className="bg-dash-secondary-bg dark;border-none rounded-[12px] p-5 border border-[#EAECF0]">
-      <div className="flex items-start justify-between">
-        <div className="flex flex-col gap-1">
-          <h3 className="text-primary-text font-semibold text-base">
+      <div className="flex items-start justify-between gap-4">
+        <div className="flex flex-col gap-1 min-w-0">
+          <h3 className="text-primary-text font-semibold text-base wrap-break-word">
             Week {weekNumber}: {week.weekTitle}
           </h3>
           {week.description && (
-            <p className="text-sm text-[#667185]">{week.description}</p>
+            <p className="text-sm text-[#667185] whitespace-pre-wrap wrap-break-word">
+              {week.description}
+            </p>
           )}
         </div>
 
@@ -43,7 +45,7 @@ export default function DraftWeekCard({
           size="sm"
           disabled={isPublishing}
           onClick={onPublish}
-          className="min-w-[90px]"
+          className="min-w-[90px] shrink-0"
         >
           {isPublishing ? <Spinner size={16} /> : "Publish"}
         </Button>
