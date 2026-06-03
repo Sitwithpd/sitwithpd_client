@@ -115,7 +115,7 @@ export default function AddWeekModal({ onAddWeek, initialData, title = "Add New 
             <textarea
               {...field}
               placeholder="Brief description of what this week covers..."
-              className="border-[0.67px] border-[#D0D5DD] bg-tansparent rounded-[8px] w-full text-sm font-medium text-primary-text placeholder:text-primary-text placeholder:text-sm py-3 min-h-20 outline-none px-3 resize-none"
+              className="border-[0.67px] border-[#D0D5DD] bg-tansparent rounded-[8px] w-full text-sm font-medium text-primary-text placeholder:text-primary-text placeholder:text-sm py-3 min-h-20 outline-none px-3 resize-none h-75"
             />
             {fieldState.invalid && (
               <span className="text-sm text-destructive">{fieldState.error?.message}</span>

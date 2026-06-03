@@ -105,7 +105,7 @@ export default function AddModuleModal({ onAddModule, initialData, title = "Add 
             <textarea
               {...field}
               placeholder="What will participants learn?"
-              className="border-[0.67px] border-[#D0D5DD] bg-transparent rounded-[5px] w-full text-[12px] font-medium text-primary-text placeholder:text-[#0A0A0A80] dark:placeholder:text-primary-text placeholder:text-sm py-3 min-h-20 outline-none px-3 resize-none"
+              className="border-[0.67px] border-[#D0D5DD] bg-transparent rounded-[5px] w-full text-[12px] font-medium text-primary-text placeholder:text-[#0A0A0A80] dark:placeholder:text-primary-text placeholder:text-sm py-3 min-h-20 outline-none px-3 resize-none h-75"
             />
             {fieldState.invalid && (
               <span className="text-sm text-destructive">{fieldState.error?.message}</span>
