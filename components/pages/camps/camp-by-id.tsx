@@ -18,6 +18,10 @@ import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import BookCampForm from "@/components/forms/admin/camps/book-camp-form";
 import { showSuccessToast } from "@/lib/toast-helpers";
+import {
+  SignInRequiredModal,
+  SIGN_IN_MODAL_ID,
+} from "@/components/sign-in-required-modal";
 import { useAuthStore } from "@/store/use-auth-store";
 import { Info, Receipt } from "lucide-react";
 import CampRegistrationDetails from "./camp-registration-details";
@@ -280,6 +284,16 @@ function CardByIdOverview({ id }: { id: string }) {
                           variant="regular"
                           className="w-full mt-10 "
                           onClick={() => {
+                            if (!isAuthenticated) {
+                              openModal(
+                                SIGN_IN_MODAL_ID,
+                                <SignInRequiredModal
+                                  message="You need to be signed in to book a camp. Sign in to your account so you can secure your spot and complete your registration."
+                                  callbackUrl={`/camps/${id}#booking-form`}
+                                />,
+                              );
+                              return;
+                            }
                             openModal(
                               "book-camp",
                               <BookCampForm

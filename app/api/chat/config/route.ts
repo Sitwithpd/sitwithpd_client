@@ -3,7 +3,6 @@ import { NextResponse } from "next/server";
 export async function GET(request: Request) {
   const BACKEND_URL = process.env.BACKEND_URL;
 
-
   if (!BACKEND_URL) {
     return NextResponse.json(
       { success: false, message: "Backend URL not configured" },

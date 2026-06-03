@@ -18,10 +18,14 @@ import {
 import LocationIcon from "@/pd-icons/location-icon";
 import { showErrorToast } from "@/lib/toast-helpers";
 import { useAuthStore } from "@/store/use-auth-store";
-import { useRouter } from "next/navigation";
+
 import { useCreatePayment } from "@/lib/api/hooks/payments/payments.hooks";
 import { useModalStore } from "@/components/store/use-modal-store";
 import { Spinner } from "@/components/spinner";
+import {
+  SignInRequiredModal,
+  SIGN_IN_MODAL_ID,
+} from "@/components/sign-in-required-modal";
 import { useGetDashboardData } from "@/lib/api/hooks/dashboard/dashboard.hooks";
 import { Purchase } from "@/lib/api/services/dashboard/dashboard.services";
 import { CreatePaymentPayload } from "@/lib/api/services/payments/payments.services";
@@ -39,8 +43,6 @@ function ProgramDetailsWrapper({ id }: { id: string }) {
   const { data, isLoading: dashboardDataLoading } = useGetDashboardData({
     enabled: isAuthenticated,
   });
-
-  const router = useRouter();
 
   const openModal = useModalStore((state) => state.openModal);
   const closeModal = useModalStore((state) => state.closeModal);
@@ -114,7 +116,13 @@ function ProgramDetailsWrapper({ id }: { id: string }) {
     }
 
     if (!isAuthenticated) {
-      router.push(`/login?callbackUrl=/programs/${id}`);
+      openModal(
+        SIGN_IN_MODAL_ID,
+        <SignInRequiredModal
+          message="You need to be signed in to enrol in a programme. Sign in to your account so you can get started on your learning journey."
+          callbackUrl={`/programs/${id}`}
+        />,
+      );
       return;
     }
 

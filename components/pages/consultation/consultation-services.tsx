@@ -10,20 +10,31 @@ import { Pill } from "@/components/ui/pill";
 import CaretRight from "@/pd-icons/caret-right";
 import { Clock } from "lucide-react";
 import { useAuthStore } from "@/store/use-auth-store";
-import { useRouter } from "next/navigation";
+
+import { useModalStore } from "@/components/store/use-modal-store";
+import {
+  SignInRequiredModal,
+  SIGN_IN_MODAL_ID,
+} from "@/components/sign-in-required-modal";
 
 export function ConsultationServices() {
   const isAuthenticated = useAuthStore((state) => state.isAuthenticated);
-  const router = useRouter();
+  const openModal = useModalStore((state) => state.openModal);
 
   const { data, isLoading } = useGetAllConsultationServices();
 
   const handleBookCard = async (bookingUrl: string) => {
     if (!isAuthenticated) {
-      router.push(`/login?callbackUrl=/consultation#consultation-cta`);
+      openModal(
+        SIGN_IN_MODAL_ID,
+        <SignInRequiredModal
+          message="You need to be signed in to book a consultation session. Sign in to your account so we can set everything up for you."
+          callbackUrl="/consultation#consultation-cta"
+        />,
+      );
       return;
     }
-    
+
     const cal = await getCalApi({ namespace: "consultation" });
     cal("modal", {
       calLink: bookingUrl,

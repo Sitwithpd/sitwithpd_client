@@ -192,8 +192,8 @@ export default function Chat() {
                 Authorization: `Bearer ${localStorage.getItem("sit-with-token")}`,
               }),
           },
-          credentials: "include",
           signal: abortControllerRef.current.signal,
+          credentials: "include",
           body: JSON.stringify({ message: text, stream: true }),
         },
       );

@@ -313,7 +313,7 @@ export default function CampDetail({ id }: { id: string }) {
                 </div>
 
                 {/* Description */}
-                <p className="text-sm text-secondary-text dark:text-primary-text leading-relaxed">
+                <p className="text-sm text-secondary-text whitespace-pre-wrap dark:text-primary-text leading-relaxed">
                   {tier.description}
                 </p>
 

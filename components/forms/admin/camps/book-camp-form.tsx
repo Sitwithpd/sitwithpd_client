@@ -16,7 +16,7 @@ import {
   CampBookingFormSchema,
   CampBookingFormSchemaTpe,
 } from "@/schemas/camps-schema";
-import { useAuthStore } from "@/store/use-auth-store";
+
 import { zodResolver } from "@hookform/resolvers/zod";
 import {
   CheckCircle,
@@ -25,7 +25,6 @@ import {
   AlertTriangle,
   Loader2,
 } from "lucide-react";
-import { useRouter } from "next/navigation";
 import React, { useState } from "react";
 import { Controller, useFieldArray, useForm } from "react-hook-form";
 import LearningObjectivesField from "../program/learning-objectives-field";
@@ -130,8 +129,6 @@ export default function BookCampForm({
   const { mutate: bookACamp, isPending } = useBookACamp();
   const { mutate: createPayment, isPending: isCreatingPayment } =
     useCreatePayment();
-  const isAuthenticated = useAuthStore((state) => state.isAuthenticated);
-  const router = useRouter();
 
   const openModal = useModalStore((state) => state.openModal);
   const closeModal = useModalStore((state) => state.closeModal);
@@ -163,11 +160,6 @@ export default function BookCampForm({
       showErrorToast("Choose a participation tier");
       return;
     }
-    if (!isAuthenticated) {
-      router.push(`/login?callbackUrl=/camps/${campId}#booking-form`);
-      return;
-    }
-
     const payload = {
       tierId,
       applicantDetails: {
