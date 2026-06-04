@@ -1,4 +1,7 @@
-import { getPublicBlogBySlug, getPublishedBlogs } from "@/lib/api/services/blog/blog.services";
+import {
+  getPublicBlogBySlug,
+  getPublishedBlogs,
+} from "@/lib/api/services/blog/blog.services";
 import { Metadata } from "next";
 import BlogDetailsClient from "@/components/pages/blog/blog-details-client";
 
@@ -45,17 +48,13 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 export default async function BlogPostPage({ params }: Props) {
   const { slug } = await params;
 
-  return (
-    <BlogDetailsClient slug={slug} />
-  );
+  return <BlogDetailsClient slug={slug} />;
 }
-
-
 
 export async function generateStaticParams() {
   try {
     const response = await getPublishedBlogs();
-    return response.data.map((b:any) => ({ slug: b.slug }));
+    return response.data.map((b: any) => ({ slug: b.slug }));
   } catch (error) {
     return [];
   }
