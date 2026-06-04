@@ -13,7 +13,13 @@ import {
 } from "@/components/ui/sidebar";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { BookOpen, LayoutDashboard, LogOut, MapPin, Settings } from "lucide-react";
+import {
+  BookOpen,
+  LayoutDashboard,
+  LogOut,
+  MapPin,
+  Settings,
+} from "lucide-react";
 import { useAuthStore } from "@/store/use-auth-store";
 import { usePlatformSettingsStore } from "@/store/use-platform-settings-store";
 import { logout } from "@/lib/api/services/auth/auth.services";
@@ -47,7 +53,9 @@ const data = {
   ],
 };
 
-export function AppUserSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
+export function AppUserSidebar({
+  ...props
+}: React.ComponentProps<typeof Sidebar>) {
   const pathname = usePathname();
   const settings = usePlatformSettingsStore((state) => state.settings);
   const { setOpenMobile } = useSidebar();
@@ -61,21 +69,25 @@ export function AppUserSidebar({ ...props }: React.ComponentProps<typeof Sidebar
   const { data: dashboardData } = useGetDashboardData();
   const purchases = dashboardData?.data?.purchases ?? [];
   const campRegistrations = dashboardData?.data?.campRegistrations ?? [];
-  
+
   const hasPurchases = purchases.length > 0;
   const hasCamps = campRegistrations.length > 0;
 
   return (
     <Sidebar {...props}>
       <SidebarHeader className="px-3 mt-5">
-        <Link 
-          href="/dashboard" 
+        <Link
+          href="/dashboard"
           className="flex items-center gap-2"
           onClick={() => setOpenMobile(false)}
         >
           <div className="w-[120px] h-[40px] relative ">
             <Image
-              src={mounted && resolvedTheme === "light" ? "/images/light-mode-logo.png" : "/images/primary-logo.png"}
+              src={
+                mounted && resolvedTheme === "light"
+                  ? "/images/light-mode-logo.png"
+                  : "/images/primary-logo.png"
+              }
               alt="Sit With PD Logo"
               fill
               className="object-contain"

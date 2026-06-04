@@ -7,7 +7,7 @@ import { TooltipProvider } from "@/components/ui/tooltip";
 import { ModalProvider } from "@/components/providers/modal-provider";
 import QueryProvider from "@/components/providers/query-provider";
 import { Toaster } from "@/components/ui/sonner";
-import { GoogleOAuthProvider } from "@react-oauth/google";  
+import { GoogleOAuthProvider } from "@react-oauth/google";
 import { CalProvider } from "@/components/providers/calcom-provider";
 import { HashScroller } from "@/components/providers/hash-scroller";
 import { Suspense } from "react";
@@ -74,36 +74,36 @@ export const metadata: Metadata = {
   },
 };
 
-
-
 export default function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" suppressHydrationWarning className={`${inter.variable} ${plusJakartaSans.variable}`}>
+    <html
+      lang="en"
+      suppressHydrationWarning
+      className={`${inter.variable} ${plusJakartaSans.variable}`}
+    >
       <body className="antialiased flex flex-col min-h-screen">
-        <GoogleOAuthProvider clientId={process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID!}>
-        <QueryProvider>
-        <TooltipProvider>
-          <ViewTransitionTracker />
-          <ModalProvider />
-          <CalProvider>
-            <Suspense fallback={null}>
-              <HashScroller />
-            </Suspense>
-            <ViewTransition>{children}</ViewTransition>
-          </CalProvider>
-          <Toaster position="top-center"/>
-        </TooltipProvider>
-        </QueryProvider>
+        <GoogleOAuthProvider
+          clientId={process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID!}
+        >
+          <QueryProvider>
+            <TooltipProvider>
+              <ViewTransitionTracker />
+              <ModalProvider />
+              <CalProvider>
+                <Suspense fallback={null}>
+                  <HashScroller />
+                </Suspense>
+                <ViewTransition>{children}</ViewTransition>
+              </CalProvider>
+              <Toaster position="top-center" />
+            </TooltipProvider>
+          </QueryProvider>
         </GoogleOAuthProvider>
       </body>
     </html>
   );
 }
-
-
-
-
