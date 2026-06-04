@@ -20,12 +20,18 @@ import { MessageFacilitatorModal } from "../user/dashboard/message-facilitator-m
 import AddTestimonialModal from "../forms/admin/testimonials/add-testimonial";
 import EditTestimonialModal from "../forms/admin/testimonials/edit-testimonial";
 import { Testimonial } from "@/lib/api/services/testimonials/testimonials.services";
+import AddTeamMemberModal from "../forms/admin/team/add-team-member";
+import EditTeamMemberModal from "../forms/admin/team/edit-team-member";
+import { TeamMember } from "@/lib/api/services/team/team.services";
 
 const openModal = useModalStore.getState().openModal;
 
 //>>>>>>>>>>>>>>>>>>> USER DASHBOARD <<<<<<<<<<<<<<<<<<<<<<<<<
 export function messageFacilitator(programId?: string) {
-  openModal("message-facilitator", <MessageFacilitatorModal programId={programId} />);
+  openModal(
+    "message-facilitator",
+    <MessageFacilitatorModal programId={programId} />,
+  );
 }
 
 export function contactSupport() {
@@ -75,8 +81,15 @@ export function handleCampSuccessModal(data: SuccessBannerProps) {
   openModal("success", <CampSuccessModal camp={data} />);
 }
 
-export const handleEditFileCaption = (campId: string, imageId: string, order: number | undefined) => {
-  openModal("edit-image-caption", <UpdateCaptionForm campId={campId} imqgeId={imageId} order={order} />);
+export const handleEditFileCaption = (
+  campId: string,
+  imageId: string,
+  order: number | undefined,
+) => {
+  openModal(
+    "edit-image-caption",
+    <UpdateCaptionForm campId={campId} imqgeId={imageId} order={order} />,
+  );
 };
 
 //>>>>>>>>>>>>>>>>>>> BLOG <<<<<<<<<<<<<<<<<<<<<<<<<
@@ -85,10 +98,7 @@ export const handleAddBlog = () => {
 };
 
 export const handleEditBlog = (blog: BlogPost) => {
-  openModal(
-    "open-edit-blog",
-    <EditBlogEditor blog={blog} />,
-  );
+  openModal("open-edit-blog", <EditBlogEditor blog={blog} />);
 };
 
 //>>>>>>>>>>>>>>>>>>> TESTIMONIALS <<<<<<<<<<<<<<<<<<<<<<<<<
@@ -103,3 +113,11 @@ export const handleEditTestimonial = (testimonial: Testimonial) => {
   );
 };
 
+//>>>>>>>>>>>>>>>>>>> TEAM MEMBERS <<<<<<<<<<<<<<<<<<<<<<<<<
+export const handleAddTeamMember = () => {
+  openModal("team-modal", <AddTeamMemberModal />);
+};
+
+export const handleEditTeamMember = (member: TeamMember) => {
+  openModal("team-modal", <EditTeamMemberModal member={member} />);
+};

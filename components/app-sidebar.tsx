@@ -86,6 +86,11 @@ const data = {
       icon: <CreditCard />,
     },
     {
+      title: "Team Members",
+      url: "/admin/team",
+      icon: <Users />,
+    },
+    {
       title: "Settings",
       url: "/admin/settings",
       icon: <Settings />,
