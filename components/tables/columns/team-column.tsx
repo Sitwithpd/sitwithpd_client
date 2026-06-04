@@ -61,7 +61,7 @@ export const TeamColumns = (
     cell: ({ row }) => (
       <div className="relative w-10 h-10 rounded-full overflow-hidden bg-gray-100">
         <Image
-          src={row.original.image || "/images/placeholder.png"}
+          src={row.original.photoUrl || "/images/placeholder.png"}
           alt={row.original.name}
           fill
           className="object-cover"
