@@ -41,7 +41,7 @@ export default function EditTeamMemberModal({
 
     // Only append if it's a new file
     if (data.image instanceof File) {
-      formData.append("photoUrl", data.image);
+      formData.append("photo", data.image);
     }
 
     mutate(formData, {
