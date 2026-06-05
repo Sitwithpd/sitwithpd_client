@@ -25,7 +25,7 @@ export default function TeamMemberCard({
           src={member.photoUrl || "/images/placeholder.png"}
           alt={member.name}
           fill
-          className="object-cover transition-transform duration-500 group-hover:scale-105"
+          className="object-cover object-top transition-transform duration-500 group-hover:scale-105"
         />
 
         {/* Status Badge */}
