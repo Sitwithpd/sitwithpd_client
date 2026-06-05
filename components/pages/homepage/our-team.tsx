@@ -107,7 +107,7 @@ export function OurTeam() {
                       src={member.photoUrl || "/images/placeholder.png"}
                       alt={member.name}
                       fill
-                      className="object-cover object-top sm:object-center"
+                      className="object-cover object-top"
                     />
                   </div>
                   <div className="space-y-1 px-2">
