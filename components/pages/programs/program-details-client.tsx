@@ -176,11 +176,11 @@ function ProgramDetailsWrapper({ id }: { id: string }) {
     return (
       <div className="flex flex-col gap-4 mt-auto">
         <div className="flex flex-col gap-3 p-4 bg-brand-green/10 rounded-lg border border-brand-green/20">
-          <label className="flex items-start gap-3 cursor-pointer group">
+          <label className="flex items-center gap-3 cursor-pointer group">
             <Checkbox
               checked={agreedTerms}
               onCheckedChange={(checked) => setAgreedTerms(checked === true)}
-              className="mt-0.5 shrink-0"
+              className="mt-0.5 shrink-0 border-2 border-brand-green/20"
             />
             <span className="text-xs text-[#606060] leading-tight">
               I have read and agree to the{" "}
@@ -194,11 +194,11 @@ function ProgramDetailsWrapper({ id }: { id: string }) {
               </Link>
             </span>
           </label>
-          <label className="flex items-start gap-3 cursor-pointer group">
+          <label className="flex items-center gap-3 cursor-pointer group">
             <Checkbox
               checked={agreedPrivacy}
               onCheckedChange={(checked) => setAgreedPrivacy(checked === true)}
-              className="mt-0.5 shrink-0"
+              className="mt-0.5 shrink-0 border-2 border-brand-green/20"
             />
             <span className="text-xs text-[#606060] leading-tight">
               I have read and agree to the{" "}
@@ -212,11 +212,11 @@ function ProgramDetailsWrapper({ id }: { id: string }) {
               </Link>
             </span>
           </label>
-          <label className="flex items-start gap-3 cursor-pointer group">
+          <label className="flex items-center gap-3 cursor-pointer group">
             <Checkbox
               checked={agreedRefund}
               onCheckedChange={(checked) => setAgreedRefund(checked === true)}
-              className="mt-0.5 shrink-0"
+              className="mt-0.5 shrink-0 border-2 border-brand-green/20"
             />
             <span className="text-xs text-[#606060] leading-tight">
               I have read and agree to the{" "}
