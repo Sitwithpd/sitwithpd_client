@@ -6,7 +6,7 @@ import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import CardSkeletons from "@/components/skeletons/card-skeletons";
-import { Suspense, useEffect } from "react";
+import { Suspense, useEffect, useState } from "react";
 import { formatCurrency } from "@/lib/utils";
 import {
   Calendar,
@@ -15,6 +15,8 @@ import {
   Clock10Icon,
   Lightbulb,
 } from "lucide-react";
+import { Checkbox } from "@/components/ui/checkbox";
+import { PaymentSecurityBadge } from "@/components/payment-security-badge";
 import LocationIcon from "@/pd-icons/location-icon";
 import { showErrorToast } from "@/lib/toast-helpers";
 import { useAuthStore } from "@/store/use-auth-store";
@@ -31,6 +33,11 @@ import { Purchase } from "@/lib/api/services/dashboard/dashboard.services";
 import { CreatePaymentPayload } from "@/lib/api/services/payments/payments.services";
 
 function ProgramDetailsWrapper({ id }: { id: string }) {
+  const [agreedTerms, setAgreedTerms] = useState(false);
+  const [agreedPrivacy, setAgreedPrivacy] = useState(false);
+  const [agreedRefund, setAgreedRefund] = useState(false);
+  const allChecked = agreedTerms && agreedPrivacy && agreedRefund;
+
   const isAuthenticated = useAuthStore((state) => state.isAuthenticated);
   const {
     data: programData,
@@ -167,13 +174,73 @@ function ProgramDetailsWrapper({ id }: { id: string }) {
     }
 
     return (
-      <Button
-        onClick={enrolNow}
-        variant="regular"
-        className="mt-auto rounded-[8px]! w-full"
-      >
-        Enrol now
-      </Button>
+      <div className="flex flex-col gap-4 mt-auto">
+        <div className="flex flex-col gap-3 p-4 bg-brand-green/10 rounded-lg border border-brand-green/20">
+          <label className="flex items-start gap-3 cursor-pointer group">
+            <Checkbox
+              checked={agreedTerms}
+              onCheckedChange={(checked) => setAgreedTerms(checked === true)}
+              className="mt-0.5 shrink-0"
+            />
+            <span className="text-xs text-[#606060] leading-tight">
+              I have read and agree to the{" "}
+              <Link
+                href="/terms"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-brand-green font-medium hover:underline"
+              >
+                Terms of Service
+              </Link>
+            </span>
+          </label>
+          <label className="flex items-start gap-3 cursor-pointer group">
+            <Checkbox
+              checked={agreedPrivacy}
+              onCheckedChange={(checked) => setAgreedPrivacy(checked === true)}
+              className="mt-0.5 shrink-0"
+            />
+            <span className="text-xs text-[#606060] leading-tight">
+              I have read and agree to the{" "}
+              <Link
+                href="/privacy-policy"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-brand-green font-medium hover:underline"
+              >
+                Privacy Policy
+              </Link>
+            </span>
+          </label>
+          <label className="flex items-start gap-3 cursor-pointer group">
+            <Checkbox
+              checked={agreedRefund}
+              onCheckedChange={(checked) => setAgreedRefund(checked === true)}
+              className="mt-0.5 shrink-0"
+            />
+            <span className="text-xs text-[#606060] leading-tight">
+              I have read and agree to the{" "}
+              <Link
+                href="/refund-policy"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-brand-green font-medium hover:underline"
+              >
+                Refund Policy
+              </Link>
+            </span>
+          </label>
+        </div>
+        <PaymentSecurityBadge />
+        <Button
+          onClick={enrolNow}
+          variant="regular"
+          disabled={!allChecked}
+          className="rounded-[8px]! w-full"
+        >
+          Enrol now
+        </Button>
+      </div>
     );
   };
 

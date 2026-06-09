@@ -16,6 +16,10 @@ import {
   SignInRequiredModal,
   SIGN_IN_MODAL_ID,
 } from "@/components/sign-in-required-modal";
+import {
+  PolicyAgreementModal,
+  POLICY_AGREEMENT_MODAL_ID,
+} from "@/components/policy-agreement-modal";
 
 export function ConsultationServices() {
   const isAuthenticated = useAuthStore((state) => state.isAuthenticated);
@@ -35,11 +39,20 @@ export function ConsultationServices() {
       return;
     }
 
-    const cal = await getCalApi({ namespace: "consultation" });
-    cal("modal", {
-      calLink: bookingUrl,
-      config: { layout: "month_view", useSlotsViewOnSmallScreen: "true" },
-    });
+    openModal(
+      POLICY_AGREEMENT_MODAL_ID,
+      <PolicyAgreementModal
+        title="Consultation Agreement"
+        description="Please review and accept our consultation policies."
+        onConfirm={async () => {
+          const cal = await getCalApi({ namespace: "consultation" });
+          cal("modal", {
+            calLink: bookingUrl,
+            config: { layout: "month_view", useSlotsViewOnSmallScreen: "true" },
+          });
+        }}
+      />,
+    );
   };
 
   const containerVariants = {

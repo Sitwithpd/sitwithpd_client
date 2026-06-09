@@ -22,6 +22,10 @@ import {
   SignInRequiredModal,
   SIGN_IN_MODAL_ID,
 } from "@/components/sign-in-required-modal";
+import {
+  PolicyAgreementModal,
+  POLICY_AGREEMENT_MODAL_ID,
+} from "@/components/policy-agreement-modal";
 import { useAuthStore } from "@/store/use-auth-store";
 import { Info, Receipt } from "lucide-react";
 import CampRegistrationDetails from "./camp-registration-details";
@@ -295,12 +299,23 @@ function CardByIdOverview({ id }: { id: string }) {
                               return;
                             }
                             openModal(
-                              "book-camp",
-                              <BookCampForm
-                                tierId={plan.id}
-                                campId={id}
-                                tierLabel={plan.label}
-                                maxPartyMembers={plan?.seatsPerUnit || 100}
+                              POLICY_AGREEMENT_MODAL_ID,
+                              <PolicyAgreementModal
+                                title="Camp Registration Agreement"
+                                description="Please review and accept our policies before registering for this camp."
+                                onConfirm={() => {
+                                  openModal(
+                                    "book-camp",
+                                    <BookCampForm
+                                      tierId={plan.id}
+                                      campId={id}
+                                      tierLabel={plan.label}
+                                      maxPartyMembers={
+                                        plan?.seatsPerUnit || 100
+                                      }
+                                    />,
+                                  );
+                                }}
                               />,
                             );
                           }}
