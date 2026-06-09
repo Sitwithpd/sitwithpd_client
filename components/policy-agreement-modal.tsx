@@ -47,11 +47,11 @@ export function PolicyAgreementModal({
       </div>
 
       <div className="flex flex-col gap-4 mb-8">
-        <label className="flex items-start gap-3 cursor-pointer group">
+        <label className="flex items-center gap-3 cursor-pointer group">
           <Checkbox
             checked={agreedTerms}
             onCheckedChange={(checked) => setAgreedTerms(checked === true)}
-            className="mt-1 shrink-0"
+            className="mt-1 shrink-0 border-2 border-brand-green/20"
           />
           <span className="text-sm text-primary-text leading-tight pt-0.5">
             I have read and agree to the{" "}
@@ -66,11 +66,11 @@ export function PolicyAgreementModal({
           </span>
         </label>
 
-        <label className="flex items-start gap-3 cursor-pointer group">
+        <label className="flex items-center gap-3 cursor-pointer group">
           <Checkbox
             checked={agreedPrivacy}
             onCheckedChange={(checked) => setAgreedPrivacy(checked === true)}
-            className="mt-1 shrink-0"
+            className="mt-1 shrink-0 border-2 border-brand-green/20"
           />
           <span className="text-sm text-primary-text leading-tight pt-0.5">
             I have read and agree to the{" "}
@@ -85,11 +85,11 @@ export function PolicyAgreementModal({
           </span>
         </label>
 
-        <label className="flex items-start gap-3 cursor-pointer group">
+        <label className="flex items-center gap-3 cursor-pointer group">
           <Checkbox
             checked={agreedRefund}
             onCheckedChange={(checked) => setAgreedRefund(checked === true)}
-            className="mt-1 shrink-0"
+            className="mt-1 shrink-0 border-2 border-brand-green/20"
           />
           <span className="text-sm text-primary-text leading-tight pt-0.5">
             I have read and agree to the{" "}
