@@ -1,12 +1,14 @@
 import { Button } from "@/components/ui/button";
 import GrayCheckIcon from "@/pd-icons/gray-check";
 import { formatCurrency } from "@/lib/utils";
+import { NgnEquivalent } from "@/components/shared/ngn-equivalent";
 
 export function MembershipPricing() {
   const pricingPlans = [
     {
       name: "Standard",
       price: formatCurrency(100),
+      amount: 100,
       period: "Per month",
       highlight: false,
       features: [
@@ -20,6 +22,7 @@ export function MembershipPricing() {
     {
       name: "Plus",
       price: formatCurrency(250),
+      amount: 250,
       period: "Per month",
       highlight: true,
       features: [
@@ -34,6 +37,7 @@ export function MembershipPricing() {
     {
       name: "Green",
       price: formatCurrency(500),
+      amount: 500,
       period: "Per month",
       highlight: false,
       features: [
@@ -78,6 +82,7 @@ export function MembershipPricing() {
                 >
                   {plan.price}
                 </span>
+                {/* <NgnEquivalent gbpAmount={plan.amount} className="block mt-1" /> */}
               </div>
               <p className="text-[#242424] font-medium text-base">
                 {plan.period}
@@ -87,10 +92,13 @@ export function MembershipPricing() {
             <ul className="space-y-4 mb-10 flex-1">
               {plan.features.map((feature, fIdx) => (
                 <li key={fIdx} className="flex items-center gap-3">
-                  <span style={{
-                    background: "rgba(100, 147, 81, 0.2)"
-                  }} className="  w-[17px] h-[17px] rounded-full flex items-center justify-center ">
-                  <GrayCheckIcon color={"#649351"} />
+                  <span
+                    style={{
+                      background: "rgba(100, 147, 81, 0.2)",
+                    }}
+                    className="  w-[17px] h-[17px] rounded-full flex items-center justify-center "
+                  >
+                    <GrayCheckIcon color={"#649351"} />
                   </span>
                   <span className="text-black text-base font-medium ">
                     {feature}

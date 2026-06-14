@@ -3,12 +3,14 @@ import { Pill } from "@/components/ui/pill";
 import GrayCheckIcon from "@/pd-icons/gray-check";
 import { CheckCircle2, Info } from "lucide-react";
 import { formatCurrency } from "@/lib/utils";
+import { NgnEquivalent } from "@/components/shared/ngn-equivalent";
 
 export default function CampParticipation() {
   const plans = [
     {
       name: "Individual",
       price: formatCurrency(500),
+      amount: 500,
       features: [
         "Accommodation",
         "Meals",
@@ -20,6 +22,7 @@ export default function CampParticipation() {
     {
       name: "Couple",
       price: formatCurrency(750),
+      amount: 750,
       highlight: true,
       features: [
         "Accommodation",
@@ -32,6 +35,7 @@ export default function CampParticipation() {
     {
       name: "Family",
       price: formatCurrency(1500),
+      amount: 1500,
       features: [
         "Accommodation",
         "Meals",
@@ -70,6 +74,10 @@ export default function CampParticipation() {
                   >
                     {plan.price}
                   </span>
+                  {/* <NgnEquivalent
+                    gbpAmount={plan.amount}
+                    className="block mt-1"
+                  /> */}
                 </div>
               </div>
 
@@ -104,7 +112,6 @@ export default function CampParticipation() {
             </p>
           </div>
         </div>
-     
       </div>
     </section>
   );
