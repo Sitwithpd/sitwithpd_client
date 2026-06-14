@@ -29,6 +29,7 @@ import {
 import { useAuthStore } from "@/store/use-auth-store";
 import { Info, Receipt } from "lucide-react";
 import CampRegistrationDetails from "./camp-registration-details";
+import { NgnEquivalent } from "@/components/shared/ngn-equivalent";
 
 type CampTab = "details" | "registration";
 
@@ -243,6 +244,10 @@ function CardByIdOverview({ id }: { id: string }) {
                             >
                               {formatCurrency(plan.price)}
                             </span>
+                            {/* <NgnEquivalent
+                              gbpAmount={plan.price}
+                              className="block mt-1"
+                            /> */}
                           </div>
                           <div className="flex items-center gap-3 justify-between mt-8">
                             <p>

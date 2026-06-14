@@ -30,6 +30,7 @@ import { Controller, useFieldArray, useForm } from "react-hook-form";
 import LearningObjectivesField from "../program/learning-objectives-field";
 import { useCreatePayment } from "@/lib/api/hooks/payments/payments.hooks";
 import { getMyCampRegistration } from "@/lib/api/services/camps/camps.services";
+import { usePlatformSettingsStore } from "@/store/use-platform-settings-store";
 
 // Modal shown when user has a pending application and needs to complete payment
 function PendingRegistrationModal({
@@ -43,6 +44,9 @@ function PendingRegistrationModal({
     useCreatePayment();
   const closeModal = useModalStore((state) => state.closeModal);
   const [isFetchingRegistration, setIsFetchingRegistration] = useState(false);
+  const currency = usePlatformSettingsStore(
+    (state) => state.settings?.currency,
+  );
 
   const handleContinueToPayment = async () => {
     setIsFetchingRegistration(true);
@@ -57,6 +61,7 @@ function PendingRegistrationModal({
           type: "CAMP" as const,
           itemId: registrationId,
           provider: "FLUTTERWAVE",
+          currency,
         },
         {
           onSuccess: (paymentData: any) => {
@@ -130,6 +135,10 @@ export default function BookCampForm({
   const { mutate: createPayment, isPending: isCreatingPayment } =
     useCreatePayment();
 
+  const currency = usePlatformSettingsStore(
+    (state) => state.settings?.currency,
+  );
+
   const openModal = useModalStore((state) => state.openModal);
   const closeModal = useModalStore((state) => state.closeModal);
 
@@ -201,6 +210,7 @@ export default function BookCampForm({
             type: "CAMP" as "CAMP" | "PROGRAM" | "CONSULTATION",
             itemId: bookingResponseId,
             provider: "FLUTTERWAVE",
+            currency,
           };
 
           createPayment(paymentPayload, {

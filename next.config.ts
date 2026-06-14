@@ -13,19 +13,19 @@ const nextConfig: NextConfig = {
       },
     ],
   },
-  compiler: {
-    removeConsole: {
-      exclude: ['error', 'warn'],
-    },
-  },
-  // async rewrites() {
-  //   return [
-  //     {
-  //       source: "/api/:path*",
-  //       destination: "https://sit-with-pd-global-therapeutic-web-app-2f1l.onrender.com/api/:path*",
-  //     },
-  //   ];
+  // compiler: {
+  //   removeConsole: {
+  //     exclude: ['error', 'warn'],
+  //   },
   // },
+  async rewrites() {
+    return [
+      {
+        source: "/api/:path*",
+        destination: "https://sit-with-pd-global-therapeutic-web-app-2f1l.onrender.com/api/:path*",
+      },
+    ];
+  },
 };
 
 export default nextConfig;
