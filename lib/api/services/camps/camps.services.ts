@@ -20,6 +20,7 @@ export interface Camp {
   thumbnail?: string | null;
   tiers?: CampTier[];
   images?: CampImage[];
+  currency?: string;
   createdAt?: string;
   updatedAt?: string;
   seatsRemaining: number;
@@ -62,9 +63,18 @@ export const getCamps = async (): Promise<CampsResponse> => {
 };
 
 // get all camps created by admin
-export const getAdminCamps = async (params?: { page?: number; limit?: number; search?: string; status?: string }): Promise<AdminCampsResponse> => {
-  const queryString = params ? new URLSearchParams(params as any).toString() : "";
-  const url = queryString ? `/camps/admin/all?${queryString}` : `/camps/admin/all`;
+export const getAdminCamps = async (params?: {
+  page?: number;
+  limit?: number;
+  search?: string;
+  status?: string;
+}): Promise<AdminCampsResponse> => {
+  const queryString = params
+    ? new URLSearchParams(params as any).toString()
+    : "";
+  const url = queryString
+    ? `/camps/admin/all?${queryString}`
+    : `/camps/admin/all`;
   try {
     const res = await api.get(url);
     return res.data;

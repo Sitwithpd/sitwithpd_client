@@ -26,6 +26,7 @@ export default function AddConsultationServiceModal() {
       description: "",
       price: "",
       duration: "",
+      currency: "NGN",
     },
   });
 
@@ -51,6 +52,7 @@ export default function AddConsultationServiceModal() {
         duration: Number(data.duration),
         calBookingUrl: data.calBookingUrl,
         calEventTypeId: Number(calEventTypeId),
+        currency: data.currency,
       },
       {
         onSuccess: () => {

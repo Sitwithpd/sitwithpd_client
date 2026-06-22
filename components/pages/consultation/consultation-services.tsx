@@ -156,7 +156,7 @@ export function ConsultationServices() {
                   </div>
                   <div className="text-right">
                     <div className="text-regular-button font-bold text-lg">
-                      {formatCurrency(service.price)}
+                      {formatCurrency(service.price, service.currency)}
                     </div>
                     {/* <NgnEquivalent
                       gbpAmount={service.price}

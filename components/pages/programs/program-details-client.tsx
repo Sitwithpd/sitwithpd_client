@@ -40,9 +40,7 @@ function ProgramDetailsWrapper({ id }: { id: string }) {
   const [agreedRefund, setAgreedRefund] = useState(false);
   const allChecked = agreedTerms && agreedPrivacy && agreedRefund;
 
-  const currency = usePlatformSettingsStore(
-    (state) => state.settings?.currency,
-  );
+
 
   const isAuthenticated = useAuthStore((state) => state.isAuthenticated);
   const {
@@ -88,7 +86,6 @@ function ProgramDetailsWrapper({ id }: { id: string }) {
     description,
     thumbnail,
     category,
-    link,
     price,
     durationWeeks,
     hoursPerWeek,
@@ -103,7 +100,6 @@ function ProgramDetailsWrapper({ id }: { id: string }) {
       itemId: id,
       type: "PROGRAM",
       provider: "FLUTTERWAVE",
-      currency,
     };
 
     createPayment(payload, {
@@ -323,7 +319,7 @@ function ProgramDetailsWrapper({ id }: { id: string }) {
             <div className="max-w-[500px] shadow-[0px_4px_4px_#141A1A1F] w-full lg:w-[80%] flex flex-col gap-4 lg:ml-auto rounded-[10px] p-4 bg-[#FFFAFA]  sticky top-0">
               <div className="w-10/12 mx-auto flex flex-col gap-3 py-4">
                 <h4 className="text-[#3A3E3F] text-[25px] font-semibold">
-                  {formatCurrency(price)}{" "}
+                  {formatCurrency(price, program.currency)}{" "}
                 </h4>
                 {/* {price && (
                   <NgnEquivalent gbpAmount={price} className="block -mt-2" />

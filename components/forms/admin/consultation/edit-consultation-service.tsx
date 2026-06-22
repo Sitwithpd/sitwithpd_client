@@ -33,6 +33,7 @@ export default function EditConsultationServiceModal({
       price: service.price?.toString() ?? "",
       duration: service.duration?.toString() ?? "",
       calBookingUrl: service.calBookingUrl ?? "",
+      currency: (service.currency as any) || "NGN",
     },
   });
 
@@ -59,6 +60,7 @@ export default function EditConsultationServiceModal({
           duration: Number(data.duration),
           calBookingUrl: data.calBookingUrl,
           calEventTypeId: Number(calEventTypeId),
+          currency: data.currency,
         },
       },
       {

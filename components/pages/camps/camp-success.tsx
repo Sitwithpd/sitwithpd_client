@@ -32,7 +32,7 @@ export default function CampSuccessModal({
           <div>
             <h3 className="font-semibold text-sm mb-1 text-gray-500">Price</h3>
             <p className="flex items-center gap-2">
-              {formatCurrency(camp?.price || 0)}
+              {formatCurrency(camp?.price || 0, camp?.currency)}
               {/* <NgnEquivalent gbpAmount={camp?.price || 0} /> */}
             </p>
           </div>

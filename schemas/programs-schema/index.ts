@@ -31,9 +31,12 @@ export const ProgramSchema = z.object({
   duration: z.string().min(1, "Enter a duration"),
   hoursPerWeek: z.string().min(1, "Enter hours per week"),
   date: z.string().min(1, "Date is required"),
-  learningObjectives: z.array(z.object({ text: z.string().min(1, "Objective is required") })).optional(),
+  learningObjectives: z
+    .array(z.object({ text: z.string().min(1, "Objective is required") }))
+    .optional(),
   facilitatorName: z.string().min(1, "Facilitator name is required"),
   facilitatorEmail: z.string().email("Valid email is required"),
+  currency: z.enum(["NGN", "USD", "EUR", "GBP"]),
   weeks: z.array(WeekSchema).optional(),
 });
 

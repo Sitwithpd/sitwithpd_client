@@ -33,23 +33,30 @@ const PROGRAM_TYPE = [
   },
 ];
 
+const CURRENCY_OPTIONS = [
+  { label: "NGN", value: "NGN" },
+  { label: "USD", value: "USD" },
+  { label: "EUR", value: "EUR" },
+  { label: "GBP", value: "GBP" },
+];
+
 export default function ProgramForm({
   onSubmit,
 }: {
   onSubmit: SubmitHandler<ProgramFormSchema>;
 }) {
-  const settings = usePlatformSettingsStore(state =>state.settings)
+  const settings = usePlatformSettingsStore((state) => state.settings);
   let defaultCurrency: "(₦)" | "($)" | "(£)" | "(€)";
 
-  if(settings  ){
-    if( settings.currency === "NGN"){
-      defaultCurrency = "(₦)"
-    } else if (settings.currency === "USD"){
-      defaultCurrency = "($)"
-    } else if (settings.currency === "GBP"){
-      defaultCurrency = "(£)"
-    } else if (settings.currency === "EUR"){
-      defaultCurrency = "(€)"
+  if (settings) {
+    if (settings.currency === "NGN") {
+      defaultCurrency = "(₦)";
+    } else if (settings.currency === "USD") {
+      defaultCurrency = "($)";
+    } else if (settings.currency === "GBP") {
+      defaultCurrency = "(£)";
+    } else if (settings.currency === "EUR") {
+      defaultCurrency = "(€)";
     }
   }
 
@@ -57,20 +64,26 @@ export default function ProgramForm({
 
   const onError = (errors: any) => {
     console.log("Form Errors:", errors);
-    
+
     // Show a summary toast
-    const errorMessages = Object.entries(errors).map(([key, value]: [string, any]) => {
-      const fieldName = key.replace(/([A-Z])/g, ' $1').toLowerCase();
-      return `${fieldName}: ${value.message || 'Invalid input'}`;
-    });
+    const errorMessages = Object.entries(errors).map(
+      ([key, value]: [string, any]) => {
+        const fieldName = key.replace(/([A-Z])/g, " $1").toLowerCase();
+        return `${fieldName}: ${value.message || "Invalid input"}`;
+      },
+    );
 
     toast.error("Please fix the following errors:", {
       description: (
         <ul className="list-disc pl-4 mt-2">
           {errorMessages.slice(0, 5).map((msg, i) => (
-            <li key={i} className="text-xs">{msg}</li>
+            <li key={i} className="text-xs">
+              {msg}
+            </li>
           ))}
-          {errorMessages.length > 5 && <li className="text-xs">...and {errorMessages.length - 5} more</li>}
+          {errorMessages.length > 5 && (
+            <li className="text-xs">...and {errorMessages.length - 5} more</li>
+          )}
         </ul>
       ),
       duration: 5000,
@@ -79,9 +92,11 @@ export default function ProgramForm({
 
   const form = useFormContext<ProgramFormSchema>();
 
-
   return (
-    <form onSubmit={form.handleSubmit(onSubmit, onError)} className="space-y-7 ">
+    <form
+      onSubmit={form.handleSubmit(onSubmit, onError)}
+      className="space-y-7 "
+    >
       {/* basic information */}
       <div className="bg-dash-secondary-bg p-5 rounded-[12px]">
         <header className="text-secondary-text font-semibold text-base mb-4">
@@ -144,6 +159,34 @@ export default function ProgramForm({
               placeholder="Select start date"
               disablePastDates={true}
             />
+            <Controller
+              control={form.control}
+              name="currency"
+              render={({ field, fieldState }) => (
+                <Field data-invalid={fieldState.invalid}>
+                  <div className="flex flex-col">
+                    <FieldLabel className="text-secondary-text text-[14px] mb-2">
+                      Currency *
+                    </FieldLabel>
+                    <Select value={field.value} onValueChange={field.onChange}>
+                      <SelectTrigger className="bg-white text-primary-text h-11 border-[#EAECF0]">
+                        <SelectValue placeholder="Select Currency" />
+                      </SelectTrigger>
+                      <SelectContent>
+                        {CURRENCY_OPTIONS.map((option) => (
+                          <SelectItem key={option.value} value={option.value}>
+                            {option.label}
+                          </SelectItem>
+                        ))}
+                      </SelectContent>
+                    </Select>
+                  </div>
+                  {fieldState.invalid && (
+                    <FieldError errors={[fieldState.error]} />
+                  )}
+                </Field>
+              )}
+            />
           </div>
           <Controller
             control={form.control}
@@ -160,7 +203,11 @@ export default function ProgramForm({
                   >
                     Program Type *
                   </FieldLabel>
-                  <Select key={field.value} value={field.value} onValueChange={field.onChange}>
+                  <Select
+                    key={field.value}
+                    value={field.value}
+                    onValueChange={field.onChange}
+                  >
                     <SelectTrigger
                       className="bg-dash-secondary-bg text-primary-text"
                       id="type"

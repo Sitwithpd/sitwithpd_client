@@ -242,7 +242,7 @@ function CardByIdOverview({ id }: { id: string }) {
                             <span
                               className={`lg:text-[56px] text-4xl font-medium leading-none ${plan.isFeatured ? "text-[#649351]" : "text-[#242424]"}`}
                             >
-                              {formatCurrency(plan.price)}
+                              {formatCurrency(plan.price, camp?.currency)}
                             </span>
                             {/* <NgnEquivalent
                               gbpAmount={plan.price}

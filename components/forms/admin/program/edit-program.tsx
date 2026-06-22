@@ -32,7 +32,6 @@ function EditProgramForm({ id }: { id: string }) {
   const { mutate, isPending } = useUpdateProgram();
   const { data: program } = useGetProgramById(id);
 
-
   const onSubmit = (data: ProgramFormSchema) => {
     const formData = new FormData();
 
@@ -50,6 +49,7 @@ function EditProgramForm({ id }: { id: string }) {
     if (data.facilitatorEmail)
       formData.append("facilitatorEmail", data.facilitatorEmail);
     if (data.duration) formData.append("durationWeeks", data.duration);
+    formData.append("currency", data.currency);
 
     if (data.learningObjectives && data.learningObjectives.length > 0) {
       const learningOutcomes = data.learningObjectives.map((obj) => obj.text);
@@ -82,14 +82,14 @@ function EditProgramForm({ id }: { id: string }) {
       // Don't append if it's just the URL of the existing thumbnail
       // Or append it if the backend needs it, wait let's just append the string or omit. Let's omit if string to not upload url as file.
     }
-// console.log(data)
+    // console.log(data)
     mutate(
       { id, payload: formData },
       {
         onSuccess: () => {
           closeModal("loading");
           // router.push("/admin/program");
-          form.reset()
+          form.reset();
         },
         onError: () => {
           closeModal("loading");
@@ -97,7 +97,6 @@ function EditProgramForm({ id }: { id: string }) {
       },
     );
   };
-
 
   useEffect(() => {
     if (program) {
@@ -113,6 +112,7 @@ function EditProgramForm({ id }: { id: string }) {
         date: toIsoDateString(new Date(program.data.startDate)) || "",
         facilitatorName: (program.data as any).facilitatorName || "",
         facilitatorEmail: (program.data as any).facilitatorEmail || "",
+        currency: (program.data as any).currency || "NGN",
         weeks: ((program.data as any).weeks || []).map((week: any) => ({
           weekTitle: week.title || "Week Title",
           description: week.description || "",

@@ -12,6 +12,7 @@ export interface ConsultationService {
   calEventTypeId: string | null;
   calBookingUrl: string;
   isActive: boolean;
+  currency: string;
   createdAt: string;
   updatedAt?: string;
 }
@@ -38,6 +39,7 @@ export interface CreateConsultationServicePayload {
   duration: number;
   calBookingUrl: string;
   calEventTypeId: number;
+  currency: string;
 }
 
 export interface UpdateConsultationServicePayload {
@@ -48,6 +50,7 @@ export interface UpdateConsultationServicePayload {
   calBookingUrl?: string;
   calEventTypeId?: number;
   isActive?: boolean;
+  currency?: string;
 }
 
 export interface UpdateConsultationStatusPayload {

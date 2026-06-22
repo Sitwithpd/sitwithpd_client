@@ -17,7 +17,10 @@ const DEFAULT_VALUES = {
 
 export default function AddProgramForm() {
   const form = useForm<ProgramFormSchema>({
-    defaultValues: DEFAULT_VALUES,
+    defaultValues: {
+      ...DEFAULT_VALUES,
+      currency: "NGN",
+    },
     resolver: zodResolver(ProgramSchema),
     mode: "onChange",
   });
@@ -29,20 +32,26 @@ export default function AddProgramForm() {
 
   const { mutate, isPending } = useCreateProgram();
 
-  // submit buton 
+  // submit buton
   const onSubmit: SubmitHandler<ProgramFormSchema> = (data) => {
-    console.log(data)
+    console.log(data);
     const formData = new FormData();
-    
+
     formData.append("title", data.title);
     if (data.description) formData.append("description", data.description);
-    formData.append("price", (parseFloat(data.price.replace(/,/g, "")) || 0).toString());
+    formData.append(
+      "price",
+      (parseFloat(data.price.replace(/,/g, "")) || 0).toString(),
+    );
     formData.append("hoursPerWeek", data.hoursPerWeek);
     if (data.date) formData.append("startDate", data.date);
     formData.append("category", data.programType.toUpperCase());
-    if (data.facilitatorName) formData.append("facilitatorName", data.facilitatorName);
-    if (data.facilitatorEmail) formData.append("facilitatorEmail", data.facilitatorEmail);
+    if (data.facilitatorName)
+      formData.append("facilitatorName", data.facilitatorName);
+    if (data.facilitatorEmail)
+      formData.append("facilitatorEmail", data.facilitatorEmail);
     if (data.duration) formData.append("durationWeeks", data.duration);
+    formData.append("currency", data.currency);
 
     if (data.learningObjectives && data.learningObjectives.length > 0) {
       const learningOutcomes = data.learningObjectives.map((obj) => obj.text);
@@ -52,18 +61,17 @@ export default function AddProgramForm() {
     }
 
     if (data.weeks && data.weeks.length > 0) {
-      const formattedWeeks = data.weeks.map(week => ({
-
+      const formattedWeeks = data.weeks.map((week) => ({
         title: week.weekTitle,
         description: week.description,
         learningObjectives: week.learningObjectives,
-        modules: week.modules.map(mod => ({
+        modules: week.modules.map((mod) => ({
           title: mod.moduleTitle,
           description: mod.description,
           type: mod.type,
           duration: mod.duration,
           contentUrl: mod.contentLink,
-        }))
+        })),
       }));
       formData.append("weeks", JSON.stringify(formattedWeeks));
     } else {
@@ -74,12 +82,11 @@ export default function AddProgramForm() {
       formData.append("thumbnail", data.thumbnail);
     }
 
-   
     mutate(formData, {
       onSuccess: () => {
         closeModal("loading");
-        form.reset()
-        router.push("/admin/program")
+        form.reset();
+        router.push("/admin/program");
       },
       onError: () => {
         closeModal("loading");

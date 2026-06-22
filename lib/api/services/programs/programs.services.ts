@@ -11,6 +11,7 @@ export interface Program {
   amount: string;
   status?: "Active" | "Inactive";
   enrolled?: number;
+  currency?: string;
 }
 
 export interface CreateProgramPayload {
@@ -33,7 +34,6 @@ export interface ProgramResponse {
   data: Program;
   message: string;
 }
-
 
 export const get_programs = async () => {
   try {
@@ -61,7 +61,7 @@ export const get_program_by_ID = async (id: string) => {
     throw new Error("Program ID is required.");
   }
 
-  console.log(id)
+  console.log(id);
 
   try {
     const res = await api.get(`/programs/${id}`);
@@ -87,8 +87,11 @@ export const createProgram = async (payload: FormData) => {
 };
 
 // --------------- publish and unpublish a program ----------------
-export const publishProgram = async (id: string, payload: {title: string, isPublished: boolean}) => {
-    if (!id) {
+export const publishProgram = async (
+  id: string,
+  payload: { title: string; isPublished: boolean },
+) => {
+  if (!id) {
     throw new Error("Program ID is required for updates.");
   }
 
@@ -103,7 +106,12 @@ export const publishProgram = async (id: string, payload: {title: string, isPubl
 
 export const addWeekToProgram = async (
   id: string,
-  payload: {title: string, description: string | undefined, learningObjectives: string[], modules: PublishWeekModule[]}
+  payload: {
+    title: string;
+    description: string | undefined;
+    learningObjectives: string[];
+    modules: PublishWeekModule[];
+  },
 ) => {
   if (!id) {
     throw new Error("Program ID is required for updates.");
@@ -118,10 +126,7 @@ export const addWeekToProgram = async (
   }
 };
 
-export const updateProgram = async (
-  id: string,
-  payload: FormData
-) => {
+export const updateProgram = async (id: string, payload: FormData) => {
   if (!id) {
     throw new Error("Program ID is required for updates.");
   }
@@ -154,9 +159,20 @@ export const delete_program = async (id: string) => {
 
 // --------------- existing weeks management ----------------
 
-export const updateWeek = async (programId: string, weekId: string, payload: { title: string; description?: string; learningObjectives?: string[] }) => {
+export const updateWeek = async (
+  programId: string,
+  weekId: string,
+  payload: {
+    title: string;
+    description?: string;
+    learningObjectives?: string[];
+  },
+) => {
   try {
-    const res = await api.patch(`/programs/${programId}/weeks/${weekId}`, payload);
+    const res = await api.patch(
+      `/programs/${programId}/weeks/${weekId}`,
+      payload,
+    );
     return res.data;
   } catch (error) {
     throw new Error(getApiError(error));
@@ -172,27 +188,48 @@ export const deleteWeek = async (programId: string, weekId: string) => {
   }
 };
 
-export const addModuleToWeek = async (programId: string, weekId: string, payload: any) => {
+export const addModuleToWeek = async (
+  programId: string,
+  weekId: string,
+  payload: any,
+) => {
   try {
-    const res = await api.post(`/programs/${programId}/weeks/${weekId}/modules`, payload);
+    const res = await api.post(
+      `/programs/${programId}/weeks/${weekId}/modules`,
+      payload,
+    );
     return res.data;
   } catch (error) {
     throw new Error(getApiError(error));
   }
 };
 
-export const updateModule = async (programId: string, weekId: string, moduleId: string, payload: any) => {
+export const updateModule = async (
+  programId: string,
+  weekId: string,
+  moduleId: string,
+  payload: any,
+) => {
   try {
-    const res = await api.patch(`/programs/${programId}/weeks/${weekId}/modules/${moduleId}`, payload);
+    const res = await api.patch(
+      `/programs/${programId}/weeks/${weekId}/modules/${moduleId}`,
+      payload,
+    );
     return res.data;
   } catch (error) {
     throw new Error(getApiError(error));
   }
 };
 
-export const deleteModule = async (programId: string, weekId: string, moduleId: string) => {
+export const deleteModule = async (
+  programId: string,
+  weekId: string,
+  moduleId: string,
+) => {
   try {
-    const res = await api.delete(`/programs/${programId}/weeks/${weekId}/modules/${moduleId}`);
+    const res = await api.delete(
+      `/programs/${programId}/weeks/${weekId}/modules/${moduleId}`,
+    );
     return res.data;
   } catch (error) {
     throw new Error(getApiError(error));
@@ -220,7 +257,7 @@ export interface PublishWeekPayload {
 // TODO: replace with real endpoint
 export const publish_week = async (
   programId: string,
-  payload: PublishWeekPayload
+  payload: PublishWeekPayload,
 ) => {
   if (!programId) {
     throw new Error("Program ID is required to publish a week.");

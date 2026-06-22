@@ -5,7 +5,7 @@ export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
 }
 
-// convert digits to readable financial amounts with comma sperated 
+// convert digits to readable financial amounts with comma sperated
 export const formatAmount = (value: string) => {
   // Remove all non-digit characters except decimal point
   let cleaned = value.replace(/[^\d.]/g, "");
@@ -30,15 +30,31 @@ export const formatAmount = (value: string) => {
     : formattedInteger;
 };
 
+export const getCurrencySymbol = (currency: string): string => {
+  const map: Record<string, string> = {
+    NGN: "₦",
+    USD: "$",
+    GBP: "£",
+    EUR: "€",
+  };
+  return map[currency] ?? "₦";
+};
+
 import { usePlatformSettingsStore } from "@/store/use-platform-settings-store";
 
 // formatting figures in naira
 export const formatCurrency = (amount: number, currencyParam?: string) => {
   const storeCurrency = usePlatformSettingsStore.getState().settings?.currency;
   const currency = currencyParam || storeCurrency || "NGN";
-  
+
   const currencyDomain =
-    currency === "NGN" ? "en-NG" : currency === "USD" ? "en-US" : currency === "GBP" ? "en-GB" : "en-DE";
+    currency === "NGN"
+      ? "en-NG"
+      : currency === "USD"
+        ? "en-US"
+        : currency === "GBP"
+          ? "en-GB"
+          : "en-DE";
   const formattedTotal = new Intl.NumberFormat(currencyDomain, {
     style: "currency",
     currency,
@@ -52,9 +68,13 @@ export const formatCurrency = (amount: number, currencyParam?: string) => {
 export const getApiError = (error: any) => {
   const response = error?.response;
 
-  console.log("the api error is",response);
+  console.log("the api error is", response);
 
-  if (response?.data?.errors && Array.isArray(response.data.errors) && response.data.errors.length > 0) {
+  if (
+    response?.data?.errors &&
+    Array.isArray(response.data.errors) &&
+    response.data.errors.length > 0
+  ) {
     return response.data.errors[0].message;
   }
 
@@ -96,54 +116,64 @@ export const buildQueryString = (params: Record<string, string>) => {
   return queryParams.toString();
 };
 
+// Helper to format Date to "YYYY-MM-DD" for form state
+export const toIsoDateString = (date: Date): string => {
+  const y = date.getFullYear();
+  const m = String(date.getMonth() + 1).padStart(2, "0");
+  const d = String(date.getDate()).padStart(2, "0");
+  return `${y}-${m}-${d}`;
+};
 
-  // Helper to format Date to "YYYY-MM-DD" for form state
-  export const toIsoDateString = (date: Date): string => {
-    const y = date.getFullYear();
-    const m = String(date.getMonth() + 1).padStart(2, "0");
-    const d = String(date.getDate()).padStart(2, "0");
-    return `${y}-${m}-${d}`;
-  };
-
-export const formatAppDate = (dateString: string | Date | undefined | null, options?: Intl.DateTimeFormatOptions) => {
+export const formatAppDate = (
+  dateString: string | Date | undefined | null,
+  options?: Intl.DateTimeFormatOptions,
+) => {
   if (!dateString) return "";
-  
+
   try {
-    const storeTimezone = usePlatformSettingsStore.getState().settings?.defaultTimezone;
+    const storeTimezone =
+      usePlatformSettingsStore.getState().settings?.defaultTimezone;
     const date = new Date(dateString);
-    
+
     // Default format if no options provided: e.g. "Oct 14, 2023"
     const defaultOptions: Intl.DateTimeFormatOptions = {
-      month: 'short',
-      day: 'numeric',
-      year: 'numeric'
+      month: "short",
+      day: "numeric",
+      year: "numeric",
     };
-    
+
     const finalOptions = {
       ...defaultOptions,
       ...options,
-      ...(storeTimezone && storeTimezone !== "all" ? { timeZone: storeTimezone } : {})
+      ...(storeTimezone && storeTimezone !== "all"
+        ? { timeZone: storeTimezone }
+        : {}),
     };
 
-    return new Intl.DateTimeFormat('en-US', finalOptions).format(date);
+    return new Intl.DateTimeFormat("en-US", finalOptions).format(date);
   } catch (error) {
     // Fallback if timezone is invalid
     const date = new Date(dateString);
-    return date.toLocaleDateString('en-US', options);
+    return date.toLocaleDateString("en-US", options);
   }
 };
 
-export const formatAppDateTime = (dateString: string | Date | undefined | null) => {
+export const formatAppDateTime = (
+  dateString: string | Date | undefined | null,
+) => {
   return formatAppDate(dateString, {
-    month: 'long',
-    day: 'numeric',
-    year: 'numeric',
-    hour: 'numeric',
-    minute: '2-digit',
-    hour12: true
+    month: "long",
+    day: "numeric",
+    year: "numeric",
+    hour: "numeric",
+    minute: "2-digit",
+    hour12: true,
   });
 };
 
-export const formatFullName = (firstName?: string | null, lastName?: string | null) => {
+export const formatFullName = (
+  firstName?: string | null,
+  lastName?: string | null,
+) => {
   return [firstName, lastName].filter(Boolean).join(" ");
 };
