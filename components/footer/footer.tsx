@@ -175,6 +175,12 @@ export function Footer() {
                 Refund Policy
               </Link>
               <Link
+                href="/medical-disclaimer"
+                className="text-[#F8FFF5] hover:underline  text-sm transition-all"
+              >
+                Medical Disclaimer
+              </Link>
+              <Link
                 href="/terms"
                 className="text-[#F8FFF5] hover:underline  text-sm transition-all"
               >

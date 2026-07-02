@@ -63,7 +63,7 @@ export function ContactBody() {
   };
 
   return (
-    <section className="w-[90%] max-w-7xl mx-auto py-16 lg:py-24">
+    <section id="contact" className="w-[90%] max-w-7xl mx-auto py-16 lg:py-24">
       <div className="flex flex-col lg:flex-row gap-12 lg:gap-16 max-w-5xl mx-auto">
         {/* Left Column: Image + Contact Info */}
         <div className="w-full lg:flex-1 flex flex-col overflow-hidden  rounded-l-[20px]">

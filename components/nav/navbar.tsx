@@ -69,11 +69,11 @@ export function Navbar() {
 
   return (
     <nav
-      className={`fixed top-0 backdrop-blur-sm z-50 w-full transition-colors duration-300 ${
+      className={`fixed top-0 backdrop-blur-sm z-50 w-full transition-colors  duration-300 ${
         isScrolled ? "bg-black/80" : "bg-black/40"
       }`}
     >
-      <div className="container mx-auto px-4 md:px-8 h-20 flex items-center max-w-6xl justify-between">
+      <div className="container mx-auto   h-20  flex items-center w-11/12 max-w-7xl justify-between">
         {/* Logo */}
         <Link href="/" className="flex items-center gap-2">
           <div className="w-[120px] h-[40px] relative ">

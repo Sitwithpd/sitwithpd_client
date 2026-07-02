@@ -17,6 +17,7 @@ export interface AdminStats {
   totalCamps: number;
   totalConsultations: number;
   totalRevenue: number;
+  currency?: string;
   recentPayments: RecentPayment[];
 }
 

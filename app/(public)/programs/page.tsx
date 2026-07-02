@@ -11,6 +11,8 @@ import { Testimonials } from "@/components/pages/homepage/testimonials";
 import { CtaBlock } from "@/components/shared/cta-block";
 import ProgramGrowth from "@/components/pages/programs/program-growth";
 import { ProgramCta } from "@/components/pages/programs/program-cta";
+import Resources from "@/components/pages/homepage/resources";
+import PowerOfPresence from "@/components/pages/programs/power-of-presence";
 
 export default function ProgramsPage() {
   return (
@@ -19,11 +21,15 @@ export default function ProgramsPage() {
       <div className="w-11/12 mx-auto">
         <ProgramOverview />
         <ProgramGrowth />
+        <PowerOfPresence />
       </div>
       <ProgramCta />
 
       <div className="w-full bg-white">
         <Testimonials />
+      </div>
+      <div className="w-11/12 mx-auto mb-10">
+        <Resources showBtn={false} />
       </div>
     </main>
   );

@@ -104,7 +104,8 @@ const ActionCell = ({
             href={`/admin/program/${row.original.id}`}
             className="py-3 w-full h-full flex px-3 gap-1"
           >
-            <Eye className="text-[#344054] dark:text-white" size={15} /> Manage Weeks & Modules
+            <Eye className="text-[#344054] dark:text-white" size={15} /> Manage
+            Weeks & Modules
           </Link>
         </DropdownMenuItem>
         {row.original.isPublished && (
@@ -169,7 +170,7 @@ const ProgramsColumn = (
     header: "Price",
     cell: ({ row }) => (
       <h6 className="text-xs ">
-        {formatCurrency(row.original.price, currency)}
+        {formatCurrency(row.original.price, row.original.currency)}
       </h6>
     ),
   },

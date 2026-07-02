@@ -23,14 +23,14 @@ export default function CampTierForm({
   onSubmit: SubmitHandler<CampTierFormSchema>;
   onCancel: () => void;
 }) {
-  const settings = usePlatformSettingsStore((state) => state.settings);
-  let defaultCurrency: "(₦)" | "($)" | "(£)" | "(€)" = "(₦)";
-  if (settings) {
-    if (settings.currency === "NGN") defaultCurrency = "(₦)";
-    else if (settings.currency === "USD") defaultCurrency = "($)";
-    else if (settings.currency === "GBP") defaultCurrency = "(£)";
-    else if (settings.currency === "EUR") defaultCurrency = "(€)";
-  }
+  // const settings = usePlatformSettingsStore((state) => state.settings);
+  // let defaultCurrency: "(₦)" | "($)" | "(£)" | "(€)" = "(₦)";
+  // if (settings) {
+  //   if (settings.currency === "NGN") defaultCurrency = "(₦)";
+  //   else if (settings.currency === "USD") defaultCurrency = "($)";
+  //   else if (settings.currency === "GBP") defaultCurrency = "(£)";
+  //   else if (settings.currency === "EUR") defaultCurrency = "(€)";
+  // }
 
   const form = useFormContext<CampTierFormSchema>();
   const { fields, append, remove } = useFieldArray({
@@ -104,7 +104,7 @@ export default function CampTierForm({
               render={({ field, fieldState }) => (
                 <Field data-invalid={fieldState.invalid} className="">
                   <FieldLabel className="text-[#344054] dark:text-secondary-text text-sm mb-2">
-                    {`Price ${defaultCurrency} *`}
+                    {`Price *`}
                   </FieldLabel>
                   <Input
                     {...field}

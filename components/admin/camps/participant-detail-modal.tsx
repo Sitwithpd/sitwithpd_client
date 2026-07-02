@@ -40,7 +40,9 @@ export default function ParticipantDetailModal({
     <div className="space-y-3">
       <div className="flex items-center gap-2 text-brand-green border-b border-gray-100 pb-2">
         {icon}
-        <h3 className="font-semibold dark:text-regular-button text-base">{title}</h3>
+        <h3 className="font-semibold dark:text-regular-button text-base">
+          {title}
+        </h3>
       </div>
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">{content}</div>
     </div>
@@ -171,7 +173,10 @@ export default function ParticipantDetailModal({
           "Payment Summary",
           <Mail size={18} />,
           <>
-            {detailItem("Amount Due", formatCurrency(tier.price || 0))}
+            {detailItem(
+              "Amount Due",
+              formatCurrency(tier.price || 0, participant.currency),
+            )}
             {detailItem("Payment Sstatus", payment.status)}
             {detailItem(
               "Registration Date",

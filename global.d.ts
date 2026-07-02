@@ -11,6 +11,7 @@ interface ProgramColumn {
   category: string;
   price: number;
   isPublished: boolean;
+  currency: string;
 }
 
 interface ConsultationColumn {
@@ -22,6 +23,7 @@ interface ConsultationColumn {
   serviceTitle: string;
   price: number;
   date: string;
+  currency: string;
 }
 
 interface ParticipantColumn {

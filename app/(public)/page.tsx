@@ -1,10 +1,14 @@
 import { Hero } from "@/components/pages/homepage/hero";
 import { HowWeHelp } from "@/components/pages/homepage/how-we-help";
-import { PowerOfPresence } from "@/components/pages/homepage/power-of-presence";
 import { OurTeam } from "@/components/pages/homepage/our-team";
 import { Testimonials } from "@/components/pages/homepage/testimonials";
-import { CtaBanner } from "@/components/pages/homepage/cta-banner";
 import { Metadata } from "next";
+import WhoWeAre from "@/components/pages/homepage/who-we-are";
+import WhySitWithPd from "@/components/pages/homepage/why-sit-with-pd";
+import Philosphy from "@/components/pages/homepage/philosphy";
+import Methodology from "@/components/pages/homepage/methodology";
+import Resources from "@/components/pages/homepage/resources";
+import { CtaBanner } from "@/components/pages/homepage/cta-banner";
 
 export const metadata: Metadata = {
   title: "Sit With PD — Presence Changes Everything",
@@ -37,11 +41,17 @@ export default function Home() {
       />
       <Hero />
       <div className="w-11/12 mx-auto">
+        <WhoWeAre />
+        <WhySitWithPd/>
+        <Philosphy/>
+        <Methodology/>
         <HowWeHelp />
-        <PowerOfPresence />
+        <Resources />
+
         <OurTeam />
         <Testimonials />
-        <div className="pb-24" />
+        <CtaBanner/>
+        <div className="pb-10" />
       </div>
     </div>
   );

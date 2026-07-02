@@ -10,14 +10,24 @@ import CardSkeletons from "@/components/skeletons/card-skeletons";
 export function Testimonials() {
   const { data, isLoading, error } = useGetAllTestimonials();
 
-  const testimonials = data?.data ?? []
+  const testimonials = data?.data ?? [];
 
-  if(isLoading) return <CardSkeletons />
-  if(error) return <p className="text-center min-h-[40vh] flex items-center justify-center text-xl">Error fetching testimonials</p>
-  if(data?.data?.length === 0) return <p className="text-center min-h-[40vh] flex items-center justify-center text-xl">No testimonials yet</p>
+  if (isLoading) return <CardSkeletons />;
+  if (error)
+    return (
+      <p className="text-center min-h-[40vh] flex items-center justify-center text-xl">
+        Error fetching testimonials
+      </p>
+    );
+  if (data?.data?.length === 0)
+    return (
+      <p className="text-center min-h-[40vh] flex items-center justify-center text-xl">
+        No testimonials yet
+      </p>
+    );
 
   return (
-    <section className="container mx-auto px-4 md:px-8 pt-24 flex flex-col items-center overflow-hidden">
+    <section className="container mx-auto  md:px-8 pt-24 flex flex-col items-center overflow-hidden">
       <Pill text="Testimonial" />
 
       <h2 className="heading-2 text-center mb-5 lg:mb-16  max-w-[900px]">
@@ -44,8 +54,8 @@ export function Testimonials() {
         >
           {testimonials.map((t, i) => (
             <SwiperSlide key={i} className="h-auto">
-              <div className="flex flex-col bg-white rounded-[16px] p-8 border border-[#EEF2F6] shadow-[4px_4px_16px_-4px_#10182814,0px_4px_0px_-2px_#10182808] h-full min-h-[300px]">
-                <p className="text-[#697586] text-lg leading-relaxed mb-8 flex-1">
+              <div className="flex flex-col bg-white rounded-[16px] p-8 border border-[#EEF2F6] shadow-[0px_12px_16px_-4px_rgba(16,24,40,0.08),0px_4px_6px_-2px_rgba(16,24,40,0.03)] h-full min-h-[300px]">
+                <p className="text-[#697586] text-base leading-relaxed mb-8 flex-1">
                   {t.quote}
                 </p>
                 <div className="flex items-center gap-4 mt-auto">

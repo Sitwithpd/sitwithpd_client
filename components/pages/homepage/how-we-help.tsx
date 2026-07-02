@@ -1,5 +1,3 @@
-
-
 "use client";
 
 import { ChevronRight } from "lucide-react";
@@ -11,25 +9,69 @@ import { motion } from "motion/react";
 export function HowWeHelp() {
   const cards = [
     {
-      title: "Guided Programs",
-      description:
-        "Structured sessions designed to support your wellbeing journey at your own pace.",
-      link: "/programs",
-      image: '/images/help-1.png'
+      title: "Consultations",
+      description: (
+        <p className="text-base leading-6">
+          <span className="text-[#60935D] ">
+            {" "}
+            When Life Feels Unclear, Find Your Way Forward. <br />
+          </span>
+          Personalised one-to-one conversations to help you navigate challenges
+          and move forward with clarity and confidence.
+        </p>
+      ),
+      link: "/consultation",
+      linkText: "Book a Consultation",
+      image: "/images/consultations.png",
     },
     {
       title: "Therapeutic Camps",
-      description:
-      "Take a break from the noise and focus fully on your healing and growth.",
-      link: "/programs",
-      image: '/images/help-2.png'
+      description: (
+        <p className="text-base leading-6">
+          <span className="text-[#60935D] ">
+            {" "}
+            Sometimes You Need To Step Away To Find Yourself Again. <br />
+          </span>
+          Immersive transformational experiences designed to help you reconnect
+          with yourself through guided reflection and restorative experiences.
+        </p>
+      ),
+      link: "/camps",
+      linkText: "Explore therapeutic camps",
+      image: "/images/therpeutic-camps.png",
     },
     {
-      title: "One-on-One Consultation",
-      description:
-      "Speak with a professional who understands and guides you personally.",
+      title: "Guided Programmes",
+      description: (
+        <p className="text-base leading-6">
+          <span className="text-[#60935D] ">
+            {" "}
+            Don't Just Change Your Life. Understand It. <br />
+          </span>
+          Structured pathways for personal growth, helping individuals develop
+          greater self-awareness, emotional resilience, clarity, and purpose.
+        </p>
+      ),
       link: "/programs",
-      image: '/images/help-3.png'
+      linkText: "Explore Programs",
+      image: "/images/program-mini.png",
+    },
+    {
+      title: "Community",
+      description: (
+        <p className="text-base leading-6">
+          <span className="text-[#60935D] ">
+            {" "}
+            You Were Never Meant To Do Life Alone. <br />
+          </span>
+          A safe and supportive space where individuals connect, grow, and
+          thrive together built on shared experiences and meaningful
+          relationships.
+        </p>
+      ),
+      link: "/community",
+      linkText: "Join our community",
+      image: "/images/community.png",
     },
   ];
 
@@ -54,19 +96,20 @@ export function HowWeHelp() {
   } as const;
 
   return (
-    <section className="container mx-auto   pt-15 pb-20 flex flex-col items-center">
+    <section className="container mx-auto   py-15  flex flex-col items-center">
       {/* Badge */}
       <Pill text="How we can help" />
 
       {/* Heading */}
       <h2 className=" text-center heading-2 ">
-        Find the support you need without feeling overwhelmed. <br className="sm:hidden md:block" /> Take simple
-        steps toward a healthier, more balanced life
+        Find the support you need without feeling overwhelmed.{" "}
+        <br className="sm:hidden md:block" /> Take simple steps toward a
+        healthier, more balanced life
       </h2>
 
       {/* Grid */}
       <motion.div
-        className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 lg:gap-5 xl:gap-8 w-full sm:w-8/12 md:w-full sm:mx-auto mt-10 max-w-6xl"
+        className="grid grid-cols-1 md:grid-cols-2 l gap-5 lg:gap-5 xl:gap-8 w-full sm:w-8/12 md:w-full sm:mx-auto mt-10 max-w-6xl"
         variants={containerVariants}
         initial="hidden"
         whileInView="visible"
@@ -79,8 +122,8 @@ export function HowWeHelp() {
             className="flex flex-col rounded-2xl border border-[#DEDEDE] bg-white p-4 lg:p-5 hover:shadow-[0px_2px_20px_rgba(0,0,0,0.08)] transition-shadow"
           >
             {/* Image Placeholder */}
-            <div className="w-full  h-48 lg:h-40 xl:h-48 bg-gray-200 rounded-xl mb-6 overflow-hidden relative">
-              <Image src={card.image} alt={card.title} fill className=""/>
+            <div className="w-full aspect-video bg-gray-200 rounded-xl mb-6 overflow-hidden relative">
+              <Image src={card.image} alt={card.title} fill className="object-cover" />
             </div>
 
             {/* Content */}
@@ -89,14 +132,14 @@ export function HowWeHelp() {
             </h3>
             <p className="text-[16px] text-black leading-relaxed mb-6 ">
               {card.description}
-            </p>  
+            </p>
 
             {/* Link */}
             <Link
               href={card.link}
               className="flex items-center text-brand-green font-bold text-sm hover:underline mt-auto"
             >
-              learn more <ChevronRight className="w-4 h-4 ml-1" />
+              {card.linkText} <ChevronRight className="w-4 h-4 ml-1" />
             </Link>
           </motion.div>
         ))}

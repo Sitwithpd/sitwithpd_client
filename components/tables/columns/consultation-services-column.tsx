@@ -8,7 +8,13 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { ColumnDef } from "@tanstack/react-table";
-import { EllipsisVertical, FilePenLine, Eye, ToggleLeft, ToggleRight } from "lucide-react";
+import {
+  EllipsisVertical,
+  FilePenLine,
+  Eye,
+  ToggleLeft,
+  ToggleRight,
+} from "lucide-react";
 import { useRouter } from "next/navigation";
 import { useEffect } from "react";
 import { Spinner } from "@/components/spinner";
@@ -33,7 +39,7 @@ const ActionCell = ({ row }: { row: any }) => {
         <div className="flex flex-col items-center justify-center gap-4 bg-white p-10 rounded-lg min-w-50">
           <Spinner size={40} />
         </div>,
-        { isMutation: true }
+        { isMutation: true },
       );
     }
   }, [isPending, openModal]);
@@ -44,7 +50,7 @@ const ActionCell = ({ row }: { row: any }) => {
       {
         onSuccess: () => closeModal("loading"),
         onError: () => closeModal("loading"),
-      }
+      },
     );
   };
 
@@ -59,18 +65,23 @@ const ActionCell = ({ row }: { row: any }) => {
       </DropdownMenuTrigger>
       <DropdownMenuContent align="end">
         <DropdownMenuItem onClick={handleEdit} className="py-3 px-4 gap-2">
-          <FilePenLine size={15} className="text-primary-text"/> Edit
+          <FilePenLine size={15} className="text-primary-text" /> Edit
         </DropdownMenuItem>
-        <DropdownMenuItem onClick={handleToggleStatus} className="py-3 px-4 gap-2">
+        <DropdownMenuItem
+          onClick={handleToggleStatus}
+          className="py-3 px-4 gap-2"
+        >
           {service.isActive ? (
-            <ToggleLeft size={15}className="text-primary-text" />
+            <ToggleLeft size={15} className="text-primary-text" />
           ) : (
             <ToggleRight size={15} className="text-primary-text" />
           )}
           {service.isActive ? "Deactivate" : "Activate"}
         </DropdownMenuItem>
         <DropdownMenuItem
-          onClick={() => router.push(`/admin/consultation-services/${service.id}`)}
+          onClick={() =>
+            router.push(`/admin/consultation-services/${service.id}`)
+          }
           className="py-3 px-4 gap-2"
         >
           <Eye size={15} className="text-primary-text" /> View
@@ -85,7 +96,9 @@ const ConsultationServicesColumn = (): ColumnDef<ConsultationService>[] => [
     accessorKey: "title",
     header: "Service Name",
     cell: ({ row }) => (
-      <p className="text-xs text-primary-text font-medium">{row.original.title}</p>
+      <p className="text-xs text-primary-text font-medium">
+        {row.original.title}
+      </p>
     ),
     size: 200,
   },
@@ -104,7 +117,7 @@ const ConsultationServicesColumn = (): ColumnDef<ConsultationService>[] => [
     header: "Price",
     cell: ({ row }) => (
       <p className="text-xs text-primary-text">
-        {formatCurrency(row.original.price)}
+        {formatCurrency(row.original.price, row.original.currency)}
       </p>
     ),
   },

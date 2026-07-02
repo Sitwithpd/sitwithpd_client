@@ -45,20 +45,7 @@ export default function ProgramForm({
 }: {
   onSubmit: SubmitHandler<ProgramFormSchema>;
 }) {
-  const settings = usePlatformSettingsStore((state) => state.settings);
-  let defaultCurrency: "(₦)" | "($)" | "(£)" | "(€)";
 
-  if (settings) {
-    if (settings.currency === "NGN") {
-      defaultCurrency = "(₦)";
-    } else if (settings.currency === "USD") {
-      defaultCurrency = "($)";
-    } else if (settings.currency === "GBP") {
-      defaultCurrency = "(£)";
-    } else if (settings.currency === "EUR") {
-      defaultCurrency = "(€)";
-    }
-  }
 
   const { toast } = require("sonner");
 
@@ -131,7 +118,7 @@ export default function ProgramForm({
               render={({ field, fieldState }) => (
                 <Field data-invalid={fieldState.invalid} className="">
                   <FieldLabel className="text-secondary-text  text-sm">
-                    {`Price ${defaultCurrency}`}
+                    {`Price `}
                   </FieldLabel>
                   <Input
                     {...field}

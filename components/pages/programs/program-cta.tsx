@@ -8,7 +8,7 @@ export function ProgramCta() {
     <section className="container mx-auto ">
       <div className="w-full bg-footer-bg   flex flex-col lg:flex-row gap-6 overflow-hidden border border-[#2A5A51]">
         {/* Left Content */}
-        <div className="flex-1  flex flex-col items-center lg:items-start px-5 md:px-12 md:py-20 lg:py-5 py-10 text-center lg:text-start  justify-center ">
+        <div className="flex-1  flex flex-col items-center lg:items-start px-5 md:px-12 md:pt-10 lg:py-5 pt-10 text-center lg:text-start  justify-center ">
           <h2 className="text-[#EBECEB] heading-2 mb-4 max-w-md ">
             Speak With Someone Who Listens
           </h2>

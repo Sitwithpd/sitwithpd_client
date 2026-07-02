@@ -40,20 +40,19 @@ import { CampTier, CampImage } from "@/types/camps.types";
 import Pagination from "@/components/pagination";
 import { useSearchParams } from "next/navigation";
 
-
 export default function CampDetail({ id }: { id: string }) {
   const [selectedImage, setSelectedImage] = useState<string | null>(null);
   const [lightboxOpen, setLightboxOpen] = useState(false);
   const [isMounted, setIsMounted] = useState(false);
-  const searchParams = useSearchParams()
+  const searchParams = useSearchParams();
 
-  const page = Number(searchParams.get('page'))
-  const PARTICIPANT_TABLE_LIMIT = 20
-  
+  const page = Number(searchParams.get("page"));
+  const PARTICIPANT_TABLE_LIMIT = 20;
+
   const params = {
     page,
-    limit: PARTICIPANT_TABLE_LIMIT
-  }
+    limit: PARTICIPANT_TABLE_LIMIT,
+  };
 
   useEffect(() => {
     setIsMounted(true);
@@ -61,7 +60,7 @@ export default function CampDetail({ id }: { id: string }) {
 
   const { data: campData, isLoading, isError } = useGetCamp(id);
   const { data: participantsData, isLoading: participantsLoading } =
-    useGetCampParticipants({id, params});
+    useGetCampParticipants({ id, params });
 
   const { mutate: deleteTier } = useDeleteCampTier();
   const { mutate: deleteImage } = useDeleteCampImage();
@@ -73,27 +72,30 @@ export default function CampDetail({ id }: { id: string }) {
   const camp = campData?.data;
 
   const participantTableData = participantsData?.data;
-  
-  const mappedparticipationArray = participantTableData?.map((participant: any) => {
-    return {
-      id: participant.id,
-      name: `${participant.applicantDetails?.fullName}`,
-      phone: participant.applicantDetails?.phone,
-      tier: participant.tier?.label,
-      amountPaid: participant.tier?.price,
-      payment: participant.payment?.status,
-      emergencyContact: participant.applicantDetails?.emergencyContact,
-    };
-  });
+
+  const mappedparticipationArray = participantTableData?.map(
+    (participant: any) => {
+      return {
+        id: participant.id,
+        name: `${participant.applicantDetails?.fullName}`,
+        phone: participant.applicantDetails?.phone,
+        tier: participant.tier?.label,
+        amountPaid: participant.tier?.price,
+        currency: participant.currency,
+        payment: participant.payment?.status,
+        emergencyContact: participant.applicantDetails?.emergencyContact,
+      };
+    },
+  );
 
   const handleViewParticipantDetails = (participantId: string) => {
     const fullParticipantData = participantTableData?.find(
-      (p: any) => p.id === participantId
+      (p: any) => p.id === participantId,
     );
     if (fullParticipantData) {
       openModal(
         `participant-detail-${participantId}`,
-        <ParticipantDetailModal participant={fullParticipantData} />
+        <ParticipantDetailModal participant={fullParticipantData} />,
       );
     }
   };
@@ -155,14 +157,17 @@ export default function CampDetail({ id }: { id: string }) {
     }
   };
 
-
-
   const handleUploadImages = (files: File[]) => {
     uploadImages({ campId: id, files });
   };
 
-  const labelTyles = "font-semibold text-sm mb-1 text-primary-text"
-  let badgeVariant = "default" as "default" | "warning" | "destructive" | "hibiscus" | "success";
+  const labelTyles = "font-semibold text-sm mb-1 text-primary-text";
+  let badgeVariant = "default" as
+    | "default"
+    | "warning"
+    | "destructive"
+    | "hibiscus"
+    | "success";
 
   if (camp?.status === "COMPLETED") {
     badgeVariant = "success";
@@ -200,35 +205,29 @@ export default function CampDetail({ id }: { id: string }) {
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             <div>
-              <h3 className={labelTyles}>
-                Location
-              </h3>
+              <h3 className={labelTyles}>Location</h3>
               <p>{camp?.location}</p>
             </div>
-          
+
             <div>
-              <h3 className={labelTyles}>
-                Capacity
-              </h3>
+              <h3 className={labelTyles}>Capacity</h3>
               <p>{camp?.capacity} Participants max</p>
             </div>
             <div>
-              <h3 className={labelTyles}>
-                Seats Remaining
-              </h3>
+              <h3 className={labelTyles}>Seats Remaining</h3>
               <p>{camp?.seatsRemaining}</p>
             </div>
             <div>
-              <h3 className={labelTyles}>
-                Dates
-              </h3>
+              <h3 className={labelTyles}>Dates</h3>
               <p>
-                {isMounted && camp?.startDate &&
+                {isMounted &&
+                  camp?.startDate &&
                   new Date(camp.startDate).toLocaleString("en-US", {
                     dateStyle: "medium",
                   })}{" "}
                 -{" "}
-                {isMounted && camp?.endDate &&
+                {isMounted &&
+                  camp?.endDate &&
                   new Date(camp.endDate).toLocaleString("en-US", {
                     dateStyle: "medium",
                   })}
@@ -238,17 +237,15 @@ export default function CampDetail({ id }: { id: string }) {
           </div>
 
           <div>
-            <h3 className={labelTyles}>
-              Description
-            </h3>
-            <p className="text-sm leading-relaxed whitespace-pre-wrap">{camp?.description}</p>
+            <h3 className={labelTyles}>Description</h3>
+            <p className="text-sm leading-relaxed whitespace-pre-wrap">
+              {camp?.description}
+            </p>
           </div>
 
           {camp?.thumbnail && (
             <div>
-              <h3 className={labelTyles}>
-                Thumbnail
-              </h3>
+              <h3 className={labelTyles}>Thumbnail</h3>
               <ViewTransition name={camp.id}>
                 <div
                   onClick={() =>
@@ -320,9 +317,11 @@ export default function CampDetail({ id }: { id: string }) {
                 {/* Price and Details Grid */}
                 <div className="grid grid-cols-2 gap-3 text-sm border-t border-gray-100 pt-5">
                   <div>
-                    <p className="text-xs text-primary-text dark:text-secondary-text  font-medium">Price</p>
+                    <p className="text-xs text-primary-text dark:text-secondary-text  font-medium">
+                      Price
+                    </p>
                     <p className="text-primary-text font-semibold">
-                      {formatCurrency(tier.price)}
+                      {formatCurrency(tier.price, camp?.currency)}
                     </p>
                   </div>
                   <div>
@@ -342,7 +341,9 @@ export default function CampDetail({ id }: { id: string }) {
                     </p>
                   </div>
                   <div>
-                    <p className="text-xs text-primary-text dark:text-secondary-text  font-medium">Order</p>
+                    <p className="text-xs text-primary-text dark:text-secondary-text  font-medium">
+                      Order
+                    </p>
                     <p className="text-primary-text font-semibold">
                       {tier.order}
                     </p>
@@ -380,53 +381,54 @@ export default function CampDetail({ id }: { id: string }) {
           <h2 className="text-xl font-semibold">Gallery Images</h2>
           <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4">
             {camp.images.map((image: CampImage) => (
-           <div key={image.id}>
-               <div
-                
-                style={{
-                  viewTransitionName:
-                    lightboxOpen && selectedImage === image.id
-                      ? "none"
-                      : `camp-image-${image.id}`,
-                }}
-                className="relative group rounded-lg border border-gray-200 bg-gray-50 overflow-hidden shadow-sm aspect-square flex flex-col items-center justify-center cursor-pointer hover:shadow-md transition-shadow"
-                onClick={() => handleOpenLightbox(image.id, image.url)}
-              >
-                <Image
-                  src={image.url}
-                  alt={image.caption || "Camp gallery"}
-                  fill
-                  className="object-cover"
-                />
+              <div key={image.id}>
+                <div
+                  style={{
+                    viewTransitionName:
+                      lightboxOpen && selectedImage === image.id
+                        ? "none"
+                        : `camp-image-${image.id}`,
+                  }}
+                  className="relative group rounded-lg border border-gray-200 bg-gray-50 overflow-hidden shadow-sm aspect-square flex flex-col items-center justify-center cursor-pointer hover:shadow-md transition-shadow"
+                  onClick={() => handleOpenLightbox(image.id, image.url)}
+                >
+                  <Image
+                    src={image.url}
+                    alt={image.caption || "Camp gallery"}
+                    fill
+                    className="object-cover"
+                  />
 
-                {/* Overlay buttons */}
-                <div className="absolute inset-0 bg-black/0 group-hover:bg-black/20 opacity-0 group-hover:opacity-100 transition-all flex items-center justify-center gap-2">
-                  <button
-                    type="button"
-                    onClick={(e) => {
-                      e.stopPropagation();
-                      handleReplaceImage(image.id, image.order);
-                    }}
-                    className="bg-white hover:bg-regular-button text-primary-text hover:text-white p-2 rounded-full shadow-md transition-all"
-                    title="Replace image"
-                  >
-                    <ImagePlus size={16} />
-                  </button>
-                  <button
-                    type="button"
-                    onClick={(e) => {
-                      e.stopPropagation();
-                      handleDeleteImage(image.id);
-                    }}
-                    className="bg-white hover:bg-brand-red text-primary-text hover:text-white p-2 rounded-full shadow-md transition-all"
-                    title="Delete image"
-                  >
-                    <Trash2 size={16} />
-                  </button>
+                  {/* Overlay buttons */}
+                  <div className="absolute inset-0 bg-black/0 group-hover:bg-black/20 opacity-0 group-hover:opacity-100 transition-all flex items-center justify-center gap-2">
+                    <button
+                      type="button"
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        handleReplaceImage(image.id, image.order);
+                      }}
+                      className="bg-white hover:bg-regular-button text-primary-text hover:text-white p-2 rounded-full shadow-md transition-all"
+                      title="Replace image"
+                    >
+                      <ImagePlus size={16} />
+                    </button>
+                    <button
+                      type="button"
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        handleDeleteImage(image.id);
+                      }}
+                      className="bg-white hover:bg-brand-red text-primary-text hover:text-white p-2 rounded-full shadow-md transition-all"
+                      title="Delete image"
+                    >
+                      <Trash2 size={16} />
+                    </button>
+                  </div>
                 </div>
+                <p className="text-sm uppercase wrap-break-word line-clamp-2 w-full  text-primary-text mt-2">
+                  {image.caption} hello
+                </p>
               </div>
-                <p className="text-sm uppercase wrap-break-word line-clamp-2 w-full  text-primary-text mt-2">{image.caption} hello</p>
-           </div>
             ))}
           </div>
         </div>
@@ -463,7 +465,9 @@ export default function CampDetail({ id }: { id: string }) {
             />
           </QueryStateHandler>
         </div>
-        <Pagination totalPages={participantsData ? participantsData.meta.totalPages : 1}/>
+        <Pagination
+          totalPages={participantsData ? participantsData.meta.totalPages : 1}
+        />
       </div>
     </div>
   );

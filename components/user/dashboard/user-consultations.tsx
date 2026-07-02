@@ -55,7 +55,12 @@ export default function UserConsultations() {
       (service) => service.calBookingUrl !== null,
     ) || [];
 
-  if (services.length === 0) return <p className="text-center min-h-[40vh] flex items-center justify-center text-xl">No consultations yet</p>
+  if (services.length === 0)
+    return (
+      <p className="text-center min-h-[40vh] flex items-center justify-center text-xl">
+        No consultations yet
+      </p>
+    );
   console.log("services", services);
 
   return (
@@ -96,7 +101,7 @@ export default function UserConsultations() {
                 </span>
               </div>
               <div className="text-regular-button font-bold text-lg">
-                {formatCurrency(service.price)}
+                {formatCurrency(service.price, service.currency)}
               </div>
             </div>
 

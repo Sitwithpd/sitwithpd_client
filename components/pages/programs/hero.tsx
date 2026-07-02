@@ -48,6 +48,7 @@ export function ProgramHero() {
 
   return (
     <section className="w-full">
+     
       <Swiper
         modules={[Autoplay, Pagination]}
         loop={true}
@@ -102,7 +103,24 @@ export function ProgramHero() {
           );
         })}
       </Swiper>
-
+      <div className="bg-[#F0F4F0]  grid grid-cols-2 md:grid-cols-4 gap-y-5">
+        <div className="py-2 flex flex-col lg:border-x border-[#C7CAC6] items-center justify-center">
+          <h3 className="text-[#004617] font-semibold text-2xl mb-1 ">3</h3>
+          <span className="text-[#036B26] text-base">Core Programs</span>
+        </div>
+        <div className="py-2 flex flex-col lg:border-x border-[#C7CAC6] items-center justify-center">
+          <h3 className="text-[#004617] font-semibold text-2xl mb-1 ">3-5</h3>
+          <span className="text-[#036B26] text-base">Per Programs</span>
+        </div>
+        <div className="py-2 flex flex-col lg:border-x border-[#C7CAC6] items-center justify-center">
+          <h3 className="text-[#004617] font-semibold text-2xl mb-1 ">100%</h3>
+          <span className="text-[#036B26] text-base">Self Spaced</span>
+        </div>
+        <div className="py-2 flex flex-col lg:border-x border-[#C7CAC6] items-center justify-center">
+          <h3 className="text-[#004617] font-semibold text-2xl mb-1 ">3,400+</h3>
+          <span className="text-[#036B26] text-base">Participants Guided</span>
+        </div>
+      </div>
       <style jsx global>{`
         .swiper-pagination-bullet {
           background: rgba(255, 255, 255, 0.4) !important;

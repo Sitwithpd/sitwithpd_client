@@ -37,13 +37,13 @@ export default function ConsultationServiceForm({
 }: ConsultationServiceFormProps) {
   const settings = usePlatformSettingsStore((state) => state.settings);
 
-  let defaultCurrency: "(₦)" | "($)" | "(£)" | "(€)" = "(₦)";
-  if (settings) {
-    if (settings.currency === "NGN") defaultCurrency = "(₦)";
-    else if (settings.currency === "USD") defaultCurrency = "($)";
-    else if (settings.currency === "GBP") defaultCurrency = "(£)";
-    else if (settings.currency === "EUR") defaultCurrency = "(€)";
-  }
+  // let defaultCurrency: "(₦)" | "($)" | "(£)" | "(€)" = "(₦)";
+  // if (settings) {
+  //   if (settings.currency === "NGN") defaultCurrency = "(₦)";
+  //   else if (settings.currency === "USD") defaultCurrency = "($)";
+  //   else if (settings.currency === "GBP") defaultCurrency = "(£)";
+  //   else if (settings.currency === "EUR") defaultCurrency = "(€)";
+  // }
 
   const form = useFormContext<ConsultationServiceFormValues>();
 
@@ -112,7 +112,7 @@ export default function ConsultationServiceForm({
             <FormFieldComp
               name="price"
               control={form.control}
-              label={`Price ${defaultCurrency} *`}
+              label={`Price  *`}
               placeholder="e.g. 15000"
               type="text"
               inputMode="numeric"

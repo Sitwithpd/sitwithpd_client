@@ -40,29 +40,32 @@ export interface ConsultationResponse {
 
 type BookingApiResponse = {
   meta: {
-    page: number
-    limit: number
-    totalPages: number
-    totalCount: number
-  }
+    page: number;
+    limit: number;
+    totalPages: number;
+    totalCount: number;
+  };
   data: {
-    id: string
-    status: string
+    id: string;
+    status: string;
     user: {
-      firstName: string
-      lastName: string
-      email: string
-    }
+      firstName: string;
+      lastName: string;
+      email: string;
+    };
     service: {
-      title: string
-      price: number
-      createdAt: string
-    }
-  }[]
-}
+      title: string;
+      price: number;
+      currency: string;
+      createdAt: string;
+    };
+  }[];
+};
 
-export const getConsultations = async (param = {}): Promise<BookingApiResponse> => {
-  const queryString = buildQueryString(param)
+export const getConsultations = async (
+  param = {},
+): Promise<BookingApiResponse> => {
+  const queryString = buildQueryString(param);
   const url = queryString ? `/consultations?${queryString}` : "/consultations";
   try {
     const res = await api.get(url);
@@ -73,7 +76,9 @@ export const getConsultations = async (param = {}): Promise<BookingApiResponse> 
   }
 };
 
-export const getConsultation = async (id: string): Promise<ConsultationResponse> => {
+export const getConsultation = async (
+  id: string,
+): Promise<ConsultationResponse> => {
   if (!id) {
     throw new Error("Consultation ID is required.");
   }
@@ -88,7 +93,7 @@ export const getConsultation = async (id: string): Promise<ConsultationResponse>
 };
 
 export const createConsultation = async (
-  payload: CreateConsultationPayload
+  payload: CreateConsultationPayload,
 ): Promise<ConsultationResponse> => {
   try {
     const res = await api.post("/consultations", payload);
@@ -101,7 +106,7 @@ export const createConsultation = async (
 
 export const updateConsultation = async (
   id: string,
-  payload: UpdateConsultationPayload
+  payload: UpdateConsultationPayload,
 ): Promise<ConsultationResponse> => {
   if (!id) {
     throw new Error("Consultation ID is required for updates.");
@@ -116,7 +121,9 @@ export const updateConsultation = async (
   }
 };
 
-export const deleteConsultation = async (id: string): Promise<{ message: string }> => {
+export const deleteConsultation = async (
+  id: string,
+): Promise<{ message: string }> => {
   if (!id) {
     throw new Error("Consultation ID is required for deletion.");
   }
@@ -131,7 +138,7 @@ export const deleteConsultation = async (id: string): Promise<{ message: string 
 };
 
 export const bookConsultation = async (
-  payload: BookConsultationPayload
+  payload: BookConsultationPayload,
 ): Promise<{ message: string }> => {
   try {
     const res = await api.post("/consultations/book", payload);

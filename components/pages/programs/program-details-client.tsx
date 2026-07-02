@@ -35,12 +35,9 @@ import { NgnEquivalent } from "@/components/shared/ngn-equivalent";
 import { usePlatformSettingsStore } from "@/store/use-platform-settings-store";
 
 function ProgramDetailsWrapper({ id }: { id: string }) {
-  const [agreedTerms, setAgreedTerms] = useState(false);
-  const [agreedPrivacy, setAgreedPrivacy] = useState(false);
-  const [agreedRefund, setAgreedRefund] = useState(false);
-  const allChecked = agreedTerms && agreedPrivacy && agreedRefund;
-
-
+  const [agreedPolicies, setAgreedPolicies] = useState(false);
+  const [agreedConsent, setAgreedConsent] = useState(false);
+  const allChecked = agreedPolicies && agreedConsent;
 
   const isAuthenticated = useAuthStore((state) => state.isAuthenticated);
   const {
@@ -179,61 +176,84 @@ function ProgramDetailsWrapper({ id }: { id: string }) {
     return (
       <div className="flex flex-col gap-4 mt-auto">
         <div className="flex flex-col gap-3 p-4 bg-brand-green/10 rounded-lg border border-brand-green/20">
-          <label className="flex items-center gap-3 cursor-pointer group">
+          <label className="flex items-start gap-3 cursor-pointer group">
             <Checkbox
-              checked={agreedTerms}
-              onCheckedChange={(checked) => setAgreedTerms(checked === true)}
+              checked={agreedPolicies}
+              onCheckedChange={(checked) => setAgreedPolicies(checked === true)}
               className="mt-0.5 shrink-0 border-2 border-brand-green/20"
             />
-            <span className="text-xs text-[#606060] leading-tight">
+            <span className="text-xs text-[#606060] leading-relaxed">
               I have read and agree to the{" "}
               <Link
                 href="/terms"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-brand-green font-medium hover:underline"
+                className="text-brand-green font-semibold hover:underline"
               >
-                Terms of Service
+                Terms &amp; Conditions
               </Link>
-            </span>
-          </label>
-          <label className="flex items-center gap-3 cursor-pointer group">
-            <Checkbox
-              checked={agreedPrivacy}
-              onCheckedChange={(checked) => setAgreedPrivacy(checked === true)}
-              className="mt-0.5 shrink-0 border-2 border-brand-green/20"
-            />
-            <span className="text-xs text-[#606060] leading-tight">
-              I have read and agree to the{" "}
+              ,{" "}
               <Link
                 href="/privacy-policy"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-brand-green font-medium hover:underline"
+                className="text-brand-green font-semibold hover:underline"
               >
                 Privacy Policy
               </Link>
-            </span>
-          </label>
-          <label className="flex items-center gap-3 cursor-pointer group">
-            <Checkbox
-              checked={agreedRefund}
-              onCheckedChange={(checked) => setAgreedRefund(checked === true)}
-              className="mt-0.5 shrink-0 border-2 border-brand-green/20"
-            />
-            <span className="text-xs text-[#606060] leading-tight">
-              I have read and agree to the{" "}
+              ,{" "}
               <Link
                 href="/refund-policy"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-brand-green font-medium hover:underline"
+                className="text-brand-green font-semibold hover:underline"
               >
-                Refund Policy
+                Refund &amp; Cancellation Policy
               </Link>
+              , and{" "}
+              <Link
+                href="/medical-disclaimer"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-brand-green font-semibold hover:underline"
+              >
+                Medical Disclaimer
+              </Link>
+              . I understand that Sit-With-PD&apos;s services do not replace
+              professional medical or emergency healthcare services.
+            </span>
+          </label>
+          <label className="flex items-start gap-3 cursor-pointer group">
+            <Checkbox
+              checked={agreedConsent}
+              onCheckedChange={(checked) => setAgreedConsent(checked === true)}
+              className="mt-0.5 shrink-0 border-2 border-brand-green/20"
+            />
+            <span className="text-xs text-[#606060] leading-relaxed">
+              I consent to the collection and processing of my personal
+              information in accordance with the{" "}
+              <Link
+                href="/privacy-policy"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-brand-green font-semibold hover:underline"
+              >
+                Privacy Policy
+              </Link>{" "}
+              and applicable data protection laws, including the Nigeria Data
+              Protection Regulation (NDPR) and the UK General Data Protection
+              Regulation (UK GDPR).
             </span>
           </label>
         </div>
+        <p className="text-[11px] text-[#606060] leading-relaxed font-medium mt-1">
+          <span className="font-semibold text-[#181D27]">Important:</span> By
+          proceeding with payment, you acknowledge that Sit-With-PD Global
+          Therapeutic Network provides wellbeing, educational, advocacy, and
+          support services only. Our services do not constitute medical advice,
+          diagnosis, treatment, pharmaceutical services, or emergency
+          healthcare.
+        </p>
         <PaymentSecurityBadge />
         <Button
           onClick={enrolNow}

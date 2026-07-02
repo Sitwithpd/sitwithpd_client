@@ -48,9 +48,7 @@ const ConsultationColumn = (): ColumnDef<ConsultationColumn>[] => [
           <h6 className=" text-sm font-medium text-primary-text ">
             {row.original?.firstName + " " + row.original?.lastName}
           </h6>
-          <p className=" text-xs text-primary-text ">
-            {row.original?.email}
-          </p>
+          <p className=" text-xs text-primary-text ">{row.original?.email}</p>
         </div>
       </div>
     ),
@@ -68,7 +66,9 @@ const ConsultationColumn = (): ColumnDef<ConsultationColumn>[] => [
     accessorKey: "price",
     header: "Price",
     cell: ({ row }) => (
-      <p className="text-xs text-primary-text">{formatCurrency(row.original.price)}</p>
+      <p className="text-xs text-primary-text">
+        {formatCurrency(row.original.price, row.original.currency)}
+      </p>
     ),
   },
   {
@@ -79,7 +79,7 @@ const ConsultationColumn = (): ColumnDef<ConsultationColumn>[] => [
         {formatAppDate(row.original.date)}
       </p>
     ),
-    size: 150
+    size: 150,
   },
   {
     accessorKey: "status",

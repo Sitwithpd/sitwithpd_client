@@ -1,4 +1,4 @@
-"use client"
+"use client";
 
 import DashboardHeaderText from "@/components/dashboard/dashboard-header";
 import SeacrchAndFilter from "@/components/seach-and-filter";
@@ -29,7 +29,7 @@ export default function ConsultationOverview() {
   const [filteredItem, setFilteredItem] = useState("");
 
   const searchParams = useSearchParams();
- 
+
   const page = Number(searchParams.get("page") ?? 1);
   const search = searchParams.get("search") ?? "";
 
@@ -42,17 +42,18 @@ export default function ConsultationOverview() {
   const openModal = useModalStore((state) => state.openModal);
   const { data, isLoading, isError, isFetching } = useGetConsultations(params);
 
-
-  const tableData: ConsultationColumn[] | [] = data?.data?.map((booking) => ({
-  id: booking.id,
-  status: booking.status,
-  firstName: booking.user.firstName,
-  lastName: booking.user.lastName,
-  email: booking.user.email,
-  serviceTitle: booking.service.title,
-  price: booking.service.price,
-  date: booking.service.createdAt,
-})) ?? []
+  const tableData: ConsultationColumn[] | [] =
+    data?.data?.map((booking) => ({
+      id: booking.id,
+      status: booking.status,
+      firstName: booking.user.firstName,
+      lastName: booking.user.lastName,
+      email: booking.user.email,
+      serviceTitle: booking.service.title,
+      price: booking.service.price,
+      currency: booking.service.currency,
+      date: booking.service.createdAt,
+    })) ?? [];
 
   const handleAddService = () => {
     addConsultationService();
@@ -67,11 +68,19 @@ export default function ConsultationOverview() {
         />
         <div className="flex items-center gap-3">
           <Link href="/admin/consultation-services">
-            <Button variant="outline" className="font-normal text-regular-button border border-regular-button">
-              <Settings2 size={16} /> <span className="hidden sm:block">Services</span>
+            <Button
+              variant="outline"
+              className="font-normal text-regular-button border border-regular-button"
+            >
+              <Settings2 size={16} />{" "}
+              <span className="hidden sm:block">Services</span>
             </Button>
           </Link>
-          <Button variant="regular" className="font-normal hidden sm:flex" onClick={handleAddService}>
+          <Button
+            variant="regular"
+            className="font-normal hidden sm:flex"
+            onClick={handleAddService}
+          >
             <Plus /> <span>Add Service</span>
           </Button>
         </div>
@@ -79,8 +88,7 @@ export default function ConsultationOverview() {
 
       {/* search bar, filter and table */}
       <div className="space-y-4">
-        <SearchInput placeholder="Search by name or email"/>
-        
+        <SearchInput placeholder="Search by name or email" />
 
         {/* table */}
         <div className="bg-dash-secondary-bg rounded-[16px] pb-1 w-full overflow-hidden">
@@ -102,7 +110,7 @@ export default function ConsultationOverview() {
           </QueryStateHandler>
         </div>
         <div>
-          <Pagination totalPages={data?.meta?.totalPages ?? 1}  />
+          <Pagination totalPages={data?.meta?.totalPages ?? 1} />
         </div>
       </div>
 

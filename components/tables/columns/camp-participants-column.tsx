@@ -12,20 +12,22 @@ export interface CampParticipantRow {
   phone: string;
   tier: string;
   amountPaid: number;
+  currency: string;
   payment: string;
   emergencyContact?: any;
 }
 
 const CampParticipantsColumn = (
-  onViewDetails: (id: string) => void
+  onViewDetails: (id: string) => void,
 ): ColumnDef<CampParticipantRow>[] => [
   {
     accessorKey: "name",
     header: "Name",
     cell: ({ row }) => (
       <div className="flex flex-col">
-        <span className="font-medium text-primary-text">{row.original.name}</span>
-       
+        <span className="font-medium text-primary-text">
+          {row.original.name}
+        </span>
       </div>
     ),
   },
@@ -48,7 +50,7 @@ const CampParticipantsColumn = (
     header: "Amount Paid",
     cell: ({ row }) => (
       <span className="text-xs font-medium">
-        {formatCurrency(row.original.amountPaid || 0)}
+        {formatCurrency(row.original.amountPaid || 0, row.original.currency)}
       </span>
     ),
   },
@@ -59,7 +61,9 @@ const CampParticipantsColumn = (
       const status = row.original.payment?.toLowerCase();
       return (
         <Badge
-          variant={status === "paid" || status === "success" ? "success" : "warning"}
+          variant={
+            status === "paid" || status === "success" ? "success" : "warning"
+          }
         >
           {row.original.payment || "Pending"}
         </Badge>

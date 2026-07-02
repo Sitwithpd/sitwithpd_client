@@ -4,25 +4,30 @@ import Link from "next/link";
 
 export function CtaBanner() {
   return (
-    <section className="container mx-auto ">
-      <div className="w-full bg-footer-bg rounded-[10px] lg:rounded-[20px] px-5 md:px-12 md:py-20 lg:py-5 py-5 flex flex-col lg:flex-row gap-6 overflow-hidden border border-[#2A5A51]">
+    <section className="container mx-auto  mt-5">
+      <div className="w-full bg-footer-bg rounded-[10px] lg:rounded-[20px] px-5 md:px-12 md:py-20 lg:py-5 py-10 flex flex-col lg:flex-row gap-6 overflow-hidden border border-[#2A5A51]">
         {/* Left Content */}
         <div className="flex-1  flex flex-col items-center lg:items-start text-center lg:text-left  justify-center">
           <h2 className="text-[#EBECEB] heading-2 mb-4 max-w-md">
-            Join a Global Therapeutic Community
+            You Were Never Meant To Do Life Alone.
           </h2>
-          <p className="text-[#F7FBF6] text-xl sm:text-base leading-relaxed  mb-5 t">
-            Connect with thousands of individuals committed to presence-based
-            healing, emotional growth, and authentic personal development across
-            the globe.
+          <p className="text-[#F7FBF6] text-base leading-relaxed  mb-5 t">
+            <span className="text-[#A8D675]">
+              The journey becomes lighter when it's shared with fellow
+              travellers.
+            </span>{" "}
+            <br />
+            The Sit With PD Community is more than a network. It's a place of
+            belonging — where healing happens in connection and transformation
+            grows together.
           </p>
           <div>
-            <Link href={"/membership"}>
+            <Link href={"/community"}>
               <Button
                 variant="regular"
                 className="bg-[#60935D] hover:bg-[#4E7D4C] text-white border-none h-11 px-6 text-sm font-medium gap-2"
               >
-                Explore membership <CaretRight />
+                Join our community <CaretRight />
               </Button>
             </Link>
           </div>
