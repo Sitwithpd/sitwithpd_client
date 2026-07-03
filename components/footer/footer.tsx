@@ -143,6 +143,12 @@ export function Footer() {
               >
                 Blog
               </Link>
+              <Link
+                href="/testimonials"
+                className="text-[#F8FFF5] hover:underline  text-sm transition-all"
+              >
+                Testimonials
+              </Link>
             </div>
 
             {/* Company Links */}
