@@ -9,6 +9,7 @@ import Philosphy from "@/components/pages/homepage/philosphy";
 import Methodology from "@/components/pages/homepage/methodology";
 import Resources from "@/components/pages/homepage/resources";
 import { CtaBanner } from "@/components/pages/homepage/cta-banner";
+import HomeBlogs from "@/components/pages/homepage/home-blogs";
 
 export const metadata: Metadata = {
   title: "Sit With PD — Presence Changes Everything",
@@ -42,15 +43,16 @@ export default function Home() {
       <Hero />
       <div className="w-11/12 mx-auto">
         <WhoWeAre />
-        <WhySitWithPd/>
-        <Philosphy/>
-        <Methodology/>
+        <WhySitWithPd />
+        <Philosphy />
+        <Methodology />
         <HowWeHelp />
         <Resources />
 
         <OurTeam />
         <Testimonials />
-        <CtaBanner/>
+        <HomeBlogs />
+        <CtaBanner />
         <div className="pb-10" />
       </div>
     </div>

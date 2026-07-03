@@ -6,24 +6,31 @@ import { CheckCircle2 } from "lucide-react";
 
 export function RetreatBenefits() {
   const benefits = [
-    "Pause and reconnect with yourself",
-    "Experience guided reflective practices",
-    "Build meaningful connections",
-    "Gain clarity and emotional balance",
+    "You're feeling stuck, overwhelmed, or disconnected from yourself",
+    "You're seeking clarity about the next chapter of your life",
+    "You want deeper self-understanding, not just productivity hacks",
+    "You're craving an intentional pause from the pace of everyday life"
   ];
 
   const { isMobile } = useMobile();
 
   return (
-    <section className="py-10 lg:py-24 w-full">
+    <section className="py-10  w-full">
       <div className="container mx-auto  flex flex-col items-center text-center">
-        <Pill text="Why attend the camp" />
-        <h2 className="heading-2 mb-8 lg:mb-16 max-w-6xl">
-          A presence-based retreat designed to help you pause, reflect, and
-          reconnect with yourself in a calm and supportive environment
-        </h2>
+        <div className="mb-8 lg:mb-16">
+        <Pill text="Who this is for" />
+        <h2 className="heading-2  max-w-6xl">
+          If any of this sounds familiar
 
-        <div className="flex  justify-center gap-4 w-full bg-[#E9EDF0] py-8 rounded-[24px]  max-w-3xl items-center">
+        </h2>
+        <p className="text-base text-black mt-2">
+          You don't need to have it figured out. You just need to be willing to pause.
+
+        </p>
+
+        </div>
+
+        <div className="flex  justify-center gap-4 w-full bg-[#E9EDF0] py-8 rounded-[24px]  max-w-4xl items-center">
           <div className="w-11/12 md:w-10/12 mx-auto flex flex-col gap-5">
             {benefits.map((benefit, idx) => {
               return (
@@ -41,7 +48,7 @@ export function RetreatBenefits() {
                 >
                   <div className="flex items-center gap-2 md:gap-4">
                     <CheckCircle2 className="w-7 h-7 text-white fill-[#1AAB7A]" />
-                    <span className="text-black text-start md:text-center font-medium text-[16px] md:text-[18px]">
+                    <span className="text-black text-start   text-base ">
                       {benefit}
                     </span>
                   </div>

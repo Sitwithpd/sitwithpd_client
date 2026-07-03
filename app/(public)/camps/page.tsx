@@ -12,13 +12,16 @@ export const metadata: Metadata = {
 import CampServices from "@/components/pages/camps/camp-services";
 import { Suspense } from "react";
 import CardSkeletons from "@/components/skeletons/card-skeletons";
+import { WhatTheCampIs } from "@/components/pages/camps/what-the camp-is";
+import CampJourney from "@/components/pages/camps/camp-journey";
 
 export default function CampsPage() {
   return (
     <div className="flex flex-col items-center  w-full overflow-x-hidden">
       <CampHero />
       <div className="w-11/12 mx-auto">
-        <RetreatBenefits />
+        <WhatTheCampIs />
+        <CampJourney />
       </div>
       <GlimpseGallery />
       <Suspense fallback={<CardSkeletons />}>
@@ -26,7 +29,9 @@ export default function CampsPage() {
           <CampServices />
         </div>
       </Suspense>
-      <div className="w-11/12 mx-auto"></div>
+      <div className="w-11/12 mx-auto">
+        <RetreatBenefits />
+      </div>
       {/* <BookingForm /> */}
       <div className="w-full bg-white ">
         <Testimonials />
