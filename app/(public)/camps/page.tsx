@@ -14,6 +14,7 @@ import { Suspense } from "react";
 import CardSkeletons from "@/components/skeletons/card-skeletons";
 import { WhatTheCampIs } from "@/components/pages/camps/what-the camp-is";
 import CampJourney from "@/components/pages/camps/camp-journey";
+import { CampCACta } from "@/components/pages/camps/camp-ca";
 
 export default function CampsPage() {
   return (
@@ -35,6 +36,7 @@ export default function CampsPage() {
       {/* <BookingForm /> */}
       <div className="w-full bg-white ">
         <Testimonials />
+        <CampCACta />
       </div>
 
       {/* Shared CTA Block with custom props */}

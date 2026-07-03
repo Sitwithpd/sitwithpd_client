@@ -45,7 +45,7 @@ export default function HomeBlogs() {
   } as const;
 
   return (
-    <section className="py-20 bg-gradient-to-b from-[#FAFDFB] to-[#F1F6F3] w-full rounded-[32px] my-16 px-6 md:px-10 border border-[#E3ECE6] shadow-[0px_10px_40px_rgba(202,218,206,0.15)] relative overflow-hidden">
+    <section className="py-20 bg-linear-to-b from-[#FAFDFB] to-[#F1F6F3] w-full rounded-[32px] my-16 px-4 md:px-10 border border-[#E3ECE6] shadow-[0px_10px_40px_rgba(202,218,206,0.15)] relative overflow-hidden">
       {/* Decorative colored glow spheres */}
       <div className="absolute -top-32 -left-32 w-96 h-96 rounded-full bg-[#EAF2ED]/40 blur-3xl pointer-events-none" />
       <div className="absolute -bottom-32 -right-32 w-96 h-96 rounded-full bg-[#E6F3EE] blur-3xl pointer-events-none" />
@@ -128,19 +128,19 @@ export default function HomeBlogs() {
                   {blog.excerpt}
                 </p>
 
-                <div className="pt-5 border-t border-[#EDF1EE] flex items-center justify-between mt-auto">
-                  <div className="flex flex-col">
+                <div className="pt-5 border-t border-[#EDF1EE] flex items-end justify-between mt-auto">
+                  <div className="flex flex-col flex-1 min-w-0">
                     <span className="text-[10px] text-[#8C9C8F] uppercase tracking-wider font-semibold">
                       Author
                     </span>
-                    <span className="text-xs font-bold text-[#202939]">
+                    <span className="text-xs font-bold text-[#202939] truncate w-8/12 lg:w-10/12 ">
                       {blog.authorDisplayName || "Facilitator"}
                     </span>
                   </div>
 
                   <Link
                     href={`/blog/${blog.slug}`}
-                    className="inline-flex items-center gap-1 text-sm font-semibold text-brand-green hover:text-brand-green/80 group/link transition-colors"
+                    className="inline-flex items-center w-fit shrink-0 gap-1 text-sm font-semibold text-brand-green hover:text-brand-green/80 group/link transition-colors"
                   >
                     Read Post
                     <svg
