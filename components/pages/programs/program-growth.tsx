@@ -69,6 +69,7 @@ export default function ProgramGrowth({
         <h2 className="heading-2  font-normal text-center ">
           Structured Growth Programmes
         </h2>
+        <p className="text-center text-base text-[#263016] mt-2">Three carefully designed pathways  each tailored to a distinct season of life, offering guided support, emotional awareness, and clarity for intentional growth.</p>
       </div>
 
       {/* Grid */}
