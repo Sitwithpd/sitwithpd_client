@@ -18,7 +18,7 @@ export function CtaBanner() {
             </span>{" "}
             <br />
             The Sit With PD Community is more than a network. It's a place of
-            belonging — where healing happens in connection and transformation
+            belonging where healing happens in connection and transformation
             grows together.
           </p>
           <div>

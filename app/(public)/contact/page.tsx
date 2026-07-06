@@ -27,7 +27,7 @@ export default function ContactPage() {
           </h1>
         </div>
       </div>
-      
+
       {/* Main content section */}
       <ContactBody />
     </div>

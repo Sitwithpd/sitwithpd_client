@@ -30,7 +30,7 @@ export function ProgramHero() {
       alt: "Structured Growth Roadmap",
       title: <p>Understand<br className="hidden lg:block"/> Your Emotions.</p>,
       description:
-        "Step-by-step programs to help you identify, process, and respond to what you feel — with greater clarity and self-awareness, every week.",
+        "Step-by-step programs to help you identify, process, and respond to what you feel with greater clarity and self-awareness, every week.",
       imageClass: "object-cover object-center",
       titleWidth: "w-full sm:w-[60%] md:w-[50%] lg:w-[60%]",
     },

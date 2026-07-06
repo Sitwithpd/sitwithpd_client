@@ -5,12 +5,61 @@ export const metadata: Metadata = {
   title:
     "Clementina Adetoye — Director of Transformational Experiences | Sit With PD",
   description:
-    "Clementina Adetoye is an accomplished educationist, transformational leader, entrepreneur, and passionate advocate for human development. Director of Transformational Experiences at Sit With PD.",
+    "Clementina Adetoye is an accomplished educationist, transformational leader, and entrepreneur with nearly two decades of distinguished service in human development. Director of Transformational Experiences at Sit With PD.",
+  openGraph: {
+    title:
+      "Clementina Adetoye — Director of Transformational Experiences | Sit With PD",
+    description:
+      "Nearly two decades in education and human development. Clementina Adetoye designs and curates impactful experiences that inspire growth, foster meaningful connections, and guide individuals toward Purpose, Direction, and Personal Discovery.",
+    url: "https://sitwithpd.com/team/clementina-adetoye",
+    images: [
+      {
+        url: "/images/og-image.png",
+        width: 1200,
+        height: 630,
+        alt: "Clementina Adetoye",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title:
+      "Clementina Adetoye — Director of Transformational Experiences | Sit With PD",
+    description:
+      "Educationist, transformational leader, and entrepreneur helping individuals navigate their journey towards greater purpose, direction, and personal discovery at Sit With PD.",
+    images: ["/images/og-image.png"],
+  },
 };
 
 export default function ClementinaAdetoyePage() {
   return (
     <div className="flex flex-col min-h-screen">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "Person",
+            name: "Clementina Adetoye",
+            url: "https://sitwithpd.com/team/clementina-adetoye",
+            jobTitle: "Director of Transformational Experiences",
+            worksFor: {
+              "@type": "Organization",
+              name: "Sit With PD",
+              url: "https://sitwithpd.com",
+            },
+            description:
+              "Accomplished educationist, transformational leader, and entrepreneur with nearly two decades of distinguished service in human development. Designs and curates impactful experiences that inspire growth, foster meaningful connections, and guide individuals toward Purpose, Direction, and Personal Discovery.",
+            knowsAbout: [
+              "Human Development",
+              "Transformational Leadership",
+              "Education",
+              "Entrepreneurship",
+              "Personal Growth",
+            ],
+          }),
+        }}
+      />
       <div className="w-11/12 max-w-5xl mx-auto py-16 lg:py-24">
         {/* Profile Header */}
         <div className="flex flex-col sm:flex-row gap-8 mb-10">

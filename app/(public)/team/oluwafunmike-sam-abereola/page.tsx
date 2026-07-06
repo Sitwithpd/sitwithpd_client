@@ -5,12 +5,59 @@ export const metadata: Metadata = {
   title:
     "Oluwafunmike SAM-ABEREOLA — Co-Founder & Chief Finance Officer | Sit With PD",
   description:
-    "Oluwafunmike SAM-ABEREOLA is a visionary business leader, accomplished accountant, prolific writer, and passionate advocate for purposeful living. Co-Founder & Chief Finance Officer of Sit With PD.",
+    "Oluwafunmike SAM-ABEREOLA is a visionary business leader, accomplished accountant, prolific writer, and passionate advocate for purposeful living and thriving families. Co-Founder & CFO of Sit With PD with 13+ years of distinguished banking experience.",
+  openGraph: {
+    title: "Oluwafunmike SAM-ABEREOLA — Co-Founder & CFO | Sit With PD",
+    description:
+      "Co-Founder of Sit With PD. Visionary business leader and financial expert helping individuals discover clarity, resilience, and meaningful direction in life.",
+    url: "https://sitwithpd.com/team/oluwafunmike-sam-abereola",
+    images: [
+      {
+        url: "/images/og-image.png",
+        width: 1200,
+        height: 630,
+        alt: "Oluwafunmike SAM-ABEREOLA",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Oluwafunmike SAM-ABEREOLA — Co-Founder & CFO | Sit With PD",
+    description:
+      "Co-Founder & CFO of Sit With PD. Advocate for purposeful living, thriving families, and intentional personal growth.",
+    images: ["/images/og-image.png"],
+  },
 };
 
 export default function OluwafunmikePage() {
   return (
     <div className="flex flex-col min-h-screen">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "Person",
+            name: "Oluwafunmike SAM-ABEREOLA",
+            url: "https://sitwithpd.com/team/oluwafunmike-sam-abereola",
+            jobTitle: "Co-Founder & Chief Finance Officer",
+            worksFor: {
+              "@type": "Organization",
+              name: "Sit With PD",
+              url: "https://sitwithpd.com",
+            },
+            description:
+              "Visionary business leader, accomplished accountant, prolific writer, and passionate advocate for purposeful living and thriving families. Co-Founder & CFO of Sit With PD, helping individuals discover clarity, resilience, and meaningful direction in life.",
+            knowsAbout: [
+              "Financial Leadership",
+              "Purposeful Living",
+              "Personal Development",
+              "Entrepreneurship",
+              "Family Values",
+            ],
+          }),
+        }}
+      />
       <div className="w-11/12 max-w-5xl mx-auto py-16 lg:py-24">
         {/* Profile Header */}
         <div className="flex flex-col sm:flex-row gap-8 mb-10">

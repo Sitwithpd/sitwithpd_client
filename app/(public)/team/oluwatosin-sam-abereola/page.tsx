@@ -5,12 +5,61 @@ export const metadata: Metadata = {
   title:
     "Oluwatosin SAM-ABEREOLA — Founder & Chief Purpose Officer | Sit With PD",
   description:
-    "Oluwatosin SAM-ABEREOLA is a transformational architect, serial entrepreneur, prolific writer, keynote speaker, and passionate advocate for human potential. Founder & Chief Purpose Officer of Sit With PD.",
+    "Oluwatosin SAM-ABEREOLA is a transformational architect, serial entrepreneur, keynote speaker, AWS Certified Solutions Architect, and the Founder & Chief Purpose Officer of Sit With PD. With 26+ years of leadership, he helps individuals discover Purpose, Direction, and Personal Discovery.",
+  openGraph: {
+    title:
+      "Oluwatosin SAM-ABEREOLA — Founder & Chief Purpose Officer | Sit With PD",
+    description:
+      "Founder of Sit With PD. Transformational architect, keynote speaker, and passionate advocate for human potential who helps individuals navigate uncertainty and live purposefully.",
+    url: "https://sitwithpd.com/team/oluwatosin-sam-abereola",
+    images: [
+      {
+        url: "/images/og-image.png",
+        width: 1200,
+        height: 630,
+        alt: "Oluwatosin SAM-ABEREOLA",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title:
+      "Oluwatosin SAM-ABEREOLA — Founder & Chief Purpose Officer | Sit With PD",
+    description:
+      "Transformational architect, serial entrepreneur, and Founder of Sit With PD — Purpose. Direction. Personal Discovery.",
+    images: ["/images/og-image.png"],
+  },
 };
 
 export default function OluwatosinPage() {
   return (
     <div className="flex flex-col min-h-screen">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "Person",
+            name: "Oluwatosin SAM-ABEREOLA",
+            url: "https://sitwithpd.com/team/oluwatosin-sam-abereola",
+            jobTitle: "Founder & Chief Purpose Officer",
+            worksFor: {
+              "@type": "Organization",
+              name: "Sit With PD",
+              url: "https://sitwithpd.com",
+            },
+            description:
+              "Transformational architect, serial entrepreneur, prolific writer, keynote speaker, AWS Certified Solutions Architect, and passionate advocate for human potential. Founder of Sit With PD, committed to helping individuals discover Purpose, Direction, and Personal Discovery.",
+            knowsAbout: [
+              "Personal Development",
+              "Leadership",
+              "Purpose Discovery",
+              "Resilience",
+              "Technology",
+            ],
+          }),
+        }}
+      />
       <div className="w-11/12 max-w-5xl mx-auto py-16 lg:py-24">
         {/* Profile Header */}
         <div className="flex flex-col sm:flex-row gap-8 mb-10">

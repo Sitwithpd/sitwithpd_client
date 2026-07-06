@@ -29,7 +29,7 @@ export default function Philosphy() {
         <div className="text-base text-[#664101] leading-6 space-y-7 lg:text-center mt-10">
           <p>
             Many of life's deepest answers are not found by searching farther,
-            but by journeying inward — where clarity, purpose, and
+            but by journeying inward where clarity, purpose, and
             transformation begin.
           </p>
           <p>
@@ -46,7 +46,7 @@ export default function Philosphy() {
           <p>
             Through Purpose, Direction, and Personal Discovery, we help
             individuals navigate life's challenges with greater understanding,
-            intentionality, and confidence — because when you understand
+            intentionality, and confidence because when you understand
             yourself better, you live better.
           </p>
         </div>

@@ -4,12 +4,59 @@ import { Metadata } from "next";
 export const metadata: Metadata = {
   title: "Kola OLAJIDE — Director of Execution & Integration | Sit With PD",
   description:
-    "Kola OLAJIDE is a distinguished engineering professional, strategic operations leader, leadership trainer, and renewable energy expert. Director of Execution & Integration at Sit With PD.",
+    "Kola OLAJIDE is a distinguished engineering professional, strategic operations leader, renewable energy expert, and leadership trainer. Director of Execution & Integration at Sit With PD, translating purpose into meaningful impact.",
+  openGraph: {
+    title: "Kola OLAJIDE — Director of Execution & Integration | Sit With PD",
+    description:
+      "Engineering professional, solar energy expert, and leadership trainer who ensures Sit With PD's vision is supported by effective systems, operational excellence, and transformational experiences.",
+    url: "https://sitwithpd.com/team/kola-olajide",
+    images: [
+      {
+        url: "/images/og-image.png",
+        width: 1200,
+        height: 630,
+        alt: "Kola OLAJIDE",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Kola OLAJIDE — Director of Execution & Integration | Sit With PD",
+    description:
+      "Director of Execution & Integration at Sit With PD. Engineering leader committed to translating purpose into meaningful achievement.",
+    images: ["/images/og-image.png"],
+  },
 };
 
 export default function KolaOlajidePage() {
   return (
     <div className="flex flex-col min-h-screen">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "Person",
+            name: "Kola OLAJIDE",
+            url: "https://sitwithpd.com/team/kola-olajide",
+            jobTitle: "Director of Execution & Integration",
+            worksFor: {
+              "@type": "Organization",
+              name: "Sit With PD",
+              url: "https://sitwithpd.com",
+            },
+            description:
+              "Distinguished engineering professional, strategic operations leader, renewable energy expert, and leadership trainer. Translates purpose into action at Sit With PD through effective systems, operational excellence, and transformational experiences.",
+            knowsAbout: [
+              "Engineering",
+              "Renewable Energy",
+              "Operations Leadership",
+              "Mentoring",
+              "Strategic Execution",
+            ],
+          }),
+        }}
+      />
       <div className="w-11/12 max-w-5xl mx-auto py-16 lg:py-24">
         {/* Profile Header */}
         <div className="flex flex-col sm:flex-row gap-8 mb-10">

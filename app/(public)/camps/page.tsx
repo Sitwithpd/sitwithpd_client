@@ -5,9 +5,30 @@ import { CampHero } from "@/components/pages/camps/hero";
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Therapeutic Camps | Awareness & Connection",
+  title: "Therapeutic Camps — Pause, Reflect & Reconnect With Yourself",
   description:
-    "Join our immersive therapeutic camps. Build awareness, develop practical wellbeing habits, and connect with a community focused on growth and presence.",
+    "Join Sit With PD's immersive 3-day therapeutic retreat in Lagos, Nigeria. A small-group experience in nature designed for clarity, genuine connection, and lasting personal growth. Apply now.",
+  openGraph: {
+    title: "Therapeutic Camps — Pause, Reflect & Reconnect | Sit With PD",
+    description:
+      "Three days away from the noise. In nature, with people on the same journey, guided by those who have walked it too. Small-group therapeutic retreat held in Lagos, Nigeria.",
+    url: "https://sitwithpd.com/camps",
+    images: [
+      {
+        url: "/images/og-image.png",
+        width: 1200,
+        height: 630,
+        alt: "Sit With PD Therapeutic Camp",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Therapeutic Camps — Pause, Reflect & Reconnect",
+    description:
+      "An immersive 3-day therapeutic retreat for clarity, growth, and genuine connection. Held in Lagos, Nigeria at Gardenia Tropicana.",
+    images: ["/images/og-image.png"],
+  },
 };
 import CampServices from "@/components/pages/camps/camp-services";
 import { Suspense } from "react";
@@ -19,6 +40,36 @@ import { CampCACta } from "@/components/pages/camps/camp-ca";
 export default function CampsPage() {
   return (
     <div className="flex flex-col items-center  w-full overflow-x-hidden">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "Event",
+            name: "Sit With PD Therapeutic Camp",
+            description:
+              "A small-group, 3-day immersive therapeutic retreat designed to help individuals pause, reflect, and reconnect with themselves. Guided experiences focused on clarity, connection, and growth.",
+            url: "https://sitwithpd.com/camps",
+            location: {
+              "@type": "Place",
+              name: "Gardenia Tropicana",
+              address: {
+                "@type": "PostalAddress",
+                addressLocality: "Lagos",
+                addressCountry: "NG",
+              },
+            },
+            organizer: {
+              "@type": "Organization",
+              name: "Sit With PD",
+              url: "https://sitwithpd.com",
+            },
+            eventAttendanceMode:
+              "https://schema.org/OfflineEventAttendanceMode",
+            eventStatus: "https://schema.org/EventScheduled",
+          }),
+        }}
+      />
       <CampHero />
       <div className="w-11/12 mx-auto">
         <WhatTheCampIs />

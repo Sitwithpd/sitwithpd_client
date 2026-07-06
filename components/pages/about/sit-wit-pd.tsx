@@ -42,7 +42,7 @@ export function SitWithPD() {
   ];
 
   return (
-    <section className="container mx-auto  py-10 lg:py-20 flex flex-col lg:flex-row gap-10 md:gap-16 items-center max-w-6xl">
+    <section className="container mx-auto  py-10 lg:py-20 flex flex-col lg:flex-row gap-10 md:gap-16 items-center max-w-7xl">
       {/* Left Content */}
       <div className="flex-1 ">
         <h2 className="heading-2 mb-6">

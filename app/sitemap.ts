@@ -18,11 +18,16 @@ export default function sitemap(): MetadataRoute.Sitemap {
     "/terms",
     "/privacy-policy",
     "/refund-policy",
+    "/team/oluwatosin-sam-abereola",
+    "/team/oluwafunmike-sam-abereola",
+    "/team/clementina-adetoye",
+    "/team/kola-olajide",
+    "/team/temitope-bamidele",
   ].map((route) => ({
     url: `${siteUrl}${route}`,
     lastModified: new Date().toISOString(),
     changeFrequency: "monthly" as const,
-    priority: route === "" ? 1 : 0.8,
+    priority: route === "" ? 1 : route.startsWith("/team/") ? 0.7 : 0.8,
   }));
 
   // Blog dynamic routes

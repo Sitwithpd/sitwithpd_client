@@ -1,14 +1,12 @@
 import Image from "next/image";
 
 export function OurMission() {
-
-
   return (
-    <section className="container mx-auto  py-10 lg:py-20 flex flex-col lg:flex-row-reverse  gap-10 md:gap-16  items-center max-w-6xl">
+    <section className="container mx-auto  py-10 lg:py-20 flex flex-col lg:flex-row-reverse  gap-10 md:gap-16  items-center max-w-7xl">
       {/* Left Content */}
       <div className="flex-1  ">
         <h2 className="heading-2 mb-6">Founder's Story</h2>
-        <div className="text-black text-base leading-[140%] space-y-4 lg:h-125 overflow-y-auto scrollbar-hide">
+        <div className="text-black text-base leading-[140%] space-y-4 lg:h-125 overflow-y-auto mission-scrollbar pr-2">
           <p className=" ">
             There was a time when my life looked nothing like the vision I had
             imagined. If someone had told me then that one day I would be
@@ -63,8 +61,6 @@ export function OurMission() {
             ourselves long enough to hear them.
           </p>
         </div>
-
-     
       </div>
 
       {/* Right Image Placeholder */}
@@ -75,7 +71,7 @@ export function OurMission() {
             src="/images/founder.webp"
             alt="Our Mission"
             fill
-            className="object-cover rounded-[16px]"
+            className="object-cover object-top rounded-[16px]"
           />
         </div>
       </div>

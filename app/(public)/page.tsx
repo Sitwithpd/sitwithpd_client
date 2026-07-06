@@ -12,9 +12,30 @@ import { CtaBanner } from "@/components/pages/homepage/cta-banner";
 import HomeBlogs from "@/components/pages/homepage/home-blogs";
 
 export const metadata: Metadata = {
-  title: "Sit With PD — Presence Changes Everything",
+  title: "Sit With PD — Purpose. Direction. Personal Discovery.",
   description:
-    "Sit With PD is a global therapeutic network dedicated to presence-based healing, emotional transformation, and personal development. Start your journey today.",
+    "Sit With PD Global Therapeutic Network helps individuals gain clarity, build resilience, and live with greater purpose through reflective conversations, guided programmes, immersive camps, and meaningful community. Start your journey today.",
+  openGraph: {
+    title: "Sit With PD — Purpose. Direction. Personal Discovery.",
+    description:
+      "A global therapeutic network helping you gain clarity, build resilience, and live with greater purpose. Discover guided programmes, camps, consultations, and community.",
+    url: "https://sitwithpd.com",
+    images: [
+      {
+        url: "/images/og-image.png",
+        width: 1200,
+        height: 630,
+        alt: "Sit With PD",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Sit With PD — Purpose. Direction. Personal Discovery.",
+    description:
+      "Gain clarity, build resilience, and live with greater purpose. Guided programmes, camps, and one-on-one consultations.",
+    images: ["/images/og-image.png"],
+  },
 };
 
 export default function Home() {
@@ -27,10 +48,18 @@ export default function Home() {
             "@context": "https://schema.org",
             "@type": "Organization",
             name: "Sit With PD",
+            alternateName: "Sit With PD Global Therapeutic Network",
             url: "https://sitwithpd.com",
             logo: "https://sitwithpd.com/images/primary-logo.png",
             description:
-              "A global therapeutic network for presence-based healing and emotional transformation.",
+              "Sit With PD Global Therapeutic Network is a transformational platform dedicated to helping individuals gain clarity, build resilience, and live with greater purpose through reflective conversations, therapeutic experiences, guided programmes, and meaningful community.",
+            foundingDate: "2020",
+            founder: {
+              "@type": "Person",
+              name: "Oluwatosin SAM-ABEREOLA",
+              jobTitle: "Founder & Chief Purpose Officer",
+            },
+            areaServed: "Global",
             sameAs: [
               "https://www.youtube.com/@sitwithpd",
               "https://www.tiktok.com/@sitwithpd?_r=1&_t=ZN-95g0zMOaKzW",

@@ -18,7 +18,7 @@ export function TherapeuticApproach() {
     <section className="container  mx-auto  py-18 flex flex-col items-center">
       {/* <h2 className="heading-2 text-center mb-7 lg:mb-16">Our Therapeutic Approach</h2> */}
 
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-8 w-full max-w-6xl">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-8 w-full max-w-7xl">
         {/* Left Card */}
         <div className="bg-[#E7F0E733] border border-[#C9EDC7] rounded-[4px] p-5">
           <h3 className="heading-2  mb-6">Our Vision</h3>
@@ -59,7 +59,7 @@ export function TherapeuticApproach() {
             </p>
             <p>
               We exist to help people move beyond merely surviving and into
-              intentional living — unlocking their potential, embracing their
+              intentional living thereby unlocking their potential, embracing their
               journey, and becoming the person they were created to be. Because
               we believe that when people understand themselves more deeply,
               they gain the confidence, direction, and courage to transform

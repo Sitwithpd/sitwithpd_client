@@ -102,14 +102,14 @@ h6 {
 
   /* custom colors */
   --primary-green: #445b1c;
-  --secondary-light-green: #A8D675; 
+  --secondary-light-green: #a8d675;
   --primary-orange: #fda428;
   --primary-orange-light: #fbbc041a;
   --primary-dark-theme-footer: #1f4842;
-  --primary-regular-button: #60935D;
+  --primary-regular-button: #60935d;
   --primary-text-color: #344054;
   --secondary-text-color: ##475467;
-  --brand-red: #B42318;
+  --brand-red: #b42318;
 
   --dash-secondary-bg: #fff;
 }
@@ -149,7 +149,7 @@ h6 {
 
   --dash-secondary-bg: #262626;
 
-  --primary-text-color: #A1A1A1;
+  --primary-text-color: #a1a1a1;
 }
 
 @layer base {
@@ -162,11 +162,10 @@ h6 {
   html {
     font-family: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
   }
-
 }
 
 @layer components {
-    .heading-2 {
+  .heading-2 {
     @apply font-medium text-[1.625rem] sm:text-[1.5rem] lg:text-[1.8rem] xl:text-[2rem] leading-snug lg:leading-9.5 text-[#131313];
   }
 
@@ -174,8 +173,8 @@ h6 {
     @apply text-primary-text font-semibold text-lg;
   }
   .ProseMirror {
-  @apply text-primary-text
-}
+    @apply text-primary-text;
+  }
 }
 
 /* Transition styles  */
@@ -211,23 +210,43 @@ html[data-direction="back"] ::view-transition-new(root) {
 }
 
 @keyframes slide-in-from-right {
-  from { transform: translateX(100%); }
-  to { transform: translateX(0); }
+  from {
+    transform: translateX(100%);
+  }
+  to {
+    transform: translateX(0);
+  }
 }
 
 @keyframes slide-out-to-right {
-  from { transform: translateX(0); }
-  to { transform: translateX(100%); }
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(100%);
+  }
 }
 
 @keyframes push-out {
-  from { transform: translateX(0); filter: brightness(1); }
-  to { transform: translateX(-30%); filter: brightness(0.8); }
+  from {
+    transform: translateX(0);
+    filter: brightness(1);
+  }
+  to {
+    transform: translateX(-30%);
+    filter: brightness(0.8);
+  }
 }
 
 @keyframes pop-in-from-left {
-  from { transform: translateX(-30%); filter: brightness(0.8); }
-  to { transform: translateX(0); filter: brightness(1); }
+  from {
+    transform: translateX(-30%);
+    filter: brightness(0.8);
+  }
+  to {
+    transform: translateX(0);
+    filter: brightness(1);
+  }
 }
 
 /* CSS Styles  */
@@ -238,6 +257,30 @@ html[data-direction="back"] ::view-transition-new(root) {
 
 .scrollbar-hide::-webkit-scrollbar {
   display: none;
+}
+
+/* Mission section slim custom scrollbar */
+.mission-scrollbar {
+  scrollbar-width: thin;
+  scrollbar-color: #445b1c transparent;
+}
+
+.mission-scrollbar::-webkit-scrollbar {
+  width: 4px;
+}
+
+.mission-scrollbar::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.mission-scrollbar::-webkit-scrollbar-thumb {
+  background-color: #a8d675;
+  border-radius: 999px;
+  transition: background-color 0.2s ease;
+}
+
+.mission-scrollbar::-webkit-scrollbar-thumb:hover {
+  background-color: #445b1c;
 }
 
 /* react-phone-number-input custom styles */
@@ -253,8 +296,8 @@ html[data-direction="back"] ::view-transition-new(root) {
   gap: 0.25rem;
   padding: 0 0.75rem;
   height: 2.75rem;
-  border: 0.75px solid #EAECF0;
-  background: #F2F4F7;
+  border: 0.75px solid #eaecf0;
+  background: #f2f4f7;
   border-radius: 5px;
   cursor: pointer;
   flex-shrink: 0;

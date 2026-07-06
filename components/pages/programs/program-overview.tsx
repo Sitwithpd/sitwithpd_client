@@ -31,7 +31,7 @@ export function ProgramOverview() {
     },
     {
       title: "Discover",
-      description: "",
+      description: "Develop deeper self-awareness and uncover the patterns, beliefs, and possibilities shaping your journey toward who you truly are.",
     },
     {
       title: "Transform",

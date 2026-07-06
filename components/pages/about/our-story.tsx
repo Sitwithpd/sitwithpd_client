@@ -85,7 +85,7 @@ export function OurStory() {
           transformation can take place.
         </p>
 
-        <div className="flex flex-col gap-6 w-full max-w-6xl bg-[#E9EDF0] py-10 border border-[#DEDEDE] rounded-[16px] relative ">
+        <div className="flex flex-col gap-6 w-full max-w-7xl bg-[#E9EDF0] py-10 border border-[#DEDEDE] rounded-[16px] relative ">
           {steps.map((step, idx) => (
             <div
               key={idx}
