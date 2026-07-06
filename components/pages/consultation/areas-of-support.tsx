@@ -6,7 +6,7 @@ const areas = [
   {
     title: "Initial Assessment",
     description:
-      "Whatever the concerns bringing you to therapy, we start by making sense of everything going on for you so that your sessions are structured and progressive.",
+      "We start by understanding your current situation, challenges, and what brings you to seek support. This helps us create a personalized approach.",
     icon: (
       <div className="bg-[#ECFDF5] h-12 w-12 flex justify-center items-center rounded-[10px]">
         <svg
@@ -31,7 +31,7 @@ const areas = [
   {
     title: "Emotional Healing",
     description:
-      "Work through past hurts, develop secure and healthy coping mechanisms and build a foundation for greater emotional resilience.",
+      "Work through emotional patterns, trauma, and blocks that may be limiting your growth with a compassionate, skilled professional.",
     icon: (
       <div className="bg-[#F0FDFA] h-12 w-12 flex justify-center items-center rounded-[10px]">
         <svg
@@ -77,7 +77,7 @@ const areas = [
   {
     title: "Ongoing Support",
     description:
-      "Whether you are adapting to a life transition, or facing on-going challenges, you are not alone. We support you on your journey.",
+      "Build a consistent practice with regular sessions that keep you accountable, motivated, and supported on your journey.",
     icon: (
       <div className="bg-[#EFF6FF] h-12 w-12 flex justify-center items-center rounded-[10px]">
         <svg
@@ -156,9 +156,9 @@ const areas = [
     bgColor: "bg-[#EFF8FF]",
   },
   {
-    title: "Trauma Informed Care",
+    title: "Personal Development",
     description:
-      "Compassionate care that prioritizes your safety, validates your experiences, and empowers you to build resilience.",
+      "Get guidance on clarifying your goals, building confidence, and creating actionable steps toward your vision of a better life.",
     icon: (
       <div className="bg-[#F0FDF4] h-12 w-12 flex justify-center items-center rounded-[10px]">
         <svg
@@ -202,9 +202,9 @@ const areas = [
     bgColor: "bg-[#EBFDF3]",
   },
   {
-    title: "Parent Education",
+    title: "Life Transitions",
     description:
-      "Guidance and skills to empower you as a parent. Learn effective managing skills, foster boundaries and deeper connections.",
+      "Navigate major life changes, decisions, and transitions with support and clarity from someone who truly understands.",
     icon: (
       <div className="bg-[#FAF5FF] h-12 w-12 flex justify-center items-center rounded-[10px]">
         <svg
@@ -227,9 +227,9 @@ const areas = [
     bgColor: "bg-[#F4F3FF]",
   },
   {
-    title: "Child and Youth Wellness",
+    title: "Relationship Guidance",
     description:
-      "A specific focus for children and youth, we provide a safe space for them to express themselves, understand emotions, and build self esteem.",
+      "Improve communication, build healthier boundaries, and develop deeper, more authentic relationships with others.",
     icon: (
       <div className="bg-[#FFFBEB] h-12 w-12 flex justify-center items-center rounded-[10px]">
         <svg
@@ -281,7 +281,7 @@ export function AreasOfSupport() {
   } as const;
 
   return (
-    <section className="py-10 lg:py-24">
+    <section className="py-10 lg:pt-24 ">
       <div className="container mx-auto  flex flex-col items-center text-center">
         <Pill text="What We Offer" className="mb-4" />
         <h2 className="heading-2 mb-12 max-w-2xl">

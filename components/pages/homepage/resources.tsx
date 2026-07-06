@@ -11,9 +11,8 @@ export default function Resources({ showBtn = true }: { showBtn?: boolean }) {
 
       {/* Heading */}
       <h2 className=" text-center heading-2 ">
-        Find the support you need without feeling overwhelmed.{" "}
-        <br className="sm:hidden md:block" /> Take simple steps toward a
-        healthier, more balanced life
+        Access our Purpose Starter Pack and Company Brochure to learn more about our approach, programmes, and how Sit-With-PD supports purposeful personal growth.
+
       </h2>
 
       <div className="flex flex-col lg:flex-row rounded-[10px] lg:mt-10 mt-5 overflow-hidden w-full ">

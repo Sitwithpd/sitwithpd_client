@@ -16,9 +16,9 @@ export default function TemitopeBamidelePage() {
         <div className="flex flex-col sm:flex-row gap-8 mb-10">
           {/* Photo */}
           <div className="shrink-0">
-            <div className="w-[160px] h-[200px] sm:w-[180px] sm:h-[220px] relative overflow-hidden rounded-md border border-[#DEDEDE]">
+            <div className="w-[220px] sm:w-[280px] aspect-square relative overflow-hidden rounded-md border border-[#DEDEDE]">
               <Image
-                src="/images/team-4.png"
+                src="/images/bami.png"
                 alt="Temitope BAMIDELE"
                 fill
                 className="object-cover object-top"
@@ -28,7 +28,7 @@ export default function TemitopeBamidelePage() {
           </div>
 
           {/* Name, Role & Intro */}
-          <div className="flex flex-col justify-start gap-3">
+          <div className="flex flex-col justify-end gap-3">
             <div>
               <h1 className="text-xl sm:text-2xl font-semibold text-[#181D27]">
                 Temitope BAMIDELE

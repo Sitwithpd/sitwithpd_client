@@ -25,7 +25,7 @@ const processSteps = [
 
 export function ProcessCards() {
   return (
-    <section className="py-10 lg:py-24 bg-white flex flex-col items-center">
+    <section className="py-10 lg:pb-24  bg-white flex flex-col items-center">
       <div className="container mx-auto text-center flex flex-col items-center">
         <Pill text="How It Works" className="mb-4" />
         <h2 className="heading-2 mb-8 lg:mb-16 max-w-2xl">
@@ -36,7 +36,7 @@ export function ProcessCards() {
           {processSteps.map((item, index) => (
             <div 
               key={index} 
-              className="bg-[#314C14] flex flex-col rounded-[16px] px-5 py-6 lg:p-8 min-[250px] lg:min-h-75"
+              className="bg-[#314C14] flex flex-col rounded-[16px] px-5 py-6 lg:p-6 min-[250px] lg:min-h-75"
             >
               <div className="w-10.5 h-10.5 rounded-full bg-secondary-green flex items-center justify-center text-[#30430E] font-medium text-lg mb-6">
                 {item.step}

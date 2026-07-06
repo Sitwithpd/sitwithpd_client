@@ -5,6 +5,7 @@ import { ProcessCards } from "@/components/shared/process-cards";
 import { Testimonials } from "@/components/pages/homepage/testimonials";
 import { ConsultationCta } from "@/components/pages/consultation/consultation-cta";
 import { Metadata } from "next";
+import Resources from "@/components/pages/homepage/resources";
 
 export const metadata: Metadata = {
   title: "Professional Therapeutic Consultation",
@@ -36,8 +37,9 @@ export default function ConsultationPage() {
       <Hero />
       <div className="w-11/12 mx-auto">
         <AreasOfSupport />
-        <ConsultationServices />
         <ProcessCards />
+        <Resources  />
+        <ConsultationServices />
       </div>
 
       {/* Testimonials section */}

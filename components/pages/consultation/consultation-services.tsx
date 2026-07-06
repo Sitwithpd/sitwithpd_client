@@ -107,8 +107,8 @@ export function ConsultationServices() {
     data?.data.filter((service) => service.calBookingUrl !== null) || [];
 
   return (
-    <section className="py-20 lg:pt-0 bg-white" id="consultation-cta">
-      <div className="container mx-auto px-4 lg:px-8 sm:max-w-[400px] md:max-w-6xl flex flex-col items-center">
+    <section className="py-20 lg:pt-20  bg-white" id="consultation-cta">
+      <div className="container mx-auto px-4 sm:max-w-[400px] md:max-w-7xl flex flex-col items-center">
         <div className="flex flex-col items-center text-center mb-16">
           <Pill text="Our Services" className="mb-4" />
           <h2 className="heading-2 max-w-2xl">

@@ -14,10 +14,10 @@ export default function KolaOlajidePage() {
         {/* Profile Header */}
         <div className="flex flex-col sm:flex-row gap-8 mb-10">
           {/* Photo */}
-          <div className="flex-shrink-0">
-            <div className="w-[160px] h-[200px] sm:w-[180px] sm:h-[220px] relative overflow-hidden rounded-md border border-[#DEDEDE]">
+          <div className="shrink-0">
+            <div className="w-[220px] sm:w-[280px] aspect-square relative overflow-hidden rounded-md border border-[#DEDEDE]">
               <Image
-                src="/images/team-1.png"
+                src="/images/kola.png"
                 alt="Kola OLAJIDE"
                 fill
                 className="object-cover object-top"
@@ -27,7 +27,7 @@ export default function KolaOlajidePage() {
           </div>
 
           {/* Name, Role & Intro */}
-          <div className="flex flex-col justify-start gap-3">
+          <div className="flex flex-col justify-end gap-3">
             <div>
               <h1 className="text-xl sm:text-2xl font-semibold text-[#181D27]">
                 Kola OLAJIDE
