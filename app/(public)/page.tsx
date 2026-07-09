@@ -72,15 +72,17 @@ export default function Home() {
       <Hero />
       <div className="w-11/12 mx-auto">
         <WhoWeAre />
-        <WhySitWithPd />
         <Philosphy />
-        <Methodology />
+        <WhySitWithPd />
+      </div>
+      <Methodology />
+      <div className="w-11/12 mx-auto">
         <HowWeHelp />
-        <Resources />
 
         <OurTeam />
+        <Resources />
         <Testimonials />
-        <HomeBlogs />
+        {/* <HomeBlogs /> */}
         <CtaBanner />
         <div className="pb-10" />
       </div>

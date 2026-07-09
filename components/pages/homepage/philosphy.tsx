@@ -3,6 +3,8 @@
 import Image from "next/image";
 import React, { useState } from "react";
 import { Play } from "lucide-react";
+import { fadeInUp, staggerContainer } from "@/lib/motion-variants";
+import { motion } from "motion/react";
 
 // Extract YouTube video ID from URL
 const extractYouTubeId = (url: string) => {
@@ -21,16 +23,24 @@ export default function Philosphy() {
     setIsPlaying(true);
   };
   return (
-    <section className="border-[0.7px] border-[#EAECF0] bg-[#FEF4E4] rounded-[16px] flex flex-col gap-8 mt-20 py-10 lg:py-15 px-4 lg:px-10">
-      <div>
-        <h2 className="heading-2 text-center">
+    <section className="border-[0.7px] border-[#EAECF0] bg-[#FEF4E4] rounded-[16px] flex flex-col gap-8 my-10  py-10 lg:py-15 px-4 lg:px-10">
+      <motion.div
+        variants={staggerContainer}
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true, amount: 0.1 }}
+      >
+        <motion.h2 variants={fadeInUp} className="heading-2 text-center">
           The Philosophy Behind Sit With PD
-        </h2>
-        <div className="text-base text-[#664101] leading-6 space-y-7 lg:text-center mt-10">
-          <p>
+        </motion.h2>
+        <motion.div
+          variants={fadeInUp}
+          className="text-base text-[#667085] leading-6 space-y-7 lg:text-center mt-10"
+        >
+          <p className="text-[#664101] text-lg">
             Many of life's deepest answers are not found by searching farther,
-            but by journeying inward where clarity, purpose, and
-            transformation begin.
+            but by journeying inward where clarity, purpose, and transformation
+            begin.
           </p>
           <p>
             In a world that constantly encourages us to move faster, do more,
@@ -46,11 +56,11 @@ export default function Philosphy() {
           <p>
             Through Purpose, Direction, and Personal Discovery, we help
             individuals navigate life's challenges with greater understanding,
-            intentionality, and confidence because when you understand
-            yourself better, you live better.
+            intentionality, and confidence because when you understand yourself
+            better, you live better.
           </p>
-        </div>
-      </div>
+        </motion.div>
+      </motion.div>
       {/* video */}
       <div className="relative w-full bg-[#0a0a0a]">
         <div className="h-20 bg-black/20 lg:hidden" />

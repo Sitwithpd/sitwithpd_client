@@ -10,7 +10,7 @@ export default function Resources({ showBtn = true }: { showBtn?: boolean }) {
       {/* <Pill text="How we can help" /> */}
 
       {/* Heading */}
-      <h2 className=" text-center heading-2 ">
+      <h2 className=" text-center font-medium text-[1.625rem] sm:text-[1.5rem] lg:text-[1.8rem]  leading-snug lg:leading-9.5 text-[#131313] max-w-6xl ">
         Access our Purpose Starter Pack and Company Brochure to learn more about our approach, programmes, and how Sit-With-PD supports purposeful personal growth.
 
       </h2>

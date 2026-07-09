@@ -13,6 +13,13 @@ import "swiper/css/effect-fade";
 
 import useMobile from "@/hooks/use-mobile-breakpoint";
 import Link from "next/link";
+import { motion } from "motion/react";
+import {
+  fadeInRight,
+  fadeInUp,
+  staggerContainerDelayed,
+  staggerContainerSlow,
+} from "@/lib/motion-variants";
 
 export function Hero() {
   const { isMobile } = useMobile();
@@ -76,42 +83,73 @@ export function Hero() {
                   priority
                 />
                 <div className="absolute inset-0 bg-black/25" />
-                <div className="relative h-full w-[90%] mx-auto  flex flex-col gap-6 justify-center items-start max-w-7xl">
+                <motion.div
+                  variants={staggerContainerSlow}
+                  initial="hidden"
+                  whileInView="visible"
+                  viewport={{ once: true, amount: 0.1 }}
+                  className="relative h-full w-[90%] mx-auto  flex flex-col gap-6 justify-center items-start max-w-7xl"
+                >
                   <div className="space-y-4  ">
-                    <p
+                    <motion.p
+                      variants={fadeInUp}
                       className={`xl:text-x  l text-base ${slide.pillColor} transition-colors duration-300  font-extralight`}
                     >
                       Purpose · Direction · Personal Discovery
-                    </p>
-                    <h1
+                    </motion.p>
+                    <motion.h1
+                      variants={fadeInUp}
                       className={`text-[#F9FDF9] font-semibold text-[3.125rem] lg:text-[4rem] xl:text-[5rem] leading-[100%]  `}
                     >
                       Sit With PD
-                    </h1>
-                    <p className="lg:text-[1.25rem] text-xl text-[#F7FBF6]  md:text-start  sm:w-10/12 md:w-2/3 lg:w-full max-w-[812px]">
+                    </motion.h1>
+                    <motion.p
+                      variants={fadeInUp}
+                      className="lg:text-[1.25rem] text-xl text-[#F7FBF6]  md:text-start  sm:w-10/12 md:w-2/3 lg:w-full max-w-[812px]"
+                    >
                       {slide.description}
-                    </p>
-                    <h2 className="font-light text-[#F9FDF9] text-2xl xl:text-[3.125rem] ">
+                    </motion.p>
+                    <motion.h2
+                      variants={fadeInUp}
+                      className="font-light text-[#F9FDF9] text-2xl xl:text-[3.125rem] "
+                    >
                       Global{" "}
                       <span className="italic text-[#A8D675] ">
                         Therapeutic{" "}
                       </span>{" "}
                       Network
-                    </h2>
+                    </motion.h2>
                   </div>
-                  <div className="flex flex-col sm:flex-row justify-start md:justify-start w-full gap-4 mt-4">
-                    <Link href="/contact#contact">
-                      <Button variant={"regular"} className="w-full lg:w-auto">
-                        Book a discovery call <CaretRight />
-                      </Button>
-                    </Link>
-                    <Link href="/about">
-                      <Button variant={"outline"} className="w-full lg:w-auto">
-                        Our Story
-                      </Button>
-                    </Link>
-                  </div>
-                </div>
+                  <motion.div
+                    variants={staggerContainerDelayed}
+                    initial="hidden"
+                    whileInView="visible"
+                    viewport={{ once: true, amount: 0.1 }}
+                    className="flex flex-col sm:flex-row justify-start md:justify-start w-full gap-4 mt-4"
+                  >
+                    <motion.div variants={fadeInRight}>
+                      <Link href="/contact#contact">
+                        <Button
+                          variant={"regular"}
+                          className="w-full lg:w-auto"
+                        >
+                          Book a discovery call <CaretRight />
+                        </Button>
+                      </Link>
+                    </motion.div>
+
+                    <motion.div variants={fadeInRight}>
+                      <Link href="/about">
+                        <Button
+                          variant={"outline"}
+                          className="w-full lg:w-auto"
+                        >
+                          Our Story
+                        </Button>
+                      </Link>
+                    </motion.div>
+                  </motion.div>
+                </motion.div>
               </div>
             </SwiperSlide>
           );
