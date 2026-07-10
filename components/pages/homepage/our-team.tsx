@@ -13,7 +13,7 @@ interface TeamMember {
   image: string;
   href: string;
   intro: string[];
-  
+
   bio: string[];
 }
 
@@ -117,7 +117,7 @@ export function OurTeam() {
     selectedIndex !== null ? teamMembers[selectedIndex] : null;
 
   return (
-    <section className="container mx-auto pt-24 lg:py-24 flex flex-col items-center">
+    <section className="container mx-auto pt-10 lg:py-24 w-full overflow-hidden flex flex-col items-center">
       <Pill text="Our Team" />
 
       <h2 className="heading-2 text-center mb-16 max-w-[900px]">
@@ -176,7 +176,7 @@ export function OurTeam() {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 0.2 }}
-            className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/50 backdrop-blur-sm"
+            className="fixed inset-0 z-999 flex items-center overflow-hidden justify-center p-4 bg-black/50 backdrop-blur-sm"
             onClick={closeModal}
           >
             <motion.div

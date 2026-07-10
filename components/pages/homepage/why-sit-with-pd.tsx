@@ -9,8 +9,10 @@ import {
   staggerContainerDelayed,
   staggerContainerSlow,
 } from "@/lib/motion-variants";
+import { useIsMobile } from "@/hooks/use-mobile";
 
 export default function WhySitWithPd() {
+  const isMobile = useIsMobile()
   return (
     <section className="container mx-auto   pt-15  ">
       <motion.div
@@ -27,11 +29,11 @@ export default function WhySitWithPd() {
           variants={staggerContainerDelayed}
           initial="hidden"
           whileInView="visible"
-          viewport={{ once: true, amount: 0.1 }}
+          viewport={{ once: true, amount: 0.4 }}
           className="container mx-auto   flex flex-col lg:flex-row gap-5   max-w-6xl"
         >
           <motion.div
-            variants={fadeInRight}
+            variants={ fadeInRight}
             className="flex-1 bg-[#CBD4DB66] p-6 rounded-[10px] text-base leading-6 text-[#14312D]"
           >
             <div className="h-10 relative p-1 text-[#14312D]  w-10 rounded-full mb-8 flex items-center justify-center bg-[#25756A1A] ">
@@ -70,8 +72,9 @@ export default function WhySitWithPd() {
             </div>
             <motion.p 
             initial={{y: 10, opacity: 0}}  
-            transition={{duration: 0.5, ease: "easeOut", delay: 2}}  
+            transition={{duration: 0.5, ease: "easeOut", delay: 1}}  
             whileInView={{y: 0, opacity: 1}}  
+            viewport={{once: true}}
             className="text-base text-[#14312D] leading-6 bg-[#ECFCEB] p-4 rounded-[10px] flex flex-col gap-4 max-w-75 absolute bottom-2.5 left-2.5">
               <span>
                 <svg

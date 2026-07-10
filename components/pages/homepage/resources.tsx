@@ -64,10 +64,21 @@ export default function Resources({ showBtn = true }: { showBtn?: boolean }) {
         </div>
         <div className="bg-[#865503] lg:flex-1 text-[#F7C164] text-base py-10 lg:py-0  flex flex-col gap-4 items-center justify-center">
           <p>Download Today And Learn How To:</p>
-          <p className="text-center w-[60%] mx-auto">
-            Gain clarity about your future Discover what truly matters
-            Strengthen your resilience Create a more intentional life
+          <div className="text-center w-[60%] mx-auto">
+          <p className="">
+            Gain clarity about your future
           </p>
+          <p className="">
+            Discover what truly matters
+          </p>
+          <p className="">
+            Strengthen your resilience
+          </p>
+          <p className="">
+            Create a more intentional life
+          </p>
+
+          </div>
         </div>
       </div>
     </section>

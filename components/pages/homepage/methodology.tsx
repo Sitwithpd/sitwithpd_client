@@ -86,8 +86,8 @@ export default function Methodology() {
         variants={staggerContainer}
         initial="hidden"
         whileInView="visible"
-        viewport={{ once: true, amount: 0.1 }}
-        className="max-w-7xl mx-auto py-16  px-4 flex flex-col items-center text-center"
+        viewport={{ once: true, amount: 0.3 }}
+        className="max-w-7xl mx-auto py-16  px-6 flex flex-col items-center text-center"
       >
         {/* Heading */}
         <motion.h2
@@ -102,7 +102,7 @@ export default function Methodology() {
           variants={staggerContainerSlow}
           initial="hidden"
           whileInView="visible"
-          viewport={{ once: true, amount: 0.1 }}
+          viewport={{ once: true, amount: 0.3 }}
           className="flex items-center gap-3 mb-8"
         >
           <motion.div
@@ -150,7 +150,7 @@ export default function Methodology() {
           variants={staggerContainerDelayed}
           initial="hidden"
           whileInView="visible"
-          viewport={{ once: true, amount: 0.1 }}
+          viewport={{ once: true, amount: 0.3 }}
           className="max-w-3xl flex flex-col gap-5"
         >
           <motion.p

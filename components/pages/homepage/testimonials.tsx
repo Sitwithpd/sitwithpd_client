@@ -47,7 +47,7 @@ export function Testimonials() {
         and meaningful changes.
       </motion.h2>
 
-      <div className="w-full flex flex-wrap justify-center gap-6 max-w-7xl">
+      <div className="w-full flex flex-wrap justify-center gap-6 max-w-7xl overflow-hidden">
         {testimonials.slice(0, 6).map((t, i) => (
           <motion.div
             key={i}

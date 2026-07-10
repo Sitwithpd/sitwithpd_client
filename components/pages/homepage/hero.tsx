@@ -34,6 +34,7 @@ export function Hero() {
       description:
         "Helping individuals gain clarity, build resilience, and live with greater purpose  through reflective conversations, therapeutic experiences, and meaningful community. ",
       titleWidth: "w-full sm:w-[40%] md:w-[40%] lg:w-[50%]",
+      imageClass: "object-cover object-[75%_center] md:object-center",
     },
     {
       id: 2,
@@ -103,12 +104,6 @@ export function Hero() {
                     >
                       Sit With PD
                     </motion.h1>
-                    <motion.p
-                      variants={fadeInUp}
-                      className="lg:text-[1.25rem] text-xl text-[#F7FBF6]  md:text-start  sm:w-10/12 md:w-2/3 lg:w-full max-w-[812px]"
-                    >
-                      {slide.description}
-                    </motion.p>
                     <motion.h2
                       variants={fadeInUp}
                       className="font-light text-[#F9FDF9] text-2xl xl:text-[3.125rem] "
@@ -119,6 +114,12 @@ export function Hero() {
                       </span>{" "}
                       Network
                     </motion.h2>
+                    <motion.p
+                      variants={fadeInUp}
+                      className="lg:text-[1.25rem] text-base text-[#F7FBF6]  md:text-start  sm:w-10/12 md:w-2/3 lg:w-full max-w-[812px]"
+                    >
+                      {slide.description}
+                    </motion.p>
                   </div>
                   <motion.div
                     variants={staggerContainerDelayed}

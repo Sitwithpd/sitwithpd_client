@@ -5,6 +5,7 @@ import { Pill } from "@/components/ui/pill";
 import Image from "next/image";
 import { motion } from "motion/react";
 import { ArrowRight } from "lucide-react";
+import { fadeInUp } from "@/lib/motion-variants";
 
 export function HowWeHelp() {
   const cards = [
@@ -90,15 +91,14 @@ export function HowWeHelp() {
         variants={containerVariants}
         initial="hidden"
         whileInView="visible"
-        viewport={{ once: true, amount: 0.2 }}
+        viewport={{ once: true, amount: 0.3 }}
       >
         {cards.map((card, index) => (
           <motion.div
             key={index}
-            variants={cardVariants}
-            className="relative rounded-[10px] overflow-hidden aspect-video group"
+            variants={fadeInUp}
+            className="relative rounded-[10px] overflow-hidden h-85 lg:h-auto lg:aspect-video group"
           >
-            {/* Background Image */}
             <Image
               src={card.image}
               alt={card.title}
@@ -106,7 +106,6 @@ export function HowWeHelp() {
               className="object-cover transition-transform duration-500 group-hover:scale-105"
             />
 
-            {/* Gradient Overlay — from design: linear gradient #000 30%, 40%, 75% */}
             <div
               className="absolute inset-0"
               style={{
@@ -117,14 +116,14 @@ export function HowWeHelp() {
 
             {/* Content */}
             <div className="absolute inset-0 flex flex-col justify-end p-5">
-              <div className="w-10/12">
+              <div className="lg:w-10/12">
                 <span
                   className={`inline-flex w-fit items-center text-[10px]  tracking-[2px] bg-[#0000004D]  rounded-full px-2 py-1 border-[0.67px]  ${card.borderColor} ${card.buttonColor} `}
                 >
                   {card.category}
                 </span>
 
-                <h3 className="text-white font-semibold text-xl leading-snug my-3">
+                <h3 className="text-white font-semibold text-lg lg:text-xl leading-snug my-3">
                   {card.title}
                 </h3>
 
