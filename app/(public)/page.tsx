@@ -73,10 +73,10 @@ export default function Home() {
       <div className="w-11/12 mx-auto">
         <WhoWeAre />
         <Philosphy />
-        <WhySitWithPd />
       </div>
       <Methodology />
       <div className="w-11/12 mx-auto">
+        <WhySitWithPd />
         <HowWeHelp />
 
         <OurTeam />

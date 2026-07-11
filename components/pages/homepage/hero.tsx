@@ -106,17 +106,17 @@ export function Hero() {
                     </motion.h1>
                     <motion.h2
                       variants={fadeInUp}
-                      className="font-light text-[#F9FDF9] text-2xl xl:text-[3.125rem] "
+                      className="font-light text-[#F9FDF9] text-2xl  "
                     >
                       Global{" "}
-                      <span className="italic text-[#A8D675] ">
+                      <span className=" text-[#A8D675] ">
                         Therapeutic{" "}
                       </span>{" "}
                       Network
                     </motion.h2>
                     <motion.p
                       variants={fadeInUp}
-                      className="lg:text-[1.25rem] text-base text-[#F7FBF6]  md:text-start  sm:w-10/12 md:w-2/3 lg:w-full max-w-[812px]"
+                      className="lg:text-lg text-base text-[#F7FBF6]  md:text-start  sm:w-10/12 md:w-2/3 lg:w-full max-w-[812px]"
                     >
                       {slide.description}
                     </motion.p>

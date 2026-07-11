@@ -10,11 +10,15 @@ import {
   staggerContainerSlow,
 } from "@/lib/motion-variants";
 import { useIsMobile } from "@/hooks/use-mobile";
+import { Button } from "@/components/ui/button";
+import { ArrowRight } from "lucide-react";
+import CaretRight from "@/pd-icons/caret-right";
+import Link from "next/link";
 
 export default function WhySitWithPd() {
-  const isMobile = useIsMobile()
+  const isMobile = useIsMobile();
   return (
-    <section className="container mx-auto   pt-15  ">
+    <section className="container mx-auto   py-15  ">
       <motion.div
         variants={staggerContainerSlow}
         initial="hidden"
@@ -30,11 +34,11 @@ export default function WhySitWithPd() {
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, amount: 0.4 }}
-          className="container mx-auto   flex flex-col lg:flex-row gap-5   max-w-6xl"
+          className="container mx-auto   flex flex-col lg:flex-row gap-5  max-w-7xl"
         >
           <motion.div
-            variants={ fadeInRight}
-            className="flex-1 bg-[#CBD4DB66] p-6 rounded-[10px] text-base leading-6 text-[#14312D]"
+            variants={fadeInRight}
+            className="flex-1 bg-[#CBD4DB66] p-6 rounded-[10px] text-base leading-6 text-[#14312D] pr-15"
           >
             <div className="h-10 relative p-1 text-[#14312D]  w-10 rounded-full mb-8 flex items-center justify-center bg-[#25756A1A] ">
               <Image
@@ -70,12 +74,13 @@ export default function WhySitWithPd() {
                 className="object-cover"
               />
             </div>
-            <motion.p 
-            initial={{y: 10, opacity: 0}}  
-            transition={{duration: 0.5, ease: "easeOut", delay: 1}}  
-            whileInView={{y: 0, opacity: 1}}  
-            viewport={{once: true}}
-            className="text-base text-[#14312D] leading-6 bg-[#ECFCEB] p-4 rounded-[10px] flex flex-col gap-4 max-w-75 absolute bottom-2.5 left-2.5">
+            <motion.p
+              initial={{ y: 10, opacity: 0 }}
+              transition={{ duration: 0.5, ease: "easeOut", delay: 1 }}
+              whileInView={{ y: 0, opacity: 1 }}
+              viewport={{ once: true }}
+              className="text-base text-[#14312D] leading-6 bg-[#ECFCEB] p-4 rounded-[10px] flex flex-col gap-4 max-w-75 absolute bottom-2.5 left-2.5"
+            >
               <span>
                 <svg
                   width="20"
@@ -107,6 +112,17 @@ export default function WhySitWithPd() {
               to hear them."
             </motion.p>
           </motion.div>
+        </motion.div>
+        <motion.div variants={fadeInUp}>
+          <Link href="/about">
+            <Button
+              variant={"outline"}
+              className="mt-6 border-regular-button border text-regular-button hover:bg-transparent hover:text-regular-button"
+            >
+              Learn more about us{" "}
+              <CaretRight color="#60935D" className="" size={5} />
+            </Button>
+          </Link>
         </motion.div>
       </motion.div>
     </section>

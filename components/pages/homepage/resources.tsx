@@ -1,5 +1,6 @@
 import { Button } from "@/components/ui/button";
 import { Pill } from "@/components/ui/pill";
+import CaretRight from "@/pd-icons/caret-right";
 import { ChevronRight } from "lucide-react";
 import React from "react";
 
@@ -37,7 +38,7 @@ export default function Resources({ showBtn = true }: { showBtn?: boolean }) {
             ))}
           </div>
 
-          <div className="flex flex-col sm:flex-row gap-2">
+          <div className="flex flex-col sm:flex-row gap-4">
             <Button className="bg-[#F7D394] text-[#AD6F07] " asChild>
               <a
                 href="/files/Starter Pack Toolkits.pdf"
@@ -64,18 +65,18 @@ export default function Resources({ showBtn = true }: { showBtn?: boolean }) {
         </div>
         <div className="bg-[#865503] lg:flex-1 text-[#F7C164] text-base py-10 lg:py-0  flex flex-col gap-4 items-center justify-center">
           <p>Download Today And Learn How To:</p>
-          <div className="text-center w-[60%] mx-auto">
-          <p className="">
-            Gain clarity about your future
+          <div className="text-center lg:w-[60%] mx-auto">
+          <p className="flex items-center gap-2 justify-center ">
+           <CaretRight color="#F7D394" className="w-4 h-  "/> Gain clarity about your future
           </p>
-          <p className="">
-            Discover what truly matters
+          <p className="flex items-center gap-2 justify-center">
+            <CaretRight color="#F7D394" className="w-4 h-4 "/> Discover what truly matters
           </p>
-          <p className="">
-            Strengthen your resilience
+          <p className="flex items-center gap-2 justify-center">
+            <CaretRight color="#F7D394" className="w-4 h-4 "/> Strengthen your resilience
           </p>
-          <p className="">
-            Create a more intentional life
+          <p className="flex items-center gap-2 justify-center">
+            <CaretRight color="#F7D394" className="w-4 h-4 "/> Create a more intentional life
           </p>
 
           </div>

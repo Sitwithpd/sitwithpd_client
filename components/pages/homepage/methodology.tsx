@@ -87,7 +87,7 @@ export default function Methodology() {
         initial="hidden"
         whileInView="visible"
         viewport={{ once: true, amount: 0.3 }}
-        className="max-w-7xl mx-auto py-16  px-6 flex flex-col items-center text-center"
+        className="max-w-7xl mx-auto py-16   px-6 flex flex-col items-center text-center"
       >
         {/* Heading */}
         <motion.h2
@@ -103,7 +103,7 @@ export default function Methodology() {
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, amount: 0.3 }}
-          className="flex items-center gap-3 mb-8"
+          className="flex  items-center gap-3 mb-8"
         >
           <motion.div
             variants={fadeInRight}
@@ -117,7 +117,7 @@ export default function Methodology() {
               Pause
             </span>
           </motion.div>
-          <span className="text-[#864E13] font-light text-xl">→</span>
+          <span className="text-[#864E13] font-light text-lg">→</span>
           <motion.div
             variants={fadeInRight}
             className="flex items-center gap-2"
@@ -130,7 +130,7 @@ export default function Methodology() {
               Discover
             </span>
           </motion.div>
-          <span className="text-[#864E13] font-light text-xl">→</span>
+          <span className="text-[#864E13] font-light text-lg">→</span>
           <motion.div
             variants={fadeInRight}
             className="flex items-center gap-2"

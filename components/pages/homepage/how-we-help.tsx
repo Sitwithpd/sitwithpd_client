@@ -16,7 +16,7 @@ export function HowWeHelp() {
         '"The breakthrough you\'re searching for begins with sitting with yourself long enough to hear the answers."',
       link: "/consultation",
       linkText: "Book your consultation",
-      image: "/images/hch1.webp",
+      image: "/images/IMG_1990.webp",
       buttonColor: "text-[#A8D675]",
       borderColor: "border-[#A8D675]",
     },
@@ -27,7 +27,7 @@ export function HowWeHelp() {
         '"Being in a calm environment with others on a similar journey helped me open up and reflect in ways I hadn\'t before."',
       link: "/camps",
       linkText: "Explore therapeutic camps",
-      image: "/images/hch2.webp",
+      image: "/images/IMG_2002.webp",
       buttonColor: "text-[#F7C164]",
       borderColor: "border-[#F7C164]",
     },
@@ -38,7 +38,7 @@ export function HowWeHelp() {
         '"Structured growth begins with honest self-reflection and the courage to sit with what you find."',
       link: "/programs",
       linkText: "Explore programmes",
-      image: "/images/hch3.webp",
+      image: "/images/IMG_1998.webp",
       buttonColor: "text-[#A8D675]",
       borderColor: "border-[#A8D675]",
     },
@@ -49,7 +49,7 @@ export function HowWeHelp() {
         '"The journey becomes lighter when it\'s shared with fellow travellers."',
       link: "/community",
       linkText: "Join our community",
-      image: "/images/hch4.webp",
+      image: "/images/IMG_1999.webp",
       buttonColor: "text-[#F7C164]",
       borderColor: "border-[#F7C164]",
     },
@@ -110,7 +110,7 @@ export function HowWeHelp() {
               className="absolute inset-0"
               style={{
                 background:
-                  "linear-gradient(to bottom, #0000004D, #00000066, #000000BF",
+                  "linear-gradient(to bottom, rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.8))",
               }}
             />
 
@@ -118,7 +118,7 @@ export function HowWeHelp() {
             <div className="absolute inset-0 flex flex-col justify-end p-5">
               <div className="lg:w-10/12">
                 <span
-                  className={`inline-flex w-fit items-center text-[10px]  tracking-[2px] bg-[#0000004D]  rounded-full px-2 py-1 border-[0.67px]  ${card.borderColor} ${card.buttonColor} `}
+                  className={`inline-flex w-fit items-center text-sm  tracking-[2px] bg-[#0000004D]  rounded-full px-2 py-1 border-[0.67px]  ${card.borderColor} ${card.buttonColor} `}
                 >
                   {card.category}
                 </span>
