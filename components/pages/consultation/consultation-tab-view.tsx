@@ -139,7 +139,7 @@ export function ConsultationTabView({ currentTab }: { currentTab: string }) {
     <div className="w-full relative flex flex-col pt-20 lg:pt-20">
       <div className="w-full h-20 bg-[#1A2E1A] fixed top-0 z-11" />
       {/* Top Navbar Tabs */}
-      <div className="w-full sticky top-20 bg-white z-10 pb-2 border-b border-[#EAECF0]">
+      <div className="w-full sticky top-20 bg-white z-10 pb-2.1 border-b border-[#EAECF0]">
         <div className="w-11/12 max-w-7xl mx-auto flex flex-col md:flex-row md:items-center">
           <Link
             href="/consultation"
