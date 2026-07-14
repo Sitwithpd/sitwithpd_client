@@ -45,7 +45,7 @@ const TABS_CONTENT: Record<string, TabContentType> = {
     badgeText: "Online or In-Person",
     title: "One-to-One Consultation",
     subtitle: "Individuals, professionals, students",
-    image: "/images/Image.webp", // placeholder
+    image: "/images/tab1.png", 
     overlayPrimary: "IDENTITY · EMOTIONAL CLARITY · SELF-AWARENESS",
     overlaySecondary: ["Confidential", "Solution-focused", "Tailored"],
     duration: "60 minutes",
@@ -66,7 +66,7 @@ const TABS_CONTENT: Record<string, TabContentType> = {
     badgeText: "Online or In-Person",
     title: "Executive Consultation",
     subtitle: "Executives, senior managers, founders",
-    image: "/images/Image.webp", // placeholder
+    image: "/images/tab2.png", 
     overlayPrimary: "IDENTITY · EMOTIONAL CLARITY · SELF-AWARENESS",
     overlaySecondary: ["Confidential", "Solution-focused", "Tailored"],
     duration: "90 minutes",
@@ -87,7 +87,7 @@ const TABS_CONTENT: Record<string, TabContentType> = {
     badgeText: "Online or In-Person",
     title: "Business Strategy Session",
     subtitle: "Entrepreneurs, business owners, SMEs",
-    image: "/images/Image.webp", // placeholder
+    image: "/images/tab4.png", 
     overlayPrimary: "IDENTITY · EMOTIONAL CLARITY · SELF-AWARENESS",
     overlaySecondary: ["Confidential", "Solution-focused", "Tailored"],
     duration: "Half-day (3 hours)",
@@ -108,7 +108,7 @@ const TABS_CONTENT: Record<string, TabContentType> = {
     badgeText: "In-Person (preferred)",
     title: "Team & Organisational Consultation",
     subtitle: "Teams, organisations, institutions, charities",
-    image: "/images/Image.webp", // placeholder
+    image: "/images/tab3.png", 
     overlayPrimary: "IDENTITY · EMOTIONAL CLARITY · SELF-AWARENESS",
     overlaySecondary: ["Confidential", "Solution-focused", "Tailored"],
     duration: "Full-day advisory",
