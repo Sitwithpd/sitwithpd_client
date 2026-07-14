@@ -18,27 +18,27 @@ const faqItems: FaqItem[] = [
   {
     question: "Is my consultation confidential?",
     answer:
-      "Yes, absolutely. Every consultation is held in strict confidence. What you share stays between you and your consultant, creating a safe space for honest and meaningful conversations.",
+      "Yes. Your privacy is respected, and every consultation is conducted with professionalism and discretion. What you share in our sessions stays in our sessions.",
   },
   {
     question: "How long does a consultation last?",
     answer:
-      "A standard consultation session typically lasts between 45 minutes to one hour. Depending on the nature of your needs, follow-up sessions can be arranged to provide continued support.",
+      "Session lengths vary depending on the type of consultation  from focused one-hour sessions to half-day or full-day engagements. Exact details will be confirmed when you book.",
   },
   {
     question: "Do I need to prepare anything?",
     answer:
-      "There's no specific preparation required. However, it can be helpful to think about the key areas you'd like to discuss or any questions you'd like answered during the session.",
+      "Simply complete the booking form and come ready to discuss your goals, questions, or challenges openly. We'll take care of the structure  you just bring yourself.",
   },
   {
     question: "Can organisations book consultations?",
     answer:
-      "Yes! We work with organisations of all sizes. Whether you need leadership development, team coaching, or organisational strategy, we can tailor our consultations to meet your organisation's needs.",
+      "Absolutely. We work with businesses, educational institutions, churches, charities, government bodies, and community organisations to provide tailored advisory and development support.",
   },
   {
     question: "What happens after my session?",
     answer:
-      "After your session, you'll receive a summary of key takeaways and action steps discussed. We also offer follow-up sessions and ongoing support to help you stay on track with your goals.",
+      "You'll leave with greater clarity, actionable recommendations, and concrete next steps. Where appropriate, we may also suggest ongoing coaching, training, or programme support to help you continue growing..",
   },
 ];
 

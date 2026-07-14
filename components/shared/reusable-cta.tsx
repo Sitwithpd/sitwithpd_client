@@ -1,10 +1,13 @@
+"use client"
+
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
-import { cn } from "@/lib/utils";
+import { cn, handleBookingClick } from "@/lib/utils";
 
 export interface ReusableCtaButton {
   text: string;
   href?: string;
+  action?: "book-consultation";
 }
 
 export interface ReusableCtaProps {
@@ -41,18 +44,29 @@ export function ReusableCta({
 
         {/* Buttons layout */}
         <div className="flex flex-col sm:flex-row gap-4 lg:gap-2.5 items-center justify-center mt-6 w-full sm:w-auto">
-          <Link href={buttons[0].href || "#"} className="w-full lg:w-auto">
-            <Button
-              className={cn("w-full sm:w-auto px-5 shadow-none")}
-              variant={"regular"}
+          {
+            buttons[0].action === "book-consultation" ? (
+              <Button
+                className={cn("w-full sm:w-auto px-5 shadow-none")}
+                variant={"regular"}
+                onClick={handleBookingClick}
+              >
+                {buttons[0].text}
+              </Button>
+            ) : (
+              <Link href={buttons[0].href || "#"} className="w-full lg:w-auto">
+                <Button
+                  className={cn("w-full sm:w-auto px-5 shadow-none")}
+                  variant={"regular"}
             >
               {buttons[0].text}
             </Button>
           </Link>
+            )}
           <Link href={buttons[1].href || "#"} className="w-full lg:w-auto">
             <Button
               className={cn(
-                "w-full sm:w-auto shadow-none bg-[#A8D675] px-5 text-[#1F4842]",
+                "w-full sm:w-auto shadow-none  px-5 ", buttons.length === 2 ? " text-white bg-transparent border-[0.67px] border-[#FFFFFF4D]" : "bg-[#A8D675] text-[#1F4842]"
               )}
               variant={"regular"}
             >

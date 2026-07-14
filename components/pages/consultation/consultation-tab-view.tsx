@@ -4,6 +4,16 @@ import React from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { ChevronLeft } from "lucide-react";
+import { notFound } from "next/navigation";
+import { motion } from "motion/react";
+import {
+  fadeInUp,
+  fadeInRight,
+  staggerContainerSlow,
+  staggerContainerDelayed,
+  staggerContainer,
+  fadeInUpSlower,
+} from "@/lib/motion-variants";
 
 export type TabContentType = {
   badgeLabel: string;
@@ -31,7 +41,7 @@ const TABS_LIST = [
 const TABS_CONTENT: Record<string, TabContentType> = {
   "one-on-one": {
     badgeLabel: "Most Popular",
-    badgeBg: "bg-[#678b6d]",
+    badgeBg: "bg-[#60935D]",
     badgeText: "Online or In-Person",
     title: "One-to-One Consultation",
     subtitle: "Individuals, professionals, students",
@@ -73,7 +83,7 @@ const TABS_CONTENT: Record<string, TabContentType> = {
   },
   "business-strategy": {
     badgeLabel: "Business",
-    badgeBg: "bg-[#EE7424]",
+    badgeBg: "bg-[#E17100]",
     badgeText: "Online or In-Person",
     title: "Business Strategy Session",
     subtitle: "Entrepreneurs, business owners, SMEs",
@@ -94,7 +104,7 @@ const TABS_CONTENT: Record<string, TabContentType> = {
   },
   teams: {
     badgeLabel: "Organisation",
-    badgeBg: "bg-[#9E3BE7]",
+    badgeBg: "bg-[#9810FA]",
     badgeText: "In-Person (preferred)",
     title: "Team & Organisational Consultation",
     subtitle: "Teams, organisations, institutions, charities",
@@ -117,18 +127,23 @@ const TABS_CONTENT: Record<string, TabContentType> = {
 
 export function ConsultationTabView({ currentTab }: { currentTab: string }) {
   const content = TABS_CONTENT[currentTab];
-  if (!content) return null;
+  if (!content) return notFound();
 
   const otherTabs = TABS_LIST.filter((t) => t.id !== currentTab);
 
+  const labelStyle =
+    "text-[11px] font-medium text-[#606060] uppercase tracking-[1px]";
+  const labelValueStyle = "text-[15px] font-semibold text-[#131313]";
+
   return (
-    <div className="w-full flex flex-col pt-20 lg:pt-[100px]">
+    <div className="w-full relative flex flex-col pt-20 lg:pt-20">
+      <div className="w-full h-20 bg-[#1A2E1A] fixed top-0 z-11" />
       {/* Top Navbar Tabs */}
-      <div className="w-full border-b border-[#EAECF0]">
+      <div className="w-full sticky top-20 bg-white z-10 pb-2 border-b border-[#EAECF0]">
         <div className="w-11/12 max-w-7xl mx-auto flex flex-col md:flex-row md:items-center">
           <Link
             href="/consultation"
-            className="flex items-center gap-2 text-[#567F57] hover:text-[#324414] text-[13px] font-medium py-4 md:border-r border-[#EAECF0] md:pr-8 md:mr-8 transition-colors shrink-0"
+            className="flex items-center gap-2 text-regular-button hover:text-[#324414] text-[13px] font-medium py-4 md:border-r border-[#EAECF0] md:pr-8 md:mr-8 transition-colors shrink-0"
           >
             <ChevronLeft size={16} /> Back to Consultation
           </Link>
@@ -137,15 +152,13 @@ export function ConsultationTabView({ currentTab }: { currentTab: string }) {
               <Link
                 key={tab.id}
                 href={`/consultation/${tab.id}`}
-                className={`whitespace-nowrap py-4 md:py-6 text-[13px] font-medium transition-colors border-b-2 relative -mb-[1px] ${
+                className={`whitespace-nowrap py-3 md:py-4 text-[13px] font-medium transition-colors border-b-2 relative -mb-px ${
                   currentTab === tab.id
-                    ? "border-[#567F57] text-[#131313]"
+                    ? "border-regular-button text-[#131313]"
                     : "border-transparent text-[#606060] hover:text-[#131313]"
                 }`}
               >
-                {tab.label === "Team & Organisational Consultation"
-                  ? "Team &"
-                  : tab.label}
+                {tab.label}
               </Link>
             ))}
           </div>
@@ -153,34 +166,42 @@ export function ConsultationTabView({ currentTab }: { currentTab: string }) {
       </div>
 
       {/* Main Content Body */}
-      <div className="w-11/12 max-w-[900px] mx-auto py-12 md:py-20 lg:py-24">
+      <motion.div variants={staggerContainer}
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true, amount: 0.4 }} className="w-11/12 max-w-5xl mx-auto py-12 mb-15">
         {/* Badges */}
-        <div className="flex flex-wrap items-center gap-3 mb-6">
+        <motion.div variants={fadeInUpSlower} className="flex flex-wrap items-center gap-3 mb-6">
           <span
             className={`px-3 py-1 rounded-full text-[11px] font-medium text-white ${content.badgeBg}`}
           >
             {content.badgeLabel}
           </span>
           <span className="text-[#606060] text-sm">{content.badgeText}</span>
-        </div>
+        </motion.div>
 
         {/* Title */}
-        <h1 className="text-3xl md:text-5xl font-bold text-[#131313] mb-4">
+        <motion.h1 variants={fadeInUpSlower} className="lg:text-4xl text-3xl  font-bold text-[#131313] mb-4">
           {content.title}
-        </h1>
-        <p className="text-[#567F57] text-base md:text-[20px] font-medium italic mb-10 md:mb-14">
+        </motion.h1>
+        <motion.p variants={fadeInUpSlower} className="text-regular-button text-sm md:text-base] font-medium italic mb-5">
           {content.subtitle}
-        </p>
+        </motion.p>
 
         {/* Image Banner */}
-        <div className="relative w-full aspect-[21/9] md:aspect-[24/9] rounded-[24px] overflow-hidden mb-12 bg-[#F5F7F5]">
+        <motion.div
+        variants={staggerContainerSlow}
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true, amount: 0.2 }}
+        className="relative w-full aspect-video lg:aspect-21/9 lg:rounded-[16px]  rounded-lg overflow-hidden mb-8 bg-[#F5F7F5]">
           <Image
             src={content.image}
             alt={content.title}
             fill
             className="object-cover"
           />
-          <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/10 to-transparent flex flex-col justify-end p-6 md:p-10">
+          <div className="absolute inset-0 bg-linear-to-t from-[#0F2318B2]  to-[#00000000] flex flex-col justify-end p-4 md:p-10">
             <p className="text-[#A8D675] tracking-[2px] text-[11px] font-semibold mb-4">
               {content.overlayPrimary}
             </p>
@@ -188,82 +209,93 @@ export function ConsultationTabView({ currentTab }: { currentTab: string }) {
               {content.overlaySecondary.map((tag, i) => (
                 <span
                   key={i}
-                  className="px-5 py-1.5 rounded-full border-[0.67px] border-white/40 text-white text-[12px] bg-white/10 backdrop-blur-md"
+                  className="md:px-5 px-3 py-1.5 rounded-full border-[0.67px] border-[#FFFFFF4D] text-white text-[11px] bg-transparent"
                 >
                   {tag}
                 </span>
               ))}
             </div>
           </div>
-        </div>
+        </motion.div>
 
         {/* Details List */}
-        <div className="flex flex-col border-[0.67px] border-[#EAECF0] rounded-[16px] mb-14 divide-y divide-[#EAECF0]">
-          <div className="flex flex-col sm:flex-row sm:items-center justify-between p-5 md:px-8 bg-white rounded-t-[16px] gap-2">
-            <span className="text-[11px] font-semibold text-[#606060] uppercase tracking-[1.5px]">
-              Duration
-            </span>
-            <span className="text-[15px] font-bold text-[#131313]">
-              {content.duration}
-            </span>
+        <div className="flex flex-col border-[0.67px] border-[#E8E8E8] p-5 rounded-[12px] mb-14">
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between py-3 gap-2">
+            <span className={labelStyle}>Duration</span>
+            <span className={labelValueStyle}>{content.duration}</span>
           </div>
-          <div className="flex flex-col sm:flex-row sm:items-center justify-between p-5 md:px-8 bg-white gap-2">
-            <span className="text-[11px] font-semibold text-[#606060] uppercase tracking-[1.5px]">
-              Format
-            </span>
-            <span className="text-[15px] font-bold text-[#131313]">
-              {content.format}
-            </span>
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between py-3 gap-2">
+            <span className={labelStyle}>Format</span>
+            <span className={labelValueStyle}>{content.format}</span>
           </div>
-          <div className="flex flex-col sm:flex-row sm:items-center justify-between p-5 md:px-8 bg-white rounded-b-[16px] gap-2">
-            <span className="text-[11px] font-semibold text-[#606060] uppercase tracking-[1.5px]">
-              Investment
-            </span>
-            <span className="text-[15px] font-bold text-[#131313]">
-              {content.investment}
-            </span>
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between py-3 gap-2">
+            <span className={labelStyle}>Investment</span>
+            <span className={labelValueStyle}>{content.investment}</span>
           </div>
         </div>
 
-        <p className="text-[#606060] text-base leading-[1.7] mb-12 max-w-4xl">
+        <p className="text-[#606060] text-base leading-[1.7] mb-6 max-w-4xl">
           {content.description}
         </p>
 
         {/* What's Included */}
-        <h3 className="text-[12px] font-bold text-[#1F4842] tracking-[1.5px] uppercase mb-6">
+        <h3 className="text-xs font-semibold text-[#1F4842] tracking-[1.5px] uppercase mb-6">
           What's Included
         </h3>
-        <ul className="flex flex-col gap-4">
+        <motion.ul
+          variants={staggerContainerDelayed}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, amount: 0.4 }}
+          className="flex flex-col gap-4"
+        >
           {content.whatsIncluded.map((item, i) => (
-            <li
+            <motion.li
+              variants={fadeInRight}
               key={i}
-              className="flex items-start gap-4 text-[#475467] text-[15px]"
+              className="flex items-start gap-4 text-[#344054] text-xs"
             >
               <span className="w-1.5 h-1.5 rounded-full bg-[#A8D675] mt-[7px] shrink-0" />
               <span>{item}</span>
-            </li>
+            </motion.li>
           ))}
-        </ul>
-      </div>
+        </motion.ul>
+      </motion.div>
 
       {/* Explore Other Sessions */}
-      <div className="w-full bg-[#F9FAFB] py-16 md:py-24 border-t border-[#EAECF0]">
+      <motion.div
+        variants={staggerContainerSlow}
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true, amount: 0.4 }}
+        className="w-full bg-[#F5F7F5] py-16 md:py-15 border-[0.67px] border-[#E8E8E8]"
+      >
         <div className="w-11/12 max-w-7xl mx-auto">
-          <h4 className="text-[11px] font-bold text-[#567F57] uppercase tracking-[2px] mb-3">
+          <motion.h4
+            variants={fadeInUp}
+            className="text-[11px] font-bold text-[#567F57] uppercase tracking-[2px] mb-3"
+          >
             Explore other sessions
-          </h4>
-          <h2 className="text-2xl md:text-[34px] font-semibold text-[#131313] mb-12">
+          </motion.h4>
+          <motion.h2 variants={fadeInUp} className="heading-2 mb-10">
             Other consultation options
-          </h2>
+          </motion.h2>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {otherTabs.map((tab) => {
+            {otherTabs.map((tab, i) => {
               const tabContent = TABS_CONTENT[tab.id];
               return (
-                <Link
+                <motion.div
                   key={tab.id}
-                  href={`/consultation/${tab.id}`}
-                  className="bg-white rounded-[20px] p-6 lg:p-8 shadow-[0_2px_12px_rgba(0,0,0,0.03)] border border-[#EAECF0] hover:shadow-[0_8px_24px_rgba(0,0,0,0.06)] hover:border-transparent transition-all group flex flex-col h-full"
+                  initial={{ opacity: 0, x: 30 }}
+                  whileInView={{ opacity: 1, x: 0 }}
+                  viewport={{ once: true, amount: 0.4 }}
+                  transition={{
+                    delay: i * 0.15,
+                    duration: 0.55,
+                    ease: [0.25, 0.46, 0.45, 0.94],
+                  }}
+                  className="bg-white rounded-[12px] p-5   border-[0.67px] border-[#E4EBE4]  hover:border-transparent transition-all group flex flex-col h-full"
                 >
                   <div className="mb-5">
                     <span
@@ -272,14 +304,17 @@ export function ConsultationTabView({ currentTab }: { currentTab: string }) {
                       {tabContent.badgeLabel}
                     </span>
                   </div>
-                  <h3 className="text-[17px] font-bold text-[#131313] mb-2 group-hover:text-[#567F57] transition-colors leading-snug">
+                  <h3 className="text-[17px] font-semibold text-[#131313] mb-2 group-hover:text-[#567F57] transition-colors leading-snug">
                     {tabContent.title}
                   </h3>
-                  <p className="text-[#606060] text-[13px] mb-10 font-medium">
+                  <p className="text-[#606060] text-sm mb-10 font-medium">
                     {tabContent.duration} · {tabContent.investment}
                   </p>
 
-                  <div className="mt-auto flex items-center text-[#567F57] text-[13px] font-medium">
+                  <Link
+                    href={`/consultation/${tab.id}`}
+                    className="mt-auto flex items-center text-regular-button text-xsfont-medium"
+                  >
                     Select this session
                     <svg
                       width="14"
@@ -297,13 +332,13 @@ export function ConsultationTabView({ currentTab }: { currentTab: string }) {
                         strokeLinejoin="round"
                       />
                     </svg>
-                  </div>
-                </Link>
+                  </Link>
+                </motion.div>
               );
             })}
           </div>
         </div>
-      </div>
+      </motion.div>
     </div>
   );
 }

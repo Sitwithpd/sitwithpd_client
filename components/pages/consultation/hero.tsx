@@ -6,7 +6,7 @@ import { Button } from "@/components/ui/button";
 import CaretRight from "@/pd-icons/caret-right";
 import Image from "next/image";
 import { useBookConsultation } from "@/lib/api/hooks/consultations/consultations.hooks";
-import { formatCurrency } from "@/lib/utils";
+import { formatCurrency, handleBookingClick } from "@/lib/utils";
 import Link from "next/link";
 import {
   fadeInUp,
@@ -85,21 +85,17 @@ export function Hero() {
           </motion.p>
           <motion.div variants={fadeInUpSlower} className="flex flex-col sm:flex-row justify-start sm:justify-center md:justify-start w-full gap-4 mt-4">
             <Button
-              onClick={() =>
-                document
-                  .getElementById("consultation-cta")
-                  ?.scrollIntoView({ behavior: "smooth" })
-              }
+              onClick={handleBookingClick}
               variant={"regular"}
             >
               Book a Consultation <CaretRight />
             </Button>
-            <Link href="/consultation/pricing" className="w-full md:w-auto">
+            <Link href="/contact" className="w-full md:w-auto">
               <Button
                 variant={"outline"}
                 className="text-white w-full hover:text-white bg-transparent hover:bg-transparent border-[0.67px] border-[#FFFFFF66]"
               >
-                Request a Call Back <CaretRight />
+                Start Your Journey <CaretRight />
               </Button>
             </Link>
           </motion.div>

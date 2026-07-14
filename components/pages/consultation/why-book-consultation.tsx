@@ -10,6 +10,7 @@ import {
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import { ChevronRight } from "lucide-react";
+import { handleBookingClick } from "@/lib/utils";
 
 const benefits = [
   "Gain clarity on complex decisions",
@@ -50,7 +51,7 @@ export function WhyBookConsultation() {
 
           <motion.p
             variants={fadeInUp}
-            className="text-sm md:text-base text-[#606060] leading-relaxed mb-5"
+            className="text-sm md:text-base text-[#606060] leading-relaxed lg:mb-5"
           >
             A single conversation can provide the perspective that changes your
             direction. Our consultations are a confidential, thoughtful, and
@@ -59,12 +60,10 @@ export function WhyBookConsultation() {
           </motion.p>
 
           <motion.div variants={fadeInUp}>
-            <Link href="/consultation#book" className="mt-5 hidden lg:block">
-              <Button variant="regular" className="flex items-center gap-2">
-                Book Your Consultation Today
-                <ChevronRight className="w-4 h-4" />
-              </Button>
-            </Link>
+            <Button onClick={handleBookingClick} variant="regular" className="lg:flex hidden  items-center gap-2">
+              Book Your Consultation Today
+              <ChevronRight className="w-4 h-4" />
+            </Button>
           </motion.div>
         </motion.div>
 
@@ -92,12 +91,10 @@ export function WhyBookConsultation() {
          
         </motion.div>
          <motion.div variants={fadeInUp}>
-            <Link href="/consultation#book" className=" mt-6 lg:hidden">
-              <Button variant="regular" className="flex items-center gap-2">
-                Book Your Consultation Today
-                <ChevronRight className="w-4 h-4" />
-              </Button>
-            </Link>
+            <Button onClick={handleBookingClick} variant="regular" className="flex lg:hidden items-center gap-2">
+              Book Your Consultation Today
+              <ChevronRight className="w-4 h-4" />
+            </Button>
           </motion.div>
       </div>
     </section>

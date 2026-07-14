@@ -1,5 +1,15 @@
 import { clsx, type ClassValue } from "clsx";
 import { twMerge } from "tailwind-merge";
+import { getCalApi } from "@calcom/embed-react";
+
+  export const handleBookingClick = async () => {
+    const cal = await getCalApi({ namespace: "consultation" });
+    cal("modal", {
+      calLink: "shun-evelyn-xvve7u/consultation",
+      config: { layout: "month_view", useSlotsViewOnSmallScreen: "true" },
+    });
+  };
+
 
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));

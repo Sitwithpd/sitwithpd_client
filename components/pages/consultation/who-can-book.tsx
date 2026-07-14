@@ -9,6 +9,7 @@ import {
 } from "@/lib/motion-variants";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
+import { handleBookingClick } from "@/lib/utils";
 
 export function WhoCanBook() {
   const deliveryWays = [
@@ -56,10 +57,7 @@ export function WhoCanBook() {
             corporate teams, government agencies, and non-profit organisations.
           </motion.p>
           <motion.div variants={fadeInUp} className="mt-">
-            <Link href="/consultation">
-            <Button variant="regular">Book your sesion </Button>
-            
-            </Link>
+            <Button onClick={handleBookingClick} variant="regular">Book your sesion </Button>
           </motion.div>
         </motion.div>
 
