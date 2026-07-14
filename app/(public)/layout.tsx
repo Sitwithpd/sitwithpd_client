@@ -19,7 +19,7 @@ export default function PublicLayout({
        <div className="p-5">
       <Footer />
     </div>
-    <FloatingActions />
+      <FloatingActions />
     </>
   );
 }

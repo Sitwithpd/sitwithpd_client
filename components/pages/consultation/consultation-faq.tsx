@@ -46,24 +46,24 @@ export function ConsultationFaq() {
   return (
     <section className="w-full bg-[#F5F7F5] py-16 lg:py-20">
       <div className="w-11/12 mx-auto max-w-7xl">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-16">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-20">
           {/* Left Column — Heading */}
           <motion.div
             variants={staggerContainerSlow}
             initial="hidden"
             whileInView="visible"
             viewport={{ once: true, amount: 0.4 }}
-            className="lg:col-span-4 flex flex-col gap-4"
+            className="lg:col-span-5 flex flex-col gap-3 lg:pr-20"
           >
             <motion.span
               variants={fadeInUp}
-              className="text-regular-button font-semibold text-sm tracking-[2.5px] uppercase"
+              className="text-regular-button font-semibold text-sm tracking-[2.5px] uppercase block "
             >
               Frequently Asked Questions
             </motion.span>
             <motion.h2
               variants={fadeInUp}
-              className="text-3xl lg:text-4xl font-bold text-[#131313] leading-tight"
+              className="heading-2"
             >
               Have a question?
             </motion.h2>
@@ -71,9 +71,7 @@ export function ConsultationFaq() {
               variants={fadeInUp}
               className="text-sm md:text-base text-[#606060] leading-relaxed max-w-md"
             >
-              If you don&apos;t see your question here, reach out to our team
-              &mdash; we&apos;re happy to help you understand what&apos;s
-              involved before you book.
+              If you don&apos;t see your question here, reach out to our team. We&apos;re happy to help you understand what&apos;s involved before you book.
             </motion.p>
           </motion.div>
 
@@ -83,20 +81,20 @@ export function ConsultationFaq() {
             initial="hidden"
             whileInView="visible"
             viewport={{ once: true, amount: 0.2 }}
-            className="lg:col-span-8"
+            className="lg:col-span-7"
           >
             <motion.div variants={fadeInUp}>
-              <Accordion type="single" collapsible className="w-full">
+              <Accordion type="single" collapsible className="w-full space-y-3">
                 {faqItems.map((item, index) => (
                   <AccordionItem
                     key={index}
                     value={`faq-${index}`}
-                    className="border-b border-[#D4DDD4] py-1"
+                    className="border-[0.67px] border-[##EEF2F6] rounded-[10px] px-3 py-1"
                   >
-                    <AccordionTrigger className="text-base md:text-lg font-semibold text-[#131313] hover:no-underline py-5 cursor-pointer">
+                    <AccordionTrigger className="text-base  font-medium text-[#131313] hover:no-underline py-5 cursor-pointer">
                       {item.question}
                     </AccordionTrigger>
-                    <AccordionContent className="text-sm md:text-base text-[#606060] leading-relaxed pb-5">
+                    <AccordionContent className="text-sm text-[#606060] leading-relaxed pb-5">
                       {item.answer}
                     </AccordionContent>
                   </AccordionItem>

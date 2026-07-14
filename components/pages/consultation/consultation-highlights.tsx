@@ -54,7 +54,7 @@ export function ConsultationHighlights() {
   ];
 
   return (
-    <section className="w-full bg-[#F5F7F5] py-16 ">
+    <section className="w-full bg-[#F5F7F5] py-15 lg:pt-20 ">
       <div className="w-11/12 mx-auto max-w-7xl">
         {/* Header Section */}
         <motion.div
@@ -72,7 +72,7 @@ export function ConsultationHighlights() {
           </motion.span>
           <motion.h2
             variants={fadeInUp}
-            className="text-3xl  font-bold text-[#131313] leading-tight lg:w-1/2 lg:pr-20"
+            className="text-3xl  font-bold text-[#131313] leading-tight w-full  lg:pr-20"
           >
             Whatever you're navigating, there's a path forward.
           </motion.h2>

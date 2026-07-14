@@ -7,6 +7,14 @@ import CaretRight from "@/pd-icons/caret-right";
 import Image from "next/image";
 import { useBookConsultation } from "@/lib/api/hooks/consultations/consultations.hooks";
 import { formatCurrency } from "@/lib/utils";
+import Link from "next/link";
+import {
+  fadeInUp,
+  fadeInUpSlower,
+  staggerContainerDelayed,
+  staggerContainerSlow,
+} from "@/lib/motion-variants";
+import { motion } from "motion/react";
 
 export function Hero() {
   const { mutate: bookConsultation } = useBookConsultation();
@@ -30,35 +38,52 @@ export function Hero() {
     })();
   }, [bookConsultation]);
 
-  const handleBookingClick = async () => {
-    const cal = await getCalApi({ namespace: "consultation" });
-    cal("modal", {
-      calLink: "shun-evelyn-xvve7u/consultation",
-      config: { layout: "month_view", useSlotsViewOnSmallScreen: "true" },
-    });
-  };
+  // const handleBookingClick = async () => {
+  //   const cal = await getCalApi({ namespace: "consultation" });
+  //   cal("modal", {
+  //     calLink: "shun-evelyn-xvve7u/consultation",
+  //     config: { layout: "month_view", useSlotsViewOnSmallScreen: "true" },
+  //   });
+  // };
 
   return (
-    <section className="w-full">
-      <div className="relative w-full min-h-svh lg:min-h-dvh flex items-center justify-center  py-24">
+    <section className="w-full ">
+      <div className="relative w-full min-h-svh md:min-h-[60svh]   lg:min-h-dvh flex items-end lg:items-center justify-center lg:justify-start pt-24 pb-10 md:py-30 lg:py-24">
         <Image
-          src={"/images/camp-hero.webp"}
+          src={"/images/consult-bg.webp"}
           alt={"Camp page background image"}
           fill
           className="object-cover object-[70%_center] md:object-center"
           priority
         />
-        <div className="absolute inset-0 bg-black/25" />
-        <div className="relative h-full w-[90%] lg:w-[80%] mx-auto flex flex-col gap-6 justify-center items-start max-w-6xl">
-          <div className="space-y-4 lg:text-center ">
+        <div
+          className="absolute inset-0"
+          style={{
+            background:
+              "linear-gradient(90deg, rgba(0, 0, 0, 0.9), rgba(0, 0, 0, 0.5),transparent )",
+          }}
+        />
+        <motion.div
+          variants={staggerContainerSlow}
+          initial="hidden"
+          animate="visible"
+          viewport={{ once: true }}
+          className="relative h-full w-[90%] lg:w-11/12  mx-auto  flex flex-col gap-6 justify-center items-start max-w-7xl"
+        >
+          <motion.div variants={fadeInUpSlower} className="space-y-4  ">
             <h1
-              className={`text-[#F9FDF9] font-semibold text-[3.125rem] lg:text-[4rem] xl:text-[5rem] leading-[1.05] sm:text-center `}
+              className={`text-[#F9FDF9] text-center md:text-start  mb-2 font-bold text-[2.5rem] sm:text-[3.125rem] lg:text-[4rem] xl:text-[4.25rem] leading-[1.05]  `}
             >
-              One-on-One Professional Consultation
+              One Conversation Can <br className="hidden lg:block" /> Change
+              Everything.
             </h1>
-          </div>
-         <p className="text-[#F9FDF9] text-lg text-center  mx-auto lg:max-w-3xl font-medium">Get personalized guidance from experienced professionals in a confidential and supportive environment.</p>
-          <div className="flex flex-col sm:flex-row justify-start sm:justify-center w-full gap-4 mt-4">
+          </motion.div>
+          <motion.p variants={fadeInUpSlower} className="text-[#F9FDF9] text-lg lg:w-1/2 md:w-9/12 w-full text-center md:text-start  font-medium">
+            Gain Clarity. Find Direction. Move Forward with Confidence.
+            Sometimes, what you need isn't more information you need the right
+            conversation.
+          </motion.p>
+          <motion.div variants={fadeInUpSlower} className="flex flex-col sm:flex-row justify-start sm:justify-center md:justify-start w-full gap-4 mt-4">
             <Button
               onClick={() =>
                 document
@@ -67,10 +92,18 @@ export function Hero() {
               }
               variant={"regular"}
             >
-              Book Now <CaretRight />
+              Book a Consultation <CaretRight />
             </Button>
-          </div>
-        </div>
+            <Link href="/consultation/pricing" className="w-full md:w-auto">
+              <Button
+                variant={"outline"}
+                className="text-white w-full hover:text-white bg-transparent hover:bg-transparent border-[0.67px] border-[#FFFFFF66]"
+              >
+                Request a Call Back <CaretRight />
+              </Button>
+            </Link>
+          </motion.div>
+        </motion.div>
       </div>
     </section>
   );

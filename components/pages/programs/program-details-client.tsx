@@ -31,6 +31,7 @@ import {
 import { useGetDashboardData } from "@/lib/api/hooks/dashboard/dashboard.hooks";
 import { Purchase } from "@/lib/api/services/dashboard/dashboard.services";
 import { CreatePaymentPayload } from "@/lib/api/services/payments/payments.services";
+import { notFound } from "next/navigation";
 import { NgnEquivalent } from "@/components/shared/ngn-equivalent";
 import { usePlatformSettingsStore } from "@/store/use-platform-settings-store";
 
@@ -289,8 +290,7 @@ function ProgramDetailsWrapper({ id }: { id: string }) {
     return (
       <div className="min-h-screen flex justify-center items-center">
         <p className="text-primary-text text-lg tex-center font-medium ">
-          There was an error loading this program. Please try refreshing this
-          page
+         {notFound()}
         </p>
       </div>
     );
