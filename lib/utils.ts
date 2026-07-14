@@ -5,7 +5,7 @@ import { getCalApi } from "@calcom/embed-react";
   export const handleBookingClick = async () => {
     const cal = await getCalApi({ namespace: "consultation" });
     cal("modal", {
-      calLink: "shun-evelyn-xvve7u/consultation",
+      calLink: "sitwithpd/consultation",
       config: { layout: "month_view", useSlotsViewOnSmallScreen: "true" },
     });
   };
