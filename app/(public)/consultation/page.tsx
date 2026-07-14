@@ -6,6 +6,8 @@ import { Testimonials } from "@/components/pages/homepage/testimonials";
 import { ConsultationCta } from "@/components/pages/consultation/consultation-cta";
 import { Metadata } from "next";
 import Resources from "@/components/pages/homepage/resources";
+import { ConsultationHighlights } from "@/components/pages/consultation/consultation-highlights";
+import { ConsultationFaq } from "@/components/pages/consultation/consultation-faq";
 
 export const metadata: Metadata = {
   title: "One-on-One Professional Consultation",
@@ -100,12 +102,14 @@ export default function ConsultationPage() {
         }}
       />
       <Hero />
-      <div className="w-11/12 mx-auto">
+      {/* <div className="w-11/12 mx-auto">
         <AreasOfSupport />
         <ProcessCards />
         <Resources />
         <ConsultationServices />
-      </div>
+      </div> */}
+      <ConsultationHighlights />
+      <ConsultationFaq />
 
       {/* Testimonials section */}
       <div className="w-full ">

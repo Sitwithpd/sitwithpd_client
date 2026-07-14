@@ -18,32 +18,31 @@ export function ProgramHero() {
       id: 1,
       imageSrc: "/images/programs-hero-1.png",
       alt: "Healing Through Presence",
-      title: <p>Heal. Grow.<br className="hidden lg:block"/>Transform Together.</p>,
+      title: <p>Where Growth<br className=""/>Becomes a Lifestyle</p>,
       description:
-        "Structured programs, immersive experiences, and self-paced courses designed to guide your presence-based healing journey at your own pace.",
+        "Transformation doesn't happen by chance  it happens through intentional learning, practical action, and consistent personal development.",
       imageClass: "object-cover object-center",
-      titleWidth: "w-full sm:w-[50%] md:w-[45%] lg:w-[55%]",
     },
-    {
-      id: 2,
-      imageSrc: "/images/programs-hero-2.png",
-      alt: "Structured Growth Roadmap",
-      title: <p>Understand<br className="hidden lg:block"/> Your Emotions.</p>,
-      description:
-        "Step-by-step programs to help you identify, process, and respond to what you feel with greater clarity and self-awareness, every week.",
-      imageClass: "object-cover object-center",
-      titleWidth: "w-full sm:w-[60%] md:w-[50%] lg:w-[60%]",
-    },
-    {
-      id: 3,
-      imageSrc: "/images/programs-hero-3.png",
-      alt: "Presence in Daily Life",
-      title: <p>Find Stability<br className="hidden lg:block"/> Through Change.</p>,
-      description:
-        "Navigate uncertainty, new life phases, and personal growth with structured support from experienced facilitators who walk the journey with you.",
-      imageClass: "object-cover object-center",
-      titleWidth: "w-full sm:w-[70%] md:w-[55%] lg:w-[65%]",
-    },
+    // {
+    //   id: 2,
+    //   imageSrc: "/images/programs-hero-2.png",
+    //   alt: "Structured Growth Roadmap",
+    //   title: <p>Understand<br className="hidden lg:block"/> Your Emotions.</p>,
+    //   description:
+    //     "Step-by-step programs to help you identify, process, and respond to what you feel with greater clarity and self-awareness, every week.",
+    //   imageClass: "object-cover object-center",
+    //   titleWidth: "w-full sm:w-[60%] md:w-[50%] lg:w-[60%]",
+    // },
+    // {
+    //   id: 3,
+    //   imageSrc: "/images/programs-hero-3.png",
+    //   alt: "Presence in Daily Life",
+    //   title: <p>Find Stability<br className="hidden lg:block"/> Through Change.</p>,
+    //   description:
+    //     "Navigate uncertainty, new life phases, and personal growth with structured support from experienced facilitators who walk the journey with you.",
+    //   imageClass: "object-cover object-center",
+    //   titleWidth: "w-full sm:w-[70%] md:w-[55%] lg:w-[65%]",
+    // },
   ];
 
   return (
@@ -59,7 +58,7 @@ export function ProgramHero() {
         {slides.map((slide) => {
           return (
             <SwiperSlide key={slide.id}>
-              <div className="relative w-full min-h-svh h-svh flex items-center justify-center">
+              <div className="relative w-full min-h-svh sm:h-svh pb-10 sm:pb-0  flex items-end lg:items-center justify-center">
                 <Image
                   src={slide.imageSrc}
                   alt={slide.alt}
@@ -68,18 +67,19 @@ export function ProgramHero() {
                   priority
                 />
                 <div className="absolute inset-0 bg-black/10" />
-                <div className="relative h-full w-[90%]  mx-auto flex flex-col gap-6 justify-center items-center max-w-7xl">
-                  <div className="space-y-4 text-center flex flex-col items-center">
+                <div className="relative  w-full  mx-auto flex flex-col gap-6 h-full justify-center items-center max-w-7xl">
+                  <div className="space-y-4  flex flex-col  w-11/12 mx-auto ">
+                  <h5 className="text-[#A8D675] text-base font-medium uppercase tracking-[3px] mb-4"> Sit With PD · Programs</h5>
                     <h1
-                      className={`text-[#F9FDF9] font-medium text-[3.125rem] lg:text-[4rem] xl:text-[5rem] leading-[100%] max-w-4xl`}
+                      className={`text-[#F9FDF9] font-semibold text-[3.125rem] lg:text-[4rem]  leading-[100%] `}
                     >
                       {slide.title}
                     </h1>
-                    <p className="text-[1.125rem] md:text-[1.25rem] text-[#F7FBF6] opacity-90 leading-relaxed max-w-135">
+                    <p className="text-[1.125rem] md:text-lg text-[#F7FBF6] opacity-90 leading-relaxed md:w-8/12">
                       {slide.description}
                     </p>
                   </div>
-                  <div className="flex flex-col sm:flex-row gap-4 w-[70%] justify-center">
+                  <div className="flex flex-col sm:flex-row gap-4 sm:justify-start  w-11/12 mx-auto ">
                     <Button
                       variant="regular"
                       className=""
@@ -92,8 +92,8 @@ export function ProgramHero() {
                       Browse Programs <CaretRight className="ml-2" />
                     </Button>
                     <Link href="/consultation#consultation-cta">
-                      <Button variant="outline" className="w-full">
-                        Book Consultation
+                      <Button variant="outline" className="w-full text-[#A8D675]">
+                        Register Today
                       </Button>
                     </Link>
                   </div>
@@ -103,24 +103,7 @@ export function ProgramHero() {
           );
         })}
       </Swiper>
-      <div className="bg-[#F0F4F0]  grid grid-cols-2 md:grid-cols-4 gap-y-5">
-        <div className="py-2 flex flex-col lg:border-x border-[#C7CAC6] items-center justify-center">
-          <h3 className="text-[#004617] font-semibold text-2xl mb-1 ">3</h3>
-          <span className="text-[#036B26] text-base">Core Programs</span>
-        </div>
-        <div className="py-2 flex flex-col lg:border-x border-[#C7CAC6] items-center justify-center">
-          <h3 className="text-[#004617] font-semibold text-2xl mb-1 ">3-5</h3>
-          <span className="text-[#036B26] text-base">Per Programs</span>
-        </div>
-        <div className="py-2 flex flex-col lg:border-x border-[#C7CAC6] items-center justify-center">
-          <h3 className="text-[#004617] font-semibold text-2xl mb-1 ">100%</h3>
-          <span className="text-[#036B26] text-base">Self Spaced</span>
-        </div>
-        <div className="py-2 flex flex-col lg:border-x border-[#C7CAC6] items-center justify-center">
-          <h3 className="text-[#004617] font-semibold text-2xl mb-1 ">3,400+</h3>
-          <span className="text-[#036B26] text-base">Participants Guided</span>
-        </div>
-      </div>
+
       <style jsx global>{`
         .swiper-pagination-bullet {
           background: rgba(255, 255, 255, 0.4) !important;

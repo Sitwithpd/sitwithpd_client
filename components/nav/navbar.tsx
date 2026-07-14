@@ -16,7 +16,16 @@ const navLinks = [
   { label: "About", href: "/about" },
   { label: "Programs", href: "/programs" },
   { label: "Camps", href: "/camps" },
-  { label: "Consultation", href: "/consultation" },
+  {
+    label: "Consultation",
+    href: "/consultation",
+    subLinks: [
+      { label: "One on One Consultations", href: "/consultation/one-on-one" },
+      { label: "Executive Consultation", href: "/consultation/executive" },
+      { label: "Business Strategy", href: "/consultation/business-strategy" },
+      { label: "Teams", href: "/consultation/teams" },
+    ],
+  },
   { label: "Community", href: "/community" },
   { label: "Contact", href: "/contact" },
   { label: "Blog", href: "/blog" },
@@ -89,7 +98,7 @@ export function Navbar() {
         {/* Desktop Links */}
         <div className="hidden lg:flex items-center gap-6 xl:gap-8">
           {navLinks
-            .filter((link) => link.label !== "Home")
+            .filter((link) => link.label !== "Home" && link.label !== "Contact")
             .map((link) => {
               const isActive =
                 link.href === "/"
@@ -98,17 +107,36 @@ export function Navbar() {
                     pathname.startsWith(link.href + "/");
 
               return (
-                <Link
-                  key={link.href}
-                  href={link.href}
-                  className={`text-sm font-medium transition-colors ${
-                    isActive
-                      ? "text-regular-button underline underline-offset-4"
-                      : "text-white hover:text-green-50"
-                  }`}
-                >
-                  {link.label}
-                </Link>
+                <div key={link.href} className="relative group">
+                  <Link
+                    href={link.href}
+                    className={`text-sm font-medium transition-colors flex items-center gap-1 py-6 ${
+                      isActive
+                        ? "text-regular-button underline underline-offset-4"
+                        : "text-white hover:text-green-50"
+                    }`}
+                  >
+                    {link.label}
+                    {link.subLinks && (
+                      <span className="text-[10px] ml-1 opacity-70">▼</span>
+                    )}
+                  </Link>
+
+                  {/* Dropdown Menu */}
+                  {link.subLinks && (
+                    <div className="absolute top-full left-1/2 -translate-x-1/2 w-[240px] bg-white rounded-lg shadow-xl py-2 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200">
+                      {link.subLinks.map((sub) => (
+                        <Link
+                          key={sub.href}
+                          href={sub.href}
+                          className="block px-4 py-3 text-sm text-gray-800 hover:bg-gray-50 hover:text-regular-button transition-colors"
+                        >
+                          {sub.label}
+                        </Link>
+                      ))}
+                    </div>
+                  )}
+                </div>
               );
             })}
         </div>
@@ -258,7 +286,7 @@ export function Navbar() {
               variants={containerVariants}
               initial="hidden"
               animate="visible"
-              className="flex-1 flex flex-col gap-2"
+              className="flex-1 flex flex-col gap-2 mt-4"
             >
               {navLinks.map((link) => {
                 const isActive =
@@ -268,10 +296,14 @@ export function Navbar() {
                       pathname.startsWith(link.href + "/");
 
                 return (
-                  <motion.div key={link.href} variants={itemVariants}>
+                  <motion.div
+                    key={link.href}
+                    variants={itemVariants}
+                    className="flex flex-col"
+                  >
                     <Link
                       href={link.href}
-                      onClick={() => setIsOpen(false)}
+                      onClick={() => !link.subLinks && setIsOpen(false)}
                       className={`text-lg font-medium transition-colors py-3 px-4 block ${
                         isActive
                           ? "text-regular-button underline underline-offset-4"
@@ -280,6 +312,20 @@ export function Navbar() {
                     >
                       {link.label}
                     </Link>
+                    {link.subLinks && (
+                      <div className="flex flex-col ml-6 pl-4 border-l border-gray-300">
+                        {link.subLinks.map((sub) => (
+                          <Link
+                            key={sub.href}
+                            href={sub.href}
+                            onClick={() => setIsOpen(false)}
+                            className="py-2.5 text-base text-gray-600 hover:text-regular-button transition-colors"
+                          >
+                            {sub.label}
+                          </Link>
+                        ))}
+                      </div>
+                    )}
                   </motion.div>
                 );
               })}

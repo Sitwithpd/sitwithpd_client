@@ -31,9 +31,14 @@ import { ProgramOverview } from "@/components/pages/programs/program-overview";
 import { Testimonials } from "@/components/pages/homepage/testimonials";
 import { CtaBlock } from "@/components/shared/cta-block";
 import ProgramGrowth from "@/components/pages/programs/program-growth";
-import { ProgramCta } from "@/components/pages/programs/program-cta";
+import { SignatureHighlights } from "@/components/pages/programs/signature-highlights";
+import { HowDelivered } from "@/components/pages/programs/how-delivered";
+import { ReusableCta } from "@/components/shared/reusable-cta";
 import Resources from "@/components/pages/homepage/resources";
 import PowerOfPresence from "@/components/pages/programs/power-of-presence";
+import { WhoShouldEnrol } from "@/components/pages/programs/who-should-enrol";
+import { WhatYouCanExpect } from "@/components/pages/programs/what-you-can-expect";
+import { Learning } from "@/components/pages/programs/learning";
 
 export default function ProgramsPage() {
   return (
@@ -58,19 +63,44 @@ export default function ProgramsPage() {
         }}
       />
       <ProgramHero />
+
       <div className="w-11/12 mx-auto">
         <ProgramOverview />
-        <ProgramGrowth />
-        <PowerOfPresence />
       </div>
-      <ProgramCta />
 
-      <div className="w-full bg-white">
-        <Testimonials />
+      <SignatureHighlights />
+      <HowDelivered />
+
+      <div className="w-11/12 mx-auto">
+      <WhoShouldEnrol />
+        {/* <ProgramGrowth /> */}
+        {/* <PowerOfPresence /> */}
       </div>
-      <div className="w-11/12 mx-auto mb-10">
-        <Resources showBtn={false} />
-      </div>
+      <WhatYouCanExpect />
+      <Learning />
+
+      <ReusableCta
+        subtitle="BEGIN YOUR GROWTH JOURNEY"
+        title="Every extraordinary life is shaped by intentional choices."
+        description="Don't wait for the perfect moment. Discover the program that's right for you and take the next step toward becoming all you were created to be."
+        buttons={[
+          {
+            text: "Explore Programs",
+            href: "/programs/programs-listing",
+          },
+          {
+            text: "Register Today",
+            href: "/",
+          },
+          {
+            text: "Contact Our Team",
+            href: "/contact",
+          },
+        ]}
+      />
+
+     
+   
     </main>
   );
 }
