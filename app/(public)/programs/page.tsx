@@ -88,10 +88,7 @@ export default function ProgramsPage() {
             text: "Explore Programs",
             href: "/programs/programs-listing",
           },
-          {
-            text: "Register Today",
-            href: "/",
-          },
+       
           {
             text: "Contact Our Team",
             href: "/contact",

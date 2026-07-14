@@ -64,7 +64,7 @@ export function WhoShouldEnrol() {
             growth and meaningful impact.
           </motion.p>
 
-          <Link href="/programs#program-growth" className="hidden lg:block">
+          <Link href="/programs/programs-listing" className="hidden lg:block">
             <Button variant="regular">
               Find your program <CaretRight />
             </Button>
@@ -101,7 +101,7 @@ export function WhoShouldEnrol() {
             </motion.li>
           ))}
 
-          <Link href="/programs/program-listing" className="lg:hidden mt-10">
+          <Link href="/programs/programs-listing" className="lg:hidden mt-10">
             <Button variant="regular">
               Find your program <CaretRight />
             </Button>

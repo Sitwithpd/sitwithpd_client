@@ -48,7 +48,7 @@ export default function ProgramsListingCard({
       >
         <div className="w-11/12 mx-auto max-w-7xl">
           {/* Header Area */}
-          <div className="lg:mb-8  py-4 lg:py-0  sticky top-20 lg:static  z-10 bg-white ">
+          <div className="lg:mb-8  py-4 lg:py-0  sticky top-32 lg:static  z-10 bg-white ">
             <div className="flex items-center gap-3 mb-4">
               <span
                 className={`px-3 py-1.5 rounded-full text-xs font-medium tracking-wide ${program.tag.bg} ${program.tag.text}`}

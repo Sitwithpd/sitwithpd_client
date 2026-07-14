@@ -16,7 +16,7 @@ export default function PublicLayout({
       <ViewTransition>
         <main className="flex-1">{children}</main>
       </ViewTransition>
-       <div className="p-5">
+       <div className="lg:p-5 p-2.5">
       <Footer />
     </div>
       <FloatingActions />

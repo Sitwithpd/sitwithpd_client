@@ -71,6 +71,12 @@ export function Hero() {
           className="relative h-full w-[90%] lg:w-11/12  mx-auto  flex flex-col gap-6 justify-center items-start max-w-7xl"
         >
           <motion.div variants={fadeInUpSlower} className="space-y-4  ">
+             <motion.span
+            variants={fadeInUp}
+            className="text-[#A8D675] font-semibold text-sm tracking-[2.5px] uppercase block "
+          >
+           Sit With PD · Consultation
+          </motion.span>
             <h1
               className={`text-[#F9FDF9] text-center md:text-start  mb-2 font-bold text-[2.5rem] sm:text-[3.125rem] lg:text-[4rem] xl:text-[4.25rem] leading-[1.05]  `}
             >
