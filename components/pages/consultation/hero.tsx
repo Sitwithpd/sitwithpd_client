@@ -78,20 +78,20 @@ export function Hero() {
            Sit With PD · Consultation
           </motion.span>
             <h1
-              className={`text-[#F9FDF9] text-center md:text-start  mb-2 font-bold text-[2.5rem] sm:text-[3.125rem] lg:text-[4rem] xl:text-[4.25rem] leading-[1.05]  `}
+              className={`text-[#F9FDF9] text-start  mb-2 font-bold text-[2.5rem] sm:text-[3.125rem] lg:text-[4rem] xl:text-[4.25rem] leading-[1.05]  `}
             >
               One Conversation Can <br className="hidden lg:block" /> Change
               Everything.
             </h1>
           </motion.div>
-          <motion.p variants={fadeInUpSlower} className="text-[#F9FDF9] text-lg lg:w-1/2 md:w-9/12 w-full text-center md:text-start  font-medium">
+          <motion.p variants={fadeInUpSlower} className="text-[#F9FDF9] text-lg lg:w-1/2 md:w-9/12 w-full text-start  font-medium">
             Gain Clarity. Find Direction. Move Forward with Confidence.
             Sometimes, what you need isn't more information you need the right
             conversation.
           </motion.p>
           <motion.div variants={fadeInUpSlower} className="flex flex-col sm:flex-row justify-start sm:justify-center md:justify-start w-full gap-4 mt-4">
             <Button
-              onClick={handleBookingClick}
+              onClick={() => handleBookingClick("sitwithpd/consultation")}
               variant={"regular"}
             >
               Book a Consultation <CaretRight />

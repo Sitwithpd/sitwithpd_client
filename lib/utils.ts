@@ -2,13 +2,15 @@ import { clsx, type ClassValue } from "clsx";
 import { twMerge } from "tailwind-merge";
 import { getCalApi } from "@calcom/embed-react";
 
-  export const handleBookingClick = async () => {
-    const cal = await getCalApi({ namespace: "consultation" });
-    cal("modal", {
-      calLink: "sitwithpd/consultation",
-      config: { layout: "month_view", useSlotsViewOnSmallScreen: "true" },
-    });
-  };
+export const handleBookingClick = async (calLink = "sitwithpd/consultation") => {
+  const namespace = calLink.split("/").pop();
+  const cal = await getCalApi({ namespace });
+
+  cal("modal", {
+    calLink,
+    config: { layout: "month_view", useSlotsViewOnSmallScreen: "true" },
+  });
+};
 
 
 export function cn(...inputs: ClassValue[]) {

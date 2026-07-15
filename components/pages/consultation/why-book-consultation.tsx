@@ -60,7 +60,7 @@ export function WhyBookConsultation() {
           </motion.p>
 
           <motion.div variants={fadeInUp}>
-            <Button onClick={handleBookingClick} variant="regular" className="lg:flex hidden  items-center gap-2">
+            <Button onClick={() => handleBookingClick("sitwithpd/consultation")} variant="regular" className="lg:flex hidden  items-center gap-2">
               Book Your Consultation Today
               <ChevronRight className="w-4 h-4" />
             </Button>
@@ -91,7 +91,7 @@ export function WhyBookConsultation() {
          
         </motion.div>
          <motion.div variants={fadeInUp}>
-            <Button onClick={handleBookingClick} variant="regular" className="flex lg:hidden items-center gap-2">
+            <Button onClick={() => handleBookingClick("sitwithpd/consultation")} variant="regular" className="flex lg:hidden items-center gap-2">
               Book Your Consultation Today
               <ChevronRight className="w-4 h-4" />
             </Button>

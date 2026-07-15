@@ -49,7 +49,7 @@ export function ReusableCta({
               <Button
                 className={cn("w-full sm:w-auto px-5 shadow-none")}
                 variant={"regular"}
-                onClick={handleBookingClick}
+                onClick={() => handleBookingClick("sitwithpd/consultation")}
               >
                 {buttons[0].text}
               </Button>

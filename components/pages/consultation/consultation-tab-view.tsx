@@ -14,6 +14,8 @@ import {
   staggerContainer,
   fadeInUpSlower,
 } from "@/lib/motion-variants";
+import { Button } from "@/components/ui/button";
+import { handleBookingClick } from "@/lib/utils";
 
 export type TabContentType = {
   badgeLabel: string;
@@ -29,6 +31,7 @@ export type TabContentType = {
   investment: string;
   description: string;
   whatsIncluded: string[];
+  calLink: string;
 };
 
 const TABS_LIST = [
@@ -40,6 +43,7 @@ const TABS_LIST = [
 
 const TABS_CONTENT: Record<string, TabContentType> = {
   "one-on-one": {
+    calLink: "sitwithpd/one-on-one-consultations",
     badgeLabel: "Most Popular",
     badgeBg: "bg-[#60935D]",
     badgeText: "Online or In-Person",
@@ -61,6 +65,7 @@ const TABS_CONTENT: Record<string, TabContentType> = {
     ],
   },
   executive: {
+    calLink: "sitwithpd/executive-consultations",
     badgeLabel: "Leadership",
     badgeBg: "bg-[#3D89DF]",
     badgeText: "Online or In-Person",
@@ -82,6 +87,7 @@ const TABS_CONTENT: Record<string, TabContentType> = {
     ],
   },
   "business-strategy": {
+    calLink: "sitwithpd/business-strategy-consultations ",
     badgeLabel: "Business",
     badgeBg: "bg-[#E17100]",
     badgeText: "Online or In-Person",
@@ -103,6 +109,7 @@ const TABS_CONTENT: Record<string, TabContentType> = {
     ],
   },
   teams: {
+    calLink: "sitwithpd/teams-org.-consultations",
     badgeLabel: "Organisation",
     badgeBg: "bg-[#9810FA]",
     badgeText: "In-Person (preferred)",
@@ -169,7 +176,7 @@ export function ConsultationTabView({ currentTab }: { currentTab: string }) {
       <motion.div variants={staggerContainer}
         initial="hidden"
         whileInView="visible"
-        viewport={{ once: true, amount: 0.4 }} className="w-11/12 max-w-5xl mx-auto py-12 mb-15">
+        viewport={{ once: true, amount: 0.4 }} className="w-11/12 max-w-5xl mx-auto py-12 mb-0">
         {/* Badges */}
         <motion.div variants={fadeInUpSlower} className="flex flex-wrap items-center gap-3 mb-6">
           <span
@@ -261,6 +268,10 @@ export function ConsultationTabView({ currentTab }: { currentTab: string }) {
           ))}
         </motion.ul>
       </motion.div>
+
+      <div className="w-11/12 mx-auto mb-15 flex justify-center items-center">
+        <Button onClick={() => handleBookingClick(content.calLink)} variant="regular">Book Consultation</Button>
+      </div>
 
       {/* Explore Other Sessions */}
       <motion.div
