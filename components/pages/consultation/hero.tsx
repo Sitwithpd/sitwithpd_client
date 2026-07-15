@@ -56,13 +56,7 @@ export function Hero() {
           className="object-cover object-[70%_center] md:object-center"
           priority
         />
-        <div
-          className="absolute inset-0"
-          style={{
-            background:
-              "linear-gradient(90deg, rgba(0, 0, 0, 0.9), rgba(0, 0, 0, 0.5),transparent )",
-          }}
-        />
+        <div className="absolute inset-0 bg-black/50 lg:bg-transparent lg:bg-linear-to-r lg:from-black/90 lg:via-black/50 lg:to-transparent" />
         <motion.div
           variants={staggerContainerSlow}
           initial="hidden"
@@ -71,12 +65,12 @@ export function Hero() {
           className="relative h-full w-[90%] lg:w-11/12  mx-auto  flex flex-col gap-6 justify-center items-start max-w-7xl"
         >
           <motion.div variants={fadeInUpSlower} className="space-y-4  ">
-             <motion.span
-            variants={fadeInUp}
-            className="text-[#A8D675] font-semibold text-sm tracking-[2.5px] uppercase block "
-          >
-           Sit With PD · Consultation
-          </motion.span>
+            <motion.span
+              variants={fadeInUp}
+              className="text-[#A8D675] font-semibold text-sm tracking-[2.5px] uppercase block "
+            >
+              Sit With PD · Consultation
+            </motion.span>
             <h1
               className={`text-[#F9FDF9] text-start  mb-2 font-bold text-[2.5rem] sm:text-[3.125rem] lg:text-[4rem] xl:text-[4.25rem] leading-[1.05]  `}
             >
@@ -84,12 +78,18 @@ export function Hero() {
               Everything.
             </h1>
           </motion.div>
-          <motion.p variants={fadeInUpSlower} className="text-[#F9FDF9] text-lg lg:w-1/2 md:w-9/12 w-full text-start  font-medium">
+          <motion.p
+            variants={fadeInUpSlower}
+            className="text-[#F9FDF9] text-lg lg:w-1/2 md:w-9/12 w-full text-start  font-medium"
+          >
             Gain Clarity. Find Direction. Move Forward with Confidence.
             Sometimes, what you need isn't more information you need the right
             conversation.
           </motion.p>
-          <motion.div variants={fadeInUpSlower} className="flex flex-col sm:flex-row justify-start sm:justify-center md:justify-start w-full gap-4 mt-4">
+          <motion.div
+            variants={fadeInUpSlower}
+            className="flex flex-col sm:flex-row justify-start sm:justify-center md:justify-start w-full gap-4 mt-4"
+          >
             <Button
               onClick={() => handleBookingClick("sitwithpd/consultation")}
               variant={"regular"}

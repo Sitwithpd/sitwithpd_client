@@ -303,7 +303,7 @@ export function Navbar() {
                   >
                     <Link
                       href={link.href}
-                      onClick={() => !link.subLinks && setIsOpen(false)}
+                      onClick={() => setIsOpen(false)}
                       className={`text-lg font-medium transition-colors py-3 px-4 block ${
                         isActive
                           ? "text-regular-button underline underline-offset-4"
