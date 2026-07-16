@@ -16,7 +16,7 @@ export function AboutHero() {
         <div className="relative h-full w-[90%] lg:w-11/12 mx-auto flex flex-col gap-6 justify-center items-start max-w-6xl">
           <div className="space-y-4 lg:text-center ">
             <h1
-              className={`text-[#F9FDF9] font-semibold text-[3.125rem] lg:text-[4rem] xl:text-[5rem] leading-[1.05]  `}
+              className={`text-[#F9FDF9] font-bold heading-1 leading-[1.05]  `}
             >
               About Sit-With-PD
             </h1>

@@ -16,7 +16,7 @@ export default function ProgramsListingOverview() {
         text: "text-white",
       },
       subtitle: "6-week cohort programme",
-      title: "Transition for Undergraduates",
+      title: "Transition Incubation for Undergraduates",
       slogan: "Find yourself. Own your story. Step into your future.",
       description:
         "A presence-based programme supporting students navigating identity, pressure, and life transitions with clarity and emotional stability. University life comes with extraordinary opportunity and extraordinary pressure. This programme creates a safe and structured space for undergraduates to explore who they are, build emotional intelligence, and transition into adulthood with confidence and purpose.",

@@ -2,6 +2,7 @@ import { Metadata } from "next";
 import CommunityHero from "@/components/pages/community/community-hero";
 import WhoWeWelcome from "@/components/pages/community/ho-we-welcome";
 import DiscoverCommunity from "@/components/pages/community/discover-community";
+import { CommunityCta } from "@/components/pages/community/community-cta";
 
 export const metadata: Metadata = {
   title: "Join the Sit With PD Community",
@@ -58,6 +59,7 @@ export default function CommunityPage() {
       <CommunityHero />
       <WhoWeWelcome />
       <DiscoverCommunity />
+      <CommunityCta />
     </main>
   );
 }

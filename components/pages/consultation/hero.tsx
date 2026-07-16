@@ -38,13 +38,7 @@ export function Hero() {
     })();
   }, [bookConsultation]);
 
-  // const handleBookingClick = async () => {
-  //   const cal = await getCalApi({ namespace: "consultation" });
-  //   cal("modal", {
-  //     calLink: "shun-evelyn-xvve7u/consultation",
-  //     config: { layout: "month_view", useSlotsViewOnSmallScreen: "true" },
-  //   });
-  // };
+
 
   return (
     <section className="w-full ">

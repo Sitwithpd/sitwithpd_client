@@ -157,22 +157,21 @@ export default function ConsultationPage() {
       <WhoCanBook />
       <ConsultationTestimonials />
       <ConsultationFaq />
-          <ReusableCta
-                subtitle="BEGIN YOUR GROWTH JOURNEY"
-                title="Every breakthrough begins with a willingness to seek clarity."
-                description="Whether you're facing an important decision, leading through change, building a vision, or simply looking for trusted guidance, your next step starts with one conversation.."
-                buttons={[
-                  {
-                    text: "Book a Consultation",
-                  action: "book-consultation",
-                  },
-                  {
-                    text: "Contact Our Team",
-                    href: "/contact",
-                  },
-                
-                ]}
-              />
+      <ReusableCta
+        subtitle="BEGIN YOUR GROWTH JOURNEY"
+        title="Every breakthrough begins with a willingness to seek clarity."
+        description="Whether you're facing an important decision, leading through change, building a vision, or simply looking for trusted guidance, your next step starts with one conversation.."
+        buttons={[
+          {
+            text: "Book a Consultation",
+            action: "book-consultation",
+          },
+          {
+            text: "Contact Our Team",
+            href: "/contact",
+          },
+        ]}
+      />
       {/* <ConsultationCta /> */}
     </main>
   );

@@ -175,6 +175,9 @@ h6 {
   .ProseMirror {
     @apply text-primary-text;
   }
+  .heading-1 {
+    @apply text-[2.5rem] sm:text-[3.125rem] lg:text-[4rem] xl:text-[4.25rem] font-bold;
+  }
 }
 
 /* Transition styles  */

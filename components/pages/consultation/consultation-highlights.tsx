@@ -2,6 +2,7 @@
 
 import {
   fadeInUp,
+  fadeInUpSlower,
   staggerContainerDelayed,
   staggerContainerSlow,
 } from "@/lib/motion-variants";
@@ -80,16 +81,21 @@ export function ConsultationHighlights() {
 
         {/* Highlight Items */}
         <motion.div
-          variants={staggerContainerDelayed}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true }}
+          // variants={staggerContainerDelayed}
+          // initial="hidden"
+          // whileInView="visible"
+          // viewport={{ once: true }}
           className="divide-y divide-dashed divide-[#C8D8C8]"
         >
           {highlights.map((item) => (
             <motion.div
               key={item.number}
-              variants={fadeInUp}
+              initial="hidden"
+              whileInView="visible"
+              variants={fadeInUpSlower}
+              viewport={{ once: true, amount: 0.5 }}
+                whileHover={{ x: 4 }}
+              transition={{ type: "spring", stiffness: 200, damping: 20 }}
               className="flex flex-col sm:flex-row gap-4 sm:gap-8 lg:gap-12 items-start py-8 lg:py-10"
             >
               {/* Number */}

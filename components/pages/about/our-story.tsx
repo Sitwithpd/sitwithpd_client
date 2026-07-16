@@ -1,3 +1,13 @@
+"use client";
+
+import { motion } from "motion/react";
+import {
+  fadeInUp,
+  staggerContainerDelayed,
+  staggerContainer,
+  fadeInRight,
+} from "@/lib/motion-variants";
+
 export function OurStory() {
   const steps = [
     {
@@ -67,9 +77,11 @@ export function OurStory() {
     {
       year: "",
       title: "Purpose",
-      description:(
+      description: (
         <p>
-          We believe every person has the capacity to live a meaningful and impactful life. Our mission is to help people discover what truly matters and align their lives with greater intention and purpose.
+          We believe every person has the capacity to live a meaningful and
+          impactful life. Our mission is to help people discover what truly
+          matters and align their lives with greater intention and purpose.
         </p>
       ),
     },
@@ -77,17 +89,35 @@ export function OurStory() {
 
   return (
     <section className=" py-10 lg:pt-24 w-full">
-      <div className="container mx-auto  flex flex-col items-center">
-        <h2 className="heading-2 text-center ">Our Approach</h2>
-        <p className="text-center text-base text-[#5A6C8A] mt-2 mb-16 max-w-2xl">
+      <motion.div
+        variants={staggerContainer}
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true, amount: 0.4 }}
+        className="container mx-auto  flex flex-col items-center"
+      >
+        <motion.h2 variants={fadeInUp} className="heading-2 text-center ">
+          Our Approach
+        </motion.h2>
+        <motion.p
+          variants={fadeInUp}
+          className="text-center text-base text-[#5A6C8A] mt-2 mb-16 max-w-2xl"
+        >
           We guide individuals through a journey of reflection, discovery, and
           intentional growth, creating safe spaces where meaningful and lasting
           transformation can take place.
-        </p>
+        </motion.p>
 
-        <div className="flex flex-col gap-6 w-full max-w-7xl bg-[#E9EDF0] py-10 border border-[#DEDEDE] rounded-[16px] relative ">
+        <motion.div
+          variants={staggerContainerDelayed}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true }}
+          className="flex flex-col gap-6 w-full max-w-7xl bg-[#E9EDF0] py-10 border border-[#DEDEDE] rounded-[16px] relative "
+        >
           {steps.map((step, idx) => (
-            <div
+            <motion.div
+              variants={fadeInRight}
               key={idx}
               className="bg-[#F2F4F7] border-l-4 border-[#649351] rounded-[10px] p-5 md:px-10 md:py-5 w-11/12 sm:w-10/12 mx-auto "
             >
@@ -100,10 +130,10 @@ export function OurStory() {
                   {step.description}
                 </div>
               </div>
-            </div>
+            </motion.div>
           ))}
-        </div>
-      </div>
+        </motion.div>
+      </motion.div>
     </section>
   );
 }

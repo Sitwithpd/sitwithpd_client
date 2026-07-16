@@ -20,7 +20,7 @@ interface TeamMember {
 const teamMembers: TeamMember[] = [
   {
     name: "Oluwatosin SAM-ABEREOLA(PD).",
-    role: "Founder & CEO",
+    role: "Founder & CPO",
     image: "/images/sam-hus.png",
     href: "/team/oluwatosin-sam-abereola",
     intro: [
@@ -55,14 +55,13 @@ const teamMembers: TeamMember[] = [
     image: "/images/kola.png",
     href: "/team/kola-olajide",
     intro: [
-      "Kola OLAJIDE is a distinguished engineering professional, strategic operations leader, leadership trainer, and renewable energy expert with a passion for transforming vision into meaningful impact.",
-      "As the Director of Execution & Integration at Sit With PD, he plays a vital role in translating purpose into action, ensuring that the organisation's vision is supported by effective systems, operational excellence, and transformational experiences that empower individuals to live with greater clarity, direction, and purpose.",
+      "Kola OLAJIDE is a distinguished engineering professional, strategic operations leader, leadership trainer, and renewable energy expert with a passion for transforming vision into meaningful impact. As the Director of Execution & Integration at Sit With PD, he plays a vital role in translating purpose into action, ensuring that the organisation’s vision is supported by effective systems, operational excellence, and transformational experiences that empower individuals to live with greater clarity, direction, and purpose",
     ],
     bio: [
-      "With a strong academic background in Electrical and Electronics Engineering, complemented by Postgraduate Diplomas in Electrical Engineering and Christian Education, Kola brings a rare combination of technical expertise, strategic thinking, and people-centred leadership. His career has been shaped by a commitment to innovation, service, and creating sustainable solutions that improve lives and drive positive change.",
-      "Widely respected within the renewable energy sector, Kola has established himself as a trusted authority in solar energy design, auditing, and energy systems implementation. His reputation for excellence, integrity, and results-driven leadership has earned him the confidence of clients, organisations, and industry professionals, while enabling him to contribute to impactful projects and initiatives across diverse sectors.",
-      "Having previously served as a Lift and Escalator Engineer and currently serving as Chief Technical Officer at Timtech Electric-Solar, Kola continues to demonstrate exceptional leadership, technical proficiency, and a dedication to developing people and systems. Through his mentoring, training, and professional engagements, he has inspired numerous individuals to pursue excellence, embrace innovation, and maximise their potential.",
-      "At the core of his philosophy is the belief that vision alone is never enough; lasting impact is created when purpose is supported by strategy, execution, and intentional action. Through Sit With PD, he remains committed to helping individuals and communities move beyond aspiration, unlock their potential, and transform purpose into meaningful achievement.",
+      "With a strong academic background in Electrical and Electronics Engineering, complemented by Postgraduate Diplomas in Electrical Engineering and Christian Education, Kola brings a rare combination of technical expertise, strategic thinking, and people-centred leadership. His career has been shaped by a commitment to innovation, service, and creating sustainable solutions that improve lives and drive positive change",
+      "Widely respected within the renewable energy sector, Kola has established himself as a trusted authority in solar energy design, auditing, and energy systems implementation. His reputation for excellence, integrity, and results-driven leadership has earned him the confidence of clients, organisations, and industry professionals, while enabling him to contribute to impactful projects and initiatives across diverse sectors",
+      "Having previously served as a Lift and Escalator Engineer at Blizz Escalators.. He is currently serving as Solar System Design and Production Engineer at Renerworld Global Limited and Chief Operations Officer at Timtech Electric-Solar, Kola continues to demonstrate exceptional leadership, technical proficiency, and a dedication to developing people and systems. Through his mentoring, training, and professional engagements, he has inspired numerous individuals to pursue excellence, embrace innovation, and maximise their potential.",
+      "At the core of his philosophy is the belief that vision alone is never enough—lasting impact is created when purpose is supported by strategy, execution, and intentional action. Through Sit With PD, he remains committed to helping individuals and communities move beyond aspiration, unlock their potential, and transform purpose into meaningful achievement.",
     ],
   },
   {
@@ -82,7 +81,7 @@ const teamMembers: TeamMember[] = [
   },
   {
     name: "Clementina B. ADETOYE",
-    role: "Camp Director/COO",
+    role: "Director of Transformational Experiences",
     image: "/images/tina.png",
     href: "/team/clementina-adetoye",
     intro: [

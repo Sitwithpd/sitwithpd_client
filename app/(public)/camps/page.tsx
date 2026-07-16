@@ -36,6 +36,14 @@ import CardSkeletons from "@/components/skeletons/card-skeletons";
 import { WhatTheCampIs } from "@/components/pages/camps/what-the camp-is";
 import CampJourney from "@/components/pages/camps/camp-journey";
 import { CampCACta } from "@/components/pages/camps/camp-ca";
+import { CampDifference } from "@/components/pages/camps/camp-difference";
+import { CampHighlights } from "@/components/pages/camps/camp-highlights";
+import { CampsJourney } from "@/components/pages/camps/camps-journey";
+import { CampExperience } from "@/components/pages/camps/camp-experience";
+import { ReusableCta } from "@/components/shared/reusable-cta";
+import { ConsultationTestimonials } from "@/components/pages/consultation/consultation-testimonials";
+import { CampWho } from "@/components/pages/camps/camp-who";
+import { CampTransform } from "@/components/pages/camps/camp-transform";
 
 export default function CampsPage() {
   return (
@@ -72,24 +80,39 @@ export default function CampsPage() {
       />
       <CampHero />
       <div className="w-11/12 mx-auto">
-        <WhatTheCampIs />
-        <CampJourney />
+        <CampDifference />
+        {/* <WhatTheCampIs />
+        <CampJourney /> */}
       </div>
-      <GlimpseGallery />
-      <Suspense fallback={<CardSkeletons />}>
+      <CampHighlights />
+      <CampsJourney />
+      <CampExperience />
+      <CampWho />
+      <CampTransform />
+      {/* <GlimpseGallery /> */}
+      {/* <Suspense fallback={<CardSkeletons />}>
         <div className="w-11/12 mx-auto">
           <CampServices />
         </div>
-      </Suspense>
-      <div className="w-11/12 mx-auto">
-        <RetreatBenefits />
-      </div>
-      {/* <BookingForm /> */}
-      <div className="w-full bg-white ">
-        <Testimonials />
-        <CampCACta />
-      </div>
-
+      </Suspense> */}
+   
+     
+      <ConsultationTestimonials />
+      <ReusableCta
+        subtitle="Begin Your Camp Journey"
+        title="Your space is waiting. Just show up."
+        description="You don't need to have it all figured out. Discover the camp that's right for you and take the next step toward becoming all you were created to be.."
+        buttons={[
+          {
+            text: "Apply Now",
+            href: "/contact",
+          },
+          {
+            text: "Contact Us",
+            href: "/contact",
+          },
+        ]}
+      />
       {/* Shared CTA Block with custom props */}
     </div>
   );
