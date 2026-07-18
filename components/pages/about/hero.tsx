@@ -1,5 +1,11 @@
 "use client";
 import Image from "next/image";
+import {
+  
+  fadeInUpSlower,
+  staggerContainerSlow,
+} from "@/lib/motion-variants";
+import { motion } from "motion/react";
 
 export function AboutHero() {
   return (
@@ -13,21 +19,32 @@ export function AboutHero() {
           priority
         />
         <div className="absolute inset-0 bg-black/25" />
-        <div className="relative h-full w-[90%] lg:w-11/12 mx-auto flex flex-col gap-6 justify-center items-start max-w-6xl">
-          <div className="space-y-4 lg:text-center ">
+        <motion.div
+          variants={staggerContainerSlow}
+          initial="hidden"
+          animate="visible"
+          viewport={{ once: true }}
+          className="relative h-full w-[90%] lg:w-11/12 mx-auto flex flex-col gap-6 justify-center items-start max-w-6xl"
+        >
+          <motion.div
+            variants={fadeInUpSlower}
+            className="space-y-4 lg:text-center "
+          >
             <h1
               className={`text-[#F9FDF9] font-bold heading-1 leading-[1.05]  `}
             >
               About Sit-With-PD
             </h1>
-          </div>
-          <p className="text-[#F9FDF9] text-lg  lg:max-w-3xl font-medium">
+          </motion.div>
+          <motion.p
+            variants={fadeInUpSlower}
+            className="text-[#F9FDF9] text-lg  lg:max-w-3xl font-medium"
+          >
             A transformational platform born from personal experience dedicated
             to helping individuals reconnect with themselves and live with
             greater purpose. .
-          </p>
-       
-        </div>
+          </motion.p>
+        </motion.div>
       </div>
     </section>
   );

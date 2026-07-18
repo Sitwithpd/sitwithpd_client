@@ -1,4 +1,14 @@
+"use client"
+
 import Image from "next/image";
+import {
+  fadeInRight,
+  fadeInUp,
+  fadeInUpSlower,
+  staggerContainerDelayed,
+  staggerContainerSlow,
+} from "@/lib/motion-variants";
+import { motion } from "motion/react";
 
 export function SitWithPD() {
   const highlights = [
@@ -44,12 +54,18 @@ export function SitWithPD() {
   return (
     <section className="container mx-auto  py-10 lg:py-20 flex flex-col lg:flex-row gap-10 md:gap-16 items-center max-w-7xl">
       {/* Left Content */}
-      <div className="flex-1 ">
-        <h2 className="heading-2 mb-6">
+      <motion.div
+        variants={staggerContainerSlow}
+        initial="hidden"
+        animate="visible"
+        viewport={{ once: true,amount: 0.5 }}
+        className="flex-1 "
+      >
+        <motion.h2 variants={fadeInUp} className="heading-2 mb-6">
           Sit With PD — Purpose. Direction. Personal Discovery
-        </h2>
+        </motion.h2>
 
-        <p className="text-black text-base  leading-[140%]">
+        <motion.p variants={fadeInUp} className="text-black text-base  leading-[140%]">
           Sit With PD Global Therapeutic Network is a transformational platform
           dedicated to helping individuals gain clarity, build resilience, and
           live with greater purpose. Through reflective conversations,
@@ -57,22 +73,27 @@ export function SitWithPD() {
           we empower people to reconnect with themselves, navigate life's
           challenges with confidence, and create lives aligned with what truly
           matters.
-        </p>
+        </motion.p>
 
-        <p className="text-black text-base  leading-[140%] my-5">
+        <motion.p variants={fadeInUp} className="text-black text-base  leading-[140%] my-5">
           At the heart of our work is PD — Purpose, Direction, and Personal
           Discovery the three pillars that guide every journey we facilitate.
-        </p>
-        <p className="text-black text-base  leading-[140%] mb-10">
+        </motion.p>
+        <motion.p variants={fadeInUp} className="text-black text-base  leading-[140%] mb-10">
           We believe that when people discover their purpose, gain clear
           direction, and deepen their understanding of themselves, they are
           better equipped to thrive, grow, and make a meaningful impact in the
           world around them.
-        </p>
+        </motion.p>
 
-        <div className="flex flex-wrap gap-6">
+        <motion.div variants={staggerContainerDelayed}
+         initial="hidden"
+        animate="visible"
+        viewport={{ once: true,amount: 0.4 }}
+        className="flex flex-wrap gap-6">
           {highlights.map((item, index) => (
-            <div
+            <motion.div
+            variants={fadeInRight}
               key={index}
               className="flex items-center bg-[#EBECEB33] px-2 py-1 gap-2"
             >
@@ -82,10 +103,10 @@ export function SitWithPD() {
               <span className="text-sm font-medium text-[#344054]0">
                 {item.text}
               </span>
-            </div>
+            </motion.div>
           ))}
-        </div>
-      </div>
+        </motion.div>
+      </motion.div>
 
       {/* Right Image Placeholder */}
       <div className="flex-1 w-full ">

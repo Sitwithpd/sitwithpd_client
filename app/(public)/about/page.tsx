@@ -68,8 +68,8 @@ export default function AboutPage() {
       <CoreValues />
       <div className="w-11/12 mx-auto">
         <TherapeuticApproach />
-        <OurStory />
       </div>
+        <OurStory />
       <CtaBlock
         title="Ready to Reconnect With Yourself?"
         subtext="Whether you're facing uncertainty, seeking clarity, or ready for deeper transformation  your journey begins with a single step."

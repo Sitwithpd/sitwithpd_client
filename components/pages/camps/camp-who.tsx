@@ -101,7 +101,7 @@ export function CampWho() {
               key={i}
               initial={{ opacity: 0, x: 30 }}
               whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true, amount: 0.3 }}
+              viewport={{ once: true, amount: 0.4 }}
               transition={{
                 delay: i * 0.2,
                 duration: 0.55,

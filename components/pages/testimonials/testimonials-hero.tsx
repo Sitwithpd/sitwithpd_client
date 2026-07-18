@@ -17,7 +17,7 @@ export function TestimonialsHero() {
         <div className="absolute inset-0 bg-black/40" />
         <div className="relative h-full w-[90%] lg:w-[80%] mx-auto flex flex-col gap-6 justify-center items-center max-w-6xl text-center">
           <div className="space-y-4">
-            <h1 className="text-[#F9FDF9] font-semibold text-[2.75rem] lg:text-[4rem] xl:text-[5rem] leading-[1.1]">
+            <h1 className="text-[#F9FDF9] heading-1 leading-[1.1]">
               Stories of Healing & Connection
             </h1>
             <p className="text-[#F9FDF9] text-base lg:text-xl max-w-2xl mx-auto font-medium opacity-90">

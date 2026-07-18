@@ -11,7 +11,6 @@ import Link from "next/link";
 import {
   fadeInUp,
   fadeInUpSlower,
-  staggerContainerDelayed,
   staggerContainerSlow,
 } from "@/lib/motion-variants";
 import { motion } from "motion/react";

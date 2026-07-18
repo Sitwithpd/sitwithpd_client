@@ -122,21 +122,31 @@ export default function ProgramsListingOverview() {
   return (
     <section className="relative">
       <div className="h-20 bg-[#1A2E1A] w-full fixed top-0" />
-      <div className=" overflow-x-auto scrollbar-hide sticky top-20 z-20 bg-white py-5 space-y-3">
+      <div className=" overflow-x-auto scrollbar-hide sticky  top-20 z-20 bg-white pt-5 pb-0 space-y-3">
         <div className="w-11/12 mx-auto">
-<Link href={"/programs"} className="flex items-center gap-2 text-regular-button font-medium text-sm">
-  <ArrowLeft size={20} color="#60935D" /> Back to Programs
-</Link>
-        <div className="flex items-center gap-6">
-         {programsData.map((program) => (
-          <Button variant="outline" className="text-[#121212] hover:bg-white/80 border-none px-0  font-semibold text-sm " key={program.title} onClick={() => {document.getElementById(program.title)?.scrollIntoView({ behavior: "smooth" })}}>
-           {program.title}
-          </Button>
-         ))}
-
+          <Link
+            href={"/programs"}
+            className="flex items-center gap-2 text-regular-button font-medium text-sm"
+          >
+            <ArrowLeft size={20} color="#60935D" /> Back to Programs
+          </Link>
+          <div className="flex items-center gap-6">
+            {programsData.map((program) => (
+              <Button
+                variant="outline"
+                className="text-[#121212] hover:bg-white/80 border-none px-0  font-semibold text-sm "
+                key={program.title}
+                onClick={() => {
+                  document
+                    .getElementById(program.title)
+                    ?.scrollIntoView({ behavior: "smooth" });
+                }}
+              >
+                {program.title}
+              </Button>
+            ))}
+          </div>
         </div>
-        </div>
-
       </div>
       <div className="w-o mb-10 py-10">
         {programsData.map((program) => (
@@ -151,12 +161,12 @@ export default function ProgramsListingOverview() {
         description="Every journey is different. Book a free 30-minute discovery call with a member of our team  we'll listen, understand your goals, and point you to the right programme."
         buttons={[
           {
-            text: "Book a Free Discovery Call",
-            href: "/programs/programs-listing",
+            text: "Contact Us",
+            href: "/contact",
           },
           {
-            text: "Register Today",
-            href: "/",
+            text: "Book Consultation",
+            href: "/consultation",
           },
         ]}
       />

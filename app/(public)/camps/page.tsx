@@ -108,8 +108,8 @@ export default function CampsPage() {
             href: "/contact",
           },
           {
-            text: "Contact Us",
-            href: "/contact",
+            text: "View Community",
+            href: "/community",
           },
         ]}
       />

@@ -10,6 +10,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import CaretRight from "@/pd-icons/caret-right";
+import { useIsMobile } from "@/hooks/use-mobile";
 
 interface CampCard {
   title: string;
@@ -86,6 +87,7 @@ const camps: CampCard[] = [
 const lastCamp = camps.length - 1
 
 export function CampTransform() {
+  const isMobile = useIsMobile()
   return (
     <section className="w-full bg-[#0F2318] py-16 lg:py-24">
       <div className="w-11/12 mx-auto max-w-7xl">
@@ -119,8 +121,8 @@ export function CampTransform() {
           {camps.map((camp, i) => (
             <motion.div
               key={i}
-              initial={{ opacity: 0, x: 30 }}
-              whileInView={{ opacity: 1, x: 0 }}
+              initial={isMobile ? { opacity: 0, y: 30 } : { opacity: 0, x: 30 }}
+              whileInView={isMobile ? { opacity: 1, y: 0 } : { opacity: 1, x: 0 }}
               viewport={{ once: true, amount: 0.3 }}
               transition={{
                 delay: i * 0.2,

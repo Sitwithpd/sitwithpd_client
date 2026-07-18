@@ -1,9 +1,34 @@
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Medical Disclaimer | Sit With PD",
+  title: "Medical Disclaimer — Sit With PD",
   description:
-    "Read the Medical Disclaimer for Sit-With-PD Global Therapeutic Network. Understand that our wellbeing support services do not constitute medical advice.",
+    "Sit With PD Global Therapeutic Network provides wellbeing support, education, and personal development. Our services do not constitute medical advice. Read our Medical Disclaimer to understand the scope and boundaries of our support.",
+  openGraph: {
+    title: "Medical Disclaimer — Sit With PD",
+    description:
+      "Sit With PD's services are for educational and wellbeing purposes only and are not a substitute for professional medical, psychiatric, or healthcare advice.",
+    url: "https://sitwithpd.com/medical-disclaimer",
+    images: [
+      {
+        url: "/images/og-image.png",
+        width: 1200,
+        height: 630,
+        alt: "Sit With PD Medical Disclaimer",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Medical Disclaimer — Sit With PD",
+    description:
+      "Our wellbeing support services do not constitute medical advice. Read our Medical Disclaimer for full details.",
+    images: ["/images/og-image.png"],
+  },
+  robots: {
+    index: false,
+    follow: true,
+  },
 };
 
 export default function MedicalDisclaimerPage() {

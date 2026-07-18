@@ -71,6 +71,7 @@ export function CampsJourney() {
               {deliveryWays.map((item, index) => (
                 <motion.li
                   variants={fadeInRight}
+                  viewport={{ once: true, amount: 0.4 }}
                   key={index}
                   className="flex items-center gap-3 text-white text-sm md:text-base"
                 >

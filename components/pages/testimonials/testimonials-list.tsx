@@ -104,7 +104,7 @@ function TestimonialCard({ testimonial }: { testimonial: Testimonial }) {
       variants={cardVariants}
       layout
       id={`testimonial-${testimonial.id}`}
-      className="flex flex-col bg-white rounded-2xl p-4  border border-[#EEF2F6] hover:border-brand-green/20 shadow-sm hover:shadow-xl transition-all duration-300 relative overflow-hidden h-full min-h-[380px]"
+      className="flex flex-col bg-white rounded-2xl p-4  border border-[#EEF2F6] hover:border-brand-green/20  shadow-[0px_12px_16px_-4px_rgba(16,24,40,0.08),0px_4px_6px_-2px_rgba(16,24,40,0.03)]  transition-all duration-300 relative overflow-hidden h-full min-h-[380px]"
     >
       <div className="flex flex-col items-center text-center mb-6 w-full">
         <img

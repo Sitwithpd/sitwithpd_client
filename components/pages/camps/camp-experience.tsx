@@ -30,7 +30,7 @@ const camps: CampCard[] = [
       "Gardenia Tropicana, Lagos",
     ],
     image: "/images/Image.webp",
-    href: "/camps",
+    href: "/contact",
   },
   {
     category: "Leadership Camp",
@@ -42,7 +42,7 @@ const camps: CampCard[] = [
       "Gardenia Tropicana, Lagos",
     ],
     image: "/images/therapeutic-camps.webp",
-    href: "/camps",
+    href: "/contact",
   },
   {
     category: "Youth Camp",
@@ -54,7 +54,7 @@ const camps: CampCard[] = [
       "Gardenia Tropicana, Lagos",
     ],
     image: "/images/join-us.webp",
-    href: "/camps",
+    href: "/contact",
   },
 ];
 
@@ -89,17 +89,22 @@ export function CampExperience() {
         </motion.div>
 
         {/* Cards grid */}
-        <motion.div
-          variants={staggerContainerDelayed}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, amount: 0.2 }}
+        <div
+         
+          
           className="grid grid-cols-1 md:grid-cols-3 gap-5 max-w-6xl mx-auto"
         >
-          {camps.map((camp) => (
+          {camps.map((camp, i) => (
             <motion.div
               key={camp.title}
-              variants={fadeInUp}
+             initial={{ opacity: 0, x: 30 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                viewport={{ once: true, amount: 0.3 }}
+                transition={{
+                  delay: i * 0.15,
+                  duration: 0.55,
+                  ease: [0.25, 0.46, 0.45, 0.94],
+                }}
               className="flex flex-col rounded-[16px] overflow-hidden bg-[#1A3D36]"
             >
               {/* Card image */}
@@ -152,7 +157,7 @@ export function CampExperience() {
               </div>
             </motion.div>
           ))}
-        </motion.div>
+        </div>
       </div>
     </section>
   );

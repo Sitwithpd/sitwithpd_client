@@ -24,7 +24,7 @@ export function CampDifference() {
       label: "Group Setting",
     },
     {
-      value: "500++",
+      value: "500+",
       label: "Lives Touched",
     },
   ];
@@ -44,7 +44,7 @@ export function CampDifference() {
             variants={fadeInUp}
             className="bg-[#EEF7E6] lg:hidden mx-auto text-regular-button w-fit font-semibold text-sm tracking-[1.8px] mb-4 py-2 px-3 rounded-full flex items-center justify-center uppercase"
           >
-            why choose us
+           What Makes us Different
           </motion.p>
           <motion.h2
             variants={fadeInUp}
@@ -98,11 +98,11 @@ export function CampDifference() {
             className="flex flex-col gap-1 h-full "
           >
             <p className="bg-[#EEF7E6] hidden  text-regular-button w-fit font-semibold text-sm tracking-[1.8px] mb-4 py-2 px-3 rounded-full lg:flex items-center justify-center uppercase">
-              why choose us
+              What Makes us Different
             </p>
             <div className=" relative w-full lg:h-full lg:w-full aspect-square  h-[400px] rounded-[10px] overflow-hidden lg:rounded-[20px] p-7 text-white">
               <Image
-                src="/images/Image.webp"
+                src="/images/camping-image.png"
                 alt=""
                 fill
                 className="object-cover "
