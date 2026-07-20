@@ -7,7 +7,6 @@ import { motion } from "motion/react";
 import {
   fadeInRight,
   fadeInUp,
-  staggerContainerDelayed,
   staggerContainerSlow,
 } from "@/lib/motion-variants";
 

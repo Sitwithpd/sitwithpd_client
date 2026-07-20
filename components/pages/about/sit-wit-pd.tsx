@@ -89,7 +89,7 @@ export function SitWithPD() {
         <motion.div variants={staggerContainerDelayed}
          initial="hidden"
         animate="visible"
-        viewport={{ once: true,amount: 0.4 }}
+        viewport={{ once: true,amount: 0.5 }}
         className="flex flex-wrap gap-6">
           {highlights.map((item, index) => (
             <motion.div
