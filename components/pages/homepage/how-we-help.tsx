@@ -5,7 +5,7 @@ import { Pill } from "@/components/ui/pill";
 import Image from "next/image";
 import { motion } from "motion/react";
 import { ArrowRight } from "lucide-react";
-import { fadeInUp } from "@/lib/motion-variants";
+import { fadeInUp, fadeInUpSlower, staggerContainerSlow } from "@/lib/motion-variants";
 
 export function HowWeHelp() {
   const cards = [
@@ -77,13 +77,26 @@ export function HowWeHelp() {
 
   return (
     <section className="container mx-auto py-15 flex flex-col items-center">
-      {/* Badge */}
-      <Pill text="What We Offer" />
+      <motion.div
+        variants={staggerContainerSlow}
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true, amount: 0.4 }}
+        className="mb-16"
+      >
+        {/* Badge */}
+        <motion.div variants={fadeInUpSlower} className="flex justify-center items-center gap-2">
+          <Pill text="What We Offer" />
+        </motion.div>
 
-      {/* Heading */}
-      <h2 className="text-center heading-2">
+        {/* Heading */}
+      <motion.h2
+        variants={fadeInUpSlower}
+        className="text-center heading-2"
+      >
         Find the support you need without feeling overwhelmed
-      </h2>
+      </motion.h2>
+      </motion.div>
 
       {/* Grid */}
       <motion.div
@@ -96,7 +109,12 @@ export function HowWeHelp() {
         {cards.map((card, index) => (
           <motion.div
             key={index}
-            variants={fadeInUp}
+            initial="hidden"
+            whileInView="visible"
+            variants={fadeInUpSlower}
+            viewport={{ once: true, amount: 0.5 }}
+            whileHover={{ x: 4 }}
+            transition={{ type: "spring", stiffness: 200, damping: 20 }}
             className="relative rounded-[10px] overflow-hidden h-85 lg:h-auto lg:aspect-video group"
           >
             <Image

@@ -162,15 +162,15 @@ export function Hero() {
                   className="relative h-full w-[90%] mx-auto  flex flex-col gap-6 justify-center items-start max-w-7xl"
                 >
                   <div className="space-y-4  ">
-                    <motion.p
+                    {/* <motion.p
                       variants={fadeInUp}
                       className={`xl:text-x  l text-base ${slide.pillColor} transition-colors duration-300  font-extralight`}
                     >
                       {slide.subheader}
-                    </motion.p>
+                    </motion.p> */}
                     <motion.h1
                       variants={fadeInUp}
-                      className={`text-[#F9FDF9] font-semibold text-[3.125rem] lg:text-[4rem] xl:text-[5rem] leading-[100%]  `}
+                      className={`text-[#F9FDF9] heading-1 leading-[100%]  `}
                     >
                       {slide.title}
                     </motion.h1>

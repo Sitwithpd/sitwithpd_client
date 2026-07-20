@@ -3,7 +3,7 @@
 import Image from "next/image";
 import React, { useState } from "react";
 import { Play } from "lucide-react";
-import { fadeInUp, staggerContainer } from "@/lib/motion-variants";
+import { fadeInUp, fadeInUpSlower, staggerContainer, staggerContainerDelayed } from "@/lib/motion-variants";
 import { motion } from "motion/react";
 
 // Extract YouTube video ID from URL
@@ -28,37 +28,40 @@ export default function Philosphy() {
         variants={staggerContainer}
         initial="hidden"
         whileInView="visible"
-        viewport={{ once: true, amount: 0.1 }}
+        viewport={{ once: true, amount: 0.4 }}
       >
         <motion.h2 variants={fadeInUp} className="heading-2 text-center">
           The Philosophy Behind Sit With PD
         </motion.h2>
         <motion.div
-          variants={fadeInUp}
+          variants={staggerContainerDelayed}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, amount: 0.4 }}
           className="text-base text-[#667085] leading-6 space-y-7 lg:text-center mt-10"
         >
-          <p className="text-[#664101] text-lg">
+          <motion.p variants={fadeInUpSlower} className="text-[#664101] text-lg">
             Many of life's deepest answers are not found by searching farther,
             but by journeying inward where clarity, purpose, and transformation
             begin.
-          </p>
-          <p>
+          </motion.p>
+          <motion.p variants={fadeInUpSlower}>
             In a world that constantly encourages us to move faster, do more,
             and keep pushing forward, we create space to pause, reflect, and
             listen.
-          </p>
-          <p>
+          </motion.p>
+          <motion.p variants={fadeInUpSlower}>
             We believe that clarity emerges from self-awareness, resilience is
             built through honest reflection, and purpose is discovered when we
             have the courage to sit with our experiences rather than run from
             them.
-          </p>
-          <p>
+          </motion.p>
+          <motion.p variants={fadeInUpSlower}>
             Through Purpose, Direction, and Personal Discovery, we help
             individuals navigate life's challenges with greater understanding,
             intentionality, and confidence because when you understand yourself
             better, you live better.
-          </p>
+          </motion.p>
         </motion.div>
       </motion.div>
       {/* video */}

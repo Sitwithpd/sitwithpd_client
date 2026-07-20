@@ -4,7 +4,12 @@ import { Pill } from "@/components/ui/pill";
 import Image from "next/image";
 import { ChevronRight, ChevronLeft, X } from "lucide-react";
 import { motion, AnimatePresence } from "motion/react";
-import { fadeInUp, staggerContainerSlow } from "@/lib/motion-variants";
+import {
+  fadeInUp,
+  fadeInUpSlower,
+  staggerContainerDelayed,
+  staggerContainerSlow,
+} from "@/lib/motion-variants";
 import { useState } from "react";
 
 interface TeamMember {
@@ -69,7 +74,7 @@ const teamMembers: TeamMember[] = [
     role: "Director of Franchise & Partnerships, USA",
     image: "/images/deborah-dickson-removebg-preview.png",
     modalImage: "/images/deborah-dickson.png",
-    href: "/team/temitope-bamidele",
+    href: "/team/deborah-dickson",
     intro: [
       "Deborah Dickson is a trained psychologist, accomplished educationist, and strategic partnerships leader with a deep passion for empowering individuals, strengthening communities, and fostering meaningful collaboration. As the Director of Franchise & Partnerships for Sit With PD in the United States, she leads the organisation’s efforts to build strategic alliances, expand its global footprint, and cultivate partnerships that advance its mission of transforming lives through Purpose, Direction, and Personal Discovery.",
     ],
@@ -117,24 +122,46 @@ export function OurTeam() {
 
   return (
     <section className="container mx-auto pt-10 lg:py-24 w-full overflow-hidden flex flex-col items-center">
-      <Pill text="Our Team" />
-
-      <h2 className="heading-2 text-center mb-16 max-w-[900px]">
-        A dedicated team, committed to your well-being, here to guide support
-        and walk the journey with you.
-      </h2>
-
       <motion.div
         variants={staggerContainerSlow}
         initial="hidden"
         whileInView="visible"
-        viewport={{ once: true, amount: 0.1 }}
+        viewport={{ once: true, amount: 0.4 }}
+        className="mb-16"
+      >
+        <motion.div
+          variants={fadeInUp}
+          className="flex justify-center items-center gap-2"
+        >
+          <Pill text="Our Team" />
+        </motion.div>
+
+        <motion.h2
+          variants={fadeInUpSlower}
+          className="heading-2 text-center  max-w-[900px]"
+        >
+          A dedicated team, committed to your well-being, here to guide support
+          and walk the journey with you.
+        </motion.h2>
+      </motion.div>
+
+      <motion.div
+        variants={staggerContainerDelayed}
+        initial="hidden"
+        whileInView="visible"
         className="flex flex-wrap justify-center gap-x-16 gap-y-14 w-full max-w-7xl"
       >
         {teamMembers.map((member, index) => (
           <motion.div
             key={member.name}
-            variants={fadeInUp}
+            initial={{ opacity: 0, x: 30 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true, amount: 0.4 }}
+            transition={{
+              delay: index * 0.15,
+              duration: 0.55,
+              ease: [0.25, 0.46, 0.45, 0.94],
+            }}
             className="flex flex-col items-center text-center w-full sm:w-[calc(50%-2rem)] lg:w-[calc(33.333%-3rem)]"
           >
             {/* Photo */}
@@ -189,9 +216,9 @@ export function OurTeam() {
             >
               {/* Left — Photo */}
               <div className="w-full sm:w-[45%] shrink-0 bg-[#EFF5EA] rounded-t-2xl sm:rounded-l-2xl sm:rounded-tr-none flex items-stretch min-h-[280px] sm:min-h-[500px]">
-                <div className="relative w-full h-full min-h-[280px]">
+                <div className="relative aspect-square lg:aspect-auto w-full h-full min-h-[280px]">
                   <Image
-                    src={selectedMember.modalImage  || selectedMember.image}
+                    src={selectedMember.modalImage || selectedMember.image}
                     alt={selectedMember.name}
                     fill
                     className="object-cover object-top rounded-t-2xl sm:rounded-l-2xl sm:rounded-tr-none"

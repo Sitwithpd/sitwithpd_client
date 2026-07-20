@@ -102,7 +102,7 @@ export default function Methodology() {
           variants={staggerContainerSlow}
           initial="hidden"
           whileInView="visible"
-          viewport={{ once: true, amount: 0.3 }}
+          viewport={{ once: true, amount: 0.4 }}
           className="flex  items-center gap-3 mb-8"
         >
           <motion.div
@@ -150,7 +150,7 @@ export default function Methodology() {
           variants={staggerContainerDelayed}
           initial="hidden"
           whileInView="visible"
-          viewport={{ once: true, amount: 0.3 }}
+          viewport={{ once: true, amount: 0.4 }}
           className="max-w-3xl flex flex-col gap-5"
         >
           <motion.p

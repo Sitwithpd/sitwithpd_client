@@ -8,6 +8,8 @@ import FormFieldComp from "@/components/formfield";
 import { Field, FieldError, FieldLabel } from "@/components/ui/field";
 import { X } from "lucide-react";
 import { toast } from "sonner";
+import { z } from "zod";
+import { zodResolver } from "@hookform/resolvers/zod";
 
 export const COMMUNITY_JOIN_MODAL_ID = "community-join-modal";
 
@@ -22,10 +24,22 @@ type CommunityJoinFormValues = {
   fullName: string;
   email: string;
   phone?: string;
-  communityName: string;
   reason?: string;
   agreedToPolicy: boolean;
 };
+
+const communityJoinSchema = z.object({
+  fullName: z.string().min(1, "Full name is required"),
+  email: z
+    .string()
+    .min(1, "Email address is required")
+    .email("Please enter a valid email address"),
+  phone: z.string().optional(),
+  reason: z.string().optional(),
+  agreedToPolicy: z
+    .boolean()
+    .refine((val) => val === true, "You must agree to the privacy policy"),
+});
 
 export default function CommunityJoinModal({
   community,
@@ -34,11 +48,11 @@ export default function CommunityJoinModal({
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   const form = useForm<CommunityJoinFormValues>({
+    resolver: zodResolver(communityJoinSchema),
     defaultValues: {
       fullName: "",
       email: "",
       phone: "",
-      communityName: community.title,
       reason: "",
       agreedToPolicy: false,
     },
@@ -125,35 +139,6 @@ export default function CommunityJoinModal({
             label="Phone Number"
             placeholder="e.g. +1 (555) 000-0000"
             className="bg-white flex-1"
-          />
-
-          {/* Community (read-only select) */}
-          <Controller
-            control={form.control}
-            name="communityName"
-            render={({ field, fieldState }) => (
-              <Field data-invalid={fieldState.invalid}>
-                <div className="flex flex-col">
-                  <FieldLabel
-                    className="text-[#344054] dark:text-secondary-text text-[14px] mb-2"
-                    htmlFor="communityName"
-                  >
-                    Select Community
-                  </FieldLabel>
-                  <select
-                    id="communityName"
-                    {...field}
-                    disabled
-                    className="border-[0.75px] border-[#EAECF0] bg-[#F9FAFB] rounded-[5px] w-full text-[13px] font-medium text-primary-text py-3 px-3 outline-none cursor-not-allowed"
-                  >
-                    <option value={community.title}>{community.title}</option>
-                  </select>
-                </div>
-                {fieldState.invalid && (
-                  <FieldError errors={[fieldState.error]} />
-                )}
-              </Field>
-            )}
           />
 
           {/* Why do you want to join */}
