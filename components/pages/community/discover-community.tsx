@@ -11,7 +11,6 @@ import {
 } from "@/lib/motion-variants";
 import { Pill } from "@/components/ui/pill";
 import { Button } from "@/components/ui/button";
-import Link from "next/link";
 import GeneralistPathfindersIcon from "@/pd-icons/generalist-pathfinders-icon";
 import ImpactVolunteersIcon from "@/pd-icons/impact-volunteers-icon";
 import InternshipHubIcon from "@/pd-icons/internship-hub-icon";
@@ -19,6 +18,10 @@ import PhilanthropyIcon from "@/pd-icons/philanthropy-icon";
 import { Sparkles } from "lucide-react";
 import StewardshipIcon from "@/pd-icons/stewardship-icon";
 import React from "react";
+import { useModalStore } from "@/components/store/use-modal-store";
+import CommunityJoinModal, {
+  COMMUNITY_JOIN_MODAL_ID,
+} from "./community-join-modal";
 
 const COMMUNITIES = [
   {
@@ -174,6 +177,8 @@ const COMMUNITIES = [
 ];
 
 export default function DiscoverCommunity() {
+  const openModal = useModalStore((state) => state.openModal);
+
   return (
     <section className="py-20 w-full bg-[#F9FAFB]" id="communities">
       <div className="container mx-auto px-4 lg:px-8 max-w-7xl  flex flex-col items-center">
@@ -297,11 +302,18 @@ export default function DiscoverCommunity() {
 
               {/* CTA */}
               <div>
-                <Link href={community.link} target="_blank">
-                  <Button variant="regular" className="px-6 py-2.5">
-                    Join Community
-                  </Button>
-                </Link>
+                <Button
+                  variant="regular"
+                  className="px-6 py-2.5"
+                  onClick={() =>
+                    openModal(
+                      COMMUNITY_JOIN_MODAL_ID,
+                      <CommunityJoinModal community={community} />,
+                    )
+                  }
+                >
+                  Join Community
+                </Button>
               </div>
             </motion.div>
           ))}

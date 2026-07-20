@@ -1,6 +1,11 @@
 "use client";
 
-import { fadeInUp, staggerContainerDelayed, staggerContainerSlow } from "@/lib/motion-variants";
+import {
+  fadeInUp,
+  fadeInUpSlower,
+  staggerContainerDelayed,
+  staggerContainerSlow,
+} from "@/lib/motion-variants";
 import { motion } from "motion/react";
 
 interface ProgramHighlight {
@@ -84,35 +89,37 @@ export function SignatureHighlights() {
       <div className="w-11/12 mx-auto max-w-7xl">
         {/* Header Section */}
         <motion.div
-        variants={staggerContainerSlow}
-        initial="hidden"
-        whileInView="visible"
-        viewport={{ once: true, amount: 0.4 }}
-        className="mb-8">
+          variants={staggerContainerSlow}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, amount: 0.4 }}
+          className="mb-8"
+        >
           <motion.span
-          variants={fadeInUp}
-          className="text-regular-button font-semibold text-sm tracking-[2.5px] uppercase block mb-3">
+            variants={fadeInUp}
+            className="text-regular-button font-semibold text-sm tracking-[2.5px] uppercase block mb-3"
+          >
             Our Signature Highlights
           </motion.span>
           <motion.h2
-          variants={fadeInUp}
-          className="text-3xl  font-bold text-[#131313] leading-tight max-w-2xl">
+            variants={fadeInUp}
+            className="text-3xl  font-bold text-[#131313] leading-tight max-w-2xl"
+          >
             8 programs. Every season <br className="hidden lg:block" /> of life.
           </motion.h2>
         </motion.div>
 
         {/* Highlight Items */}
-        <motion.div
-          variants={staggerContainerDelayed}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true }}
-          className=""
-        >
+        <div className="">
           {highlights.map((item) => (
             <motion.div
               key={item.number}
-              variants={fadeInUp}
+              initial="hidden"
+              whileInView="visible"
+              variants={fadeInUpSlower}
+              viewport={{ once: true, amount: 0.5 }}
+              whileHover={{ x: 4 }}
+              transition={{ type: "spring", stiffness: 200, damping: 20 }}
               className="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-8 items-start  py-8 lg:py-10 last:border-b-0"
             >
               {/* Number */}
@@ -150,7 +157,7 @@ export function SignatureHighlights() {
               </div>
             </motion.div>
           ))}
-        </motion.div>
+        </div>
       </div>
     </section>
   );

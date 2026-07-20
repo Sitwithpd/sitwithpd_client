@@ -13,7 +13,7 @@ interface TeamMember {
   image: string;
   href: string;
   intro: string[];
-
+  modalImage?: string;
   bio: string[];
 }
 
@@ -50,7 +50,7 @@ const teamMembers: TeamMember[] = [
     ],
   },
   {
-    name: "Kola OLAJIDE",
+    name: "Kolawole Timothy OLAJIDE",
     role: "Director of Execution & Integration",
     image: "/images/kola.png",
     href: "/team/kola-olajide",
@@ -65,18 +65,18 @@ const teamMembers: TeamMember[] = [
     ],
   },
   {
-    name: "Temitope BAMIDELE.",
-    role: "Public Relation/CTO",
-    image: "/images/bami.png",
+    name: "Deborah Dickson.",
+    role: "Director of Franchise & Partnerships, USA",
+    image: "/images/deborah-dickson-removebg-preview.png",
+    modalImage: "/images/deborah-dickson.png",
     href: "/team/temitope-bamidele",
     intro: [
-      "Temitope BAMIDELE is a distinguished technology leader, cybersecurity specialist, DevOps engineer, and innovation strategist with a passion for building systems that drive efficiency, scalability, and meaningful impact. As the Director of Technology & Innovation at Sit With PD, he leads the development and integration of technology solutions that support the organisation's mission of empowering individuals through Purpose, Direction, and Personal Discovery.",
+      "Deborah Dickson is a trained psychologist, accomplished educationist, and strategic partnerships leader with a deep passion for empowering individuals, strengthening communities, and fostering meaningful collaboration. As the Director of Franchise & Partnerships for Sit With PD in the United States, she leads the organisation’s efforts to build strategic alliances, expand its global footprint, and cultivate partnerships that advance its mission of transforming lives through Purpose, Direction, and Personal Discovery.",
     ],
     bio: [
-      "A First-Class graduate in Cybersecurity, Temitope brings more than a decade of experience within the telecommunications and technology sectors, where he has consistently demonstrated excellence in infrastructure management, digital transformation, and operational innovation. His ability to bridge technical expertise with strategic thinking has positioned him as a trusted leader in designing and implementing solutions that enable organisations to grow, adapt, and thrive in an evolving digital landscape.",
-      "In addition to his extensive industry experience, Temitope is a certified DevOps Engineer and currently serves as Director of Technology Infrastructure and Management, where he oversees critical technology operations and drives the delivery of robust, secure, and high-performing systems. His commitment to excellence, innovation, and continuous improvement has earned him recognition among colleagues, clients, and industry professionals alike.",
-      "Beyond his corporate accomplishments, Temitope is an entrepreneur with a deep appreciation for technology's role in unlocking potential and creating opportunities. He is widely respected for his forward-thinking approach, problem-solving capabilities, and unwavering belief that successful organisations are built on strong systems, seamless execution, and a culture of innovation.",
-      "At the heart of his work is a conviction that technology should not merely support progress; it should accelerate it. Through Sit With PD, he remains committed to leveraging innovation, digital transformation, and strategic execution to create impactful experiences that empower people, strengthen communities, and inspire lasting transformation.",
+      "Drawing upon her background in psychology and education, Deborah brings a unique understanding of human behaviour, personal development, and lifelong learning. Her ability to connect with people from diverse backgrounds enables her to build authentic relationships, develop impactful partnerships, and create opportunities that extend the reach and influence of Sit With PD across communities and organisations.",
+      "Known for her warmth, professionalism, and collaborative leadership, Deborah is passionate about helping individuals unlock their potential while fostering partnerships that create lasting social impact. She believes that meaningful transformation happens when people are empowered with the right support, opportunities, and environments to grow.",
+      "Through her leadership, advocacy, and commitment to excellence, Deborah continues to champion the vision of Sit With PD by connecting people, organisations, and communities to a shared purpose of inspiring personal transformation, strengthening human connection, and building a future where individuals are empowered to live with clarity, resilience, and intention.",
     ],
   },
   {
@@ -191,7 +191,7 @@ export function OurTeam() {
               <div className="w-full sm:w-[45%] shrink-0 bg-[#EFF5EA] rounded-t-2xl sm:rounded-l-2xl sm:rounded-tr-none flex items-stretch min-h-[280px] sm:min-h-[500px]">
                 <div className="relative w-full h-full min-h-[280px]">
                   <Image
-                    src={selectedMember.image}
+                    src={selectedMember.modalImage  || selectedMember.image}
                     alt={selectedMember.name}
                     fill
                     className="object-cover object-top rounded-t-2xl sm:rounded-l-2xl sm:rounded-tr-none"

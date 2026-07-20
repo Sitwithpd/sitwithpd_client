@@ -1,0 +1,236 @@
+"use client";
+
+import React, { useState } from "react";
+import { useModalStore } from "@/components/store/use-modal-store";
+import { Button } from "@/components/ui/button";
+import { useForm, Controller } from "react-hook-form";
+import FormFieldComp from "@/components/formfield";
+import { Field, FieldError, FieldLabel } from "@/components/ui/field";
+import { X } from "lucide-react";
+import { toast } from "sonner";
+
+export const COMMUNITY_JOIN_MODAL_ID = "community-join-modal";
+
+interface CommunityJoinModalProps {
+  community: {
+    title: string;
+    topics: string[];
+  };
+}
+
+type CommunityJoinFormValues = {
+  fullName: string;
+  email: string;
+  phone?: string;
+  communityName: string;
+  reason?: string;
+  agreedToPolicy: boolean;
+};
+
+export default function CommunityJoinModal({
+  community,
+}: CommunityJoinModalProps) {
+  const closeModal = useModalStore((state) => state.closeModal);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+
+  const form = useForm<CommunityJoinFormValues>({
+    defaultValues: {
+      fullName: "",
+      email: "",
+      phone: "",
+      communityName: community.title,
+      reason: "",
+      agreedToPolicy: false,
+    },
+  });
+
+  const agreedToPolicy = form.watch("agreedToPolicy");
+
+  const onSubmit = (_data: CommunityJoinFormValues) => {
+    setIsSubmitting(true);
+    setTimeout(() => {
+      setIsSubmitting(false);
+      closeModal(COMMUNITY_JOIN_MODAL_ID);
+      toast.success("Application submitted!", {
+        description: (
+          <span style={{ color: "#344054" }}>
+            Your request to join has been registered. Our team will review it
+            and reach out to you shortly with next steps.
+          </span>
+        ),
+        duration: 6000,
+      });
+    }, 2500);
+  };
+
+  return (
+    <div className="-m-6 relative flex flex-col sm:overflow-hidden rounded-t-[inherit]">
+      {/* Header */}
+      <div className="bg-[#1F4842] px-4 py-10 lg:px-10 lg:py-12 relative z-10 shrink-0 text-white rounded-t-sm">
+        <h4 className="text-[11px] text-[#A8D675] font-semibold tracking-[1.5px] uppercase mb-4 opacity-90">
+          COMMUNITY APPLICATION
+        </h4>
+        <h2 className="text-2xl md:text-[30px] font-semibold mb-5 leading-snug">
+          {community.title}
+        </h2>
+        <div className="flex flex-wrap gap-2.5">
+          {community.topics.map((topic, i) => (
+            <span
+              key={i}
+              className="px-4 py-1.5 rounded-full border-[0.67px] border-[#A8D6754D] text-[#A8D675] text-[12.5px] bg-transparent"
+            >
+              {topic}
+            </span>
+          ))}
+        </div>
+        <div className="absolute top-6 right-6 bg-white rounded-full p-0.5 md:h-10 md:w-10 transition-all flex items-center justify-center cursor-pointer md:hover:shadow-lg">
+          <X
+            onClick={() => closeModal(COMMUNITY_JOIN_MODAL_ID)}
+            color="black"
+          />
+        </div>
+      </div>
+
+      {/* Form Content */}
+      <div className="px-4 py-8 lg:px-10 bg-white">
+        <p className="text-[#606060] text-sm md:text-[15px] leading-relaxed mb-8 max-w-xl">
+          Fill out the application form below to apply for membership in this
+          community. We&apos;ll review your application and get back to you
+          shortly.
+        </p>
+
+        <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-5">
+          {/* Full Name */}
+          <FormFieldComp
+            name="fullName"
+            control={form.control}
+            label="Full Name"
+            placeholder="e.g. Jane Doe"
+            className="bg-white flex-1"
+          />
+
+          {/* Email Address */}
+          <FormFieldComp
+            name="email"
+            control={form.control}
+            label="Email Address"
+            placeholder="e.g. jane@example.com"
+            className="bg-white flex-1"
+          />
+
+          {/* Phone Number */}
+          <FormFieldComp
+            name="phone"
+            control={form.control}
+            label="Phone Number"
+            placeholder="e.g. +1 (555) 000-0000"
+            className="bg-white flex-1"
+          />
+
+          {/* Community (read-only select) */}
+          <Controller
+            control={form.control}
+            name="communityName"
+            render={({ field, fieldState }) => (
+              <Field data-invalid={fieldState.invalid}>
+                <div className="flex flex-col">
+                  <FieldLabel
+                    className="text-[#344054] dark:text-secondary-text text-[14px] mb-2"
+                    htmlFor="communityName"
+                  >
+                    Select Community
+                  </FieldLabel>
+                  <select
+                    id="communityName"
+                    {...field}
+                    disabled
+                    className="border-[0.75px] border-[#EAECF0] bg-[#F9FAFB] rounded-[5px] w-full text-[13px] font-medium text-primary-text py-3 px-3 outline-none cursor-not-allowed"
+                  >
+                    <option value={community.title}>{community.title}</option>
+                  </select>
+                </div>
+                {fieldState.invalid && (
+                  <FieldError errors={[fieldState.error]} />
+                )}
+              </Field>
+            )}
+          />
+
+          {/* Why do you want to join */}
+          <Controller
+            control={form.control}
+            name="reason"
+            render={({ field, fieldState }) => (
+              <Field data-invalid={fieldState.invalid}>
+                <div className="flex flex-col">
+                  <FieldLabel
+                    className="text-[#344054] dark:text-secondary-text text-[14px] mb-2"
+                    htmlFor="reason"
+                  >
+                    Why do you want to join?
+                  </FieldLabel>
+                  <textarea
+                    id="reason"
+                    {...field}
+                    placeholder="Tell us about your goals, interests, or what you hope to contribute..."
+                    className="border-[0.75px] border-[#EAECF0] bg-white rounded-[5px] w-full text-[12px] font-medium text-primary-text placeholder:text-[#98A2B3] py-4 min-h-28 outline-none px-3 resize-none"
+                  />
+                </div>
+                {fieldState.invalid && (
+                  <FieldError errors={[fieldState.error]} />
+                )}
+              </Field>
+            )}
+          />
+
+          {/* Privacy Policy Checkbox */}
+          <Controller
+            control={form.control}
+            name="agreedToPolicy"
+            rules={{ required: "You must agree to the privacy policy" }}
+            render={({ field, fieldState }) => (
+              <Field data-invalid={fieldState.invalid}>
+                <label className="flex items-start gap-3 cursor-pointer select-none">
+                  <input
+                    type="checkbox"
+                    id="agreedToPolicy"
+                    checked={field.value}
+                    onChange={(e) => field.onChange(e.target.checked)}
+                    className="mt-1 shrink-0 accent-[#567F57] w-4 h-4 cursor-pointer"
+                  />
+                  <span className="text-xs text-[#606060] leading-relaxed">
+                    I agree to the privacy policy and consent to receiving
+                    communications regarding community selection and upcoming
+                    activities.
+                  </span>
+                </label>
+                {fieldState.invalid && (
+                  <FieldError errors={[fieldState.error]} />
+                )}
+              </Field>
+            )}
+          />
+
+          {/* Actions */}
+          <div className="flex items-center gap-4 mt-2">
+            <Button
+              type="button"
+              variant="outline"
+              className="flex-1 h-[52px] shadow-none border-[#EAECF0] text-[#344054] hover:bg-gray-50 text-[15px] font-medium"
+              onClick={() => closeModal(COMMUNITY_JOIN_MODAL_ID)}
+            >
+              Cancel
+            </Button>
+            <Button
+              type="submit"
+              disabled={isSubmitting || !agreedToPolicy}
+              className="flex-1 h-[52px] shadow-none bg-[#567F57] hover:bg-[#466947] text-white text-[15px] font-medium disabled:opacity-50 disabled:cursor-not-allowed"
+            >
+              {isSubmitting ? "Submitting..." : "Submit Application"}
+            </Button>
+          </div>
+        </form>
+      </div>
+    </div>
+  );
+}

@@ -24,7 +24,7 @@ export function AboutHero() {
           initial="hidden"
           animate="visible"
           viewport={{ once: true }}
-          className="relative h-full w-[90%] lg:w-11/12 mx-auto flex flex-col gap-6 justify-center items-start max-w-6xl"
+          className="relative h-full w-[90%] lg:w-11/12 mx-auto flex flex-col gap-6 justify-center items-start max-w-7xl"
         >
           <motion.div
             variants={fadeInUpSlower}
