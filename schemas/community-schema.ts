@@ -19,6 +19,8 @@ export const communitySchema = z.object({
     .refine((v) => v.startsWith("https://"), "Link must start with https://"),
   iconKey: z.string().optional(),
   gains: z.array(z.string()).optional(),
+  // Ordered YouTube links; the array index is the display order.
+  videoLinks: z.array(z.string()).optional(),
   tags: z.array(z.string()).optional(),
   order: z.string().regex(/^\d+$/, "Order must be a number"),
   isPublished: z.boolean(),

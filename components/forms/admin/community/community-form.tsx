@@ -13,6 +13,7 @@ import {
 } from "@/components/ui/select";
 import { TagInput } from "@/components/shared/tag-input";
 import { BulletListInput } from "@/components/shared/bullet-list-input";
+import { VideoLinksInput } from "@/components/shared/video-links-input";
 import { COMMUNITY_ICON_OPTIONS } from "@/components/pages/community/icon-map";
 import { useModalStore } from "@/components/store/use-modal-store";
 
@@ -147,6 +148,23 @@ export default function CommunityForm({
                 placeholder="e.g. Weekly exploration sessions across career paths"
                 addLabel="Add benefit"
               />
+            </Field>
+          )}
+        />
+
+        <Controller
+          control={control}
+          name="videoLinks"
+          render={({ field }) => (
+            <Field>
+              <FieldLabel>Videos</FieldLabel>
+              <VideoLinksInput
+                value={field.value ?? []}
+                onChange={field.onChange}
+              />
+              <p className="text-xs text-secondary-text">
+                YouTube links only. The order here is the order they appear.
+              </p>
             </Field>
           )}
         />

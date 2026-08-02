@@ -9,6 +9,7 @@ import { useModalStore } from "@/components/store/use-modal-store";
 import { useEffect } from "react";
 import { Spinner } from "@/components/spinner";
 import { cleanBulletList } from "@/components/shared/bullet-list-input";
+import { cleanVideoLinks } from "@/components/shared/video-links-input";
 import type { AdminCommunity } from "@/lib/api/services/communities/communities.services";
 
 export default function EditCommunityModal({
@@ -29,6 +30,7 @@ export default function EditCommunityModal({
       whatsappLink: community.whatsappLink,
       iconKey: community.iconKey ?? "",
       gains: community.gains ?? [],
+      videoLinks: community.videoLinks ?? [],
       tags: (community.tags ?? []).map((t) => t.name),
       order: String(community.order ?? 0),
       isPublished: community.isPublished,
@@ -44,6 +46,7 @@ export default function EditCommunityModal({
         whatsappLink: data.whatsappLink,
         iconKey: data.iconKey || null,
         gains: cleanBulletList(data.gains),
+        videoLinks: cleanVideoLinks(data.videoLinks),
         tags: data.tags ?? [],
         order: Number(data.order),
         isPublished: data.isPublished,

@@ -13,6 +13,8 @@ export interface Community {
   subtitle: string;
   description: string;
   gains: string[];
+  /** Ordered YouTube links; array index is the display order. */
+  videoLinks: string[];
   iconKey: string | null;
   isPublished: boolean;
   order: number;
@@ -47,6 +49,7 @@ export interface CommunityPayload {
   subtitle: string;
   description: string;
   gains: string[];
+  videoLinks?: string[];
   iconKey?: string | null;
   whatsappLink: string;
   isPublished?: boolean;

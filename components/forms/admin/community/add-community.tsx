@@ -9,6 +9,7 @@ import { useModalStore } from "@/components/store/use-modal-store";
 import { useEffect } from "react";
 import { Spinner } from "@/components/spinner";
 import { cleanBulletList } from "@/components/shared/bullet-list-input";
+import { cleanVideoLinks } from "@/components/shared/video-links-input";
 
 export default function AddCommunityModal() {
   const { mutate, isPending } = useCreateCommunity();
@@ -24,6 +25,7 @@ export default function AddCommunityModal() {
       whatsappLink: "",
       iconKey: "",
       gains: [],
+      videoLinks: [],
       tags: [],
       order: "0",
       isPublished: true,
@@ -39,6 +41,7 @@ export default function AddCommunityModal() {
         whatsappLink: data.whatsappLink,
         iconKey: data.iconKey || null,
         gains: cleanBulletList(data.gains),
+        videoLinks: cleanVideoLinks(data.videoLinks),
         tags: data.tags ?? [],
         order: Number(data.order),
         isPublished: data.isPublished,
