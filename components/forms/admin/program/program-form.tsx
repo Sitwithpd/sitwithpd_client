@@ -16,6 +16,8 @@ import { ProgramFormSchema } from "@/schemas/programs-schema";
 import ProgramWeeksSection from "./weeks/program-weeks-section";
 import LearningObjectivesField from "./learning-objectives-field";
 import SelectDateComp from "@/components/date-selector";
+import { TagInput } from "@/components/shared/tag-input";
+import { BulletListInput } from "@/components/shared/bullet-list-input";
 import { usePlatformSettingsStore } from "@/store/use-platform-settings-store";
 
 const PROGRAM_TYPE = [
@@ -130,7 +132,7 @@ export default function ProgramForm({
                       field.onChange(formatted);
                     }}
                     placeholder="0.00"
-                    className="pr-10  border-[0.75px] border-[#EAECF0] bg-white rounded-[5px] w-full text-[12px]   font-medium text-primary-text placeholder:text-[#98A2B3] placeholder:text-[12px] placeholder:font-normal  py-4 h-11 focus-visible:border-none focus-visible:ring-0"
+                    className="pr-10  border-[0.75px] border-[#EAECF0] dark:border-border bg-white rounded-[5px] w-full text-[12px]   font-medium text-primary-text placeholder:text-[#98A2B3] placeholder:text-[12px] placeholder:font-normal  py-4 h-11 focus-visible:border-none focus-visible:ring-0"
                   />
                   {fieldState.invalid && (
                     <FieldError errors={[fieldState.error]} />
@@ -156,7 +158,7 @@ export default function ProgramForm({
                       Currency *
                     </FieldLabel>
                     <Select value={field.value} onValueChange={field.onChange}>
-                      <SelectTrigger className="bg-white text-primary-text h-11 border-[#EAECF0]">
+                      <SelectTrigger className="bg-white text-primary-text h-11 border-[#EAECF0] dark:border-border">
                         <SelectValue placeholder="Select Currency" />
                       </SelectTrigger>
                       <SelectContent>
@@ -239,7 +241,7 @@ export default function ProgramForm({
                     id="description"
                     {...field}
                     placeholder="Describe the program, its goal and who it's for..."
-                    className="border-[0.75px] border-[#EAECF0] bg-dash-secondary-bg rounded-[5px] w-full text-[12px] font-medium text-primary-text placeholder:text-[#98A2B3] py-4 min-h-30 outline-none px-3 resize-none"
+                    className="border-[0.75px] border-[#EAECF0] dark:border-input bg-transparent dark:bg-input/30 rounded-[5px] w-full text-[12px] font-medium text-primary-text placeholder:text-[#98A2B3] py-4 min-h-30 outline-none px-3 resize-none"
                   />
                 </div>
                 {fieldState.invalid && (
@@ -257,6 +259,44 @@ export default function ProgramForm({
           Learning Objectives
         </header>
         <LearningObjectivesField />
+      </div>
+
+      {/* who's this for — full-sentence bullets, not tags */}
+      <div className="bg-dash-secondary-bg p-5 rounded-[12px]">
+        <header className="text-secondary-text font-semibold text-base mb-3">
+          Who&apos;s This For
+        </header>
+        <Controller
+          control={form.control}
+          name="audience"
+          render={({ field }) => (
+            <BulletListInput
+              value={field.value ?? []}
+              onChange={field.onChange}
+              placeholder="e.g. Mid-career professionals feeling stuck after a role change"
+              addLabel="Add audience"
+            />
+          )}
+        />
+      </div>
+
+      {/* topic tags — short reusable pills from the shared vocabulary */}
+      <div className="bg-dash-secondary-bg p-5 rounded-[12px]">
+        <header className="text-secondary-text font-semibold text-base mb-3">
+          Topics
+        </header>
+        <Controller
+          control={form.control}
+          name="tags"
+          render={({ field }) => (
+            <TagInput
+              value={field.value ?? []}
+              onChange={field.onChange}
+              type="TOPIC"
+              placeholder="e.g. Leadership"
+            />
+          )}
+        />
       </div>
 
       {/* facilitator information  */}

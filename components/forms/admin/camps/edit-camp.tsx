@@ -28,6 +28,9 @@ export default function EditCampModal({ camp }: { camp: Camp }) {
         : "",
       thumbnail: camp.thumbnail || undefined,
       currency: (camp as any).currency || "NGN",
+      // Camps created before the category field exist with null — the admin
+      // must fill one in before this form will save.
+      category: (camp as any).category || "",
     },
   });
 
@@ -51,6 +54,7 @@ export default function EditCampModal({ camp }: { camp: Camp }) {
     formData.append("startDate", data.startDate);
     formData.append("endDate", data.endDate);
     formData.append("currency", data.currency);
+    formData.append("category", data.category);
 
     if (data.thumbnail && data.thumbnail instanceof File) {
       formData.append("thumbnail", data.thumbnail);
@@ -84,7 +88,7 @@ export default function EditCampModal({ camp }: { camp: Camp }) {
 
   return (
     <div className="bg-transparent rounded-[12px]   md:w-full  overflow-y-auto no-scrollbar mx-auto">
-      <h2 className="text-2xl font-semibold mb-1 text-secondary-text">
+      <h2 className="text-2xl font-semibold mb-1 dark:text-secondary-text text-primary-text">
         Edit Camp
       </h2>
       <p className="text-primary-text text-sm mb-6">

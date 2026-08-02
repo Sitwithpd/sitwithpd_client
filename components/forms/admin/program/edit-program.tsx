@@ -51,6 +51,14 @@ function EditProgramForm({ id }: { id: string }) {
     if (data.duration) formData.append("durationWeeks", data.duration);
     formData.append("currency", data.currency);
 
+    // "Who's this for" bullets — blanks dropped so an empty row isn't stored.
+    formData.append(
+      "audience",
+      JSON.stringify((data.audience ?? []).map((a) => a.trim()).filter(Boolean)),
+    );
+    // Topic tags; unknown names are created by the API on save.
+    formData.append("tags", JSON.stringify(data.tags ?? []));
+
     if (data.learningObjectives && data.learningObjectives.length > 0) {
       const learningOutcomes = data.learningObjectives.map((obj) => obj.text);
       formData.append("learningOutcomes", JSON.stringify(learningOutcomes));
@@ -129,6 +137,9 @@ function EditProgramForm({ id }: { id: string }) {
         learningObjectives: ((program.data as any).learningOutcomes || []).map(
           (text: string) => ({ text }),
         ),
+        audience: (program.data as any).audience || [],
+        // The API returns tag objects; the form edits plain names.
+        tags: ((program.data as any).tags || []).map((t: any) => t.name),
       };
       form.reset(mappedData);
       // Trigger validation manually so the user can see any errors right away

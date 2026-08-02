@@ -37,6 +37,10 @@ export const ProgramSchema = z.object({
   facilitatorName: z.string().min(1, "Facilitator name is required"),
   facilitatorEmail: z.string().email("Valid email is required"),
   currency: z.enum(["NGN", "USD", "EUR", "GBP"]),
+  // "Who's this for" — full-sentence bullets written per program, not tags.
+  audience: z.array(z.string()).optional(),
+  // Short reusable pills from the shared TOPIC vocabulary.
+  tags: z.array(z.string()).optional(),
   weeks: z.array(WeekSchema).optional(),
 });
 

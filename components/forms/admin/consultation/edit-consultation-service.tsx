@@ -16,6 +16,7 @@ import { ConsultationService } from "@/lib/api/services/consultations/consultati
 import { Spinner } from "@/components/spinner";
 import { useModalStore } from "@/components/store/use-modal-store";
 import ConsultationServiceForm from "./consultation-service-form";
+import { buildConsultationServiceFormData } from "./build-form-data";
 
 interface EditConsultationServiceModalProps {
   service: ConsultationService;
@@ -34,6 +35,12 @@ export default function EditConsultationServiceModal({
       duration: service.duration?.toString() ?? "",
       calBookingUrl: service.calBookingUrl ?? "",
       currency: (service.currency as any) || "NGN",
+      coverImage: (service as any).coverImageUrl ?? undefined,
+      audience: (service as any).audience ?? [],
+      whatsIncluded: (service as any).whatsIncluded ?? [],
+      // API returns `format` as a tag object; the form edits the plain name.
+      format: (service as any).format?.name ?? "",
+      tags: ((service as any).tags ?? []).map((t: any) => t.name),
     },
   });
 
@@ -53,15 +60,7 @@ export default function EditConsultationServiceModal({
     mutate(
       {
         id: service.id,
-        payload: {
-          title: data.title,
-          description: data.description,
-          price: Number(data.price),
-          duration: Number(data.duration),
-          calBookingUrl: data.calBookingUrl,
-          calEventTypeId: Number(calEventTypeId),
-          currency: data.currency,
-        },
+        payload: buildConsultationServiceFormData(data, calEventTypeId),
       },
       {
         onSuccess: () => {
@@ -79,7 +78,7 @@ export default function EditConsultationServiceModal({
     if (isPending) {
       openModal(
         "loading",
-        <div className="flex items-center justify-center gap-4 bg-white p-10 rounded-lg min-w-50">
+        <div className="flex items-center justify-center gap-4 bg-dash-secondary-bg p-10 rounded-lg min-w-50">
           <Spinner size={40} />
         </div>,
         { isMutation: true },

@@ -17,6 +17,14 @@ export const ConsultationServiceSchema = z.object({
       message: "Duration must be a positive number",
     }),
   currency: z.enum(["NGN", "USD", "EUR", "GBP"]),
+  // Cover image accepts an upload (File) or an existing Cloudinary URL.
+  coverImage: z.union([z.string(), z.any()]).optional(),
+  // "Who's it for" / "What's included" — full-sentence bullets, not tags.
+  audience: z.array(z.string()).optional(),
+  whatsIncluded: z.array(z.string()).optional(),
+  // One short label drawn from the shared FORMAT tag vocabulary.
+  format: z.string().optional(),
+  tags: z.array(z.string()).optional(),
 });
 
 export type ConsultationServiceFormValues = z.infer<

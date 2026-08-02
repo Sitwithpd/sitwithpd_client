@@ -21,6 +21,7 @@ export default function AddCampModal() {
       startDate: "",
       endDate: "",
       currency: "NGN",
+      category: "",
     },
   });
 
@@ -44,6 +45,7 @@ export default function AddCampModal() {
     formData.append("startDate", data.startDate);
     formData.append("endDate", data.endDate);
     formData.append("currency", data.currency);
+    formData.append("category", data.category);
 
     if (data.thumbnail && data.thumbnail instanceof File) {
       formData.append("thumbnail", data.thumbnail);
@@ -65,7 +67,7 @@ export default function AddCampModal() {
     if (isPending) {
       openModal(
         "loading",
-        <div className="flex items-center justify-center gap-4 bg-white p-10 rounded-lg min-w-50">
+        <div className="flex items-center justify-center gap-4 bg-dash-secondary-bg p-10 rounded-lg min-w-50">
           <Spinner size={40} />
         </div>,
         { isMutation: true },

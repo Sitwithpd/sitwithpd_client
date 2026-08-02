@@ -13,6 +13,8 @@ import { useRouter } from "next/navigation";
 const DEFAULT_VALUES = {
   weeks: [] as any[],
   learningObjectives: [] as { text: string }[],
+  audience: [] as string[],
+  tags: [] as string[],
 };
 
 export default function AddProgramForm() {
@@ -52,6 +54,14 @@ export default function AddProgramForm() {
       formData.append("facilitatorEmail", data.facilitatorEmail);
     if (data.duration) formData.append("durationWeeks", data.duration);
     formData.append("currency", data.currency);
+
+    // "Who's this for" bullets — blanks dropped so an empty row isn't stored.
+    formData.append(
+      "audience",
+      JSON.stringify((data.audience ?? []).map((a) => a.trim()).filter(Boolean)),
+    );
+    // Topic tags; unknown names are created by the API on save.
+    formData.append("tags", JSON.stringify(data.tags ?? []));
 
     if (data.learningObjectives && data.learningObjectives.length > 0) {
       const learningOutcomes = data.learningObjectives.map((obj) => obj.text);
@@ -98,7 +108,7 @@ export default function AddProgramForm() {
     if (isPending) {
       openModal(
         "loading",
-        <div className="flex flex-col items-center justify-center gap-4 bg-white p-10 rounded-lg min-w-50">
+        <div className="flex flex-col items-center justify-center gap-4 bg-dash-secondary-bg p-10 rounded-lg min-w-50">
           <Spinner size={40} />
         </div>,
         { isMutation: true },

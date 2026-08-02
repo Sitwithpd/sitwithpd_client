@@ -21,6 +21,8 @@ export interface Camp {
   tiers?: CampTier[];
   images?: CampImage[];
   currency?: string;
+  /** Single free-text phrase. Null on camps created before the field existed. */
+  category?: string | null;
   createdAt?: string;
   updatedAt?: string;
   seatsRemaining: number;
