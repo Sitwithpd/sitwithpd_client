@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React from "react";
 import { useModalStore } from "@/components/store/use-modal-store";
 import { Button } from "@/components/ui/button";
 import { useForm, Controller } from "react-hook-form";
@@ -10,14 +10,13 @@ import { X } from "lucide-react";
 import { toast } from "sonner";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { useJoinCommunity } from "@/lib/api/hooks/communities/communities.hooks";
+import type { Community } from "@/lib/api/services/communities/communities.services";
 
 export const COMMUNITY_JOIN_MODAL_ID = "community-join-modal";
 
 interface CommunityJoinModalProps {
-  community: {
-    title: string;
-    topics: string[];
-  };
+  community: Pick<Community, "id" | "slug" | "title" | "tags">;
 }
 
 type CommunityJoinFormValues = {
@@ -26,6 +25,8 @@ type CommunityJoinFormValues = {
   phone?: string;
   reason?: string;
   agreedToPolicy: boolean;
+  /** Hidden honeypot — bots fill it, humans never see it. */
+  website?: string;
 };
 
 const communityJoinSchema = z.object({
@@ -39,13 +40,16 @@ const communityJoinSchema = z.object({
   agreedToPolicy: z
     .boolean()
     .refine((val) => val === true, "You must agree to the privacy policy"),
+  website: z.string().optional(),
 });
 
 export default function CommunityJoinModal({
   community,
 }: CommunityJoinModalProps) {
   const closeModal = useModalStore((state) => state.closeModal);
-  const [isSubmitting, setIsSubmitting] = useState(false);
+  const { mutate: joinCommunity, isPending: isSubmitting } = useJoinCommunity(
+    community.slug || community.id,
+  );
 
   const form = useForm<CommunityJoinFormValues>({
     resolver: zodResolver(communityJoinSchema),
@@ -55,26 +59,41 @@ export default function CommunityJoinModal({
       phone: "",
       reason: "",
       agreedToPolicy: false,
+      website: "",
     },
   });
 
   const agreedToPolicy = form.watch("agreedToPolicy");
 
-  const onSubmit = (_data: CommunityJoinFormValues) => {
-    setIsSubmitting(true);
-    setTimeout(() => {
-      setIsSubmitting(false);
-      closeModal(COMMUNITY_JOIN_MODAL_ID);
-      toast.success("Application submitted!", {
-        description: (
-          <span style={{ color: "#344054" }}>
-            Your request to join has been registered. Our team will review it
-            and reach out to you shortly with next steps.
-          </span>
-        ),
-        duration: 6000,
-      });
-    }, 2500);
+  const onSubmit = (data: CommunityJoinFormValues) => {
+    joinCommunity(
+      {
+        fullName: data.fullName,
+        email: data.email,
+        phone: data.phone || undefined,
+        reason: data.reason || undefined,
+        agreedToPolicy: data.agreedToPolicy,
+        website: data.website || undefined,
+      },
+      {
+        onSuccess: (response) => {
+          closeModal(COMMUNITY_JOIN_MODAL_ID);
+          // The API saves the application either way; `emailed` says whether
+          // the invite actually went out, so don't promise an inbox blindly.
+          const emailed = response?.data?.emailed !== false;
+          toast.success("Application submitted!", {
+            description: (
+              <span style={{ color: "#344054" }}>
+                {emailed
+                  ? `Your invite to ${community.title} is on its way — check your email (including spam) for the group link.`
+                  : `Your request to join ${community.title} has been registered. We'll send your group link shortly.`}
+              </span>
+            ),
+            duration: 6000,
+          });
+        },
+      },
+    );
   };
 
   return (
@@ -88,12 +107,12 @@ export default function CommunityJoinModal({
           {community.title}
         </h2>
         <div className="flex flex-wrap gap-2.5">
-          {community.topics.map((topic, i) => (
+          {community.tags.map((topic) => (
             <span
-              key={i}
+              key={topic.id}
               className="px-4 py-1.5 rounded-full border-[0.67px] border-[#A8D6754D] text-[#A8D675] text-[12.5px] bg-transparent"
             >
-              {topic}
+              {topic.name}
             </span>
           ))}
         </div>
@@ -114,6 +133,18 @@ export default function CommunityJoinModal({
         </p>
 
         <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-5">
+          {/* Honeypot: hidden from users, bots fill it and the server discards
+              the submission silently. Not `type="hidden"` so scripted fillers
+              still see it as a normal text input. */}
+          <input
+            {...form.register("website")}
+            type="text"
+            tabIndex={-1}
+            autoComplete="off"
+            aria-hidden="true"
+            className="absolute -left-[9999px] h-0 w-0 opacity-0"
+          />
+
           {/* Full Name */}
           <FormFieldComp
             name="fullName"

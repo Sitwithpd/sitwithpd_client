@@ -11,173 +11,21 @@ import {
 } from "@/lib/motion-variants";
 import { Pill } from "@/components/ui/pill";
 import { Button } from "@/components/ui/button";
-import GeneralistPathfindersIcon from "@/pd-icons/generalist-pathfinders-icon";
-import ImpactVolunteersIcon from "@/pd-icons/impact-volunteers-icon";
-import InternshipHubIcon from "@/pd-icons/internship-hub-icon";
-import PhilanthropyIcon from "@/pd-icons/philanthropy-icon";
-import { Sparkles } from "lucide-react";
-import StewardshipIcon from "@/pd-icons/stewardship-icon";
+import { Skeleton } from "@/components/ui/skeleton";
 import React from "react";
 import { useModalStore } from "@/components/store/use-modal-store";
+import { useGetCommunities } from "@/lib/api/hooks/communities/communities.hooks";
+import type { Community } from "@/lib/api/services/communities/communities.services";
+import { getCommunityIcon } from "./icon-map";
 import CommunityJoinModal, {
   COMMUNITY_JOIN_MODAL_ID,
 } from "./community-join-modal";
 
-const COMMUNITIES = [
-  {
-    title: "The Generalist Pathfinders",
-    subtitle:
-      "A supportive space for multi-passionate individuals exploring diverse career paths and interests.",
-    description:
-      "Discover your strengths across multiple disciplines, connect with fellow generalists, and build a portfolio career that reflects your full range of talents and curiosities.",
-    gains: [
-      "Weekly exploration sessions across different career paths and disciplines",
-      "Strength-mapping workshops to identify your transferable skills",
-      "Peer coaching circles for navigating career transitions",
-      "Monthly guest speakers who built successful portfolio careers",
-      "Resource library with guides on multi-disciplinary growth",
-      "Accountability partnerships for personal development goals",
-    ],
-    topics: [
-      "Career Exploration",
-      "Portfolio Careers",
-      "Self-Discovery",
-      "Skill Mapping",
-      "Life Design",
-    ],
-    link: "https://chat.whatsapp.com/LAOVNyQho0HKzPX8Vw6l9e?mode=gi_t",
-    icon: <GeneralistPathfindersIcon />,
-    bgColor: "#A8D6751A",
-  },
-  {
-    title: "The Impact Volunteers Network",
-    subtitle:
-      "For passionate individuals dedicated to creating positive change through meaningful volunteer work.",
-    description:
-      "Connect with vetted volunteer opportunities worldwide, collaborate on impact projects, and build a community of changemakers who believe in giving back.",
-    gains: [
-      "Curated volunteer opportunities across local and global organizations",
-      "Impact project planning and collaboration workshops",
-      "Skills-based volunteering matchmaking with nonprofits",
-      "Monthly impact storytelling sessions to share your journey",
-      "Training in community organizing and grassroots leadership",
-      "Certificates and endorsements for completed volunteer projects",
-    ],
-    topics: [
-      "Community Service",
-      "Social Impact",
-      "Nonprofit Work",
-      "Fundraising",
-      "Global Outreach",
-    ],
-    link: "https://chat.whatsapp.com/EBw3foMpCv76zGCSB6b3v8?mode=gi_t",
-    icon: <ImpactVolunteersIcon />,
-    bgColor: "#ffffff",
-  },
-  {
-    title: "The Internship Knowledge Hub",
-    subtitle:
-      "A dedicated space for students and early-career professionals seeking meaningful internship experiences.",
-    description:
-      "Access curated internship resources, get application support, and learn from peers who have navigated the internship landscape successfully.",
-    gains: [
-      "Curated internship listings across industries and regions",
-      "Resume and cover letter review sessions with mentors",
-      "Interview preparation workshops and mock interviews",
-      "Insider tips from past interns at top organizations",
-      "Networking events connecting interns with hiring managers",
-      "Post-internship reflection and career planning sessions",
-    ],
-    topics: [
-      "Internship Search",
-      "Resume Building",
-      "Interview Prep",
-      "Career Planning",
-      "Professional Growth",
-    ],
-    link: "https://chat.whatsapp.com/IFhNQtUjiQdHCubNPTycgI?mode=gi_t",
-    icon: <InternshipHubIcon />,
-    bgColor: "#A8D6751A",
-  },
-  {
-    title: "The Global Philanthropy Partners Network",
-    subtitle:
-      "Connecting philanthropists, donors, and social entrepreneurs committed to strategic giving.",
-    description:
-      "Engage in meaningful discussions about effective philanthropy, share giving strategies, and collaborate on initiatives that create lasting social impact across communities.",
-    gains: [
-      "Monthly roundtables on effective giving strategies and trends",
-      "Grant-writing workshops and funding opportunity alerts",
-      "Impact measurement frameworks and evaluation training",
-      "Collaborative giving circles for pooled philanthropic projects",
-      "Connections with foundations, NGOs, and social enterprises",
-      "Annual philanthropy summit with global thought leaders",
-    ],
-    topics: [
-      "Effective Giving",
-      "Grant Writing",
-      "Social Enterprise",
-      "Impact Investing",
-      "Community Development",
-    ],
-    link: "https://chat.whatsapp.com/HoKUdHMQ5CpHkTUSNBzm38?mode=gi_t",
-    icon: <PhilanthropyIcon />,
-    bgColor: "#ffffff",
-  },
-  {
-    title: "Thrive Uniquely Mentorship Community",
-    subtitle:
-      "A nurturing space where mentors and mentees connect to unlock individual potential and personal growth.",
-    description:
-      "Experience transformative mentorship through structured pairings, group coaching, and holistic development programs designed to help every member thrive in their own unique way.",
-    gains: [
-      "One-on-one mentorship matching based on goals and values",
-      "Group coaching sessions on personal and professional development",
-      "Monthly wellness and mindfulness workshops for balanced growth",
-      "Goal-setting retreats and quarterly progress check-ins",
-      "Peer support circles for sharing challenges and breakthroughs",
-      "Access to curated personal development resources and tools",
-    ],
-    topics: [
-      "Mentorship",
-      "Personal Growth",
-      "Wellness",
-      "Goal Setting",
-      "Self-Care",
-    ],
-    link: "https://chat.whatsapp.com/JbWQGJkawUnFmjtx2FYMdQ?mode=gi_t",
-    icon: <Sparkles size={24} color="#60935D" />,
-    bgColor: "#A8D6751A",
-  },
-  {
-    title: "The Global Stewardship Halls",
-    subtitle:
-      "For visionary leaders committed to responsible stewardship of resources, communities, and the environment.",
-    description:
-      "Join a community of stewards dedicated to sustainable leadership, ethical governance, and leaving a positive legacy for future generations through collaborative action.",
-    gains: [
-      "Leadership forums on ethical governance and sustainability practices",
-      "Environmental stewardship projects and community clean-up drives",
-      "Workshops on responsible resource management and budgeting",
-      "Cross-cultural dialogue sessions on global stewardship challenges",
-      "Mentorship from experienced stewards in nonprofit and public sectors",
-      "Annual stewardship awards recognizing outstanding community impact",
-    ],
-    topics: [
-      "Sustainability",
-      "Ethical Leadership",
-      "Environmental Care",
-      "Governance",
-      "Legacy Building",
-    ],
-    link: "https://chat.whatsapp.com/CkUSlamx0Cr5k9itH1nbJQ?mode=gi_t",
-    icon: <StewardshipIcon />,
-    bgColor: "#ffffff",
-  },
-];
-
 export default function DiscoverCommunity() {
   const openModal = useModalStore((state) => state.openModal);
+  const { data, isLoading, isError } = useGetCommunities();
+
+  const communities: Community[] = data?.data ?? [];
 
   return (
     <section className="py-20 w-full bg-[#F9FAFB]" id="communities">
@@ -204,17 +52,48 @@ export default function DiscoverCommunity() {
           </motion.p>
         </motion.div>
 
+        {isLoading ? (
+          <div className="w-11/12 mx-auto space-y-5">
+            {[0, 1, 2].map((i) => (
+              <div
+                key={i}
+                className="rounded-[16px] p-5 sm:p-7 bg-white flex flex-col gap-5"
+                style={{ boxShadow: "0px 8px 24px -8px rgba(0,0,0,0.0392)" }}
+              >
+                <div className="flex items-center gap-4">
+                  <Skeleton className="w-17 h-17 rounded-[10px] shrink-0" />
+                  <div className="space-y-2 flex-1">
+                    <Skeleton className="h-5 w-2/3" />
+                    <Skeleton className="h-4 w-full max-w-md" />
+                  </div>
+                </div>
+                <Skeleton className="h-16 w-full" />
+                <Skeleton className="h-24 w-full" />
+                <Skeleton className="h-10 w-40 rounded-md" />
+              </div>
+            ))}
+          </div>
+        ) : isError || communities.length === 0 ? (
+          <div className="w-11/12 mx-auto text-center py-20 bg-white rounded-[16px] border border-dashed border-slate-200">
+            <p className="text-lg text-[#667085] max-w-xl mx-auto">
+              {isError
+                ? "We couldn't load our communities just now. Please refresh the page or try again shortly."
+                : "No communities are open at the moment. Please check back soon."}
+            </p>
+          </div>
+        ) : (
         <div className="w-11/12 mx-auto space-y-5">
-          {COMMUNITIES.map((community, index) => (
+          {communities.map((community, index) => (
             <motion.div
-              key={index}
+              key={community.id}
               initial="hidden"
               whileInView="visible"
               variants={fadeInUpSlower}
               viewport={{ once: true, amount: 0.4 }}
               className="rounded-[16px] p-5 sm:p-7 flex flex-col gap-5 transition-all"
               style={{
-                backgroundColor: community.bgColor,
+                // Alternating stripe, derived from position rather than stored.
+                backgroundColor: index % 2 === 0 ? "#A8D6751A" : "#ffffff",
                 boxShadow: "0px 8px 24px -8px rgba(0,0,0,0.0392)",
               }}
             >
@@ -226,7 +105,7 @@ export default function DiscoverCommunity() {
                     backgroundColor: index % 2 === 0 ? "#ffffff" : "#A8D6751A",
                   }}
                 >
-                  {community.icon}
+                  {getCommunityIcon(community.iconKey)}
                 </div>
                 <div className="space-y-1">
                   <h3 className="text-[1.125rem] lg:text-xl font-semibold text-[#111827] leading-snug">
@@ -288,13 +167,13 @@ export default function DiscoverCommunity() {
                   viewport={{ once: true, amount: 0.4 }}
                   className="flex flex-wrap gap-2"
                 >
-                  {community.topics.map((topic, i) => (
+                  {community.tags.map((topic) => (
                     <motion.span
-                      key={i}
+                      key={topic.id}
                       variants={fadeInUp}
                       className="px-3 py-1 text-[#344054] font-semibold rounded-full border border-[#D1D5DB] text-sm bg-white"
                     >
-                      {topic}
+                      {topic.name}
                     </motion.span>
                   ))}
                 </motion.div>
@@ -318,6 +197,7 @@ export default function DiscoverCommunity() {
             </motion.div>
           ))}
         </div>
+        )}
       </div>
     </section>
   );

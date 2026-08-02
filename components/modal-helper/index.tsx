@@ -23,6 +23,9 @@ import { Testimonial } from "@/lib/api/services/testimonials/testimonials.servic
 import AddTeamMemberModal from "../forms/admin/team/add-team-member";
 import EditTeamMemberModal from "../forms/admin/team/edit-team-member";
 import { TeamMember } from "@/lib/api/services/team/team.services";
+import AddCommunityModal from "../forms/admin/community/add-community";
+import EditCommunityModal from "../forms/admin/community/edit-community";
+import { AdminCommunity } from "@/lib/api/services/communities/communities.services";
 
 const openModal = useModalStore.getState().openModal;
 
@@ -120,4 +123,13 @@ export const handleAddTeamMember = () => {
 
 export const handleEditTeamMember = (member: TeamMember) => {
   openModal("team-modal", <EditTeamMemberModal member={member} />);
+};
+
+//>>>>>>>>>>>>>>>>>>> COMMUNITIES <<<<<<<<<<<<<<<<<<<<<<<<<
+export const addCommunity = () => {
+  openModal("community-modal", <AddCommunityModal />);
+};
+
+export const editCommunity = (community: AdminCommunity) => {
+  openModal("community-modal", <EditCommunityModal community={community} />);
 };
