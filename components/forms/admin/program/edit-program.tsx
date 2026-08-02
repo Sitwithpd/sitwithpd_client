@@ -12,6 +12,7 @@ import { Spinner } from "@/components/spinner";
 import { useModalStore } from "@/components/store/use-modal-store";
 import ProgramForm from "./program-form";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { cleanVideoLinks } from "@/components/shared/video-links-input";
 import DashboardHeaderText from "@/components/dashboard/dashboard-header";
 import { usePathname, useRouter } from "next/navigation";
 import { formatAmount, toIsoDateString } from "@/lib/utils";
@@ -58,10 +59,10 @@ function EditProgramForm({ id }: { id: string }) {
       formData.append("learningOutcomes", JSON.stringify([]));
     }
 
-    if (data.whoThisIsFor && data.whoThisIsFor.length > 0) {
-      formData.append("whoThisIsFor", JSON.stringify(data.whoThisIsFor));
+    if (data.audience && data.audience.length > 0) {
+      formData.append("audience", JSON.stringify(data.audience));
     } else {
-      formData.append("whoThisIsFor", JSON.stringify([]));
+      formData.append("audience", JSON.stringify([]));
     }
 
     if (data.tags && data.tags.length > 0) {
@@ -69,6 +70,12 @@ function EditProgramForm({ id }: { id: string }) {
     } else {
       formData.append("tags", JSON.stringify([]));
     }
+
+    // Ordered YouTube links; blanks dropped so an empty editor row isn't sent.
+    formData.append(
+      "videoLinks",
+      JSON.stringify(cleanVideoLinks(data.videoLinks)),
+    );
 
     if (data.weeks && data.weeks.length > 0) {
       const formattedWeeks = data.weeks.map((week) => ({
@@ -141,16 +148,17 @@ function EditProgramForm({ id }: { id: string }) {
         learningObjectives: ((program.data as any).learningOutcomes || []).map(
           (text: string) => ({ text }),
         ),
-        whoThisIsFor: Array.isArray((program.data as any).whoThisIsFor)
-          ? (program.data as any).whoThisIsFor
-          : typeof (program.data as any).whoThisIsFor === "string"
-            ? JSON.parse((program.data as any).whoThisIsFor)
+        audience: Array.isArray((program.data as any).audience)
+          ? (program.data as any).audience
+          : typeof (program.data as any).audience === "string"
+            ? JSON.parse((program.data as any).audience)
             : [],
         tags: Array.isArray((program.data as any).tags)
           ? (program.data as any).tags
           : typeof (program.data as any).tags === "string"
             ? JSON.parse((program.data as any).tags)
             : [],
+        videoLinks: (program.data as any).videoLinks || [],
       };
       form.reset(mappedData);
       // Trigger validation manually so the user can see any errors right away

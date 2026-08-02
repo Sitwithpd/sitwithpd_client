@@ -7,14 +7,16 @@ import { Spinner } from "@/components/spinner";
 import { useModalStore } from "@/components/store/use-modal-store";
 import ProgramForm from "./program-form";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { cleanVideoLinks } from "@/components/shared/video-links-input";
 import DashboardHeaderText from "@/components/dashboard/dashboard-header";
 import { useRouter } from "next/navigation";
 
 const DEFAULT_VALUES = {
   weeks: [] as any[],
   learningObjectives: [] as { text: string }[],
-  whoThisIsFor: [] as string[],
+  audience: [] as string[],
   tags: [] as string[],
+  videoLinks: [] as string[],
 };
 
 export default function AddProgramForm() {
@@ -62,10 +64,10 @@ export default function AddProgramForm() {
       formData.append("learningOutcomes", JSON.stringify([]));
     }
 
-    if (data.whoThisIsFor && data.whoThisIsFor.length > 0) {
-      formData.append("whoThisIsFor", JSON.stringify(data.whoThisIsFor));
+    if (data.audience && data.audience.length > 0) {
+      formData.append("audience", JSON.stringify(data.audience));
     } else {
-      formData.append("whoThisIsFor", JSON.stringify([]));
+      formData.append("audience", JSON.stringify([]));
     }
 
     if (data.tags && data.tags.length > 0) {
@@ -73,6 +75,12 @@ export default function AddProgramForm() {
     } else {
       formData.append("tags", JSON.stringify([]));
     }
+
+    // Ordered YouTube links; blanks dropped so an empty editor row isn't sent.
+    formData.append(
+      "videoLinks",
+      JSON.stringify(cleanVideoLinks(data.videoLinks)),
+    );
 
     if (data.weeks && data.weeks.length > 0) {
       const formattedWeeks = data.weeks.map((week) => ({

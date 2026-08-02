@@ -16,11 +16,11 @@ export default function WhoThisIsForField() {
   } = useFormContext<ProgramFormSchema>();
   const { fields, append, remove } = useFieldArray({
     control,
-    name: "whoThisIsFor" as any,
+    name: "audience" as any,
   });
 
   const [inputValue, setInputValue] = useState("");
-  const values = watch("whoThisIsFor") || [];
+  const values = watch("audience") || [];
 
   const handleAdd = () => {
     const trimmed = inputValue.trim();
@@ -36,7 +36,7 @@ export default function WhoThisIsForField() {
     }
   };
 
-  const fieldError = errors.whoThisIsFor;
+  const fieldError = errors.audience;
   const errorMessage =
     typeof fieldError?.message === "string"
       ? fieldError.message

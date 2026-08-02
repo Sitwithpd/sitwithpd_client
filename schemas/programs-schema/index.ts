@@ -34,11 +34,14 @@ export const ProgramSchema = z.object({
   learningObjectives: z
     .array(z.object({ text: z.string().min(1, "Objective is required") }))
     .optional(),
-  whoThisIsFor: z.array(z.string().min(1)).min(1, "Add at least one item"),
+  // Keyed `audience` to match the API field; the UI still reads "Who This Is For".
+  audience: z.array(z.string().min(1)).min(1, "Add at least one item"),
   tags: z
     .array(z.string().min(1))
     .min(1, "Add at least one tag")
     .max(6, "Max 6 tags"),
+  // Ordered YouTube links; the array index is the display order.
+  videoLinks: z.array(z.string()).optional(),
   facilitatorName: z.string().min(1, "Facilitator name is required"),
   facilitatorEmail: z.string().email("Valid email is required"),
   currency: z.enum(["NGN", "USD", "EUR", "GBP"]),
