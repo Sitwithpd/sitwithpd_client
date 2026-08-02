@@ -80,7 +80,7 @@ export default function ProgramWeeksSection() {
 
         {/* Week list or empty state */}
         {fields.length === 0 ? (
-          <div className="flex flex-col items-center justify-center border-2 border-dashed border-[#D0D5DD] rounded-[12px] py-12 text-center">
+          <div className="flex flex-col items-center justify-center border-2 border-dashed border-[#D0D5DD] dark:border-border rounded-[12px] py-12 text-center">
             <Calendar className="h-10 w-10 text-[#667085] mb-3" />
             <p className="text-sm text-[#667085]">
               No weeks added yet. Click &quot;Add Week&quot; to start building

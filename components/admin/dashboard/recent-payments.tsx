@@ -29,7 +29,7 @@ export function RecentPayments() {
           <tbody className="text-primary-text text-xs">
             {isLoading ? (
               Array.from({ length: 5 }).map((_, i) => (
-                <tr key={i} className="border-b border-[#EAECF0] last:border-0">
+                <tr key={i} className="border-b border-[#EAECF0] dark:border-border last:border-0">
                   <td className="py-3 px-2"><Skeleton className="h-4 w-16" /></td>
                   <td className="py-3 px-2"><Skeleton className="h-4 w-20" /></td>
                   <td className="py-3 px-2"><Skeleton className="h-4 w-24" /></td>
@@ -44,7 +44,7 @@ export function RecentPayments() {
               </tr>
             ) : (
               payments.map((payment) => (
-                <tr key={payment.id} className="border-b border-[#EAECF0] last:border-0 hover:bg-gray-50 transition-colors">
+                <tr key={payment.id} className="border-b border-[#EAECF0] dark:border-border last:border-0 hover:bg-gray-50 transition-colors">
                   <td className="py-3 px-2 font-medium">{payment.type}</td>
                   <td className="py-3 px-2">{formatCurrency(payment.amount, payment.currency)}</td>
                   <td className="py-3 px-2 text-secondary-text font-mono text-[10px]">

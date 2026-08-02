@@ -7,6 +7,9 @@ import { Field, FieldError, FieldLabel } from "@/components/ui/field";
 import { Button } from "@/components/ui/button";
 import { ConsultationServiceFormValues } from "@/schemas/consultation-service-schema";
 import CalEventTypeSelect from "./cal-event-type-select";
+import ImageUpload from "@/components/image-upload";
+import { TagInput, SingleTagInput } from "@/components/shared/tag-input";
+import { BulletListInput } from "@/components/shared/bullet-list-input";
 import {
   Select,
   SelectContent,
@@ -49,10 +52,10 @@ export default function ConsultationServiceForm({
 
   return (
     <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-7">
-      <div className="bg-transparent  rounded-[12px]">
-        <header className="text-primary-text font-semibold text-base mb-6">
-          Consultation Service Details
-        </header>
+      {/* One continuous form. Sections are plain headed groups on the modal
+          surface — a filled card here would read as a second, separate form. */}
+      <div className="bg-transparent rounded-[12px]">
+        <header className="text-primary-text font-semibold text-base mb-6">Service Details</header>
 
         <div className="space-y-6">
           <FormFieldComp
@@ -65,58 +68,60 @@ export default function ConsultationServiceForm({
 
           <Controller
             control={form.control}
-            name="calBookingUrl"
-            render={({ field, fieldState }) => (
-              <Field data-invalid={fieldState.invalid} className="">
-                <FieldLabel className=" dark:text-secondary-text text-primary-text text-sm mb-2">
-                  Cal.com Event Type *
-                </FieldLabel>
-                <CalEventTypeSelect
-                  value={field.value}
-                  onChange={field.onChange}
-                />
-                {fieldState.invalid && (
-                  <FieldError errors={[fieldState.error]} />
-                )}
-              </Field>
-            )}
-          />
-
-          <Controller
-            control={form.control}
             name="description"
             render={({ field, fieldState }) => (
-              <Field data-invalid={fieldState.invalid} className="mt-4">
+              <Field data-invalid={fieldState.invalid}>
                 <div className="flex flex-col">
-                  <FieldLabel
-                    className="dark:text-secondary-text text-primary-text text-[14px] mb-2"
-                    htmlFor="description"
-                  >
+                  <FieldLabel className="dark:text-secondary-text text-primary-text text-[14px] mb-2" htmlFor="description">
                     Description *
                   </FieldLabel>
                   <textarea
                     id="description"
                     {...field}
                     placeholder="Describe the service, what to expect, and any requirements..."
-                    className="border-[0.75px] border-[#EAECF0] bg-white dark:bg-transparent rounded-[5px] w-full text-[12px] font-medium text-primary-text placeholder:text-[#98A2B3] py-4 min-h-30 outline-none px-3 resize-none"
+                    className="border-[0.75px] border-[#EAECF0] dark:border-input bg-transparent dark:bg-input/30 rounded-[5px] w-full text-[12px] font-medium text-primary-text placeholder:text-[#98A2B3] py-4 min-h-30 outline-none px-3 resize-none"
                   />
                 </div>
-                {fieldState.invalid && (
-                  <FieldError errors={[fieldState.error]} />
-                )}
+                {fieldState.invalid && <FieldError errors={[fieldState.error]} />}
               </Field>
             )}
           />
 
+          <Controller
+            control={form.control}
+            name="coverImage"
+            render={({ field, fieldState }) => (
+              <Field data-invalid={fieldState.invalid}>
+                <FieldLabel className="dark:text-secondary-text text-primary-text text-[14px] mb-2">Cover Image</FieldLabel>
+                <ImageUpload
+                  value={field.value}
+                  onChange={(file) => field.onChange(file)}
+                />
+                {fieldState.invalid && <FieldError errors={[fieldState.error]} />}
+              </Field>
+            )}
+          />
+        </div>
+      </div>
+
+      <div className="bg-transparent rounded-[12px]">
+        <header className="text-primary-text font-semibold text-base mb-6">Delivery &amp; Booking</header>
+
+        <div className="space-y-6">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            <FormFieldComp
-              name="price"
+            <Controller
               control={form.control}
-              label={`Price  *`}
-              placeholder="e.g. 15000"
-              type="text"
-              inputMode="numeric"
-              className="bg-white"
+              name="format"
+              render={({ field }) => (
+                <Field>
+                  <FieldLabel className="dark:text-secondary-text text-primary-text text-[14px] mb-2">Format</FieldLabel>
+                  <SingleTagInput
+                    value={field.value ?? ""}
+                    onChange={field.onChange}
+                    type="FORMAT"
+                  />
+                </Field>
+              )}
             />
             <FormFieldComp
               name="duration"
@@ -127,35 +132,115 @@ export default function ConsultationServiceForm({
               inputMode="numeric"
               className="bg-white"
             />
-            <Controller
-              control={form.control}
-              name="currency"
-              render={({ field, fieldState }) => (
-                <Field data-invalid={fieldState.invalid}>
-                  <div className="flex flex-col">
-                    <FieldLabel className="dark:text-secondary-text text-primary-text text-[14px] mb-2">
-                      Currency *
-                    </FieldLabel>
-                    <Select value={field.value} onValueChange={field.onChange}>
-                      <SelectTrigger className="bg-white text-primary-text h-11 border-[#EAECF0]">
-                        <SelectValue placeholder="Select Currency" />
-                      </SelectTrigger>
-                      <SelectContent>
-                        {CURRENCY_OPTIONS.map((option) => (
-                          <SelectItem key={option.value} value={option.value}>
-                            {option.label}
-                          </SelectItem>
-                        ))}
-                      </SelectContent>
-                    </Select>
-                  </div>
-                  {fieldState.invalid && (
-                    <FieldError errors={[fieldState.error]} />
-                  )}
-                </Field>
-              )}
-            />
           </div>
+
+          <Controller
+            control={form.control}
+            name="calBookingUrl"
+            render={({ field, fieldState }) => (
+              <Field data-invalid={fieldState.invalid}>
+                <FieldLabel className="dark:text-secondary-text text-primary-text text-[14px] mb-2">Cal.com Event Type *</FieldLabel>
+                <CalEventTypeSelect
+                  value={field.value}
+                  onChange={field.onChange}
+                />
+                {fieldState.invalid && <FieldError errors={[fieldState.error]} />}
+              </Field>
+            )}
+          />
+        </div>
+      </div>
+
+      <div className="bg-transparent rounded-[12px]">
+        <header className="text-primary-text font-semibold text-base mb-6">Pricing</header>
+
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <FormFieldComp
+            name="price"
+            control={form.control}
+            label="Price *"
+            placeholder="e.g. 15000"
+            type="text"
+            inputMode="numeric"
+            className="bg-white"
+          />
+          <Controller
+            control={form.control}
+            name="currency"
+            render={({ field, fieldState }) => (
+              <Field data-invalid={fieldState.invalid}>
+                <div className="flex flex-col">
+                  <FieldLabel className="dark:text-secondary-text text-primary-text text-[14px] mb-2">Currency *</FieldLabel>
+                  <Select value={field.value} onValueChange={field.onChange}>
+                    <SelectTrigger className="bg-white text-primary-text h-11">
+                      <SelectValue placeholder="Select Currency" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      {CURRENCY_OPTIONS.map((option) => (
+                        <SelectItem key={option.value} value={option.value}>
+                          {option.label}
+                        </SelectItem>
+                      ))}
+                    </SelectContent>
+                  </Select>
+                </div>
+                {fieldState.invalid && <FieldError errors={[fieldState.error]} />}
+              </Field>
+            )}
+          />
+        </div>
+      </div>
+
+      <div className="bg-transparent rounded-[12px]">
+        <header className="text-primary-text font-semibold text-base mb-6">Page Content</header>
+
+        <div className="space-y-6">
+          <Controller
+            control={form.control}
+            name="audience"
+            render={({ field }) => (
+              <Field>
+                <FieldLabel className="dark:text-secondary-text text-primary-text text-[14px] mb-2">Who&apos;s It For</FieldLabel>
+                <BulletListInput
+                  value={field.value ?? []}
+                  onChange={field.onChange}
+                  placeholder="e.g. Anyone rebuilding confidence after a career break"
+                  addLabel="Add audience"
+                />
+              </Field>
+            )}
+          />
+
+          <Controller
+            control={form.control}
+            name="whatsIncluded"
+            render={({ field }) => (
+              <Field>
+                <FieldLabel className="dark:text-secondary-text text-primary-text text-[14px] mb-2">What&apos;s Included</FieldLabel>
+                <BulletListInput
+                  value={field.value ?? []}
+                  onChange={field.onChange}
+                  placeholder="e.g. Follow-up summary sent within 48 hours"
+                  addLabel="Add inclusion"
+                />
+              </Field>
+            )}
+          />
+
+          <Controller
+            control={form.control}
+            name="tags"
+            render={({ field }) => (
+              <Field>
+                <FieldLabel className="dark:text-secondary-text text-primary-text text-[14px] mb-2">Topics</FieldLabel>
+                <TagInput
+                  value={field.value ?? []}
+                  onChange={field.onChange}
+                  type="TOPIC"
+                />
+              </Field>
+            )}
+          />
         </div>
       </div>
 

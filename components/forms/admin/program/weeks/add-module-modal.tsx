@@ -84,7 +84,7 @@ export default function AddModuleModal({ onAddModule }: AddModuleModalProps) {
               setErrors((prev) => ({ ...prev, moduleTitle: "" }));
           }}
           placeholder="e.g., Active Listening Techniques"
-          className="border-[0.67px] border-[#D0D5DD] bg-white rounded-[5px] w-full text-[12px] font-medium text-primary-text placeholder:text-[#0A0A0A80] dark:placeholder:text-primary-text placeholder:text-sm py-4 h-11 focus-visible:border-none focus-visible:ring-0"
+          className="border-[0.67px] border-[#D0D5DD] dark:border-border bg-white rounded-[5px] w-full text-[12px] font-medium text-primary-text placeholder:text-[#0A0A0A80] dark:placeholder:text-primary-text placeholder:text-sm py-4 h-11 focus-visible:border-none focus-visible:ring-0"
         />
         {errors.moduleTitle && (
           <span className="text-sm text-destructive">{errors.moduleTitle}</span>
@@ -98,7 +98,7 @@ export default function AddModuleModal({ onAddModule }: AddModuleModalProps) {
           value={description}
           onChange={(e) => setDescription(e.target.value)}
           placeholder="Brief description of this module..."
-          className="border-[0.67px] dark:bg-transparent border-[#D0D5DD] bg-white rounded-[5px] w-full text-[12px] font-medium text-primary-text placeholder:text-[#0A0A0A80] dark:placeholder:text-primary-text placeholder:text-sm py-3 min-h-20 outline-none px-3 resize-none"
+          className="border-[0.67px] dark:bg-transparent border-[#D0D5DD] dark:border-border bg-white rounded-[5px] w-full text-[12px] font-medium text-primary-text placeholder:text-[#0A0A0A80] dark:placeholder:text-primary-text placeholder:text-sm py-3 min-h-20 outline-none px-3 resize-none"
         />
       </div>
 
@@ -113,7 +113,7 @@ export default function AddModuleModal({ onAddModule }: AddModuleModalProps) {
               if (errors.type) setErrors((prev) => ({ ...prev, type: "" }));
             }}
           >
-            <SelectTrigger className="border-[0.67px] border-[#D0D5DD] bg-white dark:bg-transparent rounded-[5px] w-full text-sm font-medium text-primary-text py-4 h-11 focus:ring-0 focus:ring-offset-0 focus-visible:ring-0">
+            <SelectTrigger className="border-[0.67px] border-[#D0D5DD] dark:border-border bg-white dark:bg-transparent rounded-[5px] w-full text-sm font-medium text-primary-text py-4 h-11 focus:ring-0 focus:ring-offset-0 focus-visible:ring-0">
               <SelectValue placeholder="Select type" />
             </SelectTrigger>
             <SelectContent className="w-[250px]">
@@ -138,7 +138,7 @@ export default function AddModuleModal({ onAddModule }: AddModuleModalProps) {
                 setErrors((prev) => ({ ...prev, duration: "" }));
             }}
             placeholder="e.g., 45min"
-            className="border-[0.67px] border-[#D0D5DD] bg-white rounded-[5px] w-full text-[12px] font-medium text-primary-text placeholder:text-[#0A0A0A80] dark:placeholder:text-primary-text placeholder:text-sm py-4 h-11 focus-visible:border-none focus-visible:ring-0"
+            className="border-[0.67px] border-[#D0D5DD] dark:border-border bg-white rounded-[5px] w-full text-[12px] font-medium text-primary-text placeholder:text-[#0A0A0A80] dark:placeholder:text-primary-text placeholder:text-sm py-4 h-11 focus-visible:border-none focus-visible:ring-0"
           />
           {errors.duration && (
             <span className="text-sm text-destructive">{errors.duration}</span>
@@ -157,7 +157,7 @@ export default function AddModuleModal({ onAddModule }: AddModuleModalProps) {
               setErrors((prev) => ({ ...prev, contentLink: "" }));
           }}
           placeholder="https://..."
-          className="border-[0.67px] border-[#D0D5DD] bg-white rounded-[5px] w-full text-[12px] font-medium text-primary-text placeholder:text-[#0A0A0A80] dark:placeholder:text-primary-text placeholder:text-sm py-4 h-11 focus-visible:border-none focus-visible:ring-0"
+          className="border-[0.67px] border-[#D0D5DD] dark:border-border bg-white rounded-[5px] w-full text-[12px] font-medium text-primary-text placeholder:text-[#0A0A0A80] dark:placeholder:text-primary-text placeholder:text-sm py-4 h-11 focus-visible:border-none focus-visible:ring-0"
         />
         {errors.contentLink && (
           <span className="text-sm text-destructive">

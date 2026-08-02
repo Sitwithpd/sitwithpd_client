@@ -57,7 +57,7 @@ export const useUpdateConsultationService = () => {
       payload,
     }: {
       id: string;
-      payload: UpdateConsultationServicePayload;
+      payload: UpdateConsultationServicePayload | FormData;
     }) => updateConsultationService(id, payload),
     onSuccess: (data) => {
       showSuccessToast(data.message ?? "Service updated.");

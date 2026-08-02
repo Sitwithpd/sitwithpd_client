@@ -70,7 +70,7 @@ export default function ModulesSection({ weekIndex }: ModulesSectionProps) {
 
       {/* Module list or empty state */}
       {fields.length === 0 ? (
-        <div className="flex flex-col items-center justify-center border-2 border-dashed border-[#D0D5DD] rounded-[12px] py-12 text-center">
+        <div className="flex flex-col items-center justify-center border-2 border-dashed border-[#D0D5DD] dark:border-border rounded-[12px] py-12 text-center">
           <svg
             width="48"
             height="48"

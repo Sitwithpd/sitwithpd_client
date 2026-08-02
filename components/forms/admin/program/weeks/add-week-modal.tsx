@@ -76,7 +76,7 @@ export default function AddWeekModal({ onAddWeek }: AddWeekModalProps) {
             if (titleError) setTitleError("");
           }}
           placeholder="e.g., Introduction to Leadership"
-          className="border-[0.67px] border-[#D0D5DD] bg-white rounded-[5px] w-full text-[12px] font-medium textprimary-text placeholder:text-[#0A0A0A80] dark:placeholder:text-primary-text  placeholder:text-sm py-4 h-11 focus-visible:border-none focus-visible:ring-0"
+          className="border-[0.67px] border-[#D0D5DD] dark:border-border bg-white rounded-[5px] w-full text-[12px] font-medium textprimary-text placeholder:text-[#0A0A0A80] dark:placeholder:text-primary-text  placeholder:text-sm py-4 h-11 focus-visible:border-none focus-visible:ring-0"
         />
         {titleError && (
           <span className="text-sm text-destructive">{titleError}</span>
@@ -90,7 +90,7 @@ export default function AddWeekModal({ onAddWeek }: AddWeekModalProps) {
           value={description}
           onChange={(e) => setDescription(e.target.value)}
           placeholder="Brief description of what this week covers..."
-          className="border-[0.67px] border-[#D0D5DD] dark:placeholder:text-primary-text bg-transparent d-[8px] w-full text-sm font-medium text-primary-text placeholder:text-[#0A0A0A80] placeholder:text-sm py-3 min-h-20 outline-none px-3 resize-none"
+          className="border-[0.67px] border-[#D0D5DD] dark:border-border dark:placeholder:text-primary-text bg-transparent d-[8px] w-full text-sm font-medium text-primary-text placeholder:text-[#0A0A0A80] placeholder:text-sm py-3 min-h-20 outline-none px-3 resize-none"
         />
       </div>
 
@@ -128,7 +128,7 @@ export default function AddWeekModal({ onAddWeek }: AddWeekModalProps) {
             onChange={(e) => setObjectiveInput(e.target.value)}
             onKeyDown={handleObjectiveKeyDown}
             placeholder="Add a learning objective..."
-            className="border-[0.67px] border-[#D0D5DD] dark:placeholder:text-primary-text bg-white rounded-[5px] flex-1 text-[12px] font-medium text-primary-text placeholder:text-[#0A0A0A80] placeholder:text-sm py-4 h-11 focus-visible:border-none focus-visible:ring-0"
+            className="border-[0.67px] border-[#D0D5DD] dark:border-border dark:placeholder:text-primary-text bg-white rounded-[5px] flex-1 text-[12px] font-medium text-primary-text placeholder:text-[#0A0A0A80] placeholder:text-sm py-4 h-11 focus-visible:border-none focus-visible:ring-0"
           />
           <Button
             type="button"

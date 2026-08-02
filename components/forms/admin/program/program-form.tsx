@@ -15,7 +15,6 @@ import ImageUpload from "@/components/image-upload";
 import { ProgramFormSchema } from "@/schemas/programs-schema";
 import ProgramWeeksSection from "./weeks/program-weeks-section";
 import LearningObjectivesField from "./learning-objectives-field";
-import StringArrayField from "./string-array-field";
 import SelectDateComp from "@/components/date-selector";
 import { usePlatformSettingsStore } from "@/store/use-platform-settings-store";
 
@@ -46,6 +45,8 @@ export default function ProgramForm({
 }: {
   onSubmit: SubmitHandler<ProgramFormSchema>;
 }) {
+
+
   const { toast } = require("sonner");
 
   const onError = (errors: any) => {
@@ -155,7 +156,7 @@ export default function ProgramForm({
                       Currency *
                     </FieldLabel>
                     <Select value={field.value} onValueChange={field.onChange}>
-                      <SelectTrigger className="bg-dash-secondary-bg text-primary-text h-11 border-[#EAECF0]">
+                      <SelectTrigger className="bg-white text-primary-text h-11 border-[#EAECF0]">
                         <SelectValue placeholder="Select Currency" />
                       </SelectTrigger>
                       <SelectContent>
@@ -256,33 +257,6 @@ export default function ProgramForm({
           Learning Objectives
         </header>
         <LearningObjectivesField />
-      </div>
-
-      {/* who this is for */}
-      <div className="bg-dash-secondary-bg p-5 rounded-[12px]">
-        <header className="text-secondary-text font-semibold text-base mb-3">
-          Who This Is For
-        </header>
-        <StringArrayField
-          name="whoThisIsFor"
-          placeholder="E.g. Working professionals, Students…"
-          label="Describe the ideal participants for this programme"
-        />
-      </div>
-
-      {/* tags */}
-      <div className="bg-dash-secondary-bg p-5 rounded-[12px]">
-        <header className="text-secondary-text font-semibold text-base mb-1">
-          Tags
-        </header>
-        <p className="text-xs text-secondary-text mb-3">
-          Add up to 6 short tags to help learners discover this programme.
-        </p>
-        <StringArrayField
-          name="tags"
-          placeholder="E.g. Leadership, Mindfulness…"
-          maxItems={6}
-        />
       </div>
 
       {/* facilitator information  */}

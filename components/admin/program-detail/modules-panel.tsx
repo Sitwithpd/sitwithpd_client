@@ -27,7 +27,7 @@ export default function ModulesPanel({
   onEditModule,
 }: ModulesPanelProps) {
   return (
-    <div className="bg-dash-secondary-bg dark:border-none rounded-[12px] p-5 border border-[#EAECF0]">
+    <div className="bg-dash-secondary-bg dark:border-none rounded-[12px] p-5 border border-[#EAECF0] dark:border-border">
       {/* Header */}
       <div className="flex items-center justify-between mb-4">
         <h4 className="text-primary-text font-semibold text-base">
@@ -47,7 +47,7 @@ export default function ModulesPanel({
 
       {/* Empty state or module list */}
       {modules.length === 0 ? (
-        <div className="flex items-center justify-center border border-dashed border-[#EAECF0] rounded-[10px] py-10">
+        <div className="flex items-center justify-center border border-dashed border-[#EAECF0] dark:border-border rounded-[10px] py-10">
           <p className="text-sm text-primary-text">
             No modules added yet. Click &quot;Add Module&quot; to get started.
           </p>
@@ -57,7 +57,7 @@ export default function ModulesPanel({
           {modules.map((mod, index) => (
             <div
               key={index}
-              className="flex items-start justify-between gap-4 border border-[#EAECF0] rounded-[10px] p-4"
+              className="flex items-start justify-between gap-4 border border-[#EAECF0] dark:border-border rounded-[10px] p-4"
             >
               <div className="flex items-start gap-3 min-w-0">
                 {/* Module icon */}

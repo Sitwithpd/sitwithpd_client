@@ -15,6 +15,7 @@ import {
 import { Spinner } from "@/components/spinner";
 import { useModalStore } from "@/components/store/use-modal-store";
 import ConsultationServiceForm from "./consultation-service-form";
+import { buildConsultationServiceFormData } from "./build-form-data";
 
 export default function AddConsultationServiceModal() {
   const form = useForm<ConsultationServiceFormValues>({
@@ -27,6 +28,11 @@ export default function AddConsultationServiceModal() {
       price: "",
       duration: "",
       currency: "NGN",
+      coverImage: undefined,
+      audience: [],
+      whatsIncluded: [],
+      format: "",
+      tags: [],
     },
   });
 
@@ -45,15 +51,7 @@ export default function AddConsultationServiceModal() {
     console.log("calEventTypeId", calEventTypeId);
 
     mutate(
-      {
-        title: data.title,
-        description: data.description,
-        price: Number(data.price),
-        duration: Number(data.duration),
-        calBookingUrl: data.calBookingUrl,
-        calEventTypeId: Number(calEventTypeId),
-        currency: data.currency,
-      },
+      buildConsultationServiceFormData(data, calEventTypeId),
       {
         onSuccess: () => {
           closeModal("loading");
@@ -71,7 +69,7 @@ export default function AddConsultationServiceModal() {
     if (isPending) {
       openModal(
         "loading",
-        <div className="flex items-center justify-center gap-4 bg-white p-10 rounded-lg min-w-50">
+        <div className="flex items-center justify-center gap-4 bg-dash-secondary-bg p-10 rounded-lg min-w-50">
           <Spinner size={40} />
         </div>,
         { isMutation: true },

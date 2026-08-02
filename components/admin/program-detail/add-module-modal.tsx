@@ -86,7 +86,7 @@ export default function AddModuleModal({ onAddModule, initialData, title = "Add 
             <Input
               {...field}
               placeholder="e.g., Introduction to Leadership Styles"
-              className="border-[0.67px] border-[#D0D5DD] bg-white rounded-[5px] w-full text-[12px] font-medium text-primary-text placeholder:text-[#0A0A0A80] dark:placeholder:text-primary-text placeholder:text-sm py-4 h-11 focus-visible:border-none focus-visible:ring-0"
+              className="border-[0.67px] border-[#D0D5DD] dark:border-border bg-white rounded-[5px] w-full text-[12px] font-medium text-primary-text placeholder:text-[#0A0A0A80] dark:placeholder:text-primary-text placeholder:text-sm py-4 h-11 focus-visible:border-none focus-visible:ring-0"
             />
             {fieldState.invalid && (
               <span className="text-sm text-destructive">{fieldState.error?.message}</span>
@@ -105,7 +105,7 @@ export default function AddModuleModal({ onAddModule, initialData, title = "Add 
             <textarea
               {...field}
               placeholder="What will participants learn?"
-              className="border-[0.67px] border-[#D0D5DD] bg-transparent rounded-[5px] w-full text-[12px] font-medium text-primary-text placeholder:text-[#0A0A0A80] dark:placeholder:text-primary-text placeholder:text-sm py-3 min-h-20 outline-none px-3 resize-none h-75"
+              className="border-[0.67px] border-[#D0D5DD] dark:border-border bg-transparent rounded-[5px] w-full text-[12px] font-medium text-primary-text placeholder:text-[#0A0A0A80] dark:placeholder:text-primary-text placeholder:text-sm py-3 min-h-20 outline-none px-3 resize-none h-75"
             />
             {fieldState.invalid && (
               <span className="text-sm text-destructive">{fieldState.error?.message}</span>
@@ -123,7 +123,7 @@ export default function AddModuleModal({ onAddModule, initialData, title = "Add 
             <div className="flex flex-col gap-1.5">
               <label className="text-secondary-text text-sm">Type *</label>
               <Select value={field.value} onValueChange={field.onChange}>
-                <SelectTrigger className="border-[0.67px] border-[#D0D5DD] bg-transparent rounded-[5px] w-full text-sm font-medium text-primary-text py-4 h-11 focus:ring-0 focus:ring-offset-0 focus-visible:ring-0">
+                <SelectTrigger className="border-[0.67px] border-[#D0D5DD] dark:border-border bg-transparent rounded-[5px] w-full text-sm font-medium text-primary-text py-4 h-11 focus:ring-0 focus:ring-offset-0 focus-visible:ring-0">
                   <SelectValue placeholder="Select type" className="text-primary-text text-sm" />
                 </SelectTrigger>
                 <SelectContent>
@@ -148,7 +148,7 @@ export default function AddModuleModal({ onAddModule, initialData, title = "Add 
               <Input
                 {...field}
                 placeholder="e.g., 45 min"
-                className="border-[0.67px] border-[#D0D5DD] bg-transparent rounded-[5px] w-full text-[12px] font-medium text-primary-text placeholder:text-[#0A0A0A80] dark:placeholder:text-primary-text placeholder:text-sm py-4 h-11 focus-visible:border-none focus-visible:ring-0"
+                className="border-[0.67px] border-[#D0D5DD] dark:border-border bg-transparent rounded-[5px] w-full text-[12px] font-medium text-primary-text placeholder:text-[#0A0A0A80] dark:placeholder:text-primary-text placeholder:text-sm py-4 h-11 focus-visible:border-none focus-visible:ring-0"
               />
               {fieldState.invalid && (
                 <span className="text-sm text-destructive">{fieldState.error?.message}</span>
@@ -179,7 +179,7 @@ export default function AddModuleModal({ onAddModule, initialData, title = "Add 
               <Input
                 {...field}
                 placeholder="https://www.youtube.com/watch?v=..."
-                className="border-[0.67px] border-[#D0D5DD] bg-white rounded-[5px] w-full text-[12px] font-medium text-primary-text placeholder:text-primary-text placeholder:text-sm py-4 h-11 focus-visible:border-none focus-visible:ring-0"
+                className="border-[0.67px] border-[#D0D5DD] dark:border-border bg-white rounded-[5px] w-full text-[12px] font-medium text-primary-text placeholder:text-primary-text placeholder:text-sm py-4 h-11 focus-visible:border-none focus-visible:ring-0"
               />
               {fieldState.invalid && (
                 <span className="text-sm text-destructive">{fieldState.error?.message}</span>

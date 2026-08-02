@@ -28,6 +28,7 @@ import {
   CreditCard,
   Mails,
   Sparkles,
+  UsersRound,
 } from "lucide-react";
 import { useAuthStore } from "@/store/use-auth-store";
 import { usePlatformSettingsStore } from "@/store/use-platform-settings-store";
@@ -68,6 +69,11 @@ const data = {
       title: "Testimonials",
       url: "/admin/testimonials",
       icon: <MessageSquare />,
+    },
+    {
+      title: "Communities",
+      url: "/admin/community",
+      icon: <UsersRound />,
     },
     {
       title: "Contact Submissions",

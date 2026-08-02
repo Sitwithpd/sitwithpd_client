@@ -66,7 +66,9 @@ export default function FormFieldComp<T extends FieldValues>({
                 inputMode={inputMode}
                 autoComplete="one-time-code"
                 className={clsx(
-                  "pr-10  border-[0.75px]  border-[#EAECF0] bg-[#F2F4F7] rounded-[5px] w-full text-[12px]   font-medium text-primary-text placeholder:text-[#98A2B3] placeholder:text-[12px] placeholder:font-normal  py-4 h-11 focus-visible:border-none focus-visible:ring-0 ",
+                  // #EAECF0 is near-white; without a dark counterpart every
+                  // field outlines itself brightly against the dark surface.
+                  "pr-10  border-[0.75px]  border-[#EAECF0] dark:border-input bg-[#F2F4F7] rounded-[5px] w-full text-[12px]   font-medium text-primary-text placeholder:text-[#98A2B3] placeholder:text-[12px] placeholder:font-normal  py-4 h-11 focus-visible:border-none focus-visible:ring-0 ",
                   isPassword &&
                     !showPassword &&
                     "  [-webkit-text-security:disc] text-primary-text ",

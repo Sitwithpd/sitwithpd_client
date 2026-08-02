@@ -1,5 +1,6 @@
 import { api } from "@/lib/axios";
 import { getApiError } from "@/lib/utils";
+import type { Tag } from "@/lib/api/services/tags/tags.services";
 
 // ─── Types ───────────────────────────────────────────────────────────────────
 
@@ -13,6 +14,15 @@ export interface ConsultationService {
   calBookingUrl: string;
   isActive: boolean;
   currency: string;
+  coverImageUrl: string | null;
+  /** "Who's it for" / "What's included" — full-sentence bullets, not tags. */
+  audience: string[];
+  whatsIncluded: string[];
+  /** Single FORMAT tag, lifted out of the FK by the API serializer. */
+  format: Tag | null;
+  formatTagId: string | null;
+  /** Short reusable TOPIC pills. */
+  tags: Tag[];
   createdAt: string;
   updatedAt?: string;
 }
@@ -93,10 +103,15 @@ export const getConsultationServiceById = async (
 };
 
 export const createConsultationService = async (
-  payload: CreateConsultationServicePayload,
+  payload: CreateConsultationServicePayload | FormData,
 ) => {
   try {
-    const res = await api.post("/consultations/services", payload);
+    const res = await api.post("/consultations/services", payload, {
+      // FormData carries the optional cover image; axios sets the boundary.
+      ...(payload instanceof FormData && {
+        headers: { "Content-Type": "multipart/form-data" },
+      }),
+    });
     return res.data;
   } catch (error) {
     throw new Error(getApiError(error));
@@ -105,11 +120,15 @@ export const createConsultationService = async (
 
 export const updateConsultationService = async (
   id: string,
-  payload: UpdateConsultationServicePayload,
+  payload: UpdateConsultationServicePayload | FormData,
 ): Promise<ConsultationServiceResponse> => {
   if (!id) throw new Error("Service ID is required.");
   try {
-    const res = await api.patch(`/consultations/services/${id}`, payload);
+    const res = await api.patch(`/consultations/services/${id}`, payload, {
+      ...(payload instanceof FormData && {
+        headers: { "Content-Type": "multipart/form-data" },
+      }),
+    });
     return res.data;
   } catch (error) {
     throw new Error(getApiError(error));

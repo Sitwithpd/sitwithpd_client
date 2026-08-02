@@ -59,7 +59,7 @@ export default function CampTierForm({
                   {...field}
                   type="text"
                   placeholder="E.g. Individual"
-                  className="border-[0.75px] border-[#EAECF0] bg-dash-secondary-bg rounded-[5px] w-full text-[12px] font-medium text-primary-text placeholder:text-[#98A2B3] placeholder:text-[12px] placeholder:font-normal py-4 h-[54px] focus-visible:border-none focus-visible:ring-0"
+                  className="border-[0.75px] border-[#EAECF0] dark:border-border bg-dash-secondary-bg rounded-[5px] w-full text-[12px] font-medium text-primary-text placeholder:text-[#98A2B3] placeholder:text-[12px] placeholder:font-normal py-4 h-[54px] focus-visible:border-none focus-visible:ring-0"
                 />
                 {fieldState.invalid && (
                   <FieldError errors={[fieldState.error]} />
@@ -85,7 +85,7 @@ export default function CampTierForm({
                     id="description"
                     {...field}
                     placeholder="Describe what's included in this tier..."
-                    className="border-[0.75px] border-[#EAECF0] bg-white dark:bg-transparent rounded-[5px] w-full text-[12px] font-medium text-primary-text placeholder:text-[#98A2B3] py-4 min-h-[100px] outline-none px-3 resize-none"
+                    className="border-[0.75px] border-[#EAECF0] dark:border-border bg-white dark:bg-transparent rounded-[5px] w-full text-[12px] font-medium text-primary-text placeholder:text-[#98A2B3] py-4 min-h-[100px] outline-none px-3 resize-none"
                   />
                 </div>
                 {fieldState.invalid && (
@@ -115,7 +115,7 @@ export default function CampTierForm({
                     inputMode="decimal"
                     step="0.01"
                     placeholder="0.00"
-                    className="border-[0.75px] border-[#EAECF0] bg-white rounded-[5px] w-full text-[12px] font-medium text-primary-text placeholder:text-[#98A2B3] placeholder:text-[12px] placeholder:font-normal py-4 h-[54px] focus-visible:border-none focus-visible:ring-0"
+                    className="border-[0.75px] border-[#EAECF0] dark:border-border bg-white rounded-[5px] w-full text-[12px] font-medium text-primary-text placeholder:text-[#98A2B3] placeholder:text-[12px] placeholder:font-normal py-4 h-[54px] focus-visible:border-none focus-visible:ring-0"
                   />
                   {fieldState.invalid && (
                     <FieldError errors={[fieldState.error]} />
@@ -139,7 +139,7 @@ export default function CampTierForm({
                     min="1"
                     placeholder="1"
                     onChange={(e) => field.onChange(Number(e.target.value))}
-                    className="border-[0.75px] border-[#EAECF0] bg-white rounded-[5px] w-full text-[12px] font-medium text-primary-text placeholder:text-[#98A2B3] placeholder:text-[12px] placeholder:font-normal py-4 h-[54px] focus-visible:border-none focus-visible:ring-0"
+                    className="border-[0.75px] border-[#EAECF0] dark:border-border bg-white rounded-[5px] w-full text-[12px] font-medium text-primary-text placeholder:text-[#98A2B3] placeholder:text-[12px] placeholder:font-normal py-4 h-[54px] focus-visible:border-none focus-visible:ring-0"
                   />
                   {fieldState.invalid && (
                     <FieldError errors={[fieldState.error]} />
@@ -170,7 +170,7 @@ export default function CampTierForm({
                       const value = e.target.value;
                       field.onChange(value === "" ? null : Number(value));
                     }}
-                    className="border-[0.75px] border-[#EAECF0] bg-white rounded-[5px] w-full text-[12px] font-medium text-primary-text placeholder:text-[#98A2B3] placeholder:text-[12px] placeholder:font-normal py-4 h-[54px] focus-visible:border-none focus-visible:ring-0"
+                    className="border-[0.75px] border-[#EAECF0] dark:border-border bg-white rounded-[5px] w-full text-[12px] font-medium text-primary-text placeholder:text-[#98A2B3] placeholder:text-[12px] placeholder:font-normal py-4 h-[54px] focus-visible:border-none focus-visible:ring-0"
                   />
                   {fieldState.invalid && (
                     <FieldError errors={[fieldState.error]} />
@@ -194,7 +194,7 @@ export default function CampTierForm({
                     min="0"
                     placeholder="0"
                     onChange={(e) => field.onChange(Number(e.target.value))}
-                    className="border-[0.75px] border-[#EAECF0] bg-white rounded-[5px] w-full text-[12px] font-medium text-primary-text placeholder:text-[#98A2B3] placeholder:text-[12px] placeholder:font-normal py-4 h-[54px] focus-visible:border-none focus-visible:ring-0"
+                    className="border-[0.75px] border-[#EAECF0] dark:border-border bg-white rounded-[5px] w-full text-[12px] font-medium text-primary-text placeholder:text-[#98A2B3] placeholder:text-[12px] placeholder:font-normal py-4 h-[54px] focus-visible:border-none focus-visible:ring-0"
                   />
                   {fieldState.invalid && (
                     <FieldError errors={[fieldState.error]} />
@@ -224,7 +224,7 @@ export default function CampTierForm({
                       aria-invalid={fieldState.invalid}
                       type="text"
                       placeholder="E.g. Accommodation"
-                      className="border-[0.75px] border-[#EAECF0] bg-white rounded-[5px] w-full text-[12px] font-medium text-primary-text placeholder:text-[#98A2B3] placeholder:text-[12px] placeholder:font-normal py-4 h-[54px] focus-visible:border-none focus-visible:ring-0"
+                      className="border-[0.75px] border-[#EAECF0] dark:border-border bg-white rounded-[5px] w-full text-[12px] font-medium text-primary-text placeholder:text-[#98A2B3] placeholder:text-[12px] placeholder:font-normal py-4 h-[54px] focus-visible:border-none focus-visible:ring-0"
                     />
                     {fieldState.invalid && (
                       <FieldError errors={[fieldState.error]} />

@@ -64,7 +64,7 @@ export default function EditCampTierModal({
     if (isPending) {
       openModal(
         "loading",
-        <div className="flex flex-col items-center justify-center gap-4 bg-white p-10 rounded-lg min-w-50">
+        <div className="flex flex-col items-center justify-center gap-4 bg-dash-secondary-bg p-10 rounded-lg min-w-50">
           <Spinner size={40} />
         </div>,
         { isMutation: true }
@@ -73,7 +73,7 @@ export default function EditCampTierModal({
   }, [isPending, openModal]);
 
   return (
-    <div className="bg-white dark:bg-transparent rounded-[12px] md:w-full overflow-y-auto no-scrollbar mx-auto">
+    <div className="bg-transparent rounded-[12px] md:w-full overflow-y-auto no-scrollbar mx-auto">
       <h2 className="text-2xl font-semibold mb-1 dark:text-secondary-text text-primary-text">Edit Tier</h2>
       <p className="text-[#667085] dark:text-primary-text text-sm mb-6">
         Update details for {tier.label}.

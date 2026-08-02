@@ -74,7 +74,7 @@ export default function CampForm({
                       field.onChange(formatted);
                     }}
                     placeholder="0.00"
-                    className="pr-10 border-[0.75px] border-[#EAECF0] bg-white rounded-[5px] w-full text-[12px] font-medium text-primary-text placeholder:text-[#98A2B3] placeholder:text-[12px] placeholder:font-normal py-4 h-[54px] focus-visible:border-none focus-visible:ring-0"
+                    className="pr-10 border-[0.75px] border-[#EAECF0] dark:border-border bg-white rounded-[5px] w-full text-[12px] font-medium text-primary-text placeholder:text-[#98A2B3] placeholder:text-[12px] placeholder:font-normal py-4 h-[54px] focus-visible:border-none focus-visible:ring-0"
                   />
                   {fieldState.invalid && (
                     <FieldError errors={[fieldState.error]} />
@@ -82,6 +82,13 @@ export default function CampForm({
                 </Field>
               )}
             /> */}
+            <FormFieldComp
+              name="category"
+              control={form.control}
+              label="Category *"
+              placeholder="E.g. Wellness Retreat"
+              className="bg-white"
+            />
             <FormFieldComp
               name="capacity"
               control={form.control}
@@ -113,7 +120,7 @@ export default function CampForm({
                       Currency *
                     </FieldLabel>
                     <Select value={field.value} onValueChange={field.onChange}>
-                      <SelectTrigger className="bg-white text-primary-text h-[54px] border-[#EAECF0]">
+                      <SelectTrigger className="bg-white text-primary-text h-[54px] border-[#EAECF0] dark:border-border">
                         <SelectValue placeholder="Select Currency" />
                       </SelectTrigger>
                       <SelectContent>
@@ -149,7 +156,7 @@ export default function CampForm({
                     id="description"
                     {...field}
                     placeholder="Describe the camp, activities, and what to expect..."
-                    className="border-[0.75px] border-[#EAECF0] bg-transparent rounded-[5px] w-full text-[12px] font-medium text-primary-text placeholder:text-[#98A2B3] py-4 min-h-30 outline-none px-3 resize-none"
+                    className="border-[0.75px] border-[#EAECF0] dark:border-input bg-transparent dark:bg-input/30 rounded-[5px] w-full text-[12px] font-medium text-primary-text placeholder:text-[#98A2B3] py-4 min-h-30 outline-none px-3 resize-none"
                   />
                 </div>
                 {fieldState.invalid && (
@@ -161,8 +168,9 @@ export default function CampForm({
         </div>
       </div>
 
-      {/* thumbnail */}
-      <div className="bg-dash-secondary-bg rounded-[12px]">
+      {/* thumbnail — transparent like the section above it; a filled card here
+          reads as a separate form against the modal surface. */}
+      <div className="bg-transparent rounded-[12px]">
         <Controller
           control={form.control}
           name="thumbnail"

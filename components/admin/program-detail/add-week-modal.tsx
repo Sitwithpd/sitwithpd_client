@@ -96,7 +96,7 @@ export default function AddWeekModal({ onAddWeek, initialData, title = "Add New 
             <Input
               {...field}
               placeholder="e.g., Introduction to Leadership"
-              className="border-[0.67px] border-[#D0D5DD] bg-white rounded-[5px] w-full text-[12px] font-medium text-primary-text placeholder:text-primary-text placeholder:text-sm py-4 h-11 focus-visible:border-none focus-visible:ring-0"
+              className="border-[0.67px] border-[#D0D5DD] dark:border-border bg-white rounded-[5px] w-full text-[12px] font-medium text-primary-text placeholder:text-primary-text placeholder:text-sm py-4 h-11 focus-visible:border-none focus-visible:ring-0"
             />
             {fieldState.invalid && (
               <span className="text-sm text-destructive">{fieldState.error?.message}</span>
@@ -115,7 +115,7 @@ export default function AddWeekModal({ onAddWeek, initialData, title = "Add New 
             <textarea
               {...field}
               placeholder="Brief description of what this week covers..."
-              className="border-[0.67px] border-[#D0D5DD] bg-tansparent rounded-[8px] w-full text-sm font-medium text-primary-text placeholder:text-primary-text placeholder:text-sm py-3 min-h-20 outline-none px-3 resize-none h-75"
+              className="border-[0.67px] border-[#D0D5DD] dark:border-border bg-tansparent rounded-[8px] w-full text-sm font-medium text-primary-text placeholder:text-primary-text placeholder:text-sm py-3 min-h-20 outline-none px-3 resize-none h-75"
             />
             {fieldState.invalid && (
               <span className="text-sm text-destructive">{fieldState.error?.message}</span>
@@ -160,7 +160,7 @@ export default function AddWeekModal({ onAddWeek, initialData, title = "Add New 
             onChange={(e) => setObjectiveInput(e.target.value)}
             onKeyDown={handleObjectiveKeyDown}
             placeholder="Add a learning objective..."
-            className="border-[0.67px] border-[#D0D5DD] bg-white rounded-[5px] flex-1 text-[12px] font-medium text-primary-text placeholder:text-primary-text placeholder:text-sm py-4 h-11 focus-visible:border-none focus-visible:ring-0"
+            className="border-[0.67px] border-[#D0D5DD] dark:border-border bg-white rounded-[5px] flex-1 text-[12px] font-medium text-primary-text placeholder:text-primary-text placeholder:text-sm py-4 h-11 focus-visible:border-none focus-visible:ring-0"
           />
           <Button
             type="button"

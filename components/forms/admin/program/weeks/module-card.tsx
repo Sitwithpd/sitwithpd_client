@@ -20,7 +20,7 @@ export default function ModuleCard({
 }: ModuleCardProps) {
   return (
     <div className="flex flex-col gap-2">
-      <div className="flex items-start justify-between border border-[#EAECF0] rounded-[10px] p-4">
+      <div className="flex items-start justify-between border border-[#EAECF0] dark:border-border rounded-[10px] p-4">
         <div className="flex items-start gap-3">
           {/* Module icon */}
           <div className="mt-0.5 flex-shrink-0 text-[#98A2B3]">

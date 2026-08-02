@@ -30,7 +30,7 @@ export default function WeekCard({
       className={`flex flex-col border rounded-[12px] transition-colors ${
         isSelected
           ? "border-regular-button border-[0.67px] bg-[#F0F9FF] dark:bg-dash-secondary-bg"
-          : "border-[#EAECF0] border-[0.67px] bg-dash-secondary-bg"
+          : "border-[#EAECF0] dark:border-border border-[0.67px] bg-dash-secondary-bg"
       }`}
     >
       <div className="flex items-center justify-between p-4">
