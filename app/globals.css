@@ -286,6 +286,32 @@ html[data-direction="back"] ::view-transition-new(root) {
   background-color: #445b1c;
 }
 
+/* Slim aesthetic custom scrollbar */
+.custom-scrollbar {
+  scrollbar-width: thin;
+  scrollbar-color: var(--primary-regular-button) #f2f4f7;
+}
+
+.custom-scrollbar::-webkit-scrollbar {
+  width: 5px;
+  height: 5px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-track {
+  background: #f2f4f7;
+  border-radius: 9999px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background-color: var(--primary-regular-button);
+  border-radius: 9999px;
+  transition: background-color 0.2s ease;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb:hover {
+  background-color: var(--primary-green);
+}
+
 /* react-phone-number-input custom styles */
 .contact-phone-input {
   display: flex;

@@ -1,44 +1,272 @@
 "use client";
 
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Image from "next/image";
+import Link from "next/link";
 import { Button } from "@/components/ui/button";
+import { Checkbox } from "@/components/ui/checkbox";
+import { Spinner } from "@/components/spinner";
+import { PaymentSecurityBadge } from "@/components/payment-security-badge";
 import { useModalStore } from "@/components/store/use-modal-store";
-import ProgramRegistrationModal from "./program-registration-modal";
+import { useAuthStore } from "@/store/use-auth-store";
+import { useCreatePayment } from "@/lib/api/hooks/payments/payments.hooks";
+import { useGetDashboardData } from "@/lib/api/hooks/dashboard/dashboard.hooks";
+import { Purchase } from "@/lib/api/services/dashboard/dashboard.services";
+import { CreatePaymentPayload } from "@/lib/api/services/payments/payments.services";
+import {
+  SignInRequiredModal,
+  SIGN_IN_MODAL_ID,
+} from "@/components/sign-in-required-modal";
+import { showErrorToast } from "@/lib/toast-helpers";
+import { formatCurrency } from "@/lib/utils";
+import { Program } from "@/types/programs.types";
 
-interface IprogramsData {
-  id: string;
-  tag: {
-    label: string;
-    bg: string;
-    text: string;
-  };
-  subtitle: string;
-  title: string;
-  slogan: string;
-  description: string;
-  image: {
-    src: string;
-    position: string;
-    overlayPrimary: string;
-    overlaySecondary: string[];
-  };
-  whatYoullCover: string[];
-  details: {
-    duration: string;
-    investment: string;
-    nextCohort: string;
-  };
-  whoThisIsFor: string[];
-}
-[];
+// Badge colour config keyed by category
+const CATEGORY_BADGE: Record<
+  Program["category"],
+  { bg: string; text: string; label: string }
+> = {
+  STUDENTS: {
+    bg: "bg-regular-button",
+    text: "text-white",
+    label: "For Students",
+  },
+  PROFESSIONALS: {
+    bg: "bg-[#FA9874]",
+    text: "text-white",
+    label: "For Professionals",
+  },
+  LEADERS: {
+    bg: "bg-[#3D89DF]",
+    text: "text-white",
+    label: "For Leaders",
+  },
+};
 
-export default function ProgramsListingCard({
-  program,
-}: {
-  program: IprogramsData;
-}) {
+export default function ProgramsListingCard({ program }: { program: Program }) {
+  const [agreedPolicies, setAgreedPolicies] = useState(false);
+  const [agreedConsent, setAgreedConsent] = useState(false);
+  const allChecked = agreedPolicies && agreedConsent;
+
+  const isAuthenticated = useAuthStore((state) => state.isAuthenticated);
+  const { mutate: createPayment, isPending: isCreatingPayment } =
+    useCreatePayment();
+  const { data, isLoading: dashboardDataLoading } = useGetDashboardData({
+    enabled: isAuthenticated,
+  });
+
   const openModal = useModalStore((state) => state.openModal);
+  const closeModal = useModalStore((state) => state.closeModal);
+
+  const existingProgram = data?.data?.purchases?.find(
+    (p: Purchase) => p.programId === program.id,
+  );
+
+  const badge = CATEGORY_BADGE[program.category] ?? {
+    bg: "bg-gray-400",
+    text: "text-white",
+    label: program.category,
+  };
+
+  // ---- Payment ----
+  const startPayment = () => {
+    const paymentTab = window.open("", "_blank");
+
+    const payload: CreatePaymentPayload = {
+      itemId: program.id,
+      type: "PROGRAM",
+      provider: "FLUTTERWAVE",
+    };
+
+    createPayment(payload, {
+      onSuccess: (data) => {
+        closeModal("loading");
+        if (paymentTab) {
+          paymentTab.location.href = data?.data?.authorizationUrl;
+        }
+      },
+      onError: () => {
+        closeModal("loading");
+        paymentTab?.close();
+        localStorage.removeItem("pending_enrollment");
+      },
+    });
+  };
+
+  const enrolNow = () => {
+    if (!program.id) {
+      showErrorToast("Program ID is invalid or cannot be found.");
+      return;
+    }
+
+    if (!isAuthenticated) {
+      openModal(
+        SIGN_IN_MODAL_ID,
+        <SignInRequiredModal
+          message={`You need to be signed in to enrol in ${program.title ? `"${program.title}"` : "a programme"}. Sign in to your account so you can get started on your learning journey.`}
+          callbackUrl={`/programs/programs-listing#${program.id}`}
+        />,
+      );
+      return;
+    }
+
+    if (existingProgram) {
+      showErrorToast("You are already enrolled in this program.");
+      return;
+    }
+
+    localStorage.setItem(
+      "pending_enrollment",
+      JSON.stringify({
+        programId: program.id,
+        programTitle: program.title ?? "your programme",
+      }),
+    );
+
+    startPayment();
+  };
+
+  useEffect(() => {
+    if (isCreatingPayment) {
+      openModal(
+        "loading",
+        <div className="flex flex-col items-center justify-center gap-4 bg-white p-10 rounded-lg min-w-50">
+          <Spinner size={40} />
+        </div>,
+        { isMutation: true },
+      );
+    }
+  }, [isCreatingPayment, openModal]);
+
+  // ---- Button state ----
+  const getButtonByState = () => {
+    if (dashboardDataLoading) {
+      return (
+        <Button disabled variant="regular">
+          <Spinner />
+        </Button>
+      );
+    }
+
+    if (existingProgram) {
+      return (
+        <Link href={`/dashboard/program/${existingProgram.programId}`}>
+          <Button variant="regular" className="rounded-[8px]!">
+            Continue Program
+          </Button>
+        </Link>
+      );
+    }
+
+    return (
+      <div className="flex flex-col gap-4">
+        <div className="flex flex-col gap-3 p-4 bg-brand-green/10 rounded-lg border border-brand-green/20">
+          <label className="flex items-start gap-3 cursor-pointer group">
+            <Checkbox
+              checked={agreedPolicies}
+              onCheckedChange={(checked) => setAgreedPolicies(checked === true)}
+              className="mt-0.5 shrink-0 border-2 border-brand-green/20"
+            />
+            <span className="text-xs text-[#606060] leading-relaxed">
+              I have read and agree to the{" "}
+              <Link
+                href="/terms"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-brand-green font-semibold hover:underline"
+              >
+                Terms &amp; Conditions
+              </Link>
+              ,{" "}
+              <Link
+                href="/privacy-policy"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-brand-green font-semibold hover:underline"
+              >
+                Privacy Policy
+              </Link>
+              ,{" "}
+              <Link
+                href="/refund-policy"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-brand-green font-semibold hover:underline"
+              >
+                Refund &amp; Cancellation Policy
+              </Link>
+              , and{" "}
+              <Link
+                href="/medical-disclaimer"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-brand-green font-semibold hover:underline"
+              >
+                Medical Disclaimer
+              </Link>
+              . I understand that Sit-With-PD&apos;s services do not replace
+              professional medical or emergency healthcare services.
+            </span>
+          </label>
+          <label className="flex items-start gap-3 cursor-pointer group">
+            <Checkbox
+              checked={agreedConsent}
+              onCheckedChange={(checked) => setAgreedConsent(checked === true)}
+              className="mt-0.5 shrink-0 border-2 border-brand-green/20"
+            />
+            <span className="text-xs text-[#606060] leading-relaxed">
+              I consent to the collection and processing of my personal
+              information in accordance with the{" "}
+              <Link
+                href="/privacy-policy"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-brand-green font-semibold hover:underline"
+              >
+                Privacy Policy
+              </Link>{" "}
+              and applicable data protection laws, including the Nigeria Data
+              Protection Regulation (NDPR) and the UK General Data Protection
+              Regulation (UK GDPR).
+            </span>
+          </label>
+        </div>
+        <p className="text-[11px] text-[#606060] leading-relaxed font-medium">
+          <span className="font-semibold text-[#181D27]">Important:</span> By
+          proceeding with payment, you acknowledge that Sit-With-PD Global
+          Therapeutic Network provides wellbeing, educational, advocacy, and
+          support services only. Our services do not constitute medical advice,
+          diagnosis, treatment, pharmaceutical services, or emergency
+          healthcare.
+        </p>
+        <PaymentSecurityBadge />
+        <Button
+          onClick={enrolNow}
+          variant="regular"
+          disabled={!allChecked}
+          className="rounded-[8px]!"
+        >
+          Enrol now
+          <svg
+            width="14"
+            height="14"
+            viewBox="0 0 14 14"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+            className="ml-2 transition-transform group-hover:translate-x-1"
+          >
+            <path
+              d="M7.4 1.4L13.1 7.1L7.4 12.8M1.1 7.1H13.1"
+              stroke="currentColor"
+              strokeWidth="1.5"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            />
+          </svg>
+        </Button>
+      </div>
+    );
+  };
 
   return (
     <div className="flex flex-col w-full even:bg-[#F5F7F5] ">
@@ -51,160 +279,153 @@ export default function ProgramsListingCard({
           <div className="lg:mb-8  py-4 lg:py-0  sticky top-32 lg:static  z-10 bg-white ">
             <div className="flex items-center gap-3 mb-4">
               <span
-                className={`px-3 py-1.5 rounded-full text-xs font-medium tracking-wide ${program.tag.bg} ${program.tag.text}`}
+                className={`px-3 py-1.5 rounded-full text-xs font-medium tracking-wide ${badge.bg} ${badge.text}`}
               >
-                {program.tag.label}
+                {badge.label}
               </span>
-              <span className="text-[#606060] text-sm ">
-                {program.subtitle}
-              </span>
+              {program.durationWeeks && (
+                <span className="text-[#606060] text-sm ">
+                  {program.durationWeeks}-week programme
+                </span>
+              )}
             </div>
             <h2 className="text-3xl lg:text-4xl font-bold lg:leading-[1.1] mb-2 lg:mb-4 text-[#131313] tracking-tight">
               {program.title}
             </h2>
-            <p className="text-regular-button italic text-sm lg:text-base ">
-              {program.slogan}
-            </p>
+            {program.facilitatorName && (
+              <p className="text-regular-button italic text-sm lg:text-base ">
+                Facilitated by {program.facilitatorName}
+              </p>
+            )}
           </div>
 
           {/* Content Area */}
-          <div
-            className={`flex flex-col gap-5 lg:gap-10 items-start ${
-              program.image.position === "right"
-                ? "lg:flex-row-reverse"
-                : "lg:flex-row"
-            }`}
-          >
+          <div className="flex flex-col gap-5 lg:gap-10 items-start lg:flex-row">
             {/* Image */}
             <div className="w-full lg:w-[40%] shrink-0 relative overflow-hidden rounded-[16px] aspect-4/3 ">
-              {/* Fallback color for image loading */}
               <Image
-                src={program.image.src || "/images/placeholder.png"}
+                src={program.thumbnail || "/images/Image.webp"}
                 alt={program.title}
                 fill
                 className="object-cover"
               />
 
-              {/* Overlay Tags */}
-              <div className="absolute inset-0  bg-linear-to-t from-[#0F2318B2]   to-[#00000000] flex flex-col justify-end p-4">
+              {/* Overlay */}
+              <div className="absolute inset-0  bg-linear-to-t from-[#0F2318B2] to-[#00000000] flex flex-col justify-end p-4">
                 <p className="text-[#A8D675] tracking-[2px] text-xs  mb-3">
-                  {program.image.overlayPrimary}
+                  {program.category}
                 </p>
-                <div className="flex flex-wrap gap-2.5">
-                  {program.image.overlaySecondary.map((tag, i) => (
-                    <span
-                      key={i}
-                      className="px-4 py-1.5 rounded-full border-[0.67px] border-[#FFFFFF4D] text-white text-[11px] bg-transparent"
-                    >
-                      {tag}
-                    </span>
-                  ))}
-                </div>
+                {program.learningOutcomes?.length > 0 && (
+                  <div className="flex flex-wrap gap-2.5">
+                    {program.learningOutcomes.slice(0, 3).map((tag, i) => (
+                      <span
+                        key={i}
+                        className="px-4 py-1.5 rounded-full border-[0.67px] border-[#FFFFFF4D] text-white text-[11px] bg-transparent line-clamp-1"
+                      >
+                        {tag}
+                      </span>
+                    ))}
+                  </div>
+                )}
               </div>
             </div>
 
             {/* Text / Details */}
             <div className="w-full lg:flex-1 flex flex-col pt-2 ">
-              <p className="text-[#606060] text-base leading-relaxed mb-5">
+              <p className="text-[#606060] bg-[#F5F7F5] py-5 pl-4 text-base leading-relaxed mb-5 whitespace-pre-wrap lg:max-h-75 lg:overflow-y-auto lg:pr-2 custom-scrollbar">
                 {program.description}
               </p>
 
-              <h3 className="text-[13px] font-semibold text-[#1F4842] tracking-[1.5px] uppercase mb-4">
-                WHAT YOU'LL COVER
-              </h3>
-              <ul className="grid grid-cols-1 sm:grid-cols-2 gap-x-6 gap-y-4 text-[#475467]">
-                {program.whatYoullCover.map((item, i) => (
-                  <li
-                    key={i}
-                    className="flex items-start gap-2.5 text-[#344054] text-sm leading-snug lg:w-10/12"
-                  >
-                    <span className="w-1.5 h-1.5 rounded-full bg-regular-button mt-1.5 shrink-0" />
-                    <span>{item}</span>
-                  </li>
-                ))}
-              </ul>
+              {program.learningOutcomes?.length > 0 && (
+                <>
+                  <h3 className="text-[13px] font-semibold text-[#1F4842] tracking-[1.5px] uppercase mb-4">
+                    What You'll Cover
+                  </h3>
+                  <ul className="grid grid-cols-1 sm:grid-cols-2 gap-x-6 gap-y-4 text-[#475467]">
+                    {program.learningOutcomes.map((item, i) => (
+                      <li
+                        key={i}
+                        className="flex items-start gap-2.5 text-[#344054] text-sm leading-snug lg:w-10/12"
+                      >
+                        <span className="w-1.5 h-1.5 rounded-full bg-regular-button mt-1.5 shrink-0" />
+                        <span>{item}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </>
+              )}
 
               <hr className="w-full border-t border-gray-100 mt-8" />
 
               <div className=" flex flex-col lg:grid grid-cols-2 sm:grid-cols-3 gap-y-4 gap-x-4 w-full mb-10">
-                <div>
-                  <h4 className="text-[10px] sm:text-[11px]  text-[#606060] uppercase tracking-[1px] mb-2">
-                    DURATION
-                  </h4>
-                  <p className="text-base font-medium text-[#131313] leading-snug pr-4">
-                    {program.details.duration}
-                  </p>
-                </div>
-                <div>
-                  <h4 className="text-[10px] sm:text-[11px]  text-[#606060] uppercase tracking-[1px] mb-2">
-                    INVESTMENT
-                  </h4>
-                  <p className="text-base font-medium text-[#131313] leading-snug pr-4">
-                    {program.details.investment}
-                  </p>
-                </div>
-                <div className="col-span-2 sm:col-span-1">
-                  <h4 className="text-[10px] sm:text-[11px]  text-[#606060] uppercase tracking-[1px] mb-2">
-                    NEXT COHORT
-                  </h4>
-                  <p className="text-base font-medium text-regular-button leading-snug pr-4">
-                    {program.details.nextCohort}
-                  </p>
-                </div>
+                {program.durationWeeks && (
+                  <div>
+                    <h4 className="text-[10px] sm:text-[11px]  text-[#606060] uppercase tracking-[1px] mb-2">
+                      DURATION
+                    </h4>
+                    <p className="text-base font-medium text-[#131313] leading-snug pr-4">
+                      {program.durationWeeks} weeks · {program.hoursPerWeek}{" "}
+                      {program.hoursPerWeek === 1 ? "hr" : "hrs"}/week
+                    </p>
+                  </div>
+                )}
+                {program.price != null && (
+                  <div>
+                    <h4 className="text-[10px] sm:text-[11px]  text-[#606060] uppercase tracking-[1px] mb-2">
+                      INVESTMENT
+                    </h4>
+                    <p className="text-base font-medium text-[#131313] leading-snug pr-4">
+                      {formatCurrency(program.price, program.currency)} per participant
+                    </p>
+                  </div>
+                )}
+                {program.startDate && (
+                  <div className="col-span-2 sm:col-span-1">
+                    <h4 className="text-[10px] sm:text-[11px]  text-[#606060] uppercase tracking-[1px] mb-2">
+                      NEXT COHORT
+                    </h4>
+                    <p className="text-base font-semibold text-regular-button leading-snug pr-4">
+                      {new Date(program.startDate).toLocaleDateString("en-GB", {
+                        month: "long",
+                        year: "numeric",
+                      })}
+                    </p>
+                  </div>
+                )}
               </div>
 
-              <div>
-                <Button
-                  variant={"regular"}
-                  className=""
-                  onClick={() =>
-                    openModal(
-                      "registration-form",
-                      <ProgramRegistrationModal program={program} />,
-                    )
-                  }
-                >
-                  Register for this Programme
-                  <svg
-                    width="14"
-                    height="14"
-                    viewBox="0 0 14 14"
-                    fill="none"
-                    xmlns="http://www.w3.org/2000/svg"
-                    className="ml-2 transition-transform group-hover:translate-x-1"
-                  >
-                    <path
-                      d="M7.4 1.4L13.1 7.1L7.4 12.8M1.1 7.1H13.1"
-                      stroke="currentColor"
-                      strokeWidth="1.5"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                    />
-                  </svg>
-                </Button>
-              </div>
+              <div>{getButtonByState()}</div>
             </div>
           </div>
         </div>
 
-        {/* Who This Is For Bottom Bar */}
+        {/* Who This Is For / Enrolment count bottom bar */}
         <div className="w-full bg-[#F5F7F5] border-[0.67px] border-[#E8E8E8] mt-10 py-6">
           <div className=" flex flex-col md:flex-row md:items-center gap-6 md:gap-12 lg:gap-24 w-11/12 mx-auto lg:pr-20">
             <div className="shrink-0">
               <h3 className="text-[11px] font-bold text-[#1F4842] tracking-[1.5px] uppercase ">
-                WHO THIS IS FOR
+                PROGRAMME STATS
               </h3>
             </div>
             <ul className="flex flex-row flex-wrap gap-x-8 gap-y-4   w-full">
-              {program.whoThisIsFor.map((item, i) => (
-                <li
-                  key={i}
-                  className="flex items-start gap-2.5 text-[14px] text-[#344054]  w-auto "
-                >
+              {program._count?.purchases != null && (
+                <li className="flex items-start gap-2.5 text-[14px] text-[#344054]  w-auto ">
                   <span className="w-1.5 h-1.5 rounded-full bg-[#A8D675] mt-1.5 shrink-0" />
-                  <span>{item}</span>
+                  <span>{program._count.purchases} enrolled</span>
                 </li>
-              ))}
+              )}
+              {program._count?.weeks != null && (
+                <li className="flex items-start gap-2.5 text-[14px] text-[#344054]  w-auto ">
+                  <span className="w-1.5 h-1.5 rounded-full bg-[#A8D675] mt-1.5 shrink-0" />
+                  <span>{program._count.weeks} weeks of content</span>
+                </li>
+              )}
+              {program.facilitatorName && (
+                <li className="flex items-start gap-2.5 text-[14px] text-[#344054]  w-auto ">
+                  <span className="w-1.5 h-1.5 rounded-full bg-[#A8D675] mt-1.5 shrink-0" />
+                  <span>Led by {program.facilitatorName}</span>
+                </li>
+              )}
             </ul>
           </div>
         </div>

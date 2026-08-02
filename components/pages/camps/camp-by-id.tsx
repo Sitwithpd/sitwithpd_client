@@ -86,6 +86,18 @@ function CardByIdOverview({ id }: { id: string }) {
     }
   };
 
+  const campTitle = camp?.title;
+  const startDate =
+    camp?.startDate &&
+    new Date(camp.startDate).toLocaleString("en-US", {
+      dateStyle: "medium",
+    });
+  const endDate =
+    camp?.endDate &&
+    new Date(camp.endDate).toLocaleString("en-US", {
+      dateStyle: "medium",
+    });
+
   return (
     <div className=" bg-[#F7F7F7] py-30">
       <section className="max-w-7xl w-11/12 mx-auto lg:w-11/12 space-y-10">
@@ -138,7 +150,7 @@ function CardByIdOverview({ id }: { id: string }) {
               <div className="bg-dash-secondary-bg p-6 rounded-[16px] space-y-6">
                 <div className="flex justify-between items-start">
                   <h1 className="text-xl text-primary-text font-bold">
-                    {camp?.title}
+                    {campTitle}
                   </h1>
                 </div>
 
@@ -160,15 +172,7 @@ function CardByIdOverview({ id }: { id: string }) {
                   <div>
                     <h3 className={labelText}>Dates</h3>
                     <p className={valueText}>
-                      {camp?.startDate &&
-                        new Date(camp.startDate).toLocaleString("en-US", {
-                          dateStyle: "medium",
-                        })}{" "}
-                      -{" "}
-                      {camp?.endDate &&
-                        new Date(camp.endDate).toLocaleString("en-US", {
-                          dateStyle: "medium",
-                        })}
+                      {startDate} - {endDate}
                     </p>
                   </div>
                 </div>
@@ -278,7 +282,7 @@ function CardByIdOverview({ id }: { id: string }) {
                                 style={{
                                   background: "rgba(100, 147, 81, 0.2)",
                                 }}
-                                className="  w-[17px] h-[17px] rounded-full flex items-center justify-center "
+                                className="  w-4.25 h-4.25 rounded-full flex items-center justify-center "
                               >
                                 <GrayCheckIcon color={"#649351"} />
                               </span>
@@ -312,12 +316,16 @@ function CardByIdOverview({ id }: { id: string }) {
                                   openModal(
                                     "book-camp",
                                     <BookCampForm
-                                      tierId={plan.id}
-                                      campId={id}
-                                      tierLabel={plan.label}
-                                      maxPartyMembers={
-                                        plan?.seatsPerUnit || 100
-                                      }
+                                      bookingData={{
+                                        campId: id,
+                                        tierId: plan.id,
+                                        tierLabel: plan.label,
+                                        maxPartyMembers:
+                                          plan?.seatsPerUnit || 100,
+                                        campTitle,
+                                        startDate,
+                                        endDate,
+                                      }}
                                     />,
                                   );
                                 }}

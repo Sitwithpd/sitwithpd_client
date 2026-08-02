@@ -45,7 +45,7 @@ export function Hero() {
         "Helping individuals gain clarity, build resilience, and live with greater purpose  through reflective conversations, therapeutic experiences, and meaningful community. ",
       titleWidth: "w-full sm:w-[40%] md:w-[40%] lg:w-[50%]",
       imageClass: "object-cover object-[75%_center] md:object-center",
-      buttonOneText: "Book a discovery call",
+      buttonOneText: "Book Consultation",
       buttonOneLink: "/consultation",
       buttonTwoText: "Our Story",
       buttonTwoLink: "/about",
@@ -71,10 +71,10 @@ export function Hero() {
         "Our therapeutic programs are designed to provide structured growth pathways for individuals and groups. From intensive workshops to ongoing group sessions, we offer a supportive environment to navigate life's transitions, build resilience, and foster meaningful personal development.",
       imageClass: "object-cover object-[75%_center] md:object-center",
       titleWidth: "w-full sm:w-[70%] md:w-[45%] lg:w-[60%]",
-        buttonOneText: "Book a discovery call",
-      buttonOneLink: "/consultation",
-      buttonTwoText: "Our Programs",
-      buttonTwoLink: "/programs",
+        buttonOneText: "Our Programs",
+      buttonOneLink: "/programs",
+      buttonTwoText: "Contact Us",
+      buttonTwoLink: "/contact",
     },
 
     {

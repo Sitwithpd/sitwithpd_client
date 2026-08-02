@@ -1,64 +1,34 @@
 "use client";
 
 import { motion } from "motion/react";
-import {
-  fadeInUp,
-  staggerContainerDelayed,
-  staggerContainerSlow,
-} from "@/lib/motion-variants";
+import { fadeInUp, staggerContainerSlow } from "@/lib/motion-variants";
 import Image from "next/image";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
+import { useGetCamps } from "@/lib/api/hooks/camps/camps.hooks";
+import { Camp } from "@/types/camps.types";
+import { CampExperienceSkeleton } from "@/components/skeletons/camp-card-skeleton";
 
-interface CampCard {
-  category: string;
-  title: string;
-  description: string;
-  bullets: string[];
-  image: string;
-  href: string;
+function getDurationInDays(startDate?: string, endDate?: string): string {
+  if (!startDate || !endDate) return "Multi-day Retreat";
+  const start = new Date(startDate).getTime();
+  const end = new Date(endDate).getTime();
+  const diffTime = Math.abs(end - start);
+  const diffDays = Math.max(1, Math.round(diffTime / (1000 * 60 * 60 * 24)));
+  return `${diffDays} ${diffDays === 1 ? "Day" : "Days"}`;
 }
 
-const camps: CampCard[] = [
-  {
-    category: "Stillness Retreat",
-    title: "Emerald Haven & Reserve",
-    description:
-      "Emerald Haven & Reserve is more than a destination; it is a sanctuary where nature, comfort, and renewal come together in perfect harmony. Nestled amidst lush greenery, pristine waters, and breathtaking landscapes, it offers an escape from the demands of everyday life and an invitation to reconnect with what truly matters.",
-    bullets: [
-      "3 days · Nature setting · Small groups",
-      "Gardenia Tropicana, Lagos",
-    ],
-    image: "/images/Image.webp",
-    href: "/contact",
-  },
-  {
-    category: "Leadership Camp",
-    title: "Cedar Valley Escape",
-    description:
-      "Cedar Valley Escape is a peaceful retreat nestled among rolling hills, cedar forests, and breathtaking open skies. Designed for those seeking rest, adventure, reflection, or meaningful connection, it offers a welcoming sanctuary where the distractions of everyday life give way to nature's calming embrace. Surrounded by birdsong and fresh air",
-    bullets: [
-      "3 days · Cohort format · Executives & founders",
-      "Gardenia Tropicana, Lagos",
-    ],
-    image: "/images/therapeutic-camps.webp",
-    href: "/contact",
-  },
-  {
-    category: "Youth Camp",
-    title: "Bloomfield Sanctuary",
-    description:
-      "Bloomfield Sanctuary is a premium retreat experience thoughtfully designed for rest, reflection, wellness, and personal renewal. Created for solo travelers, couples, families, groups, creatives, professionals, and wellness seekers, it offers a peaceful environment where guests can reconnect with nature, loved ones, and themselves.",
-    bullets: [
-      "3 days · Ages 16-30 · Youth format",
-      "Gardenia Tropicana, Lagos",
-    ],
-    image: "/images/join-us.webp",
-    href: "/contact",
-  },
-];
-
 export function CampExperience() {
+  const { data: campsData, isLoading, isError } = useGetCamps();
+
+  const camps =
+    campsData?.data?.filter(
+      (camp) =>
+        camp?.tiers && camp?.tiers?.length > 0 && camp.status === "UPCOMING",
+    ) ||
+    campsData?.data ||
+    [];
+
   return (
     <section className="w-full bg-[#0F2318] py-16 lg:py-24">
       <div className="w-11/12 mx-auto max-w-7xl">
@@ -68,7 +38,7 @@ export function CampExperience() {
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, amount: 0.4 }}
-          className="text-center mb-10  max-w-2xl mx-auto"
+          className="text-center mb-10 max-w-2xl mx-auto"
         >
           <motion.span
             variants={fadeInUp}
@@ -88,76 +58,91 @@ export function CampExperience() {
           </motion.p>
         </motion.div>
 
-        {/* Cards grid */}
-        <div
-         
-          
-          className="grid grid-cols-1 md:grid-cols-3 gap-5 max-w-6xl mx-auto"
-        >
-          {camps.map((camp, i) => (
-            <motion.div
-              key={camp.title}
-             initial={{ opacity: 0, x: 30 }}
-                whileInView={{ opacity: 1, x: 0 }}
-                viewport={{ once: true, amount: 0.3 }}
-                transition={{
-                  delay: i * 0.15,
-                  duration: 0.55,
-                  ease: [0.25, 0.46, 0.45, 0.94],
-                }}
-              className="flex flex-col rounded-[16px] overflow-hidden bg-[#1A3D36]"
-            >
-              {/* Card image */}
-              <div className="relative w-full aspect-video shrink-0">
-                <Image
-                  src={camp.image}
-                  alt={camp.title}
-                  fill
-                  className="object-cover"
-                />
-              </div>
+        {/* Cards grid / Skeleton / Error handling */}
+        {isLoading ? (
+          <CampExperienceSkeleton />
+        ) : isError ? (
+          <div className="text-center py-16">
+            <p className="text-[#FFFFFF80] text-lg">
+              Failed to load camps. Please try again later.
+            </p>
+          </div>
+        ) : camps.length === 0 ? (
+          <div className="text-center py-16">
+            <p className="text-[#FFFFFF80] text-lg">
+              No upcoming camps available at the moment.
+            </p>
+          </div>
+        ) : (
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-5 max-w-6xl mx-auto">
+            {camps.map((camp, i: number) => {
+              const daysDiff = getDurationInDays(camp.startDate, camp.endDate);
 
-              {/* Card body */}
-              <div className="flex flex-col flex-1 p-7 gap-3">
-                {/* Category badge */}
-                <span className="inline-flex w-fit items-center rounded-full bg-[#A8D67520]  text-[#A8D675] text-xs font-semibold tracking-[1px] uppercase px-2.5 py-1">
-                  {camp.category}
-                </span>
+              return (
+                <motion.div
+                  key={camp.id || i}
+                  initial={{ opacity: 0, x: 30 }}
+                  whileInView={{ opacity: 1, x: 0 }}
+                  viewport={{ once: true, amount: 0.3 }}
+                  transition={{
+                    delay: i * 0.15,
+                    duration: 0.55,
+                    ease: [0.25, 0.46, 0.45, 0.94],
+                  }}
+                  className="flex flex-col rounded-[16px] overflow-hidden bg-[#1A3D36]"
+                >
+                  {/* Card image */}
+                  <div className="relative w-full aspect-video shrink-0">
+                    <Image
+                      src={camp.thumbnail || "/images/therapeutic-camps.webp"}
+                      alt={camp.title}
+                      fill
+                      className="object-cover"
+                    />
+                  </div>
 
-                {/* Title */}
-                <h3 className="text-white font-bold text-xl lg:text-2xl leading-tight">
-                  {camp.title}
-                </h3>
+                  {/* Card body */}
+                  <div className="flex flex-col flex-1 p-7 gap-3">
+                    {/* Category badge (dummy data until API updated) */}
+                    <span className="inline-flex w-fit items-center rounded-full bg-[#A8D67520] text-[#A8D675] text-xs font-semibold tracking-[1px] uppercase px-2.5 py-1">
+                      Therapeutic Camp
+                    </span>
 
-                {/* Description */}
-                <p className="text-[#FFFFFFB2] text-sm lg:text-base leading-relaxed flex-1">
-                  {camp.description}
-                </p>
+                    {/* Title */}
+                    <h3 className="text-white font-bold text-xl lg:text-2xl leading-tight">
+                      {camp.title}
+                    </h3>
 
-                {/* Bullet points */}
-                <ul className="space-y-1.5 mt-1">
-                  {camp.bullets.map((bullet) => (
-                    <li
-                      key={bullet}
-                      className="flex items-center gap-2 text-[#FFFFFFB2] text-sm"
-                    >
-                      <span className="w-1.5 h-1.5 rounded-full bg-[#A8D675] shrink-0" />
-                      {bullet}
-                    </li>
-                  ))}
-                </ul>
+                    {/* Description */}
+                    <p className="text-[#FFFFFFB2] text-sm lg:text-base leading-relaxed flex-1 line-clamp-4">
+                      {camp.description}
+                    </p>
 
-                {/* CTA Button */}
-                <Link href={camp.href} className="mt-4">
-                  <Button variant="regular" className="w-full">
-                    Apply for This Camp
-                    <span>→</span>
-                  </Button>
-                </Link>
-              </div>
-            </motion.div>
-          ))}
-        </div>
+                    {/* Bullet points: Days first, Location second */}
+                    <ul className="space-y-1.5 mt-1">
+                      <li className="flex items-center gap-2 text-[#FFFFFFB2] text-sm">
+                        <span className="w-1.5 h-1.5 rounded-full bg-[#A8D675] shrink-0" />
+                        <span>{daysDiff}</span>
+                      </li>
+                      <li className="flex items-center gap-2 text-[#FFFFFFB2] text-sm">
+                        <span className="w-1.5 h-1.5 rounded-full bg-[#A8D675] shrink-0" />
+                        <span>{camp.location}</span>
+                      </li>
+                    </ul>
+
+                    {/* CTA Button */}
+                    <Link href={`/camps/${camp.id}`} className="mt-4">
+                      <Button variant="regular" className="w-full">
+                        Apply for This Camp
+                        <span>→</span>
+                      </Button>
+                    </Link>
+                  </div>
+                </motion.div>
+              );
+            })}
+          </div>
+        )}
       </div>
     </section>
   );

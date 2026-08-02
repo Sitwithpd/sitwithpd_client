@@ -38,6 +38,13 @@ export const ProgramSchema = z.object({
   facilitatorEmail: z.string().email("Valid email is required"),
   currency: z.enum(["NGN", "USD", "EUR", "GBP"]),
   weeks: z.array(WeekSchema).optional(),
+  whoThisIsFor: z
+    .array(z.object({ text: z.string().min(1, "Item cannot be empty") }))
+    .min(1, "Add at least one item"),
+  tags: z
+    .array(z.object({ text: z.string().min(1, "Tag cannot be empty") }))
+    .min(1, "Add at least one tag")
+    .max(6, "Max 6 tags"),
 });
 
 export type ModuleFormData = z.infer<typeof ModuleSchema>;

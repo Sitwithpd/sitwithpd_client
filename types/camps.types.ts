@@ -1,3 +1,27 @@
+export interface Camp {
+  id: string;
+  title: string;
+  description: string;
+  location: string;
+  currency: string;
+  capacity: number;
+  startDate: string;
+  endDate: string;
+  thumbnail: string | null;
+  benefits: string[];
+  status: string;
+  createdAt: string;
+  updatedAt: string;
+  tiers?: CampTier[];
+  images?: CampImage[];
+  testimonials?: any[];
+  _count?: {
+    registrations: number;
+  };
+  seatsTaken?: number;
+  seatsRemaining?: number;
+}
+
 export interface CampTier {
   id: string;
   campId: string;

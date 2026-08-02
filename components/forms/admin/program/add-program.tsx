@@ -13,6 +13,8 @@ import { useRouter } from "next/navigation";
 const DEFAULT_VALUES = {
   weeks: [] as any[],
   learningObjectives: [] as { text: string }[],
+  whoThisIsFor: [] as { text: string }[],
+  tags: [] as { text: string }[],
 };
 
 export default function AddProgramForm() {
@@ -59,6 +61,15 @@ export default function AddProgramForm() {
     } else {
       formData.append("learningOutcomes", JSON.stringify([]));
     }
+
+    formData.append(
+      "whoThisIsFor",
+      JSON.stringify((data.whoThisIsFor || []).map((item) => item.text)),
+    );
+    formData.append(
+      "tags",
+      JSON.stringify((data.tags || []).map((item) => item.text)),
+    );
 
     if (data.weeks && data.weeks.length > 0) {
       const formattedWeeks = data.weeks.map((week) => ({

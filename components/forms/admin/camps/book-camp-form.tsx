@@ -24,6 +24,7 @@ import {
   Trash2,
   AlertTriangle,
   Loader2,
+  X,
 } from "lucide-react";
 import React, { useState } from "react";
 import { Controller, useFieldArray, useForm } from "react-hook-form";
@@ -45,7 +46,6 @@ function PendingRegistrationModal({
   const closeModal = useModalStore((state) => state.closeModal);
   const [isFetchingRegistration, setIsFetchingRegistration] = useState(false);
 
-
   const handleContinueToPayment = async () => {
     setIsFetchingRegistration(true);
     try {
@@ -59,7 +59,6 @@ function PendingRegistrationModal({
           type: "CAMP" as const,
           itemId: registrationId,
           provider: "FLUTTERWAVE",
-         
         },
         {
           onSuccess: (paymentData: any) => {
@@ -118,22 +117,34 @@ function PendingRegistrationModal({
   );
 }
 
-export default function BookCampForm({
-  tierId,
-  campId,
-  tierLabel,
-  maxPartyMembers,
-}: {
-  tierId: string | undefined | null;
+export interface BookCampData {
   campId: string;
-  tierLabel: string | undefined | null;
-  maxPartyMembers: number;
+  tierId?: string | null;
+  tierLabel?: string | null;
+  maxPartyMembers?: number;
+  campTitle?: string;
+  startDate?: string;
+  endDate?: string;
+}
+
+export default function BookCampForm({
+  bookingData,
+}: {
+  bookingData: BookCampData;
 }) {
+  const {
+    campId,
+    tierId,
+    tierLabel,
+    maxPartyMembers = 100,
+    campTitle,
+    startDate,
+    endDate,
+  } = bookingData;
   const { mutate: bookACamp, isPending } = useBookACamp();
   const { mutate: createPayment, isPending: isCreatingPayment } =
     useCreatePayment();
 
- 
   const openModal = useModalStore((state) => state.openModal);
   const closeModal = useModalStore((state) => state.closeModal);
 
@@ -205,7 +216,6 @@ export default function BookCampForm({
             type: "CAMP" as "CAMP" | "PROGRAM" | "CONSULTATION",
             itemId: bookingResponseId,
             provider: "FLUTTERWAVE",
-          
           };
 
           createPayment(paymentPayload, {
@@ -248,16 +258,32 @@ export default function BookCampForm({
   const sectionTitleText = "mb-5 text-brand-green text-base font-medium";
 
   return (
-    <form
-      onSubmit={form.handleSubmit(onSubmit)}
-      id="booking-form"
-      className="space-y-7 "
-    >
-      {/* basic information */}
-      <div className="bg-dash-secondary-bg px-5 pt-5 pb-10 rounded-[12px]">
-        <header>
-          <h3 className="text-primary-text text-xl text-center font-medium mb-10">{`${tierLabel} Camp Registration`}</h3>
-        </header>
+    <div className="-m-6 relative flex flex-col sm:overflow-hidden rounded-t-[inherit]">
+      {/* Header */}
+      <div className="bg-[#1F4842] px-4 py-10 lg:px-10 lg:py-12 relative z-10 shrink-0 text-white rounded-t-sm">
+        <h4 className="text-[11px] text-[#A8D675] font-semibold tracking-[1.5px] uppercase mb-4 opacity-90">
+          Camping
+        </h4>
+        <h2 className="text-2xl md:text-[34px] font-semibold mb-6">
+          {`${campTitle} Camp Registration`}
+        </h2>
+        {campTitle && <p className="text-[#FFFFFFB2] text-sm">{tierLabel}</p>}
+        {(startDate || endDate) && (
+          <p className="text-[#A8D675] text-sm mt-1">
+            {startDate} {endDate ? `– ${endDate}` : ""}
+          </p>
+        )}
+        <div className="absolute top-6 right-6 bg-white rounded-full p-0.5 md:h-10 md:w-10 transition-all flex items-center justify-center cursor-pointer md:hover:shadow-lg">
+          <X onClick={() => closeModal("book-camp")} color="black" />
+        </div>
+      </div>
+
+      {/* Form Body */}
+      <form
+        onSubmit={form.handleSubmit(onSubmit)}
+        id="booking-form"
+        className="px-4 py-8 lg:px-10 bg-white space-y-8"
+      >
         <div className="space-y-8">
           <div className="flex flex-col md:flex-row gap-7">
             <FormFieldComp
@@ -444,24 +470,24 @@ export default function BookCampForm({
             </Field>
           )}
         />
-      </div>
 
-      <div className="flex items-center justify-end w-full mt-10 gap-3">
-        <Button
-          onClick={() => closeModal("book-camp")}
-          variant={"outline"}
-          type="button"
-          className="text-regular-button border-regular-button"
-        >
-          Cancel
-        </Button>
-        <Button
-          variant={"regular"}
-          disabled={!form.formState.isValid || form.formState.isSubmitting}
-        >
-          {form.formState.isSubmitting ? "Submitting..." : "Secure Slot"}
-        </Button>
-      </div>
-    </form>
+        <div className="flex items-center justify-end w-full pt-2 gap-3">
+          <Button
+            onClick={() => closeModal("book-camp")}
+            variant={"outline"}
+            type="button"
+            className="text-regular-button border-regular-button"
+          >
+            Cancel
+          </Button>
+          <Button
+            variant={"regular"}
+            disabled={!form.formState.isValid || form.formState.isSubmitting}
+          >
+            {form.formState.isSubmitting ? "Submitting..." : "Secure Slot"}
+          </Button>
+        </div>
+      </form>
+    </div>
   );
 }

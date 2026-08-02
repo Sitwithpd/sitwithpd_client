@@ -14,6 +14,14 @@ export const metadata: Metadata = {
 import { notFound } from "next/navigation";
 
 export default function MembershipPage() {
-  notFound();
-  return null;
+ 
+  return(
+    <section>
+      <MembershipHero />
+      <WhyJoin />
+      <MembershipPricing />
+      <MembershipFaq />
+      {/* <CtaBlock /> */}
+    </section>
+  );
 }

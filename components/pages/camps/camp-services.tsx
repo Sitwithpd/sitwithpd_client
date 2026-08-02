@@ -1,31 +1,17 @@
 "use client";
 
-import { useGetAllConsultationServices } from "@/lib/api/hooks/consultations/consultation-services.hooks";
-import { useAuthStore } from "@/store/use-auth-store";
-import { useRouter } from "next/navigation";
-import { getCalApi } from "@calcom/embed-react";
 import { motion } from "motion/react";
 import { Button } from "@/components/ui/button";
-import { Skeleton } from "@/components/ui/skeleton";
-import { formatCurrency } from "@/lib/utils";
 import { Pill } from "@/components/ui/pill";
-import CaretRight from "@/pd-icons/caret-right";
-import { CheckCircle, Clock, LocateFixed } from "lucide-react";
-import { useBookACamp, useGetCamps } from "@/lib/api/hooks/camps/camps.hooks";
+import { useGetCamps } from "@/lib/api/hooks/camps/camps.hooks";
 import Image from "next/image";
-import { useEffect } from "react";
-import { useModalStore } from "@/components/store/use-modal-store";
-import { Spinner } from "@/components/spinner";
 import Link from "next/link";
+import { LocateFixed } from "lucide-react";
 
 export default function CampServices() {
-  const { data: campsData, isLoading, isError, isFetching } = useGetCamps();
-  const { mutate: bookACamp, isPending } = useBookACamp();
-  const isAuthenticated = useAuthStore((state) => state.isAuthenticated);
-  const router = useRouter();
+  const { data: campsData } = useGetCamps();
 
-  const openModal = useModalStore((state) => state.openModal);
-  const closeModal = useModalStore((state) => state.closeModal);
+
 
   const camp =
     campsData?.data.filter(
@@ -51,17 +37,7 @@ export default function CampServices() {
     },
   } as const;
 
-  useEffect(() => {
-    if (isPending) {
-      openModal(
-        "loading",
-        <div className="flex flex-col items-center justify-center gap-4 bg-white p-10 rounded-lg min-w-50">
-          <Spinner size={40} />
-        </div>,
-        { isMutation: true },
-      );
-    }
-  }, [isPending, openModal]);
+
 
   return (
     <section className="py-20   bg-white" id="camp-services">
