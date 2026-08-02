@@ -34,6 +34,11 @@ export const ProgramSchema = z.object({
   learningObjectives: z
     .array(z.object({ text: z.string().min(1, "Objective is required") }))
     .optional(),
+  whoThisIsFor: z.array(z.string().min(1)).min(1, "Add at least one item"),
+  tags: z
+    .array(z.string().min(1))
+    .min(1, "Add at least one tag")
+    .max(6, "Max 6 tags"),
   facilitatorName: z.string().min(1, "Facilitator name is required"),
   facilitatorEmail: z.string().email("Valid email is required"),
   currency: z.enum(["NGN", "USD", "EUR", "GBP"]),

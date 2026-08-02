@@ -17,6 +17,8 @@ import ProgramWeeksSection from "./weeks/program-weeks-section";
 import LearningObjectivesField from "./learning-objectives-field";
 import SelectDateComp from "@/components/date-selector";
 import { usePlatformSettingsStore } from "@/store/use-platform-settings-store";
+import WhoThisIsForField from "./who-this-is-for-field";
+import TagsField from "./tags-field";
 
 const PROGRAM_TYPE = [
   {
@@ -45,8 +47,6 @@ export default function ProgramForm({
 }: {
   onSubmit: SubmitHandler<ProgramFormSchema>;
 }) {
-
-
   const { toast } = require("sonner");
 
   const onError = (errors: any) => {
@@ -257,6 +257,22 @@ export default function ProgramForm({
           Learning Objectives
         </header>
         <LearningObjectivesField />
+      </div>
+
+      {/* who this is for */}
+      <div className="bg-dash-secondary-bg p-5 rounded-[12px]">
+        <header className="text-secondary-text font-semibold text-base mb-3">
+          Who This Is For *
+        </header>
+        <WhoThisIsForField />
+      </div>
+
+      {/* tags */}
+      <div className="bg-dash-secondary-bg p-5 rounded-[12px]">
+        <header className="text-secondary-text font-semibold text-base mb-3">
+          Tags *
+        </header>
+        <TagsField />
       </div>
 
       {/* facilitator information  */}

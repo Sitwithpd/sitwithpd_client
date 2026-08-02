@@ -58,6 +58,18 @@ function EditProgramForm({ id }: { id: string }) {
       formData.append("learningOutcomes", JSON.stringify([]));
     }
 
+    if (data.whoThisIsFor && data.whoThisIsFor.length > 0) {
+      formData.append("whoThisIsFor", JSON.stringify(data.whoThisIsFor));
+    } else {
+      formData.append("whoThisIsFor", JSON.stringify([]));
+    }
+
+    if (data.tags && data.tags.length > 0) {
+      formData.append("tags", JSON.stringify(data.tags));
+    } else {
+      formData.append("tags", JSON.stringify([]));
+    }
+
     if (data.weeks && data.weeks.length > 0) {
       const formattedWeeks = data.weeks.map((week) => ({
         title: week.weekTitle,
@@ -129,6 +141,16 @@ function EditProgramForm({ id }: { id: string }) {
         learningObjectives: ((program.data as any).learningOutcomes || []).map(
           (text: string) => ({ text }),
         ),
+        whoThisIsFor: Array.isArray((program.data as any).whoThisIsFor)
+          ? (program.data as any).whoThisIsFor
+          : typeof (program.data as any).whoThisIsFor === "string"
+            ? JSON.parse((program.data as any).whoThisIsFor)
+            : [],
+        tags: Array.isArray((program.data as any).tags)
+          ? (program.data as any).tags
+          : typeof (program.data as any).tags === "string"
+            ? JSON.parse((program.data as any).tags)
+            : [],
       };
       form.reset(mappedData);
       // Trigger validation manually so the user can see any errors right away
