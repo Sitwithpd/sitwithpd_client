@@ -282,7 +282,7 @@ export default function BookCampForm({
                       field.onChange(value);
                     }}
                     placeholder="08012345678"
-                    className="bg-white border-[0.75px] placeholder:text-[12px] text-[12px] border-[#EAECF0] h-11"
+                    className="bg-white border-[0.75px] placeholder:text-[12px] text-[12px] border-[#EAECF0] dark:border-border h-11"
                   />
                   {fieldState.invalid && (
                     <FieldError errors={[fieldState.error]} />
@@ -318,7 +318,7 @@ export default function BookCampForm({
                         field.onChange(value);
                       }}
                       placeholder="+1234567890"
-                      className="bg-white border-[0.75px] placeholder:text-[12px] text-[12px] border-[#EAECF0] h-11"
+                      className="bg-white border-[0.75px] placeholder:text-[12px] text-[12px] border-[#EAECF0] dark:border-border h-11"
                     />
                     {fieldState.invalid && (
                       <FieldError errors={[fieldState.error]} />
@@ -374,7 +374,7 @@ export default function BookCampForm({
                             aria-invalid={fieldState.invalid}
                             type="text"
                             placeholder="E.g. John Doe"
-                            className="border-[0.75px] border-[#EAECF0] bg-white rounded-[5px] w-full text-[12px] font-medium text-[#344054] placeholder:text-[#98A2B3] placeholder:text-[12px] placeholder:font-normal py-4 h-[54px] focus-visible:border-none focus-visible:ring-0"
+                            className="border-[0.75px] border-[#EAECF0] dark:border-border bg-white rounded-[5px] w-full text-[12px] font-medium text-[#344054] placeholder:text-[#98A2B3] placeholder:text-[12px] placeholder:font-normal py-4 h-[54px] focus-visible:border-none focus-visible:ring-0"
                           />
                           {fieldState.invalid && (
                             <FieldError errors={[fieldState.error]} />
@@ -385,7 +385,7 @@ export default function BookCampForm({
                     <button
                       type="button"
                       onClick={() => remove(index)}
-                      className="p-3 text-brand-red border border-[#EAECF0] rounded-[5px] h-[54px] flex items-center justify-center bg-white"
+                      className="p-3 text-brand-red border border-[#EAECF0] dark:border-border rounded-[5px] h-[54px] flex items-center justify-center bg-white"
                     >
                       <Trash2 className="h-4 w-4" />
                     </button>
@@ -437,7 +437,7 @@ export default function BookCampForm({
                   id="description"
                   {...field}
                   placeholder="Additonal notes"
-                  className="border-[0.75px] border-[#EAECF0] bg-white rounded-[5px] w-full text-[12px] font-medium text-[#344054] placeholder:text-[#98A2B3] py-4 min-h-30 outline-none px-3 resize-none"
+                  className="border-[0.75px] border-[#EAECF0] dark:border-border bg-white rounded-[5px] w-full text-[12px] font-medium text-[#344054] placeholder:text-[#98A2B3] py-4 min-h-30 outline-none px-3 resize-none"
                 />
               </div>
               {fieldState.invalid && <FieldError errors={[fieldState.error]} />}

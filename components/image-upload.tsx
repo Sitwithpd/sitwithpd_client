@@ -99,7 +99,7 @@ export default function ImageUpload({
               />
             </div>
           ) : (
-            <div className="flex flex-col items-center gap-2 text-gray-400">
+            <div className="flex flex-col items-center gap-2 text-gray-400 dark:text-muted-foreground">
               <ImageIcon size={48} strokeWidth={1} />
               <span className="text-sm">Preview unavailable</span>
             </div>
@@ -108,14 +108,14 @@ export default function ImageUpload({
           <button
             type="button"
             onClick={handleClear}
-            className="absolute top-3 right-3 bg-white/90 hover:bg-red-50 text-gray-500 hover:text-red-600 p-2 rounded-full shadow-md transition-all border border-gray-100"
+            className="absolute top-3 right-3 bg-white/90 dark:bg-neutral-800/90 hover:bg-red-50 dark:hover:bg-red-950/60 text-gray-500 dark:text-neutral-300 hover:text-red-600 p-2 rounded-full shadow-md transition-all border border-gray-100 dark:border-border"
             title="Remove image"
           >
             <X size={18} />
           </button>
 
           <div className="absolute inset-0 bg-black/5 opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none flex items-center justify-center">
-            <span className="bg-white/90 px-4 py-2 rounded-full text-xs font-medium text-gray-700 shadow-sm">
+            <span className="bg-white/90 dark:bg-neutral-800/90 px-4 py-2 rounded-full text-xs font-medium text-gray-700 dark:text-neutral-200 shadow-sm">
               Click &apos;X&apos; to change image
             </span>
           </div>
@@ -129,7 +129,7 @@ export default function ImageUpload({
             ${
               isDragActive
                 ? "border-[#0977BC] bg-blue-50/50"
-                : "border-gray-200 bg-gray-50 hover:bg-gray-100 hover:border-gray-300"
+                : "border-gray-200 bg-gray-50 hover:bg-gray-100 hover:border-gray-300 dark:border-border dark:bg-input/30 dark:hover:bg-input/50 dark:hover:border-muted-foreground"
             }
             ${disabled ? "opacity-50 cursor-not-allowed pointer-events-none" : ""}
           `}
@@ -137,18 +137,18 @@ export default function ImageUpload({
           <input {...getInputProps()} />
 
           <div
-            className={`flex justify-center items-center mb-4 rounded-full p-4 ${isDragActive ? "bg-blue-100 text-[#0977BC]" : "bg-gray-100 text-gray-400"}`}
+            className={`flex justify-center items-center mb-4 rounded-full p-4 ${isDragActive ? "bg-blue-100 text-[#0977BC]" : "bg-gray-100 text-gray-400 dark:bg-muted dark:text-muted-foreground"}`}
           >
             <UploadCloud size={32} strokeWidth={1.5} />
           </div>
 
           <div className="space-y-2">
-            <h3 className="text-[#151515] text-base font-semibold">
+            <h3 className="text-[#151515] dark:text-foreground text-base font-semibold">
               {isDragActive
                 ? "Drop your image here"
                 : "Click or drag & drop image"}
             </h3>
-            <p className="text-sm text-gray-500 max-w-xs mx-auto">
+            <p className="text-sm text-gray-500 dark:text-muted-foreground max-w-xs mx-auto">
               PNG, JPG, JPEG, or SVG (Max {Math.round(maxSize / (1024 * 1024))}
               MB)
             </p>
@@ -158,7 +158,7 @@ export default function ImageUpload({
 
       {/* error messages */}
       {error && (
-        <div className="mt-3 p-3 bg-red-50 border border-red-100 rounded-lg animate-in fade-in slide-in-from-top-1 max-w-2xl mx-auto">
+        <div className="mt-3 p-3 bg-red-50 dark:bg-red-950/40 border border-red-100 dark:border-red-900/50 rounded-lg animate-in fade-in slide-in-from-top-1 max-w-2xl mx-auto">
           <p className="text-sm font-medium text-red-600 flex items-center gap-2">
             <svg
               xmlns="http://www.w3.org/2000/svg"

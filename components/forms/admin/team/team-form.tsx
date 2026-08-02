@@ -39,7 +39,7 @@ export default function TeamForm({
                 {...field}
                 id="name"
                 placeholder="Enter member's name"
-                className="bg-white border-[#EAECF0] h-11 focus-visible:ring-0"
+                className="bg-white border-[#EAECF0] dark:border-border h-11 focus-visible:ring-0"
               />
               {fieldState.invalid && <FieldError errors={[fieldState.error]} />}
             </Field>
@@ -57,7 +57,7 @@ export default function TeamForm({
                 {...field}
                 id="role"
                 placeholder="e.g. Founder & CEO"
-                className="bg-white border-[#EAECF0] h-11 focus-visible:ring-0"
+                className="bg-white border-[#EAECF0] dark:border-border h-11 focus-visible:ring-0"
               />
               {fieldState.invalid && <FieldError errors={[fieldState.error]} />}
             </Field>
@@ -82,7 +82,7 @@ export default function TeamForm({
                   const val = e.target.value.replace(/\D/g, "");
                   field.onChange(val);
                 }}
-                className="bg-white border-[#EAECF0] h-11 focus-visible:ring-0"
+                className="bg-white border-[#EAECF0] dark:border-border h-11 focus-visible:ring-0"
               />
               {fieldState.invalid && <FieldError errors={[fieldState.error]} />}
             </Field>
@@ -106,7 +106,7 @@ export default function TeamForm({
         />
 
         {/* Published Status */}
-        <div className="flex items-center justify-between p-4 bg-muted/30 rounded-lg border border-[#EAECF0]">
+        <div className="flex items-center justify-between p-4 bg-muted/30 rounded-lg border border-[#EAECF0] dark:border-border">
           <div className="space-y-0.5">
             <FieldLabel className="text-base font-semibold">
               Published Status
@@ -125,7 +125,7 @@ export default function TeamForm({
         </div>
       </div>
 
-      <div className="flex gap-3 justify-end pt-4 border-t border-[#EAECF0]">
+      <div className="flex gap-3 justify-end pt-4 border-t border-[#EAECF0] dark:border-border">
         <Button
           type="button"
           variant="outline"

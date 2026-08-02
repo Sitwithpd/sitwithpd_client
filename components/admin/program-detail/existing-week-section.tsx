@@ -138,7 +138,7 @@ export default function ExistingWeekSection({
   };
 
   return (
-    <div className="bg-dash-secondary-bg rounded-[12px] p-5 border border-[#EAECF0] mb-4">
+    <div className="bg-dash-secondary-bg rounded-[12px] p-5 border border-[#EAECF0] dark:border-border mb-4">
       {/* Week Header */}
       <div className="flex flex-col-reverse gap-3 md:flex-row items-start justify-between cursor-pointer" onClick={() => setIsOpen(!isOpen)}>
         <div className="flex flex-col gap-0.5">
@@ -183,7 +183,7 @@ export default function ExistingWeekSection({
       </div>
 
       {isOpen && (
-        <div className="mt-4 pt-4 border-t border-[#EAECF0]">
+        <div className="mt-4 pt-4 border-t border-[#EAECF0] dark:border-border">
           <ModulesPanel
             modules={week.modules || []}
             onAddModule={handleAddModule}

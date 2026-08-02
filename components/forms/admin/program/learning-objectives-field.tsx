@@ -71,7 +71,7 @@ export default function LearningObjectivesField() {
           onChange={(e) => setObjectiveInput(e.target.value)}
           onKeyDown={handleObjectiveKeyDown}
           placeholder="Add a learning objective..."
-          className="border-[0.67px] border-[#D0D5DD] bg-white rounded-[5px] flex-1 text-[12px] font-medium text-primary-text placeholder:text-[#98A2B3] placeholder:text-[12px] py-4 h-11 focus-visible:border-none focus-visible:ring-0"
+          className="border-[0.67px] border-[#D0D5DD] dark:border-border bg-white rounded-[5px] flex-1 text-[12px] font-medium text-primary-text placeholder:text-[#98A2B3] placeholder:text-[12px] py-4 h-11 focus-visible:border-none focus-visible:ring-0"
         />
         <Button
           type="button"
