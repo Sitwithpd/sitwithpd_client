@@ -17,6 +17,8 @@ import {
 import { Button } from "@/components/ui/button";
 import { handleBookingClick } from "@/lib/utils";
 
+import { CurrencySelector } from "@/components/shared/currency-selector";
+
 export type TabContentType = {
   badgeLabel: string;
   badgeBg: string;
@@ -49,7 +51,7 @@ const TABS_CONTENT: Record<string, TabContentType> = {
     badgeText: "Online or In-Person",
     title: "One-to-One Consultation",
     subtitle: "Individuals, professionals, students",
-    image: "/images/tab1.png", 
+    image: "/images/tab1.png",
     overlayPrimary: "IDENTITY · EMOTIONAL CLARITY · SELF-AWARENESS",
     overlaySecondary: ["Confidential", "Solution-focused", "Tailored"],
     duration: "60 minutes",
@@ -71,7 +73,7 @@ const TABS_CONTENT: Record<string, TabContentType> = {
     badgeText: "Online or In-Person",
     title: "Executive Consultation",
     subtitle: "Executives, senior managers, founders",
-    image: "/images/tab2.png", 
+    image: "/images/tab2.png",
     overlayPrimary: "IDENTITY · EMOTIONAL CLARITY · SELF-AWARENESS",
     overlaySecondary: ["Confidential", "Solution-focused", "Tailored"],
     duration: "90 minutes",
@@ -93,7 +95,7 @@ const TABS_CONTENT: Record<string, TabContentType> = {
     badgeText: "Online or In-Person",
     title: "Business Strategy Session",
     subtitle: "Entrepreneurs, business owners, SMEs",
-    image: "/images/tab4.png", 
+    image: "/images/tab4.png",
     overlayPrimary: "IDENTITY · EMOTIONAL CLARITY · SELF-AWARENESS",
     overlaySecondary: ["Confidential", "Solution-focused", "Tailored"],
     duration: "Half-day (3 hours)",
@@ -115,7 +117,7 @@ const TABS_CONTENT: Record<string, TabContentType> = {
     badgeText: "In-Person (preferred)",
     title: "Team & Organisational Consultation",
     subtitle: "Teams, organisations, institutions, charities",
-    image: "/images/tab3.png", 
+    image: "/images/tab3.png",
     overlayPrimary: "IDENTITY · EMOTIONAL CLARITY · SELF-AWARENESS",
     overlaySecondary: ["Confidential", "Solution-focused", "Tailored"],
     duration: "Full-day advisory",
@@ -173,12 +175,18 @@ export function ConsultationTabView({ currentTab }: { currentTab: string }) {
       </div>
 
       {/* Main Content Body */}
-      <motion.div variants={staggerContainer}
+      <motion.div
+        variants={staggerContainer}
         initial="hidden"
         whileInView="visible"
-        viewport={{ once: true, amount: 0.4 }} className="w-11/12 max-w-5xl mx-auto py-12 mb-0">
+        viewport={{ once: true, amount: 0.4 }}
+        className="w-11/12 max-w-5xl mx-auto py-12 mb-0"
+      >
         {/* Badges */}
-        <motion.div variants={fadeInUpSlower} className="flex flex-wrap items-center gap-3 mb-6">
+        <motion.div
+          variants={fadeInUpSlower}
+          className="flex flex-wrap items-center gap-3 mb-6"
+        >
           <span
             className={`px-3 py-1 rounded-full text-[11px] font-medium text-white ${content.badgeBg}`}
           >
@@ -188,20 +196,27 @@ export function ConsultationTabView({ currentTab }: { currentTab: string }) {
         </motion.div>
 
         {/* Title */}
-        <motion.h1 variants={fadeInUpSlower} className="lg:text-4xl text-3xl  font-bold text-[#131313] mb-4">
+        <motion.h1
+          variants={fadeInUpSlower}
+          className="lg:text-4xl text-3xl  font-bold text-[#131313] mb-4"
+        >
           {content.title}
         </motion.h1>
-        <motion.p variants={fadeInUpSlower} className="text-regular-button text-sm md:text-base] font-medium italic mb-5">
+        <motion.p
+          variants={fadeInUpSlower}
+          className="text-regular-button text-sm md:text-base] font-medium italic mb-5"
+        >
           {content.subtitle}
         </motion.p>
 
         {/* Image Banner */}
         <motion.div
-        variants={staggerContainerSlow}
-        initial="hidden"
-        whileInView="visible"
-        viewport={{ once: true, amount: 0.2 }}
-        className="relative w-full aspect-video lg:aspect-21/9 lg:rounded-[16px]  rounded-lg overflow-hidden mb-8 bg-[#F5F7F5]">
+          variants={staggerContainerSlow}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, amount: 0.2 }}
+          className="relative w-full aspect-video lg:aspect-21/9 lg:rounded-[16px]  rounded-lg overflow-hidden mb-8 bg-[#F5F7F5]"
+        >
           <Image
             src={content.image}
             alt={content.title}
@@ -236,7 +251,10 @@ export function ConsultationTabView({ currentTab }: { currentTab: string }) {
             <span className={labelValueStyle}>{content.format}</span>
           </div>
           <div className="flex flex-col sm:flex-row sm:items-center justify-between py-3 gap-2">
-            <span className={labelStyle}>Investment</span>
+            <div className="flex items-center gap-2">
+              <span className={labelStyle}>Investment</span>
+              <CurrencySelector compact />
+            </div>
             <span className={labelValueStyle}>{content.investment}</span>
           </div>
         </div>
@@ -270,7 +288,12 @@ export function ConsultationTabView({ currentTab }: { currentTab: string }) {
       </motion.div>
 
       <div className="w-11/12 mx-auto mb-15 flex justify-center items-center">
-        <Button onClick={() => handleBookingClick(content.calLink)} variant="regular">Book Consultation</Button>
+        <Button
+          onClick={() => handleBookingClick(content.calLink)}
+          variant="regular"
+        >
+          Book Consultation
+        </Button>
       </div>
 
       {/* Explore Other Sessions */}

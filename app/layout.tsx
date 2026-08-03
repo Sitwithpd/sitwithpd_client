@@ -10,6 +10,7 @@ import { Toaster } from "@/components/ui/sonner";
 import { GoogleOAuthProvider } from "@react-oauth/google";
 import { CalProvider } from "@/components/providers/calcom-provider";
 import { HashScroller } from "@/components/providers/hash-scroller";
+import { CurrencyProvider } from "@/components/providers/currency-provider";
 import { Suspense } from "react";
 
 const inter = Inter({
@@ -109,6 +110,7 @@ export default function RootLayout({
             <TooltipProvider>
               <ViewTransitionTracker />
               <ModalProvider />
+              <CurrencyProvider />
               <CalProvider>
                 <Suspense fallback={null}>
                   <HashScroller />

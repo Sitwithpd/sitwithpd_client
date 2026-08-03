@@ -58,7 +58,7 @@ export default function TagsField() {
             return (
               <span
                 key={field.id}
-                className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-medium bg-[#A8D67520] text-brand-green border border-[#A8D6754D]"
+                className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-medium bg-regular-button text-white border border-[#A8D6754D]"
               >
                 {tagText}
                 <button

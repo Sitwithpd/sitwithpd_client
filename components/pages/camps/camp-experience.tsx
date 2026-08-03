@@ -9,13 +9,19 @@ import { useGetCamps } from "@/lib/api/hooks/camps/camps.hooks";
 import { Camp } from "@/types/camps.types";
 import { CampExperienceSkeleton } from "@/components/skeletons/camp-card-skeleton";
 
-function getDurationInDays(startDate?: string, endDate?: string): string {
-  if (!startDate || !endDate) return "Multi-day Retreat";
-  const start = new Date(startDate).getTime();
-  const end = new Date(endDate).getTime();
-  const diffTime = Math.abs(end - start);
-  const diffDays = Math.max(1, Math.round(diffTime / (1000 * 60 * 60 * 24)));
-  return `${diffDays} ${diffDays === 1 ? "Day" : "Days"}`;
+function getCampDate(startDate: string, endDate: string) {
+  return {
+    startDate: new Date(startDate).toLocaleDateString("en-US", {
+      year: "numeric",
+      month: "short",
+      day: "numeric",
+    }),
+    endDate: new Date(endDate).toLocaleDateString("en-US", {
+      year: "numeric",
+      month: "short",
+      day: "numeric",
+    }),
+  }
 }
 
 export function CampExperience() {
@@ -76,7 +82,7 @@ export function CampExperience() {
         ) : (
           <div className="grid grid-cols-1 md:grid-cols-3 gap-5 max-w-6xl mx-auto">
             {camps.map((camp, i: number) => {
-              const daysDiff = getDurationInDays(camp.startDate, camp.endDate);
+              const dates = getCampDate(camp.startDate, camp.endDate);
 
               return (
                 <motion.div
@@ -104,9 +110,9 @@ export function CampExperience() {
                   {/* Card body */}
                   <div className="flex flex-col flex-1 p-7 gap-3">
                     {/* Category badge (dummy data until API updated) */}
-                    <span className="inline-flex w-fit items-center rounded-full bg-[#A8D67520] text-[#A8D675] text-xs font-semibold tracking-[1px] uppercase px-2.5 py-1">
-                      Therapeutic Camp
-                    </span>
+                  { camp.category &&  <span className="inline-flex w-fit items-center rounded-full bg-[#A8D67520] text-[#A8D675] text-xs font-semibold tracking-[1px] uppercase px-2.5 py-1">
+                      {camp.category}
+                    </span>}
 
                     {/* Title */}
                     <h3 className="text-white font-bold text-xl lg:text-2xl leading-tight">
@@ -122,7 +128,7 @@ export function CampExperience() {
                     <ul className="space-y-1.5 mt-1">
                       <li className="flex items-center gap-2 text-[#FFFFFFB2] text-sm">
                         <span className="w-1.5 h-1.5 rounded-full bg-[#A8D675] shrink-0" />
-                        <span>{daysDiff}</span>
+                        <span>From {dates.startDate}{" - "}{dates.endDate}</span>
                       </li>
                       <li className="flex items-center gap-2 text-[#FFFFFFB2] text-sm">
                         <span className="w-1.5 h-1.5 rounded-full bg-[#A8D675] shrink-0" />

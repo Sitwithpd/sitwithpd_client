@@ -63,9 +63,9 @@ export default function AddProgramForm() {
     }
 
     if (data.whoThisIsFor && data.whoThisIsFor.length > 0) {
-      formData.append("whoThisIsFor", JSON.stringify(data.whoThisIsFor));
+      formData.append("audience", JSON.stringify(data.whoThisIsFor));
     } else {
-      formData.append("whoThisIsFor", JSON.stringify([]));
+      formData.append("audience", JSON.stringify([]));
     }
 
     if (data.tags && data.tags.length > 0) {

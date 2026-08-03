@@ -1,4 +1,5 @@
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import { useCurrencyStore } from "@/store/use-currency-store";
 import {
   getCamps,
   getAdminCamps,
@@ -20,17 +21,28 @@ import {
   getMyCampRegistration,
 } from "../../services/camps/camps.services";
 import { showSuccessToast, showErrorToast } from "@/lib/toast-helpers";
-import { CreateCampTierPayload, UpdateCampTierPayload } from "@/types/camps.types";
+import {
+  CreateCampTierPayload,
+  UpdateCampTierPayload,
+} from "@/types/camps.types";
 
 export const useGetCamps = () => {
+  const activeCurrency = useCurrencyStore(
+    (s) => s.userCurrency ?? s.detectedCurrency ?? "GBP",
+  );
   return useQuery({
-    queryKey: ["camps",],
+    queryKey: ["camps", activeCurrency],
     queryFn: getCamps,
     retry: false,
   });
 };
 
-export const useGetAdminCamps = (params?: { page?: number; limit?: number; search?: string; status?: string }) => {
+export const useGetAdminCamps = (params?: {
+  page?: number;
+  limit?: number;
+  search?: string;
+  status?: string;
+}) => {
   return useQuery({
     queryKey: ["admin-camps", params],
     queryFn: () => getAdminCamps(params),
@@ -39,18 +51,27 @@ export const useGetAdminCamps = (params?: { page?: number; limit?: number; searc
 };
 
 export const useGetCamp = (campId: string) => {
+  const activeCurrency = useCurrencyStore(
+    (s) => s.userCurrency ?? s.detectedCurrency ?? "GBP",
+  );
   return useQuery({
-    queryKey: ["camps", campId],
+    queryKey: ["camps", campId, activeCurrency],
     queryFn: () => getCamp(campId),
     enabled: Boolean(campId),
     retry: false,
   });
 };
 
-export const useGetCampParticipants = ({id, params }: {id: string, params?: {page: number, limit: number}}) => {
+export const useGetCampParticipants = ({
+  id,
+  params,
+}: {
+  id: string;
+  params?: { page: number; limit: number };
+}) => {
   return useQuery({
     queryKey: ["camps", id, "participants", params?.page, params?.limit],
-    queryFn: () => getCampParticipants(id, params ) ,
+    queryFn: () => getCampParticipants(id, params),
     enabled: Boolean(id),
     retry: false,
   });
@@ -128,8 +149,13 @@ export const useCreateCampTier = () => {
   const queryClient = useQueryClient();
 
   return useMutation({
-    mutationFn: ({ campId, payload }: { campId: string; payload: CreateCampTierPayload }) =>
-      createCampTier(campId, payload),
+    mutationFn: ({
+      campId,
+      payload,
+    }: {
+      campId: string;
+      payload: CreateCampTierPayload;
+    }) => createCampTier(campId, payload),
     onSuccess: (data, variables) => {
       showSuccessToast(data.message);
       queryClient.invalidateQueries({ queryKey: ["camps", variables.campId] });
@@ -243,7 +269,7 @@ export const useReplaceCampImage = () => {
     }: {
       campId: string;
       imageId: string;
-      payload: {caption?: string; order?: number};
+      payload: { caption?: string; order?: number };
     }) => replaceCampImage(campId, imageId, payload),
     onSuccess: (data, variables) => {
       showSuccessToast(data.message);

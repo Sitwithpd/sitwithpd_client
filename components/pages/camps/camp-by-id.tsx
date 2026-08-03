@@ -30,6 +30,7 @@ import { useAuthStore } from "@/store/use-auth-store";
 import { Info, Receipt } from "lucide-react";
 import CampRegistrationDetails from "./camp-registration-details";
 import { NgnEquivalent } from "@/components/shared/ngn-equivalent";
+import { CurrencySelector } from "@/components/shared/currency-selector";
 
 type CampTab = "details" | "registration";
 
@@ -38,7 +39,7 @@ function CardByIdOverview({ id }: { id: string }) {
   const [lightboxOpen, setLightboxOpen] = useState(false);
   const [activeTab, setActiveTab] = useState<CampTab>("details");
 
-  const { data: campData, isLoading, isError } = useGetCamp(id);
+  const { data: campData, isLoading, isError, refetch } = useGetCamp(id);
   const isAuthenticated = useAuthStore((state) => state.isAuthenticated);
 
   const openModal = useModalStore((state) => state.openModal);
@@ -146,6 +147,7 @@ function CardByIdOverview({ id }: { id: string }) {
               loadingMessage="Loading Camp Details"
               errorMessage="Failed to fetch camp data"
               emptyMessage="Camp not found"
+              onRetry={refetch}
             >
               <div className="bg-dash-secondary-bg p-6 rounded-[16px] space-y-6">
                 <div className="flex justify-between items-start">
@@ -187,7 +189,7 @@ function CardByIdOverview({ id }: { id: string }) {
                 {camp?.images && camp.images.length > 0 && (
                   <div className="space-y-2">
                     <h3 className={labelText}>Gallery Images</h3>
-                    <div className="flex items-center gap-4 overflow-x-auto">
+                    <div className="flex items-center gap-4 overflow-x-auto custom-scrollbar pb-5">
                       {camp.images.map((image: CampImage) => (
                         <div key={image.id}>
                           <div
@@ -223,9 +225,12 @@ function CardByIdOverview({ id }: { id: string }) {
             {/* Camp Tiers Section */}
             {camp?.tiers && camp.tiers.length > 0 && (
               <div className="space-y-6">
-                <h2 className="text-xl text-primary-text font-bold">
-                  Camp Tiers
-                </h2>
+                <div className="flex items-center justify-between">
+                  <h2 className="text-xl text-primary-text font-bold">
+                    Camp Tiers
+                  </h2>
+                  <CurrencySelector compact />
+                </div>
                 <div className="grid grid-cols-1 md:grid-cols-2  max-w-120 mx-auto lg:max-w-7xl gap-4  px-6 rounded-[16px]">
                   {camp.tiers
                     .sort((a, b) => a.order - b.order)

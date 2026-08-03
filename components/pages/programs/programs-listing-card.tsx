@@ -20,6 +20,7 @@ import {
 import { showErrorToast } from "@/lib/toast-helpers";
 import { formatCurrency } from "@/lib/utils";
 import { Program } from "@/types/programs.types";
+import { CurrencySelector } from "@/components/shared/currency-selector";
 
 // Badge colour config keyed by category
 const CATEGORY_BADGE: Record<
@@ -44,6 +45,39 @@ const CATEGORY_BADGE: Record<
 };
 
 export default function ProgramsListingCard({ program }: { program: Program }) {
+  // Destructure with safe defaults — guards against missing/null fields at runtime
+  const {
+    id = "",
+    title = "",
+    description = "",
+    category = "STUDENTS" as Program["category"],
+    price,
+    currency = "NGN",
+    thumbnail,
+    durationWeeks,
+    hoursPerWeek = 0,
+    learningOutcomes = [],
+    startDate,
+    facilitatorName,
+    _count = { purchases: 0, weeks: 0 },
+    // tags & audience may arrive as objects {id, name, slug, type} from the API
+    // so we coerce each entry to a string to prevent "Objects are not valid as
+    // a React child" runtime errors.
+    tags: rawTags = [],
+    audience: rawAudience = [],
+  } = program ?? {};
+
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const toLabel = (item: any): string =>
+    typeof item === "string" ? item : (item?.name ?? "");
+
+  const tags = (Array.isArray(rawTags) ? rawTags : [])
+    .map(toLabel)
+    .filter(Boolean);
+  const audience = (Array.isArray(rawAudience) ? rawAudience : [])
+    .map(toLabel)
+    .filter(Boolean);
+
   const [agreedPolicies, setAgreedPolicies] = useState(false);
   const [agreedConsent, setAgreedConsent] = useState(false);
   const allChecked = agreedPolicies && agreedConsent;
@@ -59,13 +93,13 @@ export default function ProgramsListingCard({ program }: { program: Program }) {
   const closeModal = useModalStore((state) => state.closeModal);
 
   const existingProgram = data?.data?.purchases?.find(
-    (p: Purchase) => p.programId === program.id,
+    (p: Purchase) => p.programId === id,
   );
 
-  const badge = CATEGORY_BADGE[program.category] ?? {
+  const badge = CATEGORY_BADGE[category] ?? {
     bg: "bg-gray-400",
     text: "text-white",
-    label: program.category,
+    label: category,
   };
 
   // ---- Payment ----
@@ -73,7 +107,7 @@ export default function ProgramsListingCard({ program }: { program: Program }) {
     const paymentTab = window.open("", "_blank");
 
     const payload: CreatePaymentPayload = {
-      itemId: program.id,
+      itemId: id,
       type: "PROGRAM",
       provider: "FLUTTERWAVE",
     };
@@ -94,7 +128,7 @@ export default function ProgramsListingCard({ program }: { program: Program }) {
   };
 
   const enrolNow = () => {
-    if (!program.id) {
+    if (!id) {
       showErrorToast("Program ID is invalid or cannot be found.");
       return;
     }
@@ -103,8 +137,8 @@ export default function ProgramsListingCard({ program }: { program: Program }) {
       openModal(
         SIGN_IN_MODAL_ID,
         <SignInRequiredModal
-          message={`You need to be signed in to enrol in ${program.title ? `"${program.title}"` : "a programme"}. Sign in to your account so you can get started on your learning journey.`}
-          callbackUrl={`/programs/programs-listing#${program.id}`}
+          message={`You need to be signed in to enrol in ${title ? `"${title}"` : "a programme"}. Sign in to your account so you can get started on your learning journey.`}
+          callbackUrl={`/programs/programs-listing#${id}`}
         />,
       );
       return;
@@ -118,8 +152,8 @@ export default function ProgramsListingCard({ program }: { program: Program }) {
     localStorage.setItem(
       "pending_enrollment",
       JSON.stringify({
-        programId: program.id,
-        programTitle: program.title ?? "your programme",
+        programId: id,
+        programTitle: title || "your programme",
       }),
     );
 
@@ -271,7 +305,7 @@ export default function ProgramsListingCard({ program }: { program: Program }) {
   return (
     <div className="flex flex-col w-full even:bg-[#F5F7F5] ">
       <section
-        key={program.id}
+        key={id}
         className="w-full flex flex-col pt-16 lg:pt-24 lg:pb-10  "
       >
         <div className="w-11/12 mx-auto max-w-7xl">
@@ -283,18 +317,18 @@ export default function ProgramsListingCard({ program }: { program: Program }) {
               >
                 {badge.label}
               </span>
-              {program.durationWeeks && (
+              {durationWeeks && (
                 <span className="text-[#606060] text-sm ">
-                  {program.durationWeeks}-week programme
+                  {durationWeeks}-week programme
                 </span>
               )}
             </div>
             <h2 className="text-3xl lg:text-4xl font-bold lg:leading-[1.1] mb-2 lg:mb-4 text-[#131313] tracking-tight">
-              {program.title}
+              {title}
             </h2>
-            {program.facilitatorName && (
+            {facilitatorName && (
               <p className="text-regular-button italic text-sm lg:text-base ">
-                Facilitated by {program.facilitatorName}
+                Facilitated by {facilitatorName}
               </p>
             )}
           </div>
@@ -304,26 +338,28 @@ export default function ProgramsListingCard({ program }: { program: Program }) {
             {/* Image */}
             <div className="w-full lg:w-[40%] shrink-0 relative overflow-hidden rounded-[16px] aspect-4/3 ">
               <Image
-                src={program.thumbnail || "/images/Image.webp"}
-                alt={program.title}
+                src={thumbnail || "/images/Image.webp"}
+                alt={title}
                 fill
                 className="object-cover"
               />
 
               {/* Overlay */}
               <div className="absolute inset-0  bg-linear-to-t from-[#0F2318B2] to-[#00000000] flex flex-col justify-end p-4">
-                <p className="text-[#A8D675] tracking-[2px] text-xs  mb-3">
-                  {program.category}
-                </p>
-                {program.learningOutcomes?.length > 0 && (
+                {tags.length > 0 && (
                   <div className="flex flex-wrap gap-2.5">
-                    {program.learningOutcomes.slice(0, 3).map((tag, i) => (
-                      <span
-                        key={i}
-                        className="px-4 py-1.5 rounded-full border-[0.67px] border-[#FFFFFF4D] text-white text-[11px] bg-transparent line-clamp-1"
-                      >
-                        {tag}
-                      </span>
+                    {tags.slice(0, 3).map((tag, i) => (
+                      <div className="flex items-center gap-2">
+                        <p
+                          key={`${tag}-${i}`}
+                          className="text-[#A8D675] tracking-[2px] text-xs  "
+                        >
+                          {tag}
+                        </p>
+                        <span
+                          className={`bg-[#A8D675] w-0.5 h-0.5 rounded-full  ${i === tags.length - 1 ? "hidden" : ""} `}
+                        />
+                      </div>
                     ))}
                   </div>
                 )}
@@ -333,16 +369,16 @@ export default function ProgramsListingCard({ program }: { program: Program }) {
             {/* Text / Details */}
             <div className="w-full lg:flex-1 flex flex-col pt-2 ">
               <p className="text-[#606060] bg-[#F5F7F5] py-5 pl-4 text-base leading-relaxed mb-5 whitespace-pre-wrap lg:max-h-75 lg:overflow-y-auto lg:pr-2 custom-scrollbar">
-                {program.description}
+                {description}
               </p>
 
-              {program.learningOutcomes?.length > 0 && (
+              {learningOutcomes.length > 0 && (
                 <>
                   <h3 className="text-[13px] font-semibold text-[#1F4842] tracking-[1.5px] uppercase mb-4">
-                    What You'll Cover
+                    What You&apos;ll Cover
                   </h3>
                   <ul className="grid grid-cols-1 sm:grid-cols-2 gap-x-6 gap-y-4 text-[#475467]">
-                    {program.learningOutcomes.map((item, i) => (
+                    {learningOutcomes.map((item, i) => (
                       <li
                         key={i}
                         className="flex items-start gap-2.5 text-[#344054] text-sm leading-snug lg:w-10/12"
@@ -358,34 +394,37 @@ export default function ProgramsListingCard({ program }: { program: Program }) {
               <hr className="w-full border-t border-gray-100 mt-8" />
 
               <div className=" flex flex-col lg:grid grid-cols-2 sm:grid-cols-3 gap-y-4 gap-x-4 w-full mb-10">
-                {program.durationWeeks && (
+                {durationWeeks && (
                   <div>
                     <h4 className="text-[10px] sm:text-[11px]  text-[#606060] uppercase tracking-[1px] mb-2">
                       DURATION
                     </h4>
                     <p className="text-base font-medium text-[#131313] leading-snug pr-4">
-                      {program.durationWeeks} weeks · {program.hoursPerWeek}{" "}
-                      {program.hoursPerWeek === 1 ? "hr" : "hrs"}/week
+                      {durationWeeks} weeks · {hoursPerWeek}{" "}
+                      {hoursPerWeek === 1 ? "hr" : "hrs"}/week
                     </p>
                   </div>
                 )}
-                {program.price != null && (
+                {price != null && (
                   <div>
-                    <h4 className="text-[10px] sm:text-[11px]  text-[#606060] uppercase tracking-[1px] mb-2">
-                      INVESTMENT
-                    </h4>
+                    <div className="flex items-center gap-2 mb-2">
+                      <h4 className="text-[10px] sm:text-[11px] text-[#606060] uppercase tracking-[1px]">
+                        INVESTMENT
+                      </h4>
+                      <CurrencySelector compact />
+                    </div>
                     <p className="text-base font-medium text-[#131313] leading-snug pr-4">
-                      {formatCurrency(program.price, program.currency)} per participant
+                      {formatCurrency(price, currency)} per participant
                     </p>
                   </div>
                 )}
-                {program.startDate && (
+                {startDate && (
                   <div className="col-span-2 sm:col-span-1">
                     <h4 className="text-[10px] sm:text-[11px]  text-[#606060] uppercase tracking-[1px] mb-2">
                       NEXT COHORT
                     </h4>
                     <p className="text-base font-semibold text-regular-button leading-snug pr-4">
-                      {new Date(program.startDate).toLocaleDateString("en-GB", {
+                      {new Date(startDate).toLocaleDateString("en-GB", {
                         month: "long",
                         year: "numeric",
                       })}
@@ -400,35 +439,28 @@ export default function ProgramsListingCard({ program }: { program: Program }) {
         </div>
 
         {/* Who This Is For / Enrolment count bottom bar */}
-        <div className="w-full bg-[#F5F7F5] border-[0.67px] border-[#E8E8E8] mt-10 py-6">
-          <div className=" flex flex-col md:flex-row md:items-center gap-6 md:gap-12 lg:gap-24 w-11/12 mx-auto lg:pr-20">
-            <div className="shrink-0">
-              <h3 className="text-[11px] font-bold text-[#1F4842] tracking-[1.5px] uppercase ">
-                PROGRAMME STATS
-              </h3>
+        {audience.length > 0 && (
+          <div className="w-full bg-[#F5F7F5] border-[0.67px] border-[#E8E8E8] mt-10 py-6">
+            <div className=" flex flex-col md:flex-row md:items-center gap-6 md:gap-12 lg:gap-24 w-11/12 mx-auto lg:pr-20">
+              <div className="shrink-0">
+                <h3 className="text-[11px] font-bold text-[#1F4842] tracking-[1.5px] uppercase ">
+                  who is this for
+                </h3>
+              </div>
+              <ul className="flex flex-row flex-wrap gap-x-8 gap-y-4   w-full">
+                {audience.map((aud, i) => (
+                  <li
+                    key={`aud-${i}`}
+                    className="flex items-center gap-2.5 text-[14px] text-[#344054]  w-auto "
+                  >
+                    <span className="w-1.5 h-1.5 rounded-full bg-[#A8D675]  shrink-0" />
+                    <span>{aud}</span>
+                  </li>
+                ))}
+              </ul>
             </div>
-            <ul className="flex flex-row flex-wrap gap-x-8 gap-y-4   w-full">
-              {program._count?.purchases != null && (
-                <li className="flex items-start gap-2.5 text-[14px] text-[#344054]  w-auto ">
-                  <span className="w-1.5 h-1.5 rounded-full bg-[#A8D675] mt-1.5 shrink-0" />
-                  <span>{program._count.purchases} enrolled</span>
-                </li>
-              )}
-              {program._count?.weeks != null && (
-                <li className="flex items-start gap-2.5 text-[14px] text-[#344054]  w-auto ">
-                  <span className="w-1.5 h-1.5 rounded-full bg-[#A8D675] mt-1.5 shrink-0" />
-                  <span>{program._count.weeks} weeks of content</span>
-                </li>
-              )}
-              {program.facilitatorName && (
-                <li className="flex items-start gap-2.5 text-[14px] text-[#344054]  w-auto ">
-                  <span className="w-1.5 h-1.5 rounded-full bg-[#A8D675] mt-1.5 shrink-0" />
-                  <span>Led by {program.facilitatorName}</span>
-                </li>
-              )}
-            </ul>
           </div>
-        </div>
+        )}
       </section>
     </div>
   );

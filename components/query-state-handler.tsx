@@ -13,6 +13,8 @@ type QueryStateHandlerProps = {
   fetchingMessage?: string;
   imageUrl?: string;
   queryErrorMessage?: string;
+  /** Optional retry callback — shows a retry button in the error state */
+  onRetry?: () => void;
 };
 
 export default function QueryStateHandler({
@@ -27,6 +29,7 @@ export default function QueryStateHandler({
   fetchingMessage,
   imageUrl = "",
   queryErrorMessage,
+  onRetry,
 }: QueryStateHandlerProps) {
   if (isLoading) {
     return (
@@ -54,6 +57,14 @@ export default function QueryStateHandler({
       <div className="p-8 text-center bg-destructive/5 rounded-xl border border-destructive/20">
         <p className="text-destructive font-medium">{errorMessage}</p>
         <p className="text-sm text-secondary-text mt-1">{queryErrorMessage}</p>
+        {onRetry && (
+          <button
+            onClick={onRetry}
+            className="mt-4 px-5 py-2 text-sm font-medium text-white bg-regular-button hover:bg-regular-button/90 rounded-lg transition-colors"
+          >
+            Try Again
+          </button>
+        )}
       </div>
     );
   }

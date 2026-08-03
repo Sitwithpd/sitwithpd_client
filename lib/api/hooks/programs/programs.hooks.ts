@@ -1,4 +1,5 @@
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import { useCurrencyStore } from "@/store/use-currency-store";
 import {
   get_programs,
   get_program_by_ID,
@@ -21,8 +22,11 @@ import {
 import { showSuccessToast, showErrorToast } from "@/lib/toast-helpers";
 
 export const useGetPrograms = () => {
+  const activeCurrency = useCurrencyStore(
+    (s) => s.userCurrency ?? s.detectedCurrency ?? "GBP",
+  );
   return useQuery({
-    queryKey: ["programs", "all"],
+    queryKey: ["programs", "all", activeCurrency],
     queryFn: get_programs,
     retry: false,
   });
@@ -37,15 +41,18 @@ export const useGetAllAdminPrograms = (param = {}) => {
 };
 
 export const useGetProgramById = (programId: string) => {
+  const activeCurrency = useCurrencyStore(
+    (s) => s.userCurrency ?? s.detectedCurrency ?? "GBP",
+  );
   return useQuery({
-    queryKey: ["programs", programId],
+    queryKey: ["programs", programId, activeCurrency],
     queryFn: () => get_program_by_ID(programId),
     enabled: Boolean(programId),
     retry: false,
   });
 };
 
-// create new program 
+// create new program
 export const useCreateProgram = () => {
   const queryClient = useQueryClient();
 
@@ -84,7 +91,7 @@ export const usePublishProgram = (id: string) => {
   const queryClient = useQueryClient();
 
   return useMutation({
-    mutationFn: (payload: {title: string, isPublished: boolean}) =>
+    mutationFn: (payload: { title: string; isPublished: boolean }) =>
       publishProgram(id, payload),
     onSuccess: (data) => {
       showSuccessToast(data.message);
@@ -101,8 +108,12 @@ export const useAddWeekToProgram = (id: string) => {
   const queryClient = useQueryClient();
 
   return useMutation({
-    mutationFn: (payload: {title: string, description: string | undefined, learningObjectives: string[], modules: PublishWeekModule[]}) =>
-      addWeekToProgram(id, payload),
+    mutationFn: (payload: {
+      title: string;
+      description: string | undefined;
+      learningObjectives: string[];
+      modules: PublishWeekModule[];
+    }) => addWeekToProgram(id, payload),
     onSuccess: (data) => {
       showSuccessToast(data.message);
       queryClient.invalidateQueries({ queryKey: ["programs"] });
@@ -137,8 +148,17 @@ export const useDeleteProgram = () => {
 export const useUpdateWeek = (programId: string) => {
   const queryClient = useQueryClient();
   return useMutation({
-    mutationFn: ({ weekId, payload }: { weekId: string; payload: { title: string; description?: string; learningObjectives?: string[] } }) =>
-      updateWeek(programId, weekId, payload),
+    mutationFn: ({
+      weekId,
+      payload,
+    }: {
+      weekId: string;
+      payload: {
+        title: string;
+        description?: string;
+        learningObjectives?: string[];
+      };
+    }) => updateWeek(programId, weekId, payload),
     onSuccess: (data) => {
       showSuccessToast(data?.message || "Week updated successfully");
       queryClient.invalidateQueries({ queryKey: ["programs"] });
@@ -187,8 +207,15 @@ export const useAddModuleToWeek = (programId: string) => {
 export const useUpdateModule = (programId: string) => {
   const queryClient = useQueryClient();
   return useMutation({
-    mutationFn: ({ weekId, moduleId, payload }: { weekId: string; moduleId: string; payload: any }) =>
-      updateModule(programId, weekId, moduleId, payload),
+    mutationFn: ({
+      weekId,
+      moduleId,
+      payload,
+    }: {
+      weekId: string;
+      moduleId: string;
+      payload: any;
+    }) => updateModule(programId, weekId, moduleId, payload),
     onSuccess: (data) => {
       showSuccessToast(data?.message || "Module updated successfully");
       queryClient.invalidateQueries({ queryKey: ["programs"] });
@@ -237,4 +264,3 @@ export const usePublishWeek = (programId: string) => {
     },
   });
 };
-

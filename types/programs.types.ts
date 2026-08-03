@@ -20,6 +20,8 @@ export interface Program {
     purchases: number;
     weeks: number;
   };
+  audience: string[];
+  tags: string[];
 }
 
 export interface GetProgramsResponse {
