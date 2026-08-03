@@ -5,10 +5,21 @@ export interface RecentPayment {
   id: string;
   userId: string;
   type: string;
+  /** Presentment: what the customer was actually charged. */
   amount: number;
   currency: string;
+  /** Base-currency equivalent locked at checkout. */
+  baseAmount: number;
+  baseCurrency: string;
   status: string;
-  paystackRef: string;
+  providerRef: string;
+}
+
+export interface CurrencyRevenue {
+  currency: string;
+  amount: number;
+  amountMinor: number;
+  payments: number;
 }
 
 export interface AdminStats {
@@ -16,8 +27,11 @@ export interface AdminStats {
   totalPrograms: number;
   totalCamps: number;
   totalConsultations: number;
+  /** Summed from each payment's locked base amount, so history never drifts. */
   totalRevenue: number;
-  currency?: string;
+  totalRevenueMinor: number;
+  currency: string;
+  revenueByCurrency: CurrencyRevenue[];
   recentPayments: RecentPayment[];
 }
 

@@ -46,9 +46,19 @@ export function RecentPayments() {
               payments.map((payment) => (
                 <tr key={payment.id} className="border-b border-[#EAECF0] dark:border-border last:border-0 hover:bg-gray-50 transition-colors">
                   <td className="py-3 px-2 font-medium">{payment.type}</td>
-                  <td className="py-3 px-2">{formatCurrency(payment.amount, payment.currency)}</td>
+                  <td className="py-3 px-2">
+                    <div className="flex flex-col">
+                      <span>{formatCurrency(payment.amount, payment.currency)}</span>
+                      {payment.baseCurrency &&
+                      payment.currency !== payment.baseCurrency ? (
+                        <span className="text-[10px] text-secondary-text">
+                          {formatCurrency(payment.baseAmount ?? 0, payment.baseCurrency)}
+                        </span>
+                      ) : null}
+                    </div>
+                  </td>
                   <td className="py-3 px-2 text-secondary-text font-mono text-[10px]">
-                    {payment.paystackRef || "N/A"}
+                    {payment.providerRef || "N/A"}
                   </td>
                   <td className="py-3 px-2">
                     <Badge variant={payment.status === "SUCCESS" ? "success" : "warning"}>

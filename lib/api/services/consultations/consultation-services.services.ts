@@ -91,6 +91,21 @@ export const getAllConsultationServices =
     }
   };
 
+/**
+ * The public list is filtered to active services, which would hide a
+ * deactivated service from the screen that manages it. Prices come back in the
+ * base currency they were entered in.
+ */
+export const getAdminConsultationServices =
+  async (): Promise<ConsultationServicesResponse> => {
+    try {
+      const res = await api.get("/consultations/admin/services");
+      return res.data;
+    } catch (error) {
+      throw new Error(getApiError(error));
+    }
+  };
+
 export const getConsultationServiceById = async (
   id: string,
 ): Promise<ConsultationServiceResponse> => {

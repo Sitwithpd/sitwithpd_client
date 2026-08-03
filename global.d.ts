@@ -21,9 +21,15 @@ interface ConsultationColumn {
   lastName: string;
   email: string;
   serviceTitle: string;
+  /** What was charged when a payment exists, else the service's list price. */
   price: number;
-  date: string;
   currency: string;
+  /** Base-currency equivalent, present only once a payment has been taken. */
+  baseAmount?: number;
+  baseCurrency?: string;
+  /** False while the booking is unpaid, so `price` is a quote, not a charge. */
+  isCharged: boolean;
+  date: string;
 }
 
 interface ParticipantColumn {

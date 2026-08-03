@@ -2,15 +2,27 @@ import { Card, CardContent } from "@/components/ui/card";
 import { useGetAdminStats } from "@/lib/api/hooks/admin/admin.hooks";
 import { formatCurrency } from "@/lib/utils";
 import { Skeleton } from "@/components/ui/skeleton";
-import { usePlatformSettingsStore } from "@/store/use-platform-settings-store";
+
+interface CurrencyRevenue {
+  currency: string;
+  amount: number;
+  payments: number;
+}
 
 export function StatsCards() {
   const { data, isLoading, isError } = useGetAdminStats();
-  const settings = usePlatformSettingsStore((state) => state.settings);
 
   if (isError) return null;
 
   const statsData = data?.data;
+  const baseCurrency: string = statsData?.currency ?? "GBP";
+
+  // Revenue is totalled in the base currency, but every payment was taken in
+  // the customer's own currency. Without the breakdown the total looks like it
+  // disagrees with the payment rows.
+  const byCurrency: CurrencyRevenue[] = (statsData?.revenueByCurrency ?? [])
+    .filter((row: CurrencyRevenue) => row.currency !== baseCurrency)
+    .sort((a: CurrencyRevenue, b: CurrencyRevenue) => b.amount - a.amount);
 
   const stats = [
     { title: "Total Users", value: statsData?.totalUsers ?? 0 },
@@ -19,10 +31,12 @@ export function StatsCards() {
     { title: "Total Consultations", value: statsData?.totalConsultations ?? 0 },
     {
       title: "Total Revenue",
-      value: formatCurrency(
-        statsData?.totalRevenue ?? 0,
-        statsData?.currency,
-      ),
+      value: formatCurrency(statsData?.totalRevenue ?? 0, baseCurrency),
+      caption: byCurrency.length
+        ? `incl. ${byCurrency
+            .map((row) => formatCurrency(row.amount, row.currency))
+            .join(", ")} taken in other currencies`
+        : undefined,
     },
   ];
 
@@ -52,6 +66,11 @@ export function StatsCards() {
                 <h3 className="text-secondary-text text-2xl font-semibold">
                   {stat.value}
                 </h3>
+                {stat.caption ? (
+                  <p className="text-[10px] text-secondary-text leading-snug">
+                    {stat.caption}
+                  </p>
+                ) : null}
               </CardContent>
             </Card>
           ))}

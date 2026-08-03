@@ -80,8 +80,14 @@ export default function CampDetail({ id }: { id: string }) {
         name: `${participant.applicantDetails?.fullName}`,
         phone: participant.applicantDetails?.phone,
         tier: participant.tier?.label,
-        amountPaid: participant.tier?.price,
-        currency: participant.currency,
+        // What they were charged, not the tier's list price — those diverge
+        // once a tier is repriced after someone books.
+        amountPaid: participant.payment?.amount,
+        currency: participant.payment?.currency,
+        baseAmount: participant.payment?.baseAmount,
+        baseCurrency: participant.payment?.baseCurrency,
+        tierPrice: participant.tier?.price,
+        tierCurrency: participant.tier?.currency,
         payment: participant.payment?.status,
         emergencyContact: participant.applicantDetails?.emergencyContact,
         participants: participant.participants,

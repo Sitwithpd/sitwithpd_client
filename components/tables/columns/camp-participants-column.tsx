@@ -11,9 +11,15 @@ export interface CampParticipantRow {
   name: string;
   phone: string;
   tier: string;
-  amountPaid: number;
-  currency: string;
-  payment: string;
+  /** Undefined until a payment exists — distinct from having paid nothing. */
+  amountPaid?: number;
+  currency?: string;
+  baseAmount?: number;
+  baseCurrency?: string;
+  /** The tier's current list price, for registrations with no payment yet. */
+  tierPrice?: number;
+  tierCurrency?: string;
+  payment?: string;
   emergencyContact?: any;
 }
 
@@ -48,11 +54,44 @@ const CampParticipantsColumn = (
   {
     accessorKey: "amountPaid",
     header: "Amount Paid",
-    cell: ({ row }) => (
-      <span className="text-xs font-medium">
-        {formatCurrency(row.original.amountPaid || 0, row.original.currency)}
-      </span>
-    ),
+    cell: ({ row }) => {
+      const {
+        amountPaid,
+        currency,
+        baseAmount,
+        baseCurrency,
+        tierPrice,
+        tierCurrency,
+      } = row.original;
+
+      // No payment row means nothing was charged. Rendering £0 there reads as
+      // "this was free" rather than "not paid yet".
+      if (amountPaid === undefined || amountPaid === null) {
+        return (
+          <div className="flex flex-col">
+            <span className="text-xs text-secondary-text">—</span>
+            {tierPrice !== undefined ? (
+              <span className="text-[10px] text-secondary-text">
+                {formatCurrency(tierPrice, tierCurrency)} due
+              </span>
+            ) : null}
+          </div>
+        );
+      }
+
+      return (
+        <div className="flex flex-col">
+          <span className="text-xs font-medium">
+            {formatCurrency(amountPaid, currency)}
+          </span>
+          {baseCurrency && currency !== baseCurrency ? (
+            <span className="text-[10px] text-secondary-text">
+              {formatCurrency(baseAmount ?? 0, baseCurrency)}
+            </span>
+          ) : null}
+        </div>
+      );
+    },
   },
   {
     accessorKey: "payment",

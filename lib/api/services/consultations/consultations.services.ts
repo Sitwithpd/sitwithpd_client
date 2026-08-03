@@ -55,10 +55,19 @@ type BookingApiResponse = {
     };
     service: {
       title: string;
+      /** List price, in the base currency it was entered in. */
       price: number;
       currency: string;
       createdAt: string;
     };
+    /** Absent until the booking has been paid for. */
+    payment: {
+      status: "PENDING" | "SUCCESS" | "FAILED";
+      amount: number;
+      currency: string;
+      baseAmount: number;
+      baseCurrency: string;
+    } | null;
   }[];
 };
 

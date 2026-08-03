@@ -14,6 +14,14 @@ api.interceptors.request.use((config) => {
       config.headers["Authorization"] = `Bearer ${token}`;
     }
 
+    // Admin screens manage the catalogue in the currency prices are entered in,
+    // so they ask for base pricing rather than the visitor-facing presentment
+    // currency. Transaction figures are unaffected: a payment's amount is
+    // recorded on the row, not converted per request.
+    if (window.location.pathname.startsWith("/admin")) {
+      config.headers["x-price-context"] = "base";
+    }
+
     // Attach user's active currency so the backend can localise prices
     try {
       config.headers["x-req-currency"] = getActiveCurrency();

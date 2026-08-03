@@ -65,11 +65,25 @@ const ConsultationColumn = (): ColumnDef<ConsultationColumn>[] => [
   {
     accessorKey: "price",
     header: "Price",
-    cell: ({ row }) => (
-      <p className="text-xs text-primary-text">
-        {formatCurrency(row.original.price, row.original.currency)}
-      </p>
-    ),
+    cell: ({ row }) => {
+      const { price, currency, baseAmount, baseCurrency, isCharged } =
+        row.original;
+      return (
+        <div className="flex flex-col">
+          <p className="text-xs text-primary-text">
+            {formatCurrency(price ?? 0, currency)}
+          </p>
+          {isCharged && baseCurrency && currency !== baseCurrency ? (
+            <span className="text-[10px] text-secondary-text">
+              {formatCurrency(baseAmount ?? 0, baseCurrency)}
+            </span>
+          ) : null}
+          {!isCharged ? (
+            <span className="text-[10px] text-secondary-text">Not charged</span>
+          ) : null}
+        </div>
+      );
+    },
   },
   {
     accessorKey: "date",

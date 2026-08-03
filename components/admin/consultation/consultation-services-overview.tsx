@@ -9,7 +9,7 @@ import ReuseableTable from "@/components/tables/reuseable-table";
 import QueryStateHandler from "@/components/query-state-handler";
 import { Button } from "@/components/ui/button";
 import { useModalStore } from "@/components/store/use-modal-store";
-import { useGetAllConsultationServices } from "@/lib/api/hooks/consultations/consultation-services.hooks";
+import { useGetAdminConsultationServices } from "@/lib/api/hooks/consultations/consultation-services.hooks";
 import ConsultationServicesColumn from "@/components/tables/columns/consultation-services-column";
 import AddConsultationServiceForm from "@/components/forms/admin/consultation/add-consultation-service";
 
@@ -27,7 +27,7 @@ export default function ConsultationServicesOverview() {
 
   const openModal = useModalStore((state) => state.openModal);
 
-  const { data, isLoading, isError, isFetching } = useGetAllConsultationServices();
+  const { data, isLoading, isError, isFetching } = useGetAdminConsultationServices();
 
   const handleAddService = () => {
     openModal("add-consultation-service", <AddConsultationServiceForm />);

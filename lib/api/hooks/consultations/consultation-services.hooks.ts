@@ -1,6 +1,7 @@
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import {
   getAllConsultationServices,
+  getAdminConsultationServices,
   getConsultationServiceById,
   createConsultationService,
   updateConsultationService,
@@ -20,6 +21,14 @@ export const useGetAllConsultationServices = () => {
   return useQuery({
     queryKey: CONSULTATION_SERVICES_QUERY_KEY,
     queryFn: getAllConsultationServices,
+    retry: false,
+  });
+};
+
+export const useGetAdminConsultationServices = () => {
+  return useQuery({
+    queryKey: [...CONSULTATION_SERVICES_QUERY_KEY, "admin"],
+    queryFn: getAdminConsultationServices,
     retry: false,
   });
 };

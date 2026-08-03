@@ -50,8 +50,13 @@ export default function ConsultationOverview() {
       lastName: booking.user.lastName,
       email: booking.user.email,
       serviceTitle: booking.service.title,
-      price: booking.service.price,
-      currency: booking.service.currency,
+      // A booking has no price of its own. Once paid, show what was actually
+      // charged; before that, the service's list price is only a quote.
+      price: booking.payment?.amount ?? booking.service.price,
+      currency: booking.payment?.currency ?? booking.service.currency,
+      baseAmount: booking.payment?.baseAmount,
+      baseCurrency: booking.payment?.baseCurrency,
+      isCharged: Boolean(booking.payment),
       date: booking.service.createdAt,
     })) ?? [];
 

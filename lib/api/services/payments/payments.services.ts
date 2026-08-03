@@ -14,6 +14,8 @@ export interface Payment {
   /** Presentment amount, serialised from presentmentAmountMinor. */
   amount: number;
   currency: string;
+  /** Base-currency equivalent locked at checkout; never re-converted. */
+  baseAmount: number;
   baseCurrency: string;
   fxRate: string | null;
   marginBps: number;

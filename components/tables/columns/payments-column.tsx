@@ -48,11 +48,24 @@ export const PaymentsColumn = (): ColumnDef<Payment>[] => [
   {
     accessorKey: "amount",
     header: "Amount",
-    cell: ({ row }) => (
-      <h6 className="text-xs font-semibold">
-        {formatCurrency(row.original?.amount, row.original?.currency)}
-      </h6>
-    ),
+    // The presentment amount is what the customer was actually charged and is
+    // never re-converted. The base equivalent is shown alongside so the rows
+    // reconcile against the base-currency revenue total.
+    cell: ({ row }) => {
+      const { amount, currency, baseAmount, baseCurrency } = row.original ?? {};
+      return (
+        <div className="flex flex-col">
+          <h6 className="text-xs font-semibold">
+            {formatCurrency(amount ?? 0, currency)}
+          </h6>
+          {baseCurrency && currency !== baseCurrency ? (
+            <span className="text-[10px] text-secondary-text">
+              {formatCurrency(baseAmount ?? 0, baseCurrency)}
+            </span>
+          ) : null}
+        </div>
+      );
+    },
   },
   {
     accessorKey: "providerRef",
