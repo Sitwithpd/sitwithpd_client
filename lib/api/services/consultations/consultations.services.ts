@@ -76,34 +76,6 @@ export const getConsultations = async (
   }
 };
 
-export const getConsultation = async (
-  id: string,
-): Promise<ConsultationResponse> => {
-  if (!id) {
-    throw new Error("Consultation ID is required.");
-  }
-
-  try {
-    const res = await api.get(`/consultations/${id}`);
-    return res.data;
-  } catch (error) {
-    console.log(error);
-    throw new Error(getApiError(error));
-  }
-};
-
-export const createConsultation = async (
-  payload: CreateConsultationPayload,
-): Promise<ConsultationResponse> => {
-  try {
-    const res = await api.post("/consultations", payload);
-    return res.data;
-  } catch (error) {
-    console.log(error);
-    throw new Error(getApiError(error));
-  }
-};
-
 export const updateConsultation = async (
   id: string,
   payload: UpdateConsultationPayload,
@@ -114,22 +86,6 @@ export const updateConsultation = async (
 
   try {
     const res = await api.patch(`/consultations/${id}`, payload);
-    return res.data;
-  } catch (error) {
-    console.log(error);
-    throw new Error(getApiError(error));
-  }
-};
-
-export const deleteConsultation = async (
-  id: string,
-): Promise<{ message: string }> => {
-  if (!id) {
-    throw new Error("Consultation ID is required for deletion.");
-  }
-
-  try {
-    const res = await api.delete(`/consultations/${id}`);
     return res.data;
   } catch (error) {
     console.log(error);

@@ -2,7 +2,6 @@
 
 import DashboardHeaderText from "@/components/dashboard/dashboard-header";
 import QueryStateHandler from "@/components/query-state-handler";
-import { usePlatformSettingsStore } from "@/store/use-platform-settings-store";
 import { PaymentsColumn } from "@/components/tables/columns/payments-column";
 import Pagination from "@/components/pagination";
 import ReuseableTable from "@/components/tables/reuseable-table";
@@ -13,8 +12,6 @@ export default function PaymentsPage() {
   const searchParams = useSearchParams();
   const page = Number(searchParams.get("page")) || 1;
   const limit = Number(searchParams.get("limit")) || 20;
-
-  const settings = usePlatformSettingsStore((state) => state.settings);
 
   const { data: paymentsData, isLoading, isError, isFetching } = useGetPayments({
     page,
@@ -44,7 +41,7 @@ console.log(paymentsData?.data)
             isFetching={isFetching}
           >
             <ReuseableTable
-              columns={PaymentsColumn(settings?.currency)}
+              columns={PaymentsColumn()}
               tableData={paymentsData?.data ?? []}
             />
             {paymentsData?.meta?.totalPages && (

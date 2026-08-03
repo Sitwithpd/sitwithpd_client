@@ -1,6 +1,7 @@
 import { api } from "@/lib/axios";
 import { buildQueryString, getApiError } from "@/lib/utils";
 import {
+  Camp,
   CampTier,
   CampImage,
   CreateCampTierPayload,
@@ -9,31 +10,9 @@ import {
   BlockedRegistrationReason,
 } from "@/types/camps.types";
 
-export interface Camp {
-  id: string;
-  title: string;
-  location: string;
-  description: string;
-  startDate: string;
-  endDate: string;
-  price: number;
-  capacity: number;
-  status?: "UPCOMING" | "COMPLETED" | "CANCELLED" | "ONGOING";
-  thumbnail?: string | null;
-  tiers?: CampTier[];
-  images?: CampImage[];
-  currency?: string;
-  /** Single free-text phrase. Null on camps created before the field existed. */
-  category?: string | null;
-  createdAt?: string;
-  updatedAt?: string;
-  seatsRemaining: number;
-  seatsTaken?: number;
-  isOpenForRegistration?: boolean;
-  /** False when seats remain but no tier fits in them. */
-  hasBookableTier?: boolean;
-  _count: { registrations: number };
-}
+// Single definition, in types/camps.types.ts — re-exported so existing imports
+// from this module keep working.
+export type { Camp };
 
 export type CreateCampPayload = FormData;
 
@@ -182,7 +161,9 @@ export const getCampParticipants = async (
   if (!id) {
     throw new Error("Camp ID is required.");
   }
-  const queryString = params && new URLSearchParams(params.toString());
+  const queryString = params
+    ? buildQueryString({ page: String(params.page), limit: String(params.limit) })
+    : "";
   const url = queryString ? `/participants?${queryString}` : `/participants`;
   try {
     const res = await api.get(`/camps/${id}${url}`);

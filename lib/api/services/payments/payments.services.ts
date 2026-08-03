@@ -1,38 +1,38 @@
 import { api } from "@/lib/axios";
 import { getApiError } from "@/lib/utils";
 
+export type PaymentStatus = "PENDING" | "SUCCESS" | "FAILED";
+
 export interface Payment {
   id: string;
+  userId: string;
+  type: "PROGRAM" | "CONSULTATION" | "CAMP";
+  status: PaymentStatus;
+  provider: "FLUTTERWAVE" | "PAYSTACK";
+  /** Flutterwave tx_ref. Named paystackRef before the provider consolidation. */
+  providerRef: string;
+  /** Presentment amount, serialised from presentmentAmountMinor. */
   amount: number;
   currency: string;
-  paymentMethod: string;
-  email: string;
-  reference: string;
-  status: "pending" | "completed" | "failed" | "refunded";
+  baseCurrency: string;
+  fxRate: string | null;
+  marginBps: number;
+  quotedAt: string;
+  /** Only known once the webhook lands — the card decides, not the checkout. */
+  settlementCurrency: string | null;
   createdAt: string;
-  type: "PROGRAM" | "CONSULTATION" | "CAMP";
+  updatedAt: string;
   user: {
     email: string;
     firstName: string;
     lastName: string;
   };
-  paystackRef: string;
 }
 
+/** Presentment currency comes from the X-Req-Currency header, never the body. */
 export interface CreatePaymentPayload {
   itemId: string;
   type: "PROGRAM" | "CONSULTATION" | "CAMP";
-  provider?: string;
-  currency?: string;
-}
-
-export interface UpdatePaymentPayload extends Partial<CreatePaymentPayload> {
-  status?: "pending" | "completed" | "failed" | "refunded";
-}
-
-export interface PaymentsResponse {
-  data: Payment[];
-  message: string;
 }
 
 export interface PaymentResponse {
@@ -68,61 +68,9 @@ export const getPayments = async (params?: {
   }
 };
 
-export const getPayment = async (id: string): Promise<PaymentResponse> => {
-  if (!id) {
-    throw new Error("Payment ID is required.");
-  }
-
-  try {
-    const res = await api.get(`/payments/${id}`);
-    return res.data;
-  } catch (error) {
-    console.log(error);
-    throw new Error(getApiError(error));
-  }
-};
-
-export interface CreatePaymentParams {
-  itemId: string;
-  type: "PROGRAM" | "MENTORSHIP";
-}
-
 export const createPayment = async (payload: CreatePaymentPayload) => {
   try {
     const res = await api.post("/payments/initialize", payload);
-    return res.data;
-  } catch (error) {
-    console.log(error);
-    throw new Error(getApiError(error));
-  }
-};
-
-export const updatePayment = async (
-  id: string,
-  payload: UpdatePaymentPayload,
-): Promise<PaymentResponse> => {
-  if (!id) {
-    throw new Error("Payment ID is required for updates.");
-  }
-
-  try {
-    const res = await api.patch(`/payments/${id}`, payload);
-    return res.data;
-  } catch (error) {
-    console.log(error);
-    throw new Error(getApiError(error));
-  }
-};
-
-export const deletePayment = async (
-  id: string,
-): Promise<{ message: string }> => {
-  if (!id) {
-    throw new Error("Payment ID is required for deletion.");
-  }
-
-  try {
-    const res = await api.delete(`/payments/${id}`);
     return res.data;
   } catch (error) {
     console.log(error);
@@ -138,6 +86,7 @@ interface verifyPaystackPaymentResponse {
     status: "SUCCESS" | "PENDING" | "FAILED";
     type: "PROGRAM" | "CAMP" | "CONSULTATION";
     amount: number;
+    currency: string;
   };
 }
 

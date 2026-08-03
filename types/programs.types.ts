@@ -5,7 +5,9 @@ export interface Program {
   title: string;
   description: string;
   category: ProgramCategory;
+  /** Localised presentment price; the currency comes from X-Req-Currency. */
   price: number;
+  priceMinor: number;
   currency: string;
   thumbnail: string | null;
   durationWeeks: number;
@@ -22,6 +24,8 @@ export interface Program {
   };
   audience: string[];
   tags: string[];
+  /** Ordered YouTube links; the array index is the display order. */
+  videoLinks: string[];
 }
 
 export interface GetProgramsResponse {

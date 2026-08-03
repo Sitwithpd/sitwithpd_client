@@ -8,7 +8,9 @@ export interface ConsultationService {
   id: string;
   title: string;
   description: string;
+  /** Localised presentment price; the currency comes from X-Req-Currency. */
   price: number;
+  priceMinor: number;
   duration: number; // minutes
   calEventTypeId: string | null;
   calBookingUrl: string;
@@ -49,7 +51,6 @@ export interface CreateConsultationServicePayload {
   duration: number;
   calBookingUrl: string;
   calEventTypeId: number;
-  currency: string;
 }
 
 export interface UpdateConsultationServicePayload {

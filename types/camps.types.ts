@@ -1,15 +1,20 @@
+/**
+ * Camps carry no price or currency of their own — money lives on the tiers,
+ * localised per request from the X-Req-Currency header.
+ */
 export interface Camp {
   id: string;
   title: string;
   description: string;
   location: string;
-  currency: string;
+  /** Single free-text phrase. Null on camps created before the field existed. */
+  category: string | null;
   capacity: number;
   startDate: string;
   endDate: string;
   thumbnail: string | null;
   benefits: string[];
-  status: string;
+  status: "UPCOMING" | "ONGOING" | "COMPLETED" | "CANCELLED";
   createdAt: string;
   updatedAt: string;
   tiers?: CampTier[];

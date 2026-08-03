@@ -21,7 +21,7 @@ const statusVariantAssigner = (status: string) => {
   }
 };
 
-export const PaymentsColumn = (currency: string = "NGN"): ColumnDef<Payment>[] => [
+export const PaymentsColumn = (): ColumnDef<Payment>[] => [
   {
     accessorKey: "user",
     header: "Customer",
@@ -55,10 +55,10 @@ export const PaymentsColumn = (currency: string = "NGN"): ColumnDef<Payment>[] =
     ),
   },
   {
-    accessorKey: "paystackRef",
+    accessorKey: "providerRef",
     header: "Reference",
     cell: ({ row }) => (
-      <h6 className="text-xs font-medium text-secondary-text">{row.original?.paystackRef || "N/A"}</h6>
+      <h6 className="text-xs font-medium text-secondary-text">{row.original?.providerRef || "N/A"}</h6>
     ),
   },
   {
