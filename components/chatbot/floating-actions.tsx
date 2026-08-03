@@ -12,18 +12,48 @@ const WhatsAppIcon = () => (
   </svg>
 );
 
-const WHATSAPP_LINK = "https://wa.me/447359307733"; 
+const WHATSAPP_LINK = "https://wa.me/447359307733";
+
+// Must match the panel's transition duration below, or it unmounts mid-fade.
+const TRANSITION_MS = 300;
 
 export default function FloatingActions() {
-  const [isOpen, setIsOpen] = useState(false);
+  // `isMounted` keeps the panel in the DOM for the exit transition only;
+  // `isVisible` drives the transition classes.
+  const [isMounted, setIsMounted] = useState(false);
+  const [isVisible, setIsVisible] = useState(false);
   const menuRef = useRef<HTMLDivElement>(null);
   const openModal = useModalStore((state) => state.openModal);
+
+  function openMenu() {
+    setIsMounted(true);
+  }
+
+  function closeMenu() {
+    setIsVisible(false);
+  }
+
+  // Enter: paint once in the closed state so the transition has a start point.
+  useEffect(() => {
+    if (!isMounted || isVisible) return;
+    const frame = requestAnimationFrame(() => setIsVisible(true));
+    return () => cancelAnimationFrame(frame);
+    // Runs only on mount; closeMenu clears isVisible without remounting.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isMounted]);
+
+  // Exit: drop out of the DOM once the fade has finished.
+  useEffect(() => {
+    if (!isMounted || isVisible) return;
+    const timer = setTimeout(() => setIsMounted(false), TRANSITION_MS);
+    return () => clearTimeout(timer);
+  }, [isMounted, isVisible]);
 
   // Close dropdown when clicking outside
   useEffect(() => {
     function handleClickOutside(event: MouseEvent) {
       if (menuRef.current && !menuRef.current.contains(event.target as Node)) {
-        setIsOpen(false);
+        closeMenu();
       }
     }
     document.addEventListener("mousedown", handleClickOutside);
@@ -31,7 +61,7 @@ export default function FloatingActions() {
   }, []);
 
   function handleOpenChat() {
-    setIsOpen(false);
+    closeMenu();
     openModal("chat", <Chat />, {
       className:
         "!p-0 !overflow-hidden flex flex-col h-[85vh] md:h-[650px] !max-h-[85vh] w-full sm:!w-[500px] md:!w-[500px] !max-w-[95vw] sm:!max-w-[500px] rounded-2xl border border-gray-100 dark:border-zinc-800 shadow-2xl",
@@ -39,60 +69,67 @@ export default function FloatingActions() {
   }
 
   function handleWhatsApp() {
-    setIsOpen(false);
+    closeMenu();
     window.open(WHATSAPP_LINK, "_blank", "noopener,noreferrer");
   }
 
   return (
-    <div ref={menuRef} className="fixed bottom-6 right-6 z-50 flex flex-col items-end gap-3">
-      {/* Expanded action items */}
-      <div
-        className={`flex flex-col items-end gap-2.5 transition-all duration-300 ${
-          isOpen
-            ? "opacity-100 translate-y-0 pointer-events-auto"
-            : "opacity-0 translate-y-4 pointer-events-none"
-        }`}
-      >
-        {/* WhatsApp Action */}
-        <button
-          onClick={handleWhatsApp}
-          className="group flex items-center gap-3 cursor-pointer"
-          aria-label="Join our WhatsApp community"
+    <div
+      ref={menuRef}
+      className="fixed bottom-6 right-6 z-50 flex flex-col items-end pointer-events-none"
+    >
+      {/* Absolute, so the panel reserves no space and cannot stretch the
+          wrapper over the footer. */}
+      {isMounted && (
+        <div
+          className={`absolute bottom-full right-0 mb-3 flex flex-col items-end gap-2.5 transition-all duration-300 ${
+            isVisible
+              ? "opacity-100 translate-y-0 pointer-events-auto"
+              : "opacity-0 translate-y-4 pointer-events-none"
+          }`}
         >
-          <span className="bg-white px-3 py-1.5 rounded-lg text-xs font-medium text-[#344054] shadow-md border border-[#EAECF0] opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap">
-            WhatsApp Community
-          </span>
-          <div className="h-12 w-12 rounded-full bg-[#25D366] hover:bg-[#20BD5A] text-white shadow-lg hover:shadow-xl hover:scale-105 active:scale-95 transition-all flex items-center justify-center">
-            <WhatsAppIcon />
-          </div>
-        </button>
+          {/* WhatsApp Action */}
+          <button
+            onClick={handleWhatsApp}
+            className="group flex items-center gap-3 cursor-pointer"
+            aria-label="Join our WhatsApp community"
+          >
+            <span className="bg-white px-3 py-1.5 rounded-lg text-xs font-medium text-[#344054] shadow-md border border-[#EAECF0] opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap">
+              WhatsApp Community
+            </span>
+            <div className="h-12 w-12 rounded-full bg-[#25D366] hover:bg-[#20BD5A] text-white shadow-lg hover:shadow-xl hover:scale-105 active:scale-95 transition-all flex items-center justify-center">
+              <WhatsAppIcon />
+            </div>
+          </button>
 
-        {/* Chat Action */}
-        <button
-          onClick={handleOpenChat}
-          className="group flex items-center gap-3 cursor-pointer"
-          aria-label="Open chatbot"
-        >
-          <span className="bg-white px-3 py-1.5 rounded-lg text-xs font-medium text-[#344054] shadow-md border border-[#EAECF0] opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap">
-            Chat with us
-          </span>
-          <div className="h-12 w-12 rounded-full bg-brand-green hover:bg-[#527d42] text-white shadow-lg hover:shadow-xl hover:scale-105 active:scale-95 transition-all flex items-center justify-center">
-            <MessageCircle className="h-5 w-5" />
-          </div>
-        </button>
-      </div>
+          {/* Chat Action */}
+          <button
+            onClick={handleOpenChat}
+            className="group flex items-center gap-3 cursor-pointer"
+            aria-label="Open chatbot"
+          >
+            <span className="bg-white px-3 py-1.5 rounded-lg text-xs font-medium text-[#344054] shadow-md border border-[#EAECF0] opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap">
+              Chat with us
+            </span>
+            <div className="h-12 w-12 rounded-full bg-brand-green hover:bg-[#527d42] text-white shadow-lg hover:shadow-xl hover:scale-105 active:scale-95 transition-all flex items-center justify-center">
+              <MessageCircle className="h-5 w-5" />
+            </div>
+          </button>
+        </div>
+      )}
 
       {/* Main FAB Trigger */}
       <button
-        onClick={() => setIsOpen(!isOpen)}
-        className={`h-14 w-14 rounded-full shadow-xl hover:shadow-2xl hover:scale-105 active:scale-95 transition-all flex items-center justify-center cursor-pointer border-none ${
-          isOpen
+        onClick={() => (isVisible ? closeMenu() : openMenu())}
+        className={`pointer-events-auto h-14 w-14 rounded-full shadow-xl hover:shadow-2xl hover:scale-105 active:scale-95 transition-all flex items-center justify-center cursor-pointer border-none ${
+          isVisible
             ? "bg-[#344054] text-white rotate-0"
             : "bg-brand-green hover:bg-[#527d42] text-white"
         }`}
-        aria-label={isOpen ? "Close actions menu" : "Open actions menu"}
+        aria-expanded={isVisible}
+        aria-label={isVisible ? "Close actions menu" : "Open actions menu"}
       >
-        {isOpen ? (
+        {isVisible ? (
           <X className="h-6 w-6 transition-transform duration-300" />
         ) : (
           <MessageCircle className="h-6 w-6 transition-transform duration-300" />
