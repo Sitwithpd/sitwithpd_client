@@ -369,3 +369,18 @@ html[data-direction="back"] ::view-transition-new(root) {
   height: auto !important;
   display: flex !important;
 }
+
+/* Sonner ships a negative icon margin (--toast-icon-margin-start: -3px) and a
+   4px gap, which pulls the icon over the first character of the title. */
+[data-sonner-toaster] {
+  --toast-icon-margin-start: 0px;
+  --toast-icon-margin-end: 12px;
+}
+
+.cn-toast [data-icon] {
+  align-self: center;
+}
+
+.cn-toast [data-content] {
+  min-width: 0;
+}
