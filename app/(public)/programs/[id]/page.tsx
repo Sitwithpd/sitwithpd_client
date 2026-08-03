@@ -1,38 +1,76 @@
 import { Metadata } from "next";
 import ProgramDetailsClient from "@/components/pages/programs/program-details-client";
+import { get_program_by_ID } from "@/lib/api/services/programs/programs.services";
+import { DEFAULT_OG_IMAGE, SITE_URL, toMetaDescription } from "@/lib/seo";
 
 interface Props {
   params: { id: string };
 }
 
+const FALLBACK_DESCRIPTION =
+  "A structured Sit With PD programme designed to help you build emotional awareness, resilience, and clarity at your own pace.";
+
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { id } = await params;
-  return {
-    title: "Programme Details \u2014 Sit With PD",
-    description:
-      "Explore this guided programme from Sit With PD. Structured to help you build emotional awareness, resilience, and clarity at your own pace.",
-    openGraph: {
-      title: "Guided Programme | Sit With PD",
-      description:
-        "A structured, purposeful programme designed to help you heal, grow, and transform at your own pace.",
-      url: `https://sitwithpd.com/programs/${id}`,
-      images: [
-        {
-          url: "/images/og-image.png",
-          width: 1200,
-          height: 630,
-          alt: "Sit With PD Programme",
-        },
-      ],
-    },
-    twitter: {
-      card: "summary_large_image",
-      title: "Guided Programme | Sit With PD",
-      description:
-        "Discover and enrol in a guided programme built for your personal growth journey.",
-      images: ["/images/og-image.png"],
-    },
-  };
+  const url = `${SITE_URL}/programs/${id}`;
+
+  try {
+    const program = (await get_program_by_ID(id)).data;
+
+    const duration = program.durationWeeks
+      ? `${program.durationWeeks}-week programme`
+      : "";
+    const title = duration ? `${program.title} — ${duration}` : program.title;
+    const description = toMetaDescription(
+      program.description,
+      `${program.title}, a guided Sit With PD programme.`,
+    );
+    const image = program.thumbnail || DEFAULT_OG_IMAGE;
+
+    return {
+      title,
+      description,
+      keywords: [
+        ...(program.tags ?? []),
+        program.category,
+        "guided programme",
+        "Sit With PD",
+      ].filter((k: unknown): k is string => Boolean(k)),
+      alternates: { canonical: url },
+      openGraph: {
+        title,
+        description,
+        type: "website",
+        url,
+        images: [{ url: image, width: 1200, height: 630, alt: program.title }],
+      },
+      twitter: {
+        card: "summary_large_image",
+        title,
+        description,
+        images: [image],
+      },
+    };
+  } catch {
+    return {
+      title: "Guided Programme",
+      description: FALLBACK_DESCRIPTION,
+      alternates: { canonical: url },
+      openGraph: {
+        title: "Guided Programme | Sit With PD",
+        description: FALLBACK_DESCRIPTION,
+        url,
+        images: [
+          {
+            url: DEFAULT_OG_IMAGE,
+            width: 1200,
+            height: 630,
+            alt: "Sit With PD Programme",
+          },
+        ],
+      },
+    };
+  }
 }
 
 export default async function ProgramDetailsPage({
