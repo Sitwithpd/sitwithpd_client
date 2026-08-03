@@ -7,7 +7,6 @@ import QueryStateHandler from "@/components/query-state-handler";
 import SearchInput from "@/components/searchInput";
 import { Spinner } from "@/components/spinner";
 import { useModalStore } from "@/components/store/use-modal-store";
-import { usePlatformSettingsStore } from "@/store/use-platform-settings-store";
 import CampsColumn from "@/components/tables/columns/camps-column";
 import Pagination from "@/components/pagination";
 import ReuseableTable from "@/components/tables/reuseable-table";
@@ -34,7 +33,6 @@ export default function CampsOverview() {
 
   const openModal = useModalStore((state) => state.openModal);
   const closeModal = useModalStore((state) => state.closeModal);
-  const settings = usePlatformSettingsStore((state) => state.settings);
 
   const { data: campsData, isLoading, isError, isFetching } = useGetAdminCamps({
     page,
@@ -116,7 +114,7 @@ export default function CampsOverview() {
             isFetching={isFetching}
           >
             <ReuseableTable
-              columns={CampsColumn(handleDeleteCamp, editCamp, settings?.currency)}
+              columns={CampsColumn(handleDeleteCamp, editCamp)}
               tableData={campsData?.data ?? []}
             />
             {campsData?.meta?.totalPages && (

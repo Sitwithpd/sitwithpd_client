@@ -34,7 +34,6 @@ export default function EditConsultationServiceModal({
       price: service.price?.toString() ?? "",
       duration: service.duration?.toString() ?? "",
       calBookingUrl: service.calBookingUrl ?? "",
-      currency: (service.currency as any) || "NGN",
       coverImage: (service as any).coverImageUrl ?? undefined,
       audience: (service as any).audience ?? [],
       whatsIncluded: (service as any).whatsIncluded ?? [],

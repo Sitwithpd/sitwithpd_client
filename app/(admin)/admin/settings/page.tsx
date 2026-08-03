@@ -42,13 +42,6 @@ const TIMEZONES = [
   { label: "Asia/Kolkata", value: "Asia/Kolkata" },
 ];
 
-const CURRENCIES = [
-  { label: "Nigeria Naira (₦)", value: "NGN" },
-  { label: "US Dollar ($)", value: "USD" },
-  { label: "British Pound (£)", value: "GBP" },
-  { label: "Euro (€)", value: "EUR" },
-];
-
 const PLATFORM_FEATURES = [
   // {
   //   name: "maintenanceMode" as const,
@@ -81,7 +74,6 @@ function GeneralSettingsSection({ initialData }: { initialData?: any }) {
       platformName: initialData?.platformName || "",
       supportEmail: initialData?.supportEmail || "",
       defaultTimezone: initialData?.defaultTimezone || "Africa/Lagos",
-      currency: initialData?.currency || "NGN",
     },
   });
 
@@ -95,7 +87,6 @@ function GeneralSettingsSection({ initialData }: { initialData?: any }) {
         platformName: initialData.platformName,
         supportEmail: initialData.supportEmail,
         defaultTimezone: initialData.defaultTimezone,
-        currency: initialData.currency,
       });
     }
   }, [initialData, form]);
@@ -173,38 +164,6 @@ function GeneralSettingsSection({ initialData }: { initialData?: any }) {
             )}
           />
         </div>
-
-        <Controller
-          control={form.control}
-          name="currency"
-          render={({ field, fieldState }) => (
-            <Field data-invalid={fieldState.invalid}>
-              <div className="flex flex-col">
-                <FieldLabel
-                  className="text-[#344054] dark:text-secondary-text text-[14px] mb-2"
-                  htmlFor="currency"
-                >
-                  Currency
-                </FieldLabel>
-                <Select value={field.value} onValueChange={field.onChange}>
-                  <SelectTrigger className="bg-transparent text-primary-text" id="currency">
-                    <SelectValue placeholder="Select currency" />
-                  </SelectTrigger>
-                  <SelectContent>
-                    {CURRENCIES.map((c) => (
-                      <SelectItem key={c.value} value={c.value}>
-                        {c.label}
-                      </SelectItem>
-                    ))}
-                  </SelectContent>
-                </Select>
-              </div>
-              {fieldState.invalid && (
-                <FieldError errors={[fieldState.error]} />
-              )}
-            </Field>
-          )}
-        />
 
         <div className="flex justify-end pt-2">
           <Button type="submit" variant="regular" disabled={isPending}>

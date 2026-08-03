@@ -134,7 +134,6 @@ const ActionCell = ({
 
 const ProgramsColumn = (
   handleDeleteProgram: (id: string) => void,
-  currency: string = "NGN",
 ): ColumnDef<ProgramColumn>[] => [
   {
     accessorKey: "title",

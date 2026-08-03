@@ -1,13 +1,6 @@
 import FormFieldComp from "@/components/formfield";
 import { Controller, useFormContext, SubmitHandler } from "react-hook-form";
 import { Field, FieldError, FieldLabel } from "@/components/ui/field";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
 import { formatAmount } from "@/lib/utils";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
@@ -16,7 +9,13 @@ import { ProgramFormSchema } from "@/schemas/programs-schema";
 import ProgramWeeksSection from "./weeks/program-weeks-section";
 import LearningObjectivesField from "./learning-objectives-field";
 import SelectDateComp from "@/components/date-selector";
-import { usePlatformSettingsStore } from "@/store/use-platform-settings-store";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 import WhoThisIsForField from "./who-this-is-for-field";
 import TagsField from "./tags-field";
 import { VideoLinksInput } from "@/components/shared/video-links-input";
@@ -34,13 +33,6 @@ const PROGRAM_TYPE = [
     label: "Leadership",
     value: "LEADERS",
   },
-];
-
-const CURRENCY_OPTIONS = [
-  { label: "NGN", value: "NGN" },
-  { label: "USD", value: "USD" },
-  { label: "EUR", value: "EUR" },
-  { label: "GBP", value: "GBP" },
 ];
 
 export default function ProgramForm({
@@ -119,7 +111,7 @@ export default function ProgramForm({
               render={({ field, fieldState }) => (
                 <Field data-invalid={fieldState.invalid} className="">
                   <FieldLabel className="text-secondary-text  text-sm">
-                    {`Price `}
+                    {`Price (GBP) *`}
                   </FieldLabel>
                   <Input
                     {...field}
@@ -146,34 +138,6 @@ export default function ProgramForm({
               label="Start Date *"
               placeholder="Select start date"
               disablePastDates={true}
-            />
-            <Controller
-              control={form.control}
-              name="currency"
-              render={({ field, fieldState }) => (
-                <Field data-invalid={fieldState.invalid}>
-                  <div className="flex flex-col">
-                    <FieldLabel className="text-secondary-text text-[14px] mb-2">
-                      Currency *
-                    </FieldLabel>
-                    <Select value={field.value} onValueChange={field.onChange}>
-                      <SelectTrigger className="bg-white text-primary-text h-11 border-[#EAECF0]">
-                        <SelectValue placeholder="Select Currency" />
-                      </SelectTrigger>
-                      <SelectContent>
-                        {CURRENCY_OPTIONS.map((option) => (
-                          <SelectItem key={option.value} value={option.value}>
-                            {option.label}
-                          </SelectItem>
-                        ))}
-                      </SelectContent>
-                    </Select>
-                  </div>
-                  {fieldState.invalid && (
-                    <FieldError errors={[fieldState.error]} />
-                  )}
-                </Field>
-              )}
             />
           </div>
           <Controller

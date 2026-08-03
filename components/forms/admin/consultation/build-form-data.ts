@@ -21,7 +21,6 @@ export function buildConsultationServiceFormData(
   if (calEventTypeId !== undefined && !Number.isNaN(Number(calEventTypeId))) {
     formData.append("calEventTypeId", String(Number(calEventTypeId)));
   }
-  formData.append("currency", data.currency);
 
   // Sending "" clears the format; the API treats empty as an explicit clear.
   formData.append("format", data.format ?? "");

@@ -10,20 +10,6 @@ import CalEventTypeSelect from "./cal-event-type-select";
 import ImageUpload from "@/components/image-upload";
 import { TagInput, SingleTagInput } from "@/components/shared/tag-input";
 import { BulletListInput } from "@/components/shared/bullet-list-input";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
-
-const CURRENCY_OPTIONS = [
-  { label: "NGN", value: "NGN" },
-  { label: "USD", value: "USD" },
-  { label: "EUR", value: "EUR" },
-  { label: "GBP", value: "GBP" },
-];
 
 interface ConsultationServiceFormProps {
   onSubmit: SubmitHandler<ConsultationServiceFormValues>;
@@ -31,22 +17,13 @@ interface ConsultationServiceFormProps {
   isLoading?: boolean;
 }
 
-import { usePlatformSettingsStore } from "@/store/use-platform-settings-store";
 
 export default function ConsultationServiceForm({
   onSubmit,
   onCancel,
   isLoading,
 }: ConsultationServiceFormProps) {
-  const settings = usePlatformSettingsStore((state) => state.settings);
 
-  // let defaultCurrency: "(₦)" | "($)" | "(£)" | "(€)" = "(₦)";
-  // if (settings) {
-  //   if (settings.currency === "NGN") defaultCurrency = "(₦)";
-  //   else if (settings.currency === "USD") defaultCurrency = "($)";
-  //   else if (settings.currency === "GBP") defaultCurrency = "(£)";
-  //   else if (settings.currency === "EUR") defaultCurrency = "(€)";
-  // }
 
   const form = useFormContext<ConsultationServiceFormValues>();
 
@@ -158,35 +135,11 @@ export default function ConsultationServiceForm({
           <FormFieldComp
             name="price"
             control={form.control}
-            label="Price *"
-            placeholder="e.g. 15000"
+            label="Price (GBP) *"
+            placeholder="e.g. 150"
             type="text"
             inputMode="numeric"
             className="bg-white"
-          />
-          <Controller
-            control={form.control}
-            name="currency"
-            render={({ field, fieldState }) => (
-              <Field data-invalid={fieldState.invalid}>
-                <div className="flex flex-col">
-                  <FieldLabel className="dark:text-secondary-text text-primary-text text-[14px] mb-2">Currency *</FieldLabel>
-                  <Select value={field.value} onValueChange={field.onChange}>
-                    <SelectTrigger className="bg-white text-primary-text h-11">
-                      <SelectValue placeholder="Select Currency" />
-                    </SelectTrigger>
-                    <SelectContent>
-                      {CURRENCY_OPTIONS.map((option) => (
-                        <SelectItem key={option.value} value={option.value}>
-                          {option.label}
-                        </SelectItem>
-                      ))}
-                    </SelectContent>
-                  </Select>
-                </div>
-                {fieldState.invalid && <FieldError errors={[fieldState.error]} />}
-              </Field>
-            )}
           />
         </div>
       </div>

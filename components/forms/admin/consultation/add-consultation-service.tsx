@@ -27,7 +27,6 @@ export default function AddConsultationServiceModal() {
       description: "",
       price: "",
       duration: "",
-      currency: "NGN",
       coverImage: undefined,
       audience: [],
       whatsIncluded: [],

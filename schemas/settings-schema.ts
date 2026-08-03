@@ -4,7 +4,6 @@ export const generalSettingsSchema = z.object({
   platformName: z.string().min(1, "Platform name is required"),
   supportEmail: z.string().email("Invalid email"),
   defaultTimezone: z.string().min(1, "Timezone is required"),
-  currency: z.string().min(1, "Currency is required"),
 });
 
 export type GeneralSettingsValues = z.infer<typeof generalSettingsSchema>;
@@ -31,7 +30,6 @@ export interface PlatformSettings {
   platformName: string;
   supportEmail: string;
   defaultTimezone: string;
-  currency: string;
   maintenanceMode: boolean;
   allowUserRegistration: boolean;
   requireEmailVerification: boolean;

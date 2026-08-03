@@ -23,7 +23,6 @@ export default function AddProgramForm() {
   const form = useForm<ProgramFormSchema>({
     defaultValues: {
       ...DEFAULT_VALUES,
-      currency: "NGN",
     },
     resolver: zodResolver(ProgramSchema),
     mode: "onChange",
@@ -55,7 +54,6 @@ export default function AddProgramForm() {
     if (data.facilitatorEmail)
       formData.append("facilitatorEmail", data.facilitatorEmail);
     if (data.duration) formData.append("durationWeeks", data.duration);
-    formData.append("currency", data.currency);
 
     if (data.learningObjectives && data.learningObjectives.length > 0) {
       const learningOutcomes = data.learningObjectives.map((obj) => obj.text);

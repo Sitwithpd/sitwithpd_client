@@ -20,7 +20,6 @@ export default function AddCampModal() {
       capacity: "1",
       startDate: "",
       endDate: "",
-      currency: "NGN",
       category: "",
     },
   });
@@ -44,7 +43,6 @@ export default function AddCampModal() {
     formData.append("capacity", data.capacity);
     formData.append("startDate", data.startDate);
     formData.append("endDate", data.endDate);
-    formData.append("currency", data.currency);
     formData.append("category", data.category);
 
     if (data.thumbnail && data.thumbnail instanceof File) {

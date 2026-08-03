@@ -26,10 +26,6 @@ export default function CampTierForm({
   // const settings = usePlatformSettingsStore((state) => state.settings);
   // let defaultCurrency: "(₦)" | "($)" | "(£)" | "(€)" = "(₦)";
   // if (settings) {
-  //   if (settings.currency === "NGN") defaultCurrency = "(₦)";
-  //   else if (settings.currency === "USD") defaultCurrency = "($)";
-  //   else if (settings.currency === "GBP") defaultCurrency = "(£)";
-  //   else if (settings.currency === "EUR") defaultCurrency = "(€)";
   // }
 
   const form = useFormContext<CampTierFormSchema>();
@@ -104,7 +100,7 @@ export default function CampTierForm({
               render={({ field, fieldState }) => (
                 <Field data-invalid={fieldState.invalid} className="">
                   <FieldLabel className="text-[#344054] dark:text-secondary-text text-sm mb-2">
-                    {`Price *`}
+                    {`Price (GBP) *`}
                   </FieldLabel>
                   <Input
                     {...field}

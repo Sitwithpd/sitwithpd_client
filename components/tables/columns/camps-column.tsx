@@ -70,7 +70,7 @@ const ActionCell = ({
           </DropdownMenuItem>
        
 
-        {row.original._count.registrations === 0 && (
+        {row.original._count?.registrations === 0 && (
           <DropdownMenuItem
             onClick={() => handleDeleteCamp(row.original.id)}
             className="py-3 px-4 text-brand-red"
@@ -86,7 +86,6 @@ const ActionCell = ({
 const CampsColumn = (
   handleDeleteCamp: (id: string) => void,
   editCamp: (camp: Camp) => void,
-  currency: string = "NGN",
 ): ColumnDef<Camp>[] => [
   {
     accessorKey: "title",

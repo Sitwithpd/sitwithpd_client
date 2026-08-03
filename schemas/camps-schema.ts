@@ -16,7 +16,6 @@ export const CampSchema = z
     startDate: z.string().min(1, "Start date is required"),
     endDate: z.string().min(1, "End date is required"),
     thumbnail: z.union([z.string(), z.any()]).optional(),
-    currency: z.enum(["NGN", "USD", "EUR", "GBP"]),
     // Single free-text phrase, e.g. "Wellness Retreat". Required by the API.
     category: z
       .string()

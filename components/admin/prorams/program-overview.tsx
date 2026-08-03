@@ -6,7 +6,6 @@ import QueryStateHandler from "@/components/query-state-handler";
 import SeacrchAndFilter from "@/components/seach-and-filter";
 import { Spinner } from "@/components/spinner";
 import { useModalStore } from "@/components/store/use-modal-store";
-import { usePlatformSettingsStore } from "@/store/use-platform-settings-store";
 import ProgramsColumn from "@/components/tables/columns/programs-column";
 import ReuseableTable from "@/components/tables/reuseable-table";
 import { Button } from "@/components/ui/button";
@@ -26,7 +25,6 @@ export default function ProgramOverview() {
 
   const openModal = useModalStore((state) => state.openModal);
   const closeModal = useModalStore((state) => state.closeModal);
-  const settings = usePlatformSettingsStore((state) => state.settings);
 
   const params = {
     search,
@@ -101,7 +99,7 @@ export default function ProgramOverview() {
             isFetching={isFetching}
           >
             <ReuseableTable
-              columns={ProgramsColumn(handleDeleteProgram, settings?.currency)}
+              columns={ProgramsColumn(handleDeleteProgram)}
               tableData={programData?.data}
             />
           </QueryStateHandler>

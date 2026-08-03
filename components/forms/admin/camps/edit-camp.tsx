@@ -27,7 +27,6 @@ export default function EditCampModal({ camp }: { camp: Camp }) {
         ? new Date(camp.endDate).toISOString().split("T")[0]
         : "",
       thumbnail: camp.thumbnail || undefined,
-      currency: (camp as any).currency || "NGN",
       // Camps created before the category field exist with null — the admin
       // must fill one in before this form will save.
       category: (camp as any).category || "",
@@ -53,7 +52,6 @@ export default function EditCampModal({ camp }: { camp: Camp }) {
     formData.append("capacity", data.capacity.toString());
     formData.append("startDate", data.startDate);
     formData.append("endDate", data.endDate);
-    formData.append("currency", data.currency);
     formData.append("category", data.category);
 
     if (data.thumbnail && data.thumbnail instanceof File) {

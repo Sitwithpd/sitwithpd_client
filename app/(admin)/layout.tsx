@@ -67,7 +67,6 @@ export default function ProtectedLayout({
         platformName: data.platformName,
         supportEmail: data.supportEmail,
         defaultTimezone: data.defaultTimezone,
-        currency: data.currency as "NGN" | "USD" | "GBP" | "EUR",
         maintenanceMode: data.maintenanceMode,
         allowUserRegistration: data.allowUserRegistration,
         requireEmailVerification: data.requireEmailVerification,

@@ -44,7 +44,6 @@ export const ProgramSchema = z.object({
   videoLinks: z.array(z.string()).optional(),
   facilitatorName: z.string().min(1, "Facilitator name is required"),
   facilitatorEmail: z.string().email("Valid email is required"),
-  currency: z.enum(["NGN", "USD", "EUR", "GBP"]),
   weeks: z.array(WeekSchema).optional(),
 });
 
