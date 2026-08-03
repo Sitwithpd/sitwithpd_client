@@ -10,6 +10,7 @@ import Image from "next/image";
 import { useAuthStore } from "@/store/use-auth-store";
 import { usePlatformSettingsStore } from "@/store/use-platform-settings-store";
 import { logout } from "@/lib/api/services/auth/auth.services";
+import { useGetAllConsultationServices } from "@/lib/api/hooks/consultations/consultation-services.hooks";
 
 const navLinks = [
   { label: "Home", href: "/" },
@@ -35,6 +36,8 @@ export function Navbar() {
   const pathname = usePathname();
   const [isOpen, setIsOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
+
+  const { data, isLoading } = useGetAllConsultationServices();
 
   const isAuthenticated = useAuthStore((state) => state.isAuthenticated);
   const user = useAuthStore((state) => state.user);
@@ -99,7 +102,23 @@ export function Navbar() {
         <div className="hidden lg:flex items-center gap-6 xl:gap-8">
           {navLinks
             .filter((link) => link.label !== "Home" && link.label !== "Contact")
-            .map((link) => {
+            .map((staticLink) => {
+              // Inject dynamic sublinks if this is Consultation
+              const link =
+                staticLink.label === "Consultation"
+                  ? {
+                      ...staticLink,
+                      subLinks: data?.data
+                        ? data.data.map((service: any) => ({
+                            label: service.title,
+                            href: `/consultation/${service.id}`,
+                          }))
+                        : isLoading
+                          ? [{ label: "Loading...", href: "#" }]
+                          : staticLink.subLinks,
+                    }
+                  : staticLink;
+
               const isActive =
                 link.href === "/"
                   ? pathname === "/"
@@ -124,16 +143,32 @@ export function Navbar() {
 
                   {/* Dropdown Menu */}
                   {link.subLinks && (
-                    <div className="absolute top-full left-1/2 -translate-x-1/2 w-[240px] bg-white rounded-lg shadow-xl py-2 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200">
-                      {link.subLinks.map((sub) => (
-                        <Link
-                          key={sub.href}
-                          href={sub.href}
-                          className="block px-4 py-3 text-sm text-gray-800 hover:bg-gray-50 hover:text-regular-button transition-colors"
-                        >
-                          {sub.label}
-                        </Link>
-                      ))}
+                    <div
+                      className={`absolute top-full left-1/2 -translate-x-1/2 bg-white rounded-lg shadow-xl py-2 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 ${
+                        link.label === "Consultation"
+                          ? "w-[480px]"
+                          : "w-[240px]"
+                      }`}
+                    >
+                      <div
+                        className={
+                          link.label === "Consultation"
+                            ? "grid grid-cols-2 gap-x-2 p-2"
+                            : ""
+                        }
+                      >
+                        {link.subLinks.map((sub: any) => (
+                          <Link
+                            key={sub.href}
+                            href={sub.href}
+                            className={`block px-4 py-3 text-sm text-gray-800 hover:bg-gray-50 hover:text-regular-button transition-colors ${
+                              link.label === "Consultation" ? "rounded-md" : ""
+                            }`}
+                          >
+                            {sub.label}
+                          </Link>
+                        ))}
+                      </div>
                     </div>
                   )}
                 </div>
@@ -288,7 +323,23 @@ export function Navbar() {
               animate="visible"
               className="flex-1 flex flex-col gap-2 mt-4"
             >
-              {navLinks.map((link) => {
+              {navLinks.map((staticLink) => {
+                // Inject dynamic sublinks if this is Consultation
+                const link =
+                  staticLink.label === "Consultation"
+                    ? {
+                        ...staticLink,
+                        subLinks: data?.data
+                          ? data.data.map((service: any) => ({
+                              label: service.title,
+                              href: `/consultation/${service.id}`,
+                            }))
+                          : isLoading
+                            ? [{ label: "Loading...", href: "#" }]
+                            : staticLink.subLinks,
+                      }
+                    : staticLink;
+
                 const isActive =
                   link.href === "/"
                     ? pathname === "/"
@@ -314,12 +365,12 @@ export function Navbar() {
                     </Link>
                     {link.subLinks && (
                       <div className="flex flex-col ml-6 pl-4 border-l border-gray-300">
-                        {link.subLinks.map((sub) => (
+                        {link.subLinks.map((sub: any) => (
                           <Link
                             key={sub.href}
                             href={sub.href}
                             onClick={() => setIsOpen(false)}
-                            className="py-2.5 text-base text-gray-600 hover:text-regular-button transition-colors"
+                            className="py-2.5 text-base text-gray-600 hover:text-regular-button transition-colors line-clamp-2"
                           >
                             {sub.label}
                           </Link>
