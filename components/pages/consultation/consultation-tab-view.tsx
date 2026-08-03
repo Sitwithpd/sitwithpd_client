@@ -16,7 +16,6 @@ import {
 } from "@/lib/motion-variants";
 import { Button } from "@/components/ui/button";
 import { handleBookingClick } from "@/lib/utils";
-import { CurrencySelector } from "@/components/shared/currency-selector";
 import { Skeleton } from "@/components/ui/skeleton";
 import QueryStateHandler from "@/components/query-state-handler";
 import { formatCurrency } from "@/lib/utils";
@@ -176,10 +175,7 @@ export function ConsultationTabView({ currentTab }: { currentTab: string }) {
                 </span>
               </div>
               <div className="flex flex-col sm:flex-row sm:items-center justify-between py-3 gap-2">
-                <div className="flex items-center gap-2">
-                  <span className={labelStyle}>Investment</span>
-                  <CurrencySelector compact />
-                </div>
+                <span className={labelStyle}>Investment</span>
                 <span className={labelValueStyle}>
                   {formatCurrency(content.price, activeCurrency)}
                 </span>

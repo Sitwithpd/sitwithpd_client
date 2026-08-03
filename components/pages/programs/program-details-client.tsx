@@ -32,7 +32,6 @@ import { useGetDashboardData } from "@/lib/api/hooks/dashboard/dashboard.hooks";
 import { Purchase } from "@/lib/api/services/dashboard/dashboard.services";
 import { CreatePaymentPayload } from "@/lib/api/services/payments/payments.services";
 import { notFound } from "next/navigation";
-import { NgnEquivalent } from "@/components/shared/ngn-equivalent";
 import { usePlatformSettingsStore } from "@/store/use-platform-settings-store";
 
 function ProgramDetailsWrapper({ id }: { id: string }) {
@@ -97,7 +96,6 @@ function ProgramDetailsWrapper({ id }: { id: string }) {
     const payload: CreatePaymentPayload = {
       itemId: id,
       type: "PROGRAM",
-      provider: "FLUTTERWAVE",
     };
 
     createPayment(payload, {
@@ -341,9 +339,6 @@ function ProgramDetailsWrapper({ id }: { id: string }) {
                 <h4 className="text-[#3A3E3F] text-[25px] font-semibold">
                   {formatCurrency(price, program.currency)}{" "}
                 </h4>
-                {/* {price && (
-                  <NgnEquivalent gbpAmount={price} className="block -mt-2" />
-                )} */}
                 <p className="text-lg text-[#627B3A] font-semibold">{title}</p>
                 <p className="flex items-center gap-3">
                   <Clock10Icon className="text-[#606060]" />{" "}

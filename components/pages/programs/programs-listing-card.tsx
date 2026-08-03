@@ -20,7 +20,6 @@ import {
 import { showErrorToast } from "@/lib/toast-helpers";
 import { formatCurrency } from "@/lib/utils";
 import { Program } from "@/types/programs.types";
-import { CurrencySelector } from "@/components/shared/currency-selector";
 
 // Badge colour config keyed by category
 const CATEGORY_BADGE: Record<
@@ -109,7 +108,6 @@ export default function ProgramsListingCard({ program }: { program: Program }) {
     const payload: CreatePaymentPayload = {
       itemId: id,
       type: "PROGRAM",
-      provider: "FLUTTERWAVE",
     };
 
     createPayment(payload, {
@@ -349,7 +347,7 @@ export default function ProgramsListingCard({ program }: { program: Program }) {
                 {tags.length > 0 && (
                   <div className="flex flex-wrap gap-2.5">
                     {tags.slice(0, 3).map((tag, i) => (
-                      <div className="flex items-center gap-2">
+                      <div key={tag+i} className="flex items-center gap-2">
                         <p
                           key={`${tag}-${i}`}
                           className="text-[#A8D675] tracking-[2px] text-xs  "
@@ -407,12 +405,9 @@ export default function ProgramsListingCard({ program }: { program: Program }) {
                 )}
                 {price != null && (
                   <div>
-                    <div className="flex items-center gap-2 mb-2">
-                      <h4 className="text-[10px] sm:text-[11px] text-[#606060] uppercase tracking-[1px]">
-                        INVESTMENT
-                      </h4>
-                      <CurrencySelector compact />
-                    </div>
+                    <h4 className="text-[10px] sm:text-[11px] text-[#606060] uppercase tracking-[1px] mb-2">
+                      INVESTMENT
+                    </h4>
                     <p className="text-base font-medium text-[#131313] leading-snug pr-4">
                       {formatCurrency(price, currency)} per participant
                     </p>

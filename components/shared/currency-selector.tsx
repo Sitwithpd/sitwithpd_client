@@ -1,6 +1,5 @@
 "use client";
 
-import React from "react";
 import {
   Select,
   SelectContent,
@@ -17,18 +16,21 @@ import {
 import { useCurrencyStore } from "@/store/use-currency-store";
 
 interface CurrencySelectorProps {
-  /** Called after the currency changes (e.g. to invalidate queries) */
+  /** Called after the currency changes, before the reload. */
   onCurrencyChange?: (currency: SupportedCurrency) => void;
   /** Optional additional CSS classes for the trigger */
   className?: string;
   /** Compact mode — only shows flag + code, no label text */
   compact?: boolean;
+  /** Styled for the dark footer bar rather than a light page surface. */
+  variant?: "default" | "footer";
 }
 
 export function CurrencySelector({
   onCurrencyChange,
   className = "",
   compact = false,
+  variant = "default",
 }: CurrencySelectorProps) {
   const setUserCurrency = useCurrencyStore((s) => s.setUserCurrency);
   const activeCurrency = useCurrencyStore(
@@ -37,16 +39,29 @@ export function CurrencySelector({
 
   const handleChange = (value: string) => {
     const currency = value as SupportedCurrency;
+    if (currency === activeCurrency) return;
+
     setUserCurrency(currency);
     onCurrencyChange?.(currency);
+
+    // Prices are resolved server-side from the X-Req-Currency header, and
+    // cached query data still holds the old currency. A full reload is the
+    // only way to guarantee every subsequent request and every rendered price
+    // agree on the new one. The choice is persisted, so it survives.
+    window.location.reload();
   };
 
   return (
     <Select value={activeCurrency} onValueChange={handleChange}>
       <SelectTrigger
+        aria-label="Change currency"
         className={`${
           compact ? "w-auto min-w-25 h-9 text-xs gap-1.5" : "w-35 h-10"
-        } bg-white border-[#EAECF0] ${className}`}
+        } ${
+          variant === "footer"
+            ? "bg-white/10 border-white/20 text-[#F2F8EC] hover:bg-white/15 transition-colors"
+            : "bg-white border-[#EAECF0]"
+        } ${className}`}
       >
         <SelectValue>
           <span className="flex items-center gap-1.5">

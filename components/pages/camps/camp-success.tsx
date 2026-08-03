@@ -2,7 +2,6 @@ import { useModalStore } from "@/components/store/use-modal-store";
 import { Button } from "@/components/ui/button";
 import { formatCurrency } from "@/lib/utils";
 import { CheckCircle } from "lucide-react";
-import { NgnEquivalent } from "@/components/shared/ngn-equivalent";
 
 export default function CampSuccessModal({
   camp,
@@ -30,10 +29,16 @@ export default function CampSuccessModal({
             <p>{camp?.location}</p>
           </div>
           <div>
-            <h3 className="font-semibold text-sm mb-1 text-gray-500">Price</h3>
+            <h3 className="font-semibold text-sm mb-1 text-gray-500">
+              {camp?.tiers?.length === 1 ? "Price" : "Prices from"}
+            </h3>
             <p className="flex items-center gap-2">
-              {formatCurrency(camp?.price || 0, camp?.currency)}
-              {/* <NgnEquivalent gbpAmount={camp?.price || 0} /> */}
+              {camp?.tiers?.length
+                ? formatCurrency(
+                    Math.min(...camp.tiers.map((t: { price: number }) => t.price)),
+                    camp.tiers[0].currency,
+                  )
+                : "—"}
             </p>
           </div>
           <div>

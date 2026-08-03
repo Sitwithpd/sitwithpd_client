@@ -20,7 +20,6 @@ import {
   PolicyAgreementModal,
   POLICY_AGREEMENT_MODAL_ID,
 } from "@/components/policy-agreement-modal";
-import { NgnEquivalent } from "@/components/shared/ngn-equivalent";
 
 export function ConsultationServices() {
   const isAuthenticated = useAuthStore((state) => state.isAuthenticated);
@@ -158,10 +157,6 @@ export function ConsultationServices() {
                     <div className="text-regular-button font-bold text-lg">
                       {formatCurrency(service.price, service.currency)}
                     </div>
-                    {/* <NgnEquivalent
-                      gbpAmount={service.price}
-                      className="block"
-                    /> */}
                   </div>
                 </div>
 

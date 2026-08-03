@@ -3,7 +3,6 @@ import { Pill } from "@/components/ui/pill";
 import GrayCheckIcon from "@/pd-icons/gray-check";
 import { CheckCircle2, Info } from "lucide-react";
 import { formatCurrency } from "@/lib/utils";
-import { NgnEquivalent } from "@/components/shared/ngn-equivalent";
 
 export default function CampParticipation() {
   const plans = [
@@ -74,10 +73,6 @@ export default function CampParticipation() {
                   >
                     {plan.price}
                   </span>
-                  {/* <NgnEquivalent
-                    gbpAmount={plan.amount}
-                    className="block mt-1"
-                  /> */}
                 </div>
               </div>
 

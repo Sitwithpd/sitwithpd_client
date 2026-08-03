@@ -29,8 +29,6 @@ import {
 import { useAuthStore } from "@/store/use-auth-store";
 import { Info, Receipt } from "lucide-react";
 import CampRegistrationDetails from "./camp-registration-details";
-import { NgnEquivalent } from "@/components/shared/ngn-equivalent";
-import { CurrencySelector } from "@/components/shared/currency-selector";
 
 type CampTab = "details" | "registration";
 
@@ -225,14 +223,11 @@ function CardByIdOverview({ id }: { id: string }) {
             {/* Camp Tiers Section */}
             {camp?.tiers && camp.tiers.length > 0 && (
               <div className="space-y-6">
-                <div className="flex items-center justify-between">
-                  <h2 className="text-xl text-primary-text font-bold">
-                    Camp Tiers
-                  </h2>
-                  <CurrencySelector compact />
-                </div>
+                <h2 className="text-xl text-primary-text font-bold">
+                  Camp Tiers
+                </h2>
                 <div className="grid grid-cols-1 md:grid-cols-2  max-w-120 mx-auto lg:max-w-7xl gap-4  px-6 rounded-[16px]">
-                  {camp.tiers
+                  {[...(camp.tiers ?? [])]
                     .sort((a, b) => a.order - b.order)
                     .map((plan: CampTier) => (
                       <div
@@ -258,12 +253,8 @@ function CardByIdOverview({ id }: { id: string }) {
                             <span
                               className={`lg:text-[56px] text-4xl font-medium leading-none ${plan.isFeatured ? "text-[#649351]" : "text-[#242424]"}`}
                             >
-                              {formatCurrency(plan.price, camp?.currency)}
+                              {formatCurrency(plan.price, plan.currency)}
                             </span>
-                            {/* <NgnEquivalent
-                              gbpAmount={plan.price}
-                              className="block mt-1"
-                            /> */}
                           </div>
                           <div className="flex items-center gap-3 justify-between mt-8">
                             <p>

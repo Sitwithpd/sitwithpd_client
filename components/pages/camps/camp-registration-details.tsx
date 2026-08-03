@@ -232,7 +232,7 @@ export default function CampRegistrationDetails({ campId }: CampRegistrationDeta
           <div>
             <p className={labelClass}>Price</p>
             <p className={valueClass}>
-              {!tier.price ? "Free" : formatCurrency(tier.price, tier.currency ?? camp.currency)}
+              {!tier.price ? "Free" : formatCurrency(tier.price, tier.currency)}
             </p>
           </div>
           <div>
@@ -389,7 +389,7 @@ export default function CampRegistrationDetails({ campId }: CampRegistrationDeta
             <div>
               <p className={labelClass}>Amount</p>
               <p className={valueClass}>
-                {formatCurrency(payment.amount ?? 0, payment.currency ?? camp.currency)}
+                {formatCurrency(payment.amount ?? 0, payment.currency)}
               </p>
             </div>
             <div>

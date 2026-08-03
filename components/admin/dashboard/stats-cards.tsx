@@ -21,7 +21,7 @@ export function StatsCards() {
       title: "Total Revenue",
       value: formatCurrency(
         statsData?.totalRevenue ?? 0,
-        statsData?.currency || settings?.currency || "NGN",
+        statsData?.currency,
       ),
     },
   ];

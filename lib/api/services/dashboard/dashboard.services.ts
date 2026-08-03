@@ -51,6 +51,8 @@ export interface CampRegistration {
   payment?: {
     status: string;
     amount: number;
+    /** Presentment currency locked at checkout, not re-converted. */
+    currency?: string;
     createdAt: string;
     reference?: string;
   };
@@ -58,6 +60,7 @@ export interface CampRegistration {
     id: string;
     label: string;
     price: number;
+    currency?: string;
     seatsPerUnit: number;
   };
 }

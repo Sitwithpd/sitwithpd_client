@@ -55,9 +55,13 @@ export const getCurrencySymbol = (currency: string): string => {
 import { usePlatformSettingsStore } from "@/store/use-platform-settings-store";
 
 // formatting figures in naira
+/**
+ * `currencyParam` should come from the entity being rendered — the API returns
+ * the presentment currency on every priced payload. GBP is only the fallback
+ * for static marketing figures that have no currency of their own.
+ */
 export const formatCurrency = (amount: number, currencyParam?: string) => {
-  const storeCurrency = usePlatformSettingsStore.getState().settings?.currency;
-  const currency = currencyParam || storeCurrency || "NGN";
+  const currency = currencyParam || "GBP";
 
   const currencyDomain =
     currency === "NGN"

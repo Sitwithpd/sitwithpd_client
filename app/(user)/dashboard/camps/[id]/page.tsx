@@ -271,7 +271,7 @@ export default function CampRegistrationDetailPage() {
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <div>
                 <p className={labelClass}>Amount Paid</p>
-                <p className={valueClass}>{formatCurrency(payment.amount, camp.currency)}</p>
+                <p className={valueClass}>{formatCurrency(payment.amount, payment.currency)}</p>
               </div>
               <div>
                 <p className={labelClass}>Payment Status</p>

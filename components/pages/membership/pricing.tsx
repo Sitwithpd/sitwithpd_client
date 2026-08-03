@@ -1,7 +1,6 @@
 import { Button } from "@/components/ui/button";
 import GrayCheckIcon from "@/pd-icons/gray-check";
 import { formatCurrency } from "@/lib/utils";
-import { NgnEquivalent } from "@/components/shared/ngn-equivalent";
 
 export function MembershipPricing() {
   const pricingPlans = [
@@ -82,7 +81,6 @@ export function MembershipPricing() {
                 >
                   {plan.price}
                 </span>
-                {/* <NgnEquivalent gbpAmount={plan.amount} className="block mt-1" /> */}
               </div>
               <p className="text-[#242424] font-medium text-base">
                 {plan.period}

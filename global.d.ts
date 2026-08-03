@@ -47,9 +47,9 @@ interface SuccessBannerProps {
   title: string;
   description: string;
   location: string;
-  price: number;
   thumbnail: string;
   capacity: number;
   startDate: string;
-  currency: string;
+  /** Camps have no price of their own; money lives on the tiers. */
+  tiers?: Array<{ price: number; currency?: string }>;
 }

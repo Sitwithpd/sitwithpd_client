@@ -322,7 +322,7 @@ export default function CampDetail({ id }: { id: string }) {
                       Price
                     </p>
                     <p className="text-primary-text font-semibold">
-                      {formatCurrency(tier.price, camp?.currency)}
+                      {formatCurrency(tier.price, tier.currency)}
                     </p>
                   </div>
                   <div>

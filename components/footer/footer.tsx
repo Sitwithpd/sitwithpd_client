@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import { CurrencySelector } from "@/components/shared/currency-selector";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import Image from "next/image";
@@ -256,11 +257,16 @@ export function Footer() {
           </div>
         </div>
 
-        <div className="text-center mt-12">
-          <p className="text-[#F2F8EC] text-sm">
+        <div className="mt-12 pt-6 border-t border-white/10 flex flex-col-reverse sm:flex-row items-center justify-between gap-5">
+          <p className="text-[#F2F8EC] text-sm text-center sm:text-left">
             © 2026 {settings?.platformName || "Sit-with-PD"}. All rights
             reserved.
           </p>
+
+          <div className="flex items-center gap-2.5">
+            <span className="text-[#F2F8EC]/70 text-xs">Prices shown in</span>
+            <CurrencySelector compact variant="footer" />
+          </div>
         </div>
       </div>
     </footer>

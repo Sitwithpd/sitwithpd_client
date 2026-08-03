@@ -59,7 +59,6 @@ function PendingRegistrationModal({
         {
           type: "CAMP" as const,
           itemId: registrationId,
-          provider: "FLUTTERWAVE",
         },
         {
           onSuccess: (paymentData: any) => {
@@ -244,7 +243,6 @@ export default function BookCampForm({
           const paymentPayload = {
             type: "CAMP" as "CAMP" | "PROGRAM" | "CONSULTATION",
             itemId: bookingResponseId,
-            provider: "FLUTTERWAVE",
           };
 
           createPayment(paymentPayload, {
