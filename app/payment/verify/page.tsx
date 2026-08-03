@@ -2,20 +2,51 @@
 
 import { Spinner } from "@/components/spinner";
 import { useVerifyPaystackPayment } from "@/lib/api/hooks/payments/payments.hooks";
-import { CheckCircle, XCircle, AlertCircle, ArrowRight } from "lucide-react";
+import { CheckCircle, XCircle, AlertCircle, ArrowRight, Undo2 } from "lucide-react";
 import { useSearchParams, useRouter } from "next/navigation";
 import React, { useEffect, useState } from "react";
 import { Button } from "@/components/ui/button";
+import { formatCurrency } from "@/lib/utils";
 import Link from "next/link";
 
-export function VerifyPayment({ reference }: { reference: string }) {
+/** Where to send the user back to when a payment did not go through. */
+const RETRY_DESTINATION: Record<string, { href: string; label: string }> = {
+  PROGRAM: { href: "/programs", label: "Back to Programmes" },
+  CAMP: { href: "/camps", label: "Back to Camps" },
+  CONSULTATION: { href: "/consultation", label: "Back to Consultation" },
+};
+
+export function VerifyPayment({
+  reference,
+  redirectStatus,
+}: {
+  reference: string;
+  redirectStatus: string;
+}) {
   const router = useRouter();
   const [countdown, setCountdown] = useState(2);
   const { data, isLoading, isError, error } =
     useVerifyPaystackPayment(reference);
 
   const payment = data?.data;
+
+  // Success is only ever asserted by the API. The provider's redirect params
+  // are attacker-controlled, so they may downgrade the outcome but never
+  // upgrade it.
   const isSuccess = payment?.status === "SUCCESS";
+  const isCancelled = !isSuccess && redirectStatus === "cancelled";
+  const isFailed =
+    !isSuccess &&
+    !isCancelled &&
+    (payment?.status === "FAILED" || redirectStatus === "failed");
+  // An abandoned checkout leaves the row PENDING until the expiry sweeper runs,
+  // so PENDING alone does not mean "still processing".
+  const isPending = !isSuccess && !isCancelled && !isFailed;
+
+  const retry = RETRY_DESTINATION[payment?.type ?? ""] ?? {
+    href: "/programs",
+    label: "Back to Programmes",
+  };
 
   useEffect(() => {
     let timer: NodeJS.Timeout;
@@ -48,7 +79,7 @@ export function VerifyPayment({ reference }: { reference: string }) {
             Invalid Reference
           </h2>
           <p className="text-secondary-text max-w-md">
-            We couldn't find a valid payment reference. If you believe this is
+            We couldn&apos;t find a valid payment reference. If you believe this is
             an error, please contact support.
           </p>
         </div>
@@ -68,14 +99,16 @@ export function VerifyPayment({ reference }: { reference: string }) {
             Verifying Payment
           </h2>
           <p className="text-secondary-text">
-            Please wait while we confirm your transaction with Paystack...
+            Please wait while we confirm your transaction...
           </p>
         </div>
       </div>
     );
   }
 
-  if (isError) {
+  // A cancelled checkout is a known outcome, so report it as such even when the
+  // lookup fails — a "Verification Error" would imply something went wrong.
+  if (isError && !isCancelled) {
     return (
       <div className="flex flex-col items-center justify-center min-h-[60vh] space-y-6 p-6">
         <div className="bg-red-50 p-4 rounded-full">
@@ -122,7 +155,7 @@ export function VerifyPayment({ reference }: { reference: string }) {
               <p className="text-secondary-text text-lg">
                 Your payment of{" "}
                 <span className="font-semibold text-primary-text">
-                  {payment?.amount?.toLocaleString()}
+                  {formatCurrency(payment?.amount ?? 0, payment?.currency)}
                 </span>{" "}
                 has been verified.
               </p>
@@ -140,7 +173,40 @@ export function VerifyPayment({ reference }: { reference: string }) {
               <ArrowRight className="ml-2 w-5 h-5 group-hover:translate-x-1 transition-transform" />
             </Button>
           </>
-        ) : payment?.status === "PENDING" ? (
+        ) : isCancelled ? (
+          <>
+            <div className="flex justify-center">
+              <div className="bg-neutral-100 dark:bg-neutral-800 p-4 rounded-full">
+                <Undo2 className="w-16 h-16 text-neutral-500" />
+              </div>
+            </div>
+            <div className="space-y-3">
+              <h2 className="text-3xl font-bold text-primary-text">
+                Payment Cancelled
+              </h2>
+              <p className="text-secondary-text">
+                You cancelled the payment before it was completed, so you have
+                not been charged. Your place is not reserved until payment goes
+                through.
+              </p>
+            </div>
+            <div className="flex flex-col gap-3">
+              <Link href={retry.href}>
+                <Button variant={"regular"} className="w-full">
+                  {retry.label}
+                </Button>
+              </Link>
+              <Link href="/dashboard">
+                <Button
+                  variant="outline"
+                  className="w-full text-regular-button border-regular-button"
+                >
+                  Go to Dashboard
+                </Button>
+              </Link>
+            </div>
+          </>
+        ) : isPending ? (
           <>
             <div className="flex justify-center">
               <div className="bg-amber-50 dark:bg-amber-900/20 p-4 rounded-full">
@@ -152,8 +218,8 @@ export function VerifyPayment({ reference }: { reference: string }) {
                 Payment Pending
               </h2>
               <p className="text-secondary-text">
-                Your payment is still being processed. This can happen if
-                Paystack is waiting for confirmation from your bank.
+                Your payment is still being processed. This can happen while
+                your bank confirms the transaction.
               </p>
             </div>
             <div className="flex flex-col gap-3">
@@ -186,8 +252,8 @@ export function VerifyPayment({ reference }: { reference: string }) {
               </p>
             </div>
             <div className="flex flex-col gap-3">
-              <Link href="/programs">
-                <Button className="w-full">Back to Programs</Button>
+              <Link href={retry.href}>
+                <Button className="w-full">{retry.label}</Button>
               </Link>
               <Button
                 variant="outline"
@@ -222,10 +288,12 @@ function VerifyPaymentContent() {
   const searchParams = useSearchParams();
   const reference =
     searchParams.get("reference") || searchParams.get("trxref") || searchParams.get("tx_ref") || "";
+  // Flutterwave redirects with status=successful|cancelled|failed.
+  const redirectStatus = (searchParams.get("status") || "").toLowerCase();
 
   return (
     <main className="min-h-screen bg-[#F9FAFB] dark:bg-black flex items-center justify-center font-inter w-full">
-      <VerifyPayment reference={reference} />
+      <VerifyPayment reference={reference} redirectStatus={redirectStatus} />
     </main>
   );
 }
