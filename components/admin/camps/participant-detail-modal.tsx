@@ -137,19 +137,26 @@ export default function ParticipantDetailModal({
           </>,
         )}
 
-        {/* Party Members */}
-        {details.partyMembers &&
-          Array.isArray(details.partyMembers) &&
-          details.partyMembers.length > 0 &&
+        {/* Attendee manifest — one entry per seat, the roster for the gate. */}
+        {Array.isArray(participant.participants) &&
+          participant.participants.length > 0 &&
           infoSection(
-            "Party Members",
+            `Attendees (${participant.participants.length})`,
             <Users size={18} />,
             <div className="col-span-full">
               <div className="flex flex-col gap-4">
-                {details.partyMembers.map((member: any, idx: number) => (
-                  <div className="bg-brand-green/10 p-4 space-y-3 ">
-                    {detailItem("Full Name", member.fullName)}
-                    {detailItem("Relationship", member.relationship)}
+                {participant.participants.map((person: any) => (
+                  <div key={person.id} className="bg-brand-green/10 p-4 space-y-3">
+                    {detailItem(
+                      person.isLead ? "Lead attendee" : "Attendee",
+                      person.fullName,
+                    )}
+                    {detailItem("Relationship", person.relationship)}
+                    {detailItem("Age", person.age != null ? String(person.age) : null)}
+                    {detailItem("Dietary requirements", person.dietaryRequirements)}
+                    {detailItem("Medical conditions", person.medicalConditions)}
+                    {detailItem("Emergency contact", person.emergencyContactName)}
+                    {detailItem("Emergency phone", person.emergencyContactPhone)}
                   </div>
                 ))}
               </div>

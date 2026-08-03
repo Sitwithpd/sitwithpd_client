@@ -1,7 +1,8 @@
 "use client";
 
 import { useState } from "react";
-import { useGetMyCampRegistration } from "@/lib/api/hooks/camps/camps.hooks";
+import type { CampParticipant } from "@/types/camps.types";
+import { useGetMyCampRegistrations } from "@/lib/api/hooks/camps/camps.hooks";
 import { useCreatePayment } from "@/lib/api/hooks/payments/payments.hooks";
 import { useAuthStore } from "@/store/use-auth-store";
 import { formatCurrency, formatAppDate } from "@/lib/utils";
@@ -46,7 +47,7 @@ const statusConfig: Record<
 export default function CampRegistrationDetails({ campId }: CampRegistrationDetailsProps) {
   const isAuthenticated = useAuthStore((state) => state.isAuthenticated);
   const router = useRouter();
-  const { data, isLoading, isError } = useGetMyCampRegistration(campId, isAuthenticated);
+  const { data, isLoading, isError } = useGetMyCampRegistrations(campId, isAuthenticated);
   const { mutate: createPayment, isPending: isCreatingPayment } = useCreatePayment();
 
   const handlePayNow = () => {
@@ -99,7 +100,7 @@ export default function CampRegistrationDetails({ campId }: CampRegistrationDeta
   }
 
   // No registration found (error or empty)
-  if (isError || !data?.data) {
+  if (isError || !data?.data || data.data.registrations.length === 0) {
     return (
       <div className="bg-white rounded-[16px] p-10 flex flex-col items-center justify-center gap-5 min-h-[300px]">
         <div className="relative w-[140px] aspect-square">
@@ -112,18 +113,58 @@ export default function CampRegistrationDetails({ campId }: CampRegistrationDeta
     );
   }
 
-  const registration = data.data;
+  const { registrations, actionable, confirmedUnits, confirmedSeats, blockedMessage } =
+    data.data;
+  // The unit still awaiting payment leads; otherwise show the most recent.
+  const registration = actionable ?? registrations[0];
   const { applicantDetails, camp, tier, payment } = registration;
   const status = statusConfig[registration.status] || statusConfig.PENDING_PAYMENT;
   const StatusIcon = status.icon;
   const isExpired = new Date(registration.paymentExpiresAt) < new Date();
   const canPay = registration.status === "PENDING_PAYMENT"  && !isExpired;
 
+  const otherUnits = registrations.filter((r) => r.id !== registration.id);
+
   const labelClass = "text-secondary-text text-xs font-medium uppercase tracking-wide";
   const valueClass = "text-primary-text text-sm font-medium mt-0.5";
 
   return (
     <div className="space-y-5">
+      {/* Multiple units: summarise the whole booking before the active one. */}
+      {registrations.length > 1 && (
+        <div className="bg-white rounded-[16px] p-5">
+          <p className="text-primary-text font-semibold">
+            You have {registrations.length} bookings for this camp
+          </p>
+          <p className="text-sm text-secondary-text mt-1">
+            {confirmedUnits} confirmed · {confirmedSeats}{" "}
+            {confirmedSeats === 1 ? "seat" : "seats"} secured
+          </p>
+          {otherUnits.length > 0 && (
+            <ul className="mt-3 space-y-1.5">
+              {otherUnits.map((unit) => (
+                <li
+                  key={unit.id}
+                  className="text-sm text-secondary-text flex items-center justify-between gap-3"
+                >
+                  <span>
+                    {unit.tier?.label} · {unit.participantCount}{" "}
+                    {unit.participantCount === 1 ? "seat" : "seats"}
+                  </span>
+                  <span className="text-xs uppercase tracking-wide">{unit.status}</span>
+                </li>
+              ))}
+            </ul>
+          )}
+        </div>
+      )}
+
+      {blockedMessage && (
+        <div className="bg-amber-50 border border-amber-200 rounded-[16px] p-4">
+          <p className="text-sm text-amber-800">{blockedMessage}</p>
+        </div>
+      )}
+
       {/* Status Banner */}
       <div className="bg-white rounded-[16px] p-5 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
         <div className="flex items-center gap-3">
@@ -191,7 +232,7 @@ export default function CampRegistrationDetails({ campId }: CampRegistrationDeta
           <div>
             <p className={labelClass}>Price</p>
             <p className={valueClass}>
-              {tier.price === 0 ? "Free" : formatCurrency(tier.price, camp.currency)}
+              {!tier.price ? "Free" : formatCurrency(tier.price, tier.currency ?? camp.currency)}
             </p>
           </div>
           <div>
@@ -232,23 +273,46 @@ export default function CampRegistrationDetails({ campId }: CampRegistrationDeta
         </div>
       </div>
 
-      {/* Party Members */}
-      {applicantDetails.partyMembers && applicantDetails.partyMembers.length > 0 && (
+      {/* Attendee manifest — the authoritative roster, one row per seat. */}
+      {registration.participants && registration.participants.length > 0 && (
         <div className="bg-white rounded-[16px] p-5 space-y-4">
           <div className="flex items-center gap-2">
             <Users className="w-4 h-4 text-brand-green" />
-            <h3 className="text-brand-green font-medium text-sm uppercase">Party Members</h3>
+            <h3 className="text-brand-green font-medium text-sm uppercase">
+              Attendees ({registration.participants.length})
+            </h3>
           </div>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
-            {applicantDetails.partyMembers.map((member, idx) => (
+            {registration.participants.map((person: CampParticipant, idx: number) => (
               <div
-                key={idx}
-                className="flex items-center gap-2.5 px-3 py-2.5 rounded-lg bg-[#F7F7F7] border border-[#EAECF0]"
+                key={person.id}
+                className="flex items-start gap-2.5 px-3 py-2.5 rounded-lg bg-[#F7F7F7] border border-[#EAECF0]"
               >
                 <div className="w-7 h-7 rounded-full bg-brand-green/10 flex items-center justify-center text-brand-green text-xs font-bold shrink-0">
                   {idx + 1}
                 </div>
-                <p className="text-primary-text text-sm font-medium">{member}</p>
+                <div className="min-w-0">
+                  <p className="text-primary-text text-sm font-medium truncate">
+                    {person.fullName}
+                    {person.isLead && (
+                      <span className="ml-2 text-[10px] uppercase tracking-wide text-brand-green">
+                        Lead
+                      </span>
+                    )}
+                  </p>
+                  {(person.relationship || person.age != null) && (
+                    <p className="text-xs text-secondary-text">
+                      {[person.relationship, person.age != null ? `${person.age} yrs` : null]
+                        .filter(Boolean)
+                        .join(" · ")}
+                    </p>
+                  )}
+                  {person.dietaryRequirements && (
+                    <p className="text-xs text-secondary-text">
+                      Dietary: {person.dietaryRequirements}
+                    </p>
+                  )}
+                </div>
               </div>
             ))}
           </div>
@@ -324,7 +388,9 @@ export default function CampRegistrationDetails({ campId }: CampRegistrationDeta
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <div>
               <p className={labelClass}>Amount</p>
-              <p className={valueClass}>{formatCurrency(payment.amount, camp.currency)}</p>
+              <p className={valueClass}>
+                {formatCurrency(payment.amount ?? 0, payment.currency ?? camp.currency)}
+              </p>
             </div>
             <div>
               <p className={labelClass}>Status</p>

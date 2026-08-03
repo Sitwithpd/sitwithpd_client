@@ -26,11 +26,11 @@ import {
   Loader2,
   X,
 } from "lucide-react";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Controller, useFieldArray, useForm } from "react-hook-form";
 import LearningObjectivesField from "../program/learning-objectives-field";
 import { useCreatePayment } from "@/lib/api/hooks/payments/payments.hooks";
-import { getMyCampRegistration } from "@/lib/api/services/camps/camps.services";
+import { getMyCampRegistrations } from "@/lib/api/services/camps/camps.services";
 import { usePlatformSettingsStore } from "@/store/use-platform-settings-store";
 
 // Modal shown when user has a pending application and needs to complete payment
@@ -49,8 +49,9 @@ function PendingRegistrationModal({
   const handleContinueToPayment = async () => {
     setIsFetchingRegistration(true);
     try {
-      const registration = await getMyCampRegistration(campId);
-      const registrationId = registration.data.id;
+      const mine = await getMyCampRegistrations(campId);
+      const registrationId = mine.data.actionable?.id ?? mine.data.registrations[0]?.id;
+      if (!registrationId) throw new Error("No registration to pay for.");
 
       const paymentTab = window.open("", "_blank");
 
@@ -121,7 +122,8 @@ export interface BookCampData {
   campId: string;
   tierId?: string | null;
   tierLabel?: string | null;
-  maxPartyMembers?: number;
+  /** How many people this tier covers, including the lead applicant. */
+  seatsPerUnit?: number;
   campTitle?: string;
   startDate?: string;
   endDate?: string;
@@ -136,7 +138,7 @@ export default function BookCampForm({
     campId,
     tierId,
     tierLabel,
-    maxPartyMembers = 100,
+    seatsPerUnit = 1,
     campTitle,
     startDate,
     endDate,
@@ -164,10 +166,23 @@ export default function BookCampForm({
     },
   });
 
-  const { fields, append, remove } = useFieldArray({
+  const { fields, replace } = useFieldArray({
     control: form.control,
     name: "partyMembers",
   });
+
+  // The tier decides the party size, so the rows are fixed rather than added
+  // by hand — the API rejects a manifest that isn't exactly seatsPerUnit long.
+  const additionalAttendees = Math.max(seatsPerUnit - 1, 0);
+  useEffect(() => {
+    replace(
+      Array.from({ length: additionalAttendees }, () => ({
+        text: "",
+        age: "",
+        relationship: "",
+      })),
+    );
+  }, [additionalAttendees, replace]);
 
   //   sumbit the foem
   const onSubmit = (data: CampBookingFormSchemaTpe) => {
@@ -177,6 +192,21 @@ export default function BookCampForm({
     }
     const payload = {
       tierId,
+      // The manifest the organiser works from; the API validates its length.
+      participants: [
+        {
+          fullName: data.fullName,
+          dietaryRequirements: data.dietaryRestrictions,
+          emergencyContactName: data.emergencyName,
+          emergencyContactPhone: data.emergencyPhone,
+          relationship: data.emergencyStatus,
+        },
+        ...(data.partyMembers ?? []).map((member) => ({
+          fullName: member.text,
+          age: member.age,
+          relationship: member.relationship,
+        })),
+      ],
       applicantDetails: {
         fullName: data.fullName,
         phone: data.phone,
@@ -189,8 +219,7 @@ export default function BookCampForm({
         accommodationPreference: data.accommodationPreference,
         notes: data.notes,
         partyMembers:
-          data.partyMembers?.map((member: { text: string }) => member.text) ||
-          [],
+          data.partyMembers?.map((member) => ({ fullName: member.text })) ?? [],
       },
     };
 
@@ -364,20 +393,18 @@ export default function BookCampForm({
         </div>
 
         {/* party members  */}
-        {maxPartyMembers > 1 && (
+        {additionalAttendees > 0 && (
           <div className="space-y-2 my-8">
             <div className="flex items-center justify-between">
-              <h3 className={sectionTitleText}>Party Members</h3>
-              {fields.length < maxPartyMembers - 1 && (
-                <button
-                  type="button"
-                  onClick={() => append({ text: "" })}
-                  className="flex items-center gap-2 text-brand-green font-medium text-sm"
-                >
-                  <PlusCircle className="h-4 w-4" />
-                  Add Member
-                </button>
-              )}
+              <div>
+                <h3 className={sectionTitleText}>Who else is coming?</h3>
+                <p className="text-sm text-secondary-text mt-1">
+                  The {tierLabel} package covers {seatsPerUnit} people. Name the
+                  other {additionalAttendees}{" "}
+                  {additionalAttendees === 1 ? "attendee" : "attendees"} — every
+                  seat has to be accounted for.
+                </p>
+              </div>
             </div>
 
             {fields.length > 0 ? (
@@ -408,19 +435,12 @@ export default function BookCampForm({
                         </Field>
                       )}
                     />
-                    <button
-                      type="button"
-                      onClick={() => remove(index)}
-                      className="p-3 text-brand-red border border-[#EAECF0] dark:border-border rounded-[5px] h-[54px] flex items-center justify-center bg-white"
-                    >
-                      <Trash2 className="h-4 w-4" />
-                    </button>
                   </div>
                 ))}
               </div>
             ) : (
               <p className="text-sm text-gray-400 italic">
-                Are you going with someone? Add their names here.
+                This package covers one person.
               </p>
             )}
           </div>

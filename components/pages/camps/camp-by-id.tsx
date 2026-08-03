@@ -241,8 +241,15 @@ function CardByIdOverview({ id }: { id: string }) {
                           plan.isFeatured
                             ? "bg-white border-2 border-[#649351] z-10  xl:mb-4"
                             : "bg-white border border-[#2C2D47]  xl:mt-2 xl:scale-[0.95]"
-                        }`}
+                        } ${plan.isAvailable === false ? "opacity-60" : ""}`}
                       >
+                        {plan.isAvailable === false && (
+                          <span className="absolute top-6 right-6 px-3 py-1 rounded-full bg-[#F2F4F7] text-[#475467] text-xs font-semibold uppercase tracking-wide">
+                            {TIER_UNAVAILABLE_COPY[plan.unavailableReason ?? ""] ??
+                              "Unavailable"}
+                          </span>
+                        )}
+
                         <div className="text-center ">
                           <h3 className="text-lg font-medium uppercase text-[#242424] mb-4">
                             {plan.label}
@@ -260,18 +267,29 @@ function CardByIdOverview({ id }: { id: string }) {
                           </div>
                           <div className="flex items-center gap-3 justify-between mt-8">
                             <p>
-                              Max Units:{" "}
+                              {plan.unitsRemaining == null
+                                ? "Places: "
+                                : "Places left: "}
                               <span className="text-regular-button font-bold">
-                                {plan?.maxUnits}{" "}
+                                {plan.unitsRemaining == null
+                                  ? "Unlimited"
+                                  : plan.unitsRemaining}
                               </span>
                             </p>
                             <p>
-                              Seats Per Unit:{" "}
+                              Covers:{" "}
                               <span className="text-regular-button font-bold">
                                 {plan?.seatsPerUnit}{" "}
+                                {plan?.seatsPerUnit === 1 ? "person" : "people"}
                               </span>
                             </p>
                           </div>
+
+                          {tierUnavailableDetail(plan, camp?.seatsRemaining) && (
+                            <p className="mt-3 text-sm text-[#B54708] text-start">
+                              {tierUnavailableDetail(plan, camp?.seatsRemaining)}
+                            </p>
+                          )}
                           <p className="mt-4 font-normal text-start text-primary-text whitespace-pre-wrap ">
                             {plan.description}
                           </p>
@@ -301,6 +319,7 @@ function CardByIdOverview({ id }: { id: string }) {
                         <Button
                           variant="regular"
                           className="w-full mt-10 "
+                          disabled={plan.isAvailable === false}
                           onClick={() => {
                             if (!isAuthenticated) {
                               openModal(
@@ -325,8 +344,7 @@ function CardByIdOverview({ id }: { id: string }) {
                                         campId: id,
                                         tierId: plan.id,
                                         tierLabel: plan.label,
-                                        maxPartyMembers:
-                                          plan?.seatsPerUnit || 100,
+                                        seatsPerUnit: plan?.seatsPerUnit ?? 1,
                                         campTitle,
                                         startDate,
                                         endDate,
@@ -353,6 +371,27 @@ function CardByIdOverview({ id }: { id: string }) {
       </section>
     </div>
   );
+}
+
+
+const TIER_UNAVAILABLE_COPY: Record<string, string> = {
+  CAMP_CLOSED: "Registration closed",
+  TIER_SOLD_OUT: "Sold out",
+  INSUFFICIENT_SEATS: "Not enough seats left",
+};
+
+function tierUnavailableDetail(plan: CampTier, seatsRemaining?: number): string | null {
+  if (plan.isAvailable !== false) return null;
+  if (plan.unavailableReason === "TIER_SOLD_OUT") {
+    return `All ${plan.maxUnits} ${plan.maxUnits === 1 ? "place" : "places"} for this package are taken.`;
+  }
+  if (plan.unavailableReason === "INSUFFICIENT_SEATS") {
+    return `This package needs ${plan.seatsPerUnit} seats and only ${seatsRemaining ?? 0} remain.`;
+  }
+  if (plan.unavailableReason === "CAMP_CLOSED") {
+    return "This camp is no longer accepting applications.";
+  }
+  return null;
 }
 
 export default function CampCardByIdOverviewWrapper({ id }: { id: string }) {

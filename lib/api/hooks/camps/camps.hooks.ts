@@ -18,7 +18,7 @@ import {
   replaceCampImage,
   updateCampImageMetadata,
   deleteCampImage,
-  getMyCampRegistration,
+  getMyCampRegistrations,
 } from "../../services/camps/camps.services";
 import { showSuccessToast, showErrorToast } from "@/lib/toast-helpers";
 import {
@@ -299,10 +299,10 @@ export const useDeleteCampImage = () => {
 
 // ===================== MY CAMP REGISTRATION =====================
 
-export const useGetMyCampRegistration = (campId: string, enabled = true) => {
+export const useGetMyCampRegistrations = (campId: string, enabled = true) => {
   return useQuery({
-    queryKey: ["camps", campId, "my-registration"],
-    queryFn: () => getMyCampRegistration(campId),
+    queryKey: ["camps", campId, "my-registrations"],
+    queryFn: () => getMyCampRegistrations(campId),
     enabled: Boolean(campId) && enabled,
     retry: false,
   });

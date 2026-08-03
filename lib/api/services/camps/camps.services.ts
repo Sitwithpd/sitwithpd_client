@@ -5,6 +5,8 @@ import {
   CampImage,
   CreateCampTierPayload,
   UpdateCampTierPayload,
+  CampParticipant,
+  BlockedRegistrationReason,
 } from "@/types/camps.types";
 
 export interface Camp {
@@ -26,6 +28,10 @@ export interface Camp {
   createdAt?: string;
   updatedAt?: string;
   seatsRemaining: number;
+  seatsTaken?: number;
+  isOpenForRegistration?: boolean;
+  /** False when seats remain but no tier fits in them. */
+  hasBookableTier?: boolean;
   _count: { registrations: number };
 }
 
@@ -381,14 +387,18 @@ export interface CampRegistration {
   tier: {
     id: string;
     label: string;
-    price: number;
+    price?: number;
+    priceMinor?: number;
+    currency?: string;
     seatsPerUnit: number;
   };
+  participants?: CampParticipant[];
   payment: {
-    id: string;
-    amount: number;
+    id?: string;
+    amount?: number;
+    currency?: string;
     status: string;
-    reference: string;
+    reference?: string;
     createdAt: string;
   } | null;
 }
@@ -399,15 +409,33 @@ export interface CampRegistrationResponse {
   data: CampRegistration;
 }
 
-export const getMyCampRegistration = async (
+export interface MyCampRegistrations {
+  registrations: CampRegistration[];
+  /** The unit still awaiting payment, if any. */
+  actionable: CampRegistration | null;
+  confirmedUnits: number;
+  confirmedSeats: number;
+  canBookAnother: boolean;
+  blockedReason: BlockedRegistrationReason;
+  blockedMessage: string | null;
+}
+
+export interface MyCampRegistrationsResponse {
+  success: boolean;
+  message: string;
+  data: MyCampRegistrations;
+}
+
+/** A user may hold several units per camp, so this returns them all. */
+export const getMyCampRegistrations = async (
   campId: string,
-): Promise<CampRegistrationResponse> => {
+): Promise<MyCampRegistrationsResponse> => {
   if (!campId) {
     throw new Error("Camp ID is required.");
   }
 
   try {
-    const res = await api.get(`/camps/${campId}/my-registration`);
+    const res = await api.get(`/camps/${campId}/my-registrations`);
     return res.data;
   } catch (error) {
     throw new Error(getApiError(error));

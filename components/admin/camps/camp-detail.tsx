@@ -84,6 +84,7 @@ export default function CampDetail({ id }: { id: string }) {
         currency: participant.currency,
         payment: participant.payment?.status,
         emergencyContact: participant.applicantDetails?.emergencyContact,
+        participants: participant.participants,
       };
     },
   );

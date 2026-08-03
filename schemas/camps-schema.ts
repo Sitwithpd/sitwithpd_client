@@ -46,8 +46,16 @@ export const CampBookingFormSchema = z.object({
   dietaryRestrictions: z.string(),
   accommodationPreference: z.string(),
   notes: z.string(),
+  // One entry per additional attendee the tier covers. The API requires the
+  // manifest to name exactly seatsPerUnit people (lead + these).
   partyMembers: z
-    .array(z.object({ text: z.string().min(1, "Provide a name") }))
+    .array(
+      z.object({
+        text: z.string().min(1, "Provide a name"),
+        age: z.string().optional(),
+        relationship: z.string().optional(),
+      }),
+    )
     .optional(),
 });
 
