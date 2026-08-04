@@ -20,6 +20,8 @@ import {
 import { showErrorToast } from "@/lib/toast-helpers";
 import { formatCurrency } from "@/lib/utils";
 import { Program } from "@/types/programs.types";
+import { VideoHighlights } from "@/components/shared/video-highlights";
+import type { VideoItem } from "@/components/shared/video-highlights";
 
 // Badge colour config keyed by category
 const CATEGORY_BADGE: Record<
@@ -64,6 +66,7 @@ export default function ProgramsListingCard({ program }: { program: Program }) {
     // a React child" runtime errors.
     tags: rawTags = [],
     audience: rawAudience = [],
+    videoLinks = [],
   } = program ?? {};
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -347,7 +350,7 @@ export default function ProgramsListingCard({ program }: { program: Program }) {
                 {tags.length > 0 && (
                   <div className="flex flex-wrap gap-2.5">
                     {tags.slice(0, 3).map((tag, i) => (
-                      <div key={tag+i} className="flex items-center gap-2">
+                      <div key={tag + i} className="flex items-center gap-2">
                         <p
                           key={`${tag}-${i}`}
                           className="text-[#A8D675] tracking-[2px] text-xs  "
@@ -457,6 +460,28 @@ export default function ProgramsListingCard({ program }: { program: Program }) {
           </div>
         )}
       </section>
+
+      {/* ── Video highlights ── */}
+      {videoLinks.length > 0 &&
+        (() => {
+          const programVideoItems: VideoItem[] = videoLinks.map((url) => ({
+            url,
+            sourceName: title,
+            sourceSubtitle: facilitatorName
+              ? `Facilitated by ${facilitatorName}`
+              : undefined,
+          }));
+          return (
+            <div className="w-full bg-[#F5F7F5] border-t border-[#E8E8E8] py-8">
+              <div className="w-11/12 mx-auto max-w-7xl">
+                <p className="text-[11px] font-bold text-[#1F4842] tracking-[1.5px] uppercase mb-4">
+                  Programme Videos
+                </p>
+                <VideoHighlights items={programVideoItems} />
+              </div>
+            </div>
+          );
+        })()}
     </div>
   );
 }

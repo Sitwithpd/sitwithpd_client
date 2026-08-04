@@ -10,6 +10,7 @@ import Methodology from "@/components/pages/homepage/methodology";
 import Resources from "@/components/pages/homepage/resources";
 import { CtaBanner } from "@/components/pages/homepage/cta-banner";
 import HomeBlogs from "@/components/pages/homepage/home-blogs";
+import { HomeVideoShowcase } from "@/components/pages/homepage/home-video-showcase";
 
 export const metadata: Metadata = {
   title: "Sit With PD — Purpose. Direction. Personal Discovery.",
@@ -78,9 +79,11 @@ export default function Home() {
       <div className="w-11/12 mx-auto">
         <WhySitWithPd />
         <HowWeHelp />
-
         <OurTeam />
         <Resources />
+      </div>
+      <HomeVideoShowcase />
+      <div className="w-11/12 mx-auto">
         <Testimonials />
         {/* <HomeBlogs /> */}
         <CtaBanner />

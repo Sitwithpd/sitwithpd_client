@@ -1,72 +1,54 @@
 "use client";
 
-import Image from "next/image";
-import { motion } from "motion/react";
-import {
-  fadeInRight,
-  fadeInUp,
-  staggerContainerDelayed,
-  staggerContainerSlow,
-} from "@/lib/motion-variants";
 import { Button } from "@/components/ui/button";
-import CaretRight from "@/pd-icons/caret-right";
 import Link from "next/link";
+import { cn } from "@/lib/utils";
 
 export function CommunityCta() {
-  const deliveryWays = ["Integrity", "Empathy", "Wisdom"];
+  // Map our custom variants to Tailwind classes
 
   return (
-    <section className="w-full bg-[#1F4842]">
-      <div className="flex flex-col-reverse md:flex-row-reverse items-stretch min-h-[500px]">
-        {/* Left Column: Image Container (height stretches to match text details) */}
-        <div className="relative w-full min-h-[350px] flex-1 lg:min-h-full">
-          <Image
-            src="/images/card conatiner.png"
-            alt="How Our Programs Are Delivered"
-            fill
-            sizes="(max-width: 1024px) 100vw, 50vw"
-            className="object-cover md:object-[center_40%] lg:object-center"
-            priority
-          />
-          <div className="absolute inset-0 bg-[#1F48424D]" />
-        </div>
+    <section className="relative w-full bg-footer-bg py-24 overflow-hidden flex flex-col items-center justify-center text-center">
+      <div className="relative z-10  lg:max-w-4xl mx-auto px-4 flex flex-col w-11/12 lg:w-6/12 items-center ">
+        <span className="text-[#A8D675] font-semibold text-xs tracking-[2.4px] uppercase">
+          Not Sure Where to Start?
+        </span>
 
-        {/* Right Column: Text and Details Container */}
-        <div className="flex-1  flex flex-col justify-center py-16 overflow-hidden lg:py-24 lg:w-11/12 mx-auto text-white">
-          <motion.div
-            variants={staggerContainerSlow}
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true, amount: 0.4 }}
-            className="md:w-10/12 w-11/12 mx-auto flex flex-col gap-4"
-          >
-            {/* Main Heading */}
-            <motion.h2
-              variants={fadeInUp}
-              className="heading-2  text-white mb-2"
+        <h2 className="text-white text-3xl  lg:text-4xl font-bold leading-tight mt-6 mb-3 ">
+          We'll help you find the perfect community.
+        </h2>
+
+        <p className="text-[#FFFFFFA6] text-base  leading-relaxed">
+          Reach out and we'll match you with the community that best aligns with
+          your goals, passions, and personal vision.
+        </p>
+
+        {/* Buttons layout */}
+        <div className="flex flex-col sm:flex-row gap-4 lg:gap-2.5 items-center justify-center mt-6 w-full sm:w-auto">
+          <Link href={"/contact"} className="w-full lg:w-auto">
+            <Button
+              className={cn("w-full sm:w-auto px-5 shadow-none")}
+              variant={"regular"}
             >
-              Not Sure Where to Start?
-            </motion.h2>
+              Contact Us
+            </Button>
+          </Link>
 
-            {/* Description */}
-            <motion.p
-              variants={fadeInUp}
-              className="text-[#F7FBF6] text-sm md:text-base leading-relaxed"
+          <Link href={"/programs"} className="w-full lg:w-auto">
+            <Button
+              className={cn(
+                "w-full sm:w-auto shadow-none  px-5 ",
+                " text-white bg-transparent border-[0.67px] border-[#FFFFFF4D]",
+              )}
+              variant={"regular"}
             >
-              Reach out to us and we'll help you find the perfect community that
-              aligns with your goals and passions.
-            </motion.p>
-
-            <motion.div className="mt-6" variants={fadeInUp}>
-              <Link href={"/contact"}>
-                <Button className="px-4" variant={"regular"}>
-                  Cotact us <CaretRight />
-                </Button>
-              </Link>
-            </motion.div>
-          </motion.div>
+              Explore Programs
+            </Button>
+          </Link>
         </div>
       </div>
+      <div className="absolute -top-20 right-0 lg:right-20 bg-[#A8D6750D] lg:h-100 lg:w-100 h-70 w-70 z-1 rounded-full" />
+      <div className="absolute -bottom-20 -left-15 bg-[#A8D6750D] h-70 w-70 z-1 rounded-full" />
     </section>
   );
 }

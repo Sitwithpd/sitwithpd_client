@@ -37,8 +37,11 @@ const welcomeCards = [
 
 export default function WhoWeWelcome() {
   return (
-    <section className="py-16 lg:py-24" style={{ backgroundColor: "#344054" }}>
-      <div className="w-11/12 max-w-6xl mx-auto flex flex-col items-center">
+    <section
+      className="py-16 lg:py-24 w-full"
+      style={{ backgroundColor: "#0F1A0F" }}
+    >
+      <div className="w-11/12 max-w-7xl mx-auto flex flex-col items-center">
         {/* Header */}
         <motion.div
           variants={staggerContainerDelayed}
@@ -48,41 +51,43 @@ export default function WhoWeWelcome() {
           className="flex flex-col items-center text-center mb-12"
         >
           <motion.div variants={fadeInUp}>
-            <Pill
-              text="OUR COMMUNITY"
-              className="border-white/20 bg-white/10 text-white text-xs tracking-widest uppercase"
-            />
+            <span className="text-[#A8D675] bg-[#60935D22] px-2 py-1 rounded-full border border-[#60935D44] text-xs  font-semibold">
+              OUR COMMUNITY
+            </span>
           </motion.div>
-          <motion.h2 variants={fadeInUp} className="heading-2 text-white mb-4">
+          <motion.h2
+            variants={fadeInUp}
+            className="heading-2 text-white mt-4 mb-5"
+          >
             Who We Welcome
           </motion.h2>
           <motion.p
             variants={fadeInUp}
-            className="text-white/70 text-base max-w-xl leading-relaxed"
+            className="text-[#FFFFFFAA] text-sm max-w-xl leading-relaxed"
           >
             Whether you are seeking internship or volunteering opportunities, a
             professional eager to share knowledge, a leader committed to
             inspiring others, or a kindhearted individual passionate about
-            meaningful change — there is a place for you here.
+            meaningful change, there is a place for you here.
           </motion.p>
         </motion.div>
 
         {/* Cards Grid */}
-        <motion.div
-          variants={staggerContainer}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, amount: 0.2 }}
-          className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 w-full mb-10"
-        >
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 w-full mb-10">
           {welcomeCards.map((card, i) => {
             const Icon = card.icon;
             return (
               <motion.div
                 key={card.title}
-                variants={fadeInUp}
-                transition={{ delay: i * 0.1 }}
-                className="flex flex-col p-6 rounded-[20px] text-left"
+                initial={{ opacity: 0, x: 30 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                viewport={{ once: true, amount: 0.3 }}
+                transition={{
+                  delay: i * 0.15,
+                  duration: 0.55,
+                  ease: [0.25, 0.46, 0.45, 0.94],
+                }}
+                className="flex flex-col p-6 rounded-[20px]  text-left"
                 style={{
                   backgroundColor: card.isAccent ? "#60935D" : "#FFFFFF0F",
                   border: "1px solid rgba(255,255,255,0.08)",
@@ -97,7 +102,7 @@ export default function WhoWeWelcome() {
                 >
                   <Icon
                     className="w-5 h-5"
-                    style={{ color: card.isAccent ? "#ffffff" : "#60935D" }}
+                    style={{ color: card.isAccent ? "#ffffff" : "#A8D675" }}
                   />
                 </div>
                 {/* Content */}
@@ -112,7 +117,7 @@ export default function WhoWeWelcome() {
                   style={{
                     color: card.isAccent
                       ? "rgba(255,255,255,0.85)"
-                      : "rgba(255,255,255,0.65)",
+                      : "#FFFFFFAA",
                   }}
                 >
                   {card.description}
@@ -120,7 +125,7 @@ export default function WhoWeWelcome() {
               </motion.div>
             );
           })}
-        </motion.div>
+        </div>
 
         {/* Quote block */}
         <motion.div
@@ -128,14 +133,12 @@ export default function WhoWeWelcome() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, amount: 0.4 }}
           transition={{ duration: 0.6, ease: "easeOut" }}
-          className="w-full border-l-4 border-[#60935D] pl-6 py-2"
+          className="w-full border-l-4 border-[#60935D33] bg-[#60935D11] pl-6 py-4"
         >
-          <p className="text-white/80 text-base lg:text-lg italic leading-relaxed">
-            &quot;At Sit-With-PD, we believe in building a community where{" "}
-            <span className="text-[#60935D] not-italic font-semibold">
-              purpose meets opportunity
-            </span>{" "}
-            and every contribution creates lasting impact.&quot;
+          <p className="text-[#A8D675] text-base lg:text-lg italic leading-relaxed">
+            &quot;At Sit-With-PD, we believe in building a community where
+            purpose meets opportunity and every contribution creates lasting
+            impact.&quot;
           </p>
         </motion.div>
       </div>
