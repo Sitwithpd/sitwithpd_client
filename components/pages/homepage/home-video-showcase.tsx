@@ -12,14 +12,16 @@ import {
 import { useGetCommunities } from "@/lib/api/hooks/communities/communities.hooks";
 import { useGetPrograms } from "@/lib/api/hooks/programs/programs.hooks";
 import { fadeInUp, staggerContainerSlow } from "@/lib/motion-variants";
+import { Community } from "@/lib/api/services/communities/communities.services";
+import { Program } from "@/types/programs.types";
 
 export function HomeVideoShowcase() {
   const { data: communitiesData, isLoading: communitiesLoading } =
     useGetCommunities();
   const { data: programsData, isLoading: programsLoading } = useGetPrograms();
 
-  const communities = communitiesData?.data ?? [];
-  const programs = programsData?.data ?? [];
+  const communities:Community[] = communitiesData?.data ?? [];
+  const programs: Program[] = programsData?.data ?? [];
 
   const communityVideos: VideoItem[] = useMemo(
     () =>
