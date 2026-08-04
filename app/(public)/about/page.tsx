@@ -7,6 +7,8 @@ import { CtaBlock } from "@/components/shared/cta-block";
 import { AboutHero } from "@/components/pages/about/hero";
 import { Metadata } from "next";
 import { SitWithPD } from "@/components/pages/about/sit-wit-pd";
+import { CoreValuesNew } from "@/components/pages/about/core-values-new";
+import { ReusableCta } from "@/components/shared/reusable-cta";
 
 export const metadata: Metadata = {
   title: "About Sit With PD — Our Story, Mission & Values",
@@ -61,24 +63,30 @@ export default function AboutPage() {
         }}
       />
       <AboutHero />
-      <div className="w-11/12 k mx-auto">
         <SitWithPD />
+      <div className="w-11/12 k mx-auto">
         <OurMission />
       </div>
-      <CoreValues />
-      <div className="w-11/12 mx-auto">
-        <TherapeuticApproach />
-      </div>
-        <OurStory />
-      <CtaBlock
-        title="Ready to Reconnect With Yourself?"
-        subtext="Whether you're facing uncertainty, seeking clarity, or ready for deeper transformation  your journey begins with a single step."
-        firstLink={{ text: "Explore programs", href: "/programs" }}
-        secondLink={{
-          text: "Book a Consultation",
-          href: "/consultation#consultation-cta",
-        }}
-      />
+      {/* <CoreValues /> */}
+      <CoreValuesNew />
+      <TherapeuticApproach />
+      <OurStory />
+  
+        <ReusableCta
+              subtitle=""
+              title="Ready to Reconnect With Yourself?"
+              description="Whether you're facing uncertainty, seeking clarity, or ready for deeper transformation  your journey begins with a single step."
+              buttons={[
+                {
+                  text: "Explore Programs",
+                  href: "/programs",
+                },
+                {
+                  text: "Book a Consultation",
+                  href: "/consultation#consultation-cta",
+                },
+              ]}
+            />
     </div>
   );
 }

@@ -147,7 +147,7 @@ export function OurStory() {
         variants={staggerContainer}
         initial="hidden"
         whileInView="visible"
-        viewport={{ once: true, amount: 0.4 }}
+        viewport={{ once: true, amount: 0.2 }}
         className="container mx-auto  flex flex-col items-center"
       >
         
@@ -175,7 +175,7 @@ export function OurStory() {
               key={idx}
               initial={{ opacity: 0, x: 30 }}
               whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true, amount: 0.4 }}
+              viewport={{ once: true, amount: 0.2 }}
               transition={{
                 delay: idx * 0.15,
                 duration: 0.55,

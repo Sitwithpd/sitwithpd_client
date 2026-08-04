@@ -1,6 +1,8 @@
 import { Metadata } from "next";
 import Image from "next/image";
 import { ContactBody } from "@/components/pages/contact/contact-body";
+import { ContactSteps } from "@/components/pages/contact/contact-steps";
+import { ContactFaq } from "@/components/pages/contact/contact-faq";
 
 export const metadata: Metadata = {
   title: "Contact Us — Get in Touch With Sit With PD",
@@ -79,6 +81,9 @@ export default function ContactPage() {
 
       {/* Main content section */}
       <ContactBody />
+
+      <ContactSteps />
+      <ContactFaq />
     </div>
   );
 }
