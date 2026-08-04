@@ -3,6 +3,7 @@ import Image from "next/image";
 import { ContactBody } from "@/components/pages/contact/contact-body";
 import { ContactSteps } from "@/components/pages/contact/contact-steps";
 import { ContactFaq } from "@/components/pages/contact/contact-faq";
+import { ReusableCta } from "@/components/shared/reusable-cta";
 
 export const metadata: Metadata = {
   title: "Contact Us — Get in Touch With Sit With PD",
@@ -63,19 +64,25 @@ export default function ContactPage() {
         }}
       />
       {/* Hero section */}
-      <div className="relative w-full min-h-[40svh] lg:min-h-[50dvh] flex items-center justify-center">
+      <div className="relative w-full min-h-[70svh] lg:min-h-[70dvh] flex items-center justify-center">
         <Image
-          src={"/images/blog-hero.png"}
+          src={"/images/contact-hero-bg.webp"}
           alt={"Contact page background image"}
           fill
           className="object-cover"
           priority
         />
-        <div className="absolute inset-0 bg-black/25" />
-        <div className="w-full  flex relative items-center justify-center">
-          <h1 className="text-[#F9FDF9] font-semibold  text-[3.125rem] lg:text-[4rem] xl:text-[5rem] leading-[1.05] lg:text-center">
-            Contact Us
+        <div className="w-full  flex flex-col relative items-center justify-center max-w-2xl">
+          <span className="text-[#A8D675] font-medium text-xs border boder-[#FFFFFF33] bg-[#FFFFFF1A] px-4 py-2 rounded-full flex items-center justify-center ">
+            Get In Touch
+          </span>
+          <h1 className="heading-1 text-white text-center leading-[100%] mt-4 mb-5">
+            We'd Love to Hear From You
           </h1>
+          <p className="text-[#F7FBF6] text-base text-center">
+            Reach out and we'll connect you with the right support for your
+            journey.
+          </p>
         </div>
       </div>
 
@@ -84,6 +91,23 @@ export default function ContactPage() {
 
       <ContactSteps />
       <ContactFaq />
+      <div className="w-11/12 mx-auto rounded-[20px] lg:rounded-[30px] overflow-hidden">
+        <ReusableCta
+          subtitle="Take the First Step"
+          title="Your transformation starts with a single message."
+          description="Don't let uncertainty hold you back. Reach out today and let us guide you toward a more intentional, healed, and purposeful life."
+          buttons={[
+            {
+              text: "Book a Consultation",
+              action: "book-consultation",
+            },
+            {
+              text: "Explore Programs",
+              href: "/programs/programs-listing",
+            },
+          ]}
+        />
+      </div>
     </div>
   );
 }

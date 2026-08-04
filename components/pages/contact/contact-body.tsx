@@ -1,6 +1,7 @@
 "use client";
 
-import Image from "next/image";
+import { motion } from "motion/react";
+import { fadeInUp, staggerContainerSlow } from "@/lib/motion-variants";
 import { Mail, Phone, MapPin, User, Loader2 } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
@@ -63,26 +64,34 @@ export function ContactBody() {
   };
 
   return (
-    <section id="contact" className="w-[90%] max-w-7xl mx-auto py-16 lg:py-24">
-      <div className="flex flex-col lg:flex-row gap-12 lg:gap-16 max-w-5xl mx-auto">
+    <section id="contact" className="w-full py-16 lg:py-24">
+      <div className="flex  flex-col lg:flex-row gap-12 lg:gap-16 w-[90%]  max-w-6xl mx-auto">
         {/* Left Column: Image + Contact Info */}
-        <div className="w-full lg:flex-1 flex flex-col overflow-hidden  rounded-l-[20px]">
-          {/* Contact Image */}
-          <div className="relative w-full aspect-4/3   overflow-hidden">
-            <Image
-              src="/images/contact-image.png"
-              alt="Contact us - therapy session"
-              fill
-              className="object-cover"
-              sizes="(max-width: 1024px) 100vw, 42vw"
-            />
-          </div>
+        <div className="w-full lg:w-[40%] flex flex-col overflow-hidden  rounded-l-[20px]">
+          <motion.div
+            variants={staggerContainerSlow}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, amount: 0.4 }}
+            className="mb-8"
+          >
+            <motion.h2 variants={fadeInUp} className="heading-2 font-semibold">
+              Contact Information
+            </motion.h2>
+            <motion.p
+              variants={fadeInUp}
+              className="text-[#606060] text-sm mt-4"
+            >
+              We're here to support you. Reach out through any of the channels
+              below.
+            </motion.p>
+          </motion.div>
 
           {/* Contact Info Cards */}
-          <div className="flex flex-col gap-4 bg-[#E9EDF0] py-8 px-4">
+          <div className="flex flex-col gap-4  py-8 ">
             {/* Email Card */}
-            <div className="flex items-start gap-4 p-5 rounded-xl border border-[#EAECF0] bg-white hover:border-regular-button/30 transition-colors">
-              <div className="w-10 h-10 rounded-full bg-[#EEF2FF] flex items-center justify-center shrink-0">
+            <div className="flex items-start gap-4  shadow-[0px_4px_16px_-4px_#0000000A] p-5 rounded-xl border border-[#E8E8E8] bg-white">
+              <div className="w-10 h-10 rounded-full bg-[#ECFDF5] flex items-center justify-center shrink-0">
                 <Mail className="w-5 h-5 text-regular-button" />
               </div>
               <div>
@@ -97,8 +106,8 @@ export function ContactBody() {
             </div>
 
             {/* Phone Card */}
-            <div className="flex items-start gap-4 p-5 rounded-xl border border-[#EAECF0] bg-white hover:border-regular-button/30 transition-colors">
-              <div className="w-10 h-10 rounded-full bg-[#EEF2FF] flex items-center justify-center shrink-0">
+            <div className="flex items-start gap-4  shadow-[0px_4px_16px_-4px_#0000000A] p-5 rounded-xl border border-[#E8E8E8] bg-white">
+              <div className="w-10 h-10 rounded-full bg-[#ECFDF5] flex items-center justify-center shrink-0">
                 <Phone className="w-5 h-5 text-regular-button" />
               </div>
               <div>
@@ -109,22 +118,29 @@ export function ContactBody() {
             </div>
 
             {/* Office Card */}
-            <div className="flex items-start gap-4 p-5 rounded-xl border border-[#EAECF0] bg-white hover:border-regular-button/30 transition-colors">
-              <div className="w-10 h-10 rounded-full bg-[#EEF2FF] flex items-center justify-center shrink-0">
+            <div className="flex items-start gap-4  shadow-[0px_4px_16px_-4px_#0000000A] p-5 rounded-xl border border-[#E8E8E8] bg-white">
+              <div className="w-10 h-10 rounded-full bg-[#ECFDF5] flex items-center justify-center shrink-0">
                 <MapPin className="w-5 h-5 text-regular-button" />
               </div>
               <div className="space-y-2">
                 <h4 className="font-semibold text-[#111827] text-sm">Office</h4>
                 <div>
                   <p className="text-sm text-[#475467] leading-relaxed">
-                    International Headquarters; Gardenia Tropicana Lane Urmston,
+                    <span className="font-semibold text-[#131313]">
+                      {" "}
+                      International Headquarters:{" "}
+                    </span>{" "}
+                    <br /> Gardenia Tropicana Lane Urmston, <br />
                     Manchester United Kingdom.
                   </p>
-                </div>
+                </div>  
                 <div>
                   <p className="text-sm text-[#475467] leading-relaxed">
-                    African Headquarters; Gardenia Tropicana Camps Victoria
-                    Island, Lagos Nigeria.
+                    <span className="font-semibold text-[#131313]">
+                      African Headquarters:{" "}
+                    </span>{" "}
+                    <br /> Gardenia Tropicana Camps <br /> Victoria
+                    Island, Lagos <br /> Nigeria.
                   </p>
                 </div>
               </div>
@@ -133,7 +149,7 @@ export function ContactBody() {
         </div>
 
         {/* Right Column: Contact Form */}
-        <div className="w-full lg:flex-1">
+        <div className="w-full lg:flex-1 shadow-[0px_8px_32px_-8px_#0000001A] p-6">
           <div className="mb-8">
             <h2 className="text-[1.75rem] lg:text-[2rem] font-semibold text-[#101828] leading-tight">
               Get in touch
@@ -145,7 +161,7 @@ export function ContactBody() {
 
           <form
             onSubmit={handleSubmit(onSubmit)}
-            className="flex flex-col gap-6"
+            className="flex flex-col gap-6 mb-5"
           >
             {/* First Name */}
             <Controller
@@ -285,6 +301,8 @@ export function ContactBody() {
               )}
             </Button>
           </form>
+
+          <span className="text-[#9CA3AF] text-center block text-xs">We'll reach out to confirm your appointment within 24 hours.</span>
         </div>
       </div>
     </section>

@@ -85,16 +85,16 @@ export function ContactFaq() {
                 duration: 0.5,
                 ease: [0.25, 0.46, 0.45, 0.94],
               }}
-              className="flex flex-col p-7 rounded-[20px]"
+              className="flex flex-col p-7 rounded-[16px]"
               style={{
-                backgroundColor: faq.isHighlighted ? "#344054" : "#F9FAFB",
-                border: faq.isHighlighted ? "none" : "1px solid #EAECF0",
+                backgroundColor: faq.isHighlighted ? "#1F4842" : "#FFF",
+                border: faq.isHighlighted ? "none" : "1px solid #E8E8E8",
               }}
             >
               <h3
                 className="font-semibold text-base mb-3 leading-snug"
                 style={{
-                  color: faq.isHighlighted ? "#A8D675" : "#101828",
+                  color: faq.isHighlighted ? "#A8D675" : "#131313",
                 }}
               >
                 {faq.question}
@@ -102,9 +102,7 @@ export function ContactFaq() {
               <p
                 className="text-sm leading-relaxed"
                 style={{
-                  color: faq.isHighlighted
-                    ? "rgba(255,255,255,0.75)"
-                    : "#475467",
+                  color: faq.isHighlighted ? "#FFFFFFB2" : "#606060",
                 }}
               >
                 {faq.answer}

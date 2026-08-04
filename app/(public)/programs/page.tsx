@@ -73,7 +73,7 @@ export default function ProgramsPage() {
 
       <div className="w-11/12 mx-auto">
       <WhoShouldEnrol />
-        <ProgramGrowth />
+        {/* <ProgramGrowth /> */}
         {/* <PowerOfPresence /> */}
       </div>
       <WhatYouCanExpect />

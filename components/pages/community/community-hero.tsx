@@ -33,7 +33,7 @@ export default function CommunityHero() {
             >
               Join Our Community
             </motion.h1>
-            <motion.p variants={fadeInUpSlower} className="text-[#F7FBF6] text-xl lg:w-[80%] mx-auto md:text-center">
+            <motion.p variants={fadeInUpSlower} className="text-[#F7FBF6] text-[1.125rem] md:text-lg lg:w-[80%] mx-auto md:text-center">
               Our community is diverse, dynamic, and purpose-driven, designed to
               welcome individuals from all walks of life who are passionate
               about growth, impact, and transformation.

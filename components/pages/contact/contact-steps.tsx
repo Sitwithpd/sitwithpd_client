@@ -30,8 +30,8 @@ const steps = [
 
 export function ContactSteps() {
   return (
-    <section className="w-full py-16 lg:py-24 bg-white">
-      <div className="w-[90%] max-w-5xl mx-auto flex flex-col items-center">
+    <section className="w-full  pb-16 lg:pb-24 bg-white">
+      <div className="w-11/12 max-w-6xl mx-auto flex flex-col items-center">
         {/* Header */}
         <motion.div
           variants={staggerContainerSlow}
@@ -45,7 +45,7 @@ export function ContactSteps() {
           </motion.div>
           <motion.h2
             variants={fadeInUp}
-            className="heading-2 text-[#101828] max-w-lg"
+            className="heading-2 text-[#131313] max-w-lg"
           >
             Three simple steps to begin your journey
           </motion.h2>
@@ -65,28 +65,37 @@ export function ContactSteps() {
               initial={{ opacity: 0, y: 25 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, amount: 0.3 }}
+              whileHover={
+                step.isHighlighted
+                  ? { scale: 1.02, filter: "brightness(1.07)" }
+                  : {
+                      y: -6,
+                      boxShadow: "0px 16px 32px -8px rgba(96,147,93,0.18)",
+                    }
+              }
               transition={{
                 delay: i * 0.15,
                 duration: 0.55,
                 ease: [0.25, 0.46, 0.45, 0.94],
               }}
-              className="flex flex-col p-7 rounded-[20px]"
+              className="flex flex-col p-7 rounded-[20px] cursor-default"
               style={{
-                backgroundColor: step.isHighlighted ? "#344054" : "#F9FAFB",
-                border: step.isHighlighted ? "none" : "1px solid #EAECF0",
+                backgroundColor: step.isHighlighted ? "#1F4842" : "#F5F7F5",
               }}
             >
               {/* Step Number Badge */}
               <div
                 className="w-11 h-11 rounded-full flex items-center justify-center text-white font-bold text-base mb-6 shrink-0"
-                style={{ backgroundColor: "#60935D" }}
+                style={{
+                  backgroundColor: step.isHighlighted ? "#A8D675" : "#1F4842",
+                }}
               >
                 {step.number}
               </div>
               <h3
                 className="text-lg font-semibold mb-3"
                 style={{
-                  color: step.isHighlighted ? "#ffffff" : "#101828",
+                  color: step.isHighlighted ? "#ffffff" : "#131313",
                 }}
               >
                 {step.title}
@@ -94,9 +103,7 @@ export function ContactSteps() {
               <p
                 className="text-sm leading-relaxed"
                 style={{
-                  color: step.isHighlighted
-                    ? "rgba(255,255,255,0.75)"
-                    : "#475467",
+                  color: step.isHighlighted ? "#FFFFFFB2" : "#000",
                 }}
               >
                 {step.description}

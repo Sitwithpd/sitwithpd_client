@@ -70,7 +70,7 @@ function VideoThumb({
         ease: [0.25, 0.46, 0.45, 0.94],
       }}
       whileHover={{ y: -4 }}
-      className="relative group flex-none w-60 sm:w-72 rounded-[16px] overflow-hidden shadow-md focus:outline-none focus-visible:ring-2 focus-visible:ring-[#60935D]"
+      className="relative group flex-none w-60 sm:w-100 rounded-[16px] overflow-hidden shadow-md focus:outline-none focus-visible:ring-2 focus-visible:ring-[#60935D]"
     >
       {/* Thumbnail image */}
       {/* eslint-disable-next-line @next/next/no-img-element */}
@@ -285,7 +285,7 @@ export function VideoHighlights({
         style={{ scrollbarWidth: "none" }}
       >
         {validItems.map((item, i) => (
-          <div key={`${item.url}-${i}`} className="snap-start">
+          <div key={`${item.url}-${i}`} className="snap-start ">
             <VideoThumb item={item} index={i} onClick={handleOpen} />
           </div>
         ))}

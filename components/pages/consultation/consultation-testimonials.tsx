@@ -3,9 +3,7 @@
 import { motion } from "motion/react";
 import {
   fadeInUp,
-  fadeInRight,
   staggerContainerSlow,
-  staggerContainerDelayed,
 } from "@/lib/motion-variants";
 import { useGetAllTestimonials } from "@/lib/api/hooks/testimonials/testimonials.hooks";
 import CardSkeletons from "@/components/skeletons/card-skeletons";
