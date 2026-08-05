@@ -42,20 +42,20 @@ function AccordionTrigger({
       <AccordionPrimitive.Trigger
         data-slot="accordion-trigger"
         className={cn(
-          "group/accordion-trigger relative flex flex-1 items-start justify-between rounded-lg border border-transparent py-2.5 text-left text-sm font-medium transition-all outline-none hover:underline focus-visible:border-ring focus-visible:ring-3 focus-visible:ring-ring/50 focus-visible:after:border-ring disabled:pointer-events-none disabled:opacity-50 **:data-[slot=accordion-trigger-icon]:ml-auto **:data-[slot=accordion-trigger-icon]:size-4 **:data-[slot=accordion-trigger-icon]:text-muted-foreground",
+          "group/accordion-trigger relative flex flex-1 items-center justify-between rounded-lg border border-transparent py-2.5 text-left text-sm font-medium transition-all outline-none focus-visible:border-ring focus-visible:ring-3 focus-visible:ring-ring/50 disabled:pointer-events-none disabled:opacity-50",
           className,
         )}
         {...props}
       >
         {children}
-        <PlusIcon
+        {/* Circle icon wrapper */}
+        <span
           data-slot="accordion-trigger-icon"
-          className="pointer-events-none shrink-0 group-aria-expanded/accordion-trigger:hidden"
-        />
-        <MinusIcon
-          data-slot="accordion-trigger-icon"
-          className="pointer-events-none hidden shrink-0 group-aria-expanded/accordion-trigger:inline"
-        />
+          className="ml-4 shrink-0 w-8 h-8 rounded-full bg-[#E8F0E6] group-aria-expanded/accordion-trigger:bg-[#1F4842] flex items-center justify-center transition-colors duration-200"
+        >
+          <PlusIcon className="w-4 h-4 text-[#1F4842] pointer-events-none group-aria-expanded/accordion-trigger:hidden" />
+          <MinusIcon className="w-4 h-4 text-white pointer-events-none hidden group-aria-expanded/accordion-trigger:inline" />
+        </span>
       </AccordionPrimitive.Trigger>
     </AccordionPrimitive.Header>
   );

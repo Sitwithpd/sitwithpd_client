@@ -106,6 +106,7 @@ export function OurTeam() {
 
   const openModal = (index: number) => setSelectedIndex(index);
   const closeModal = () => setSelectedIndex(null);
+  
   const goNext = () =>
     setSelectedIndex((prev) =>
       prev !== null ? (prev + 1) % teamMembers.length : null,

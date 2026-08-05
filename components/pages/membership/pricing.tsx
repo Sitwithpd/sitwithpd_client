@@ -1,123 +1,188 @@
+"use client";
+
 import { Button } from "@/components/ui/button";
-import GrayCheckIcon from "@/pd-icons/gray-check";
+import { Pill } from "@/components/ui/pill";
 import { formatCurrency } from "@/lib/utils";
+import { motion } from "motion/react";
+import {
+  fadeInUp,
+  staggerContainerDelayed,
+  staggerContainerSlow,
+} from "@/lib/motion-variants";
+import { Check } from "lucide-react";
+
+const pricingPlans = [
+  {
+    name: "Standard",
+    price: formatCurrency(100),
+    period: "/mo",
+    description: "Perfect for those beginning their wellness journey",
+    highlight: false,
+    features: [
+      "Access to all community forums",
+      "Program discounts (10%)",
+      "Email support",
+      "Access to downloadable resources",
+    ],
+    buttonText: "Get Standard Plan",
+  },
+  {
+    name: "Blue",
+    price: formatCurrency(250),
+    period: "/mo",
+    description: "For committed members ready to grow deeply",
+    highlight: true,
+    features: [
+      "All Standard benefits",
+      "Unlimited program access",
+      "Priority email support",
+      "Exclusive member webinars",
+      "Member discounts on camps & retreats (15%)",
+    ],
+    buttonText: "Get Blue Plan",
+  },
+  {
+    name: "Green",
+    price: formatCurrency(500),
+    period: "/mo",
+    description: "For those seeking the ultimate transformation",
+    highlight: false,
+    features: [
+      "All Blue benefits",
+      "Dedicated personal facilitator",
+      "Weekly 1-on-1 sessions",
+      "Customized learning plans",
+      "Priority access to new programs",
+      "Exclusive retreats and camps access (25% off)",
+    ],
+    buttonText: "Get Green Plan",
+  },
+];
 
 export function MembershipPricing() {
-  const pricingPlans = [
-    {
-      name: "Standard",
-      price: formatCurrency(100),
-      amount: 100,
-      period: "Per month",
-      highlight: false,
-      features: [
-        "Access to all community forums",
-        "Program discounts (10%)",
-        "Email support",
-        "Access to member-alone resources",
-      ],
-      buttonText: "Get Standard Plan",
-    },
-    {
-      name: "Plus",
-      price: formatCurrency(250),
-      amount: 250,
-      period: "Per month",
-      highlight: true,
-      features: [
-        "All Standard benefits",
-        "Unlimited program access",
-        "Priority email support",
-        "Exclusive member webinars",
-        "Monthly 1-on-1 calls with a facilitator (15m)",
-      ],
-      buttonText: "Get Plus Plan",
-    },
-    {
-      name: "Green",
-      price: formatCurrency(500),
-      amount: 500,
-      period: "Per month",
-      highlight: false,
-      features: [
-        "All Plus benefits",
-        "Dedicated personal facilitator",
-        "Weekly 1-on-1 sessions",
-        "Customized well-being plans",
-        "Priority access to new programs",
-        "Exclusive retreats and camp access (20% off)",
-      ],
-      buttonText: "Get Green Plan",
-    },
-  ];
-
   return (
-    <section className="container mx-auto py-20 flex flex-col items-center">
-      <h2 className="heading-2 text-center mb-4">
-        Choose a Plan That Supports Your Growth
-      </h2>
-      <p className="text-center text-[#697586] mb-6 lg:mb-16 max-w-2xl  leading-6">
-        Find the subscription that works best for you. Choose wellbeing,
-        encourage growth, move forward today. Cancel anytime without fees.
-      </p>
+    <section className="py-20 bg-[#F4F7F3] flex flex-col items-center">
+      {/* Header */}
+      <motion.div
+        variants={staggerContainerSlow}
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true, amount: 0.4 }}
+        className="flex flex-col items-center text-center mb-14"
+      >
+        <motion.div variants={fadeInUp}>
+         <span className="bg-[#1F4842] text-[#A8D675] font-semibold text-sm mb-4 flex justify-center items-center py-2 px-4 rounded-full">
+            PRICING
+           </span>
+        </motion.div>
+        <motion.h2 variants={fadeInUp} className="heading-2 text-center mb-4">
+          Choose a Plan That Supports Your Growth
+        </motion.h2>
+        <motion.p
+          variants={fadeInUp}
+          className="text-center text-[#697586] max-w-lg leading-6 text-sm md:text-base"
+        >
+          Flexible membership options designed to support your wellbeing. Access
+          guidance, resources, and meaningful conversations at your pace.
+        </motion.p>
+      </motion.div>
 
-      <div className="grid grid-cols-1 xl:grid-cols-3 gap-6 xl:gap-8 w-11/12 sm:max-w-[400px] xl:max-w-6xl mx-auto items-stretch">
+      {/* Cards */}
+      <motion.div
+        variants={staggerContainerDelayed}
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true, amount: 0.2 }}
+        className="flex flex-col lg:flex-row gap-6 xl:max-w-6xl w-11/12  mx-auto "
+      >
         {pricingPlans.map((plan, idx) => (
-          <div
+          <motion.div
             key={idx}
-            className={`flex flex-col rounded-[32px] px-8 py-15 md:py-[100px] transition-all duration-300 relative ${
-              plan.highlight
-                ? "bg-white border-2 border-[#649351] z-10 xl:-mt-4 xl:mb-4"
-                : "bg-white border border-[#2C2D47]  xl:mt-2 xl:scale-[0.95]"
-            }`}
+            variants={fadeInUp}
+            className={`flex flex-col rounded-[20px] shadow-[0px_16px_48px_0px_#1F484255] p-8 transition-all duration-300 relative
+              ${
+                plan.highlight
+                  ? "bg-[#1F4842] text-white z-10 xl:scale-[1.06] xl:shadow-2xl"
+                  : "bg-white border border-[#E8E8E8] shadow-sm"
+              }
+            `}
           >
-            <div className="text-center mb-8">
-              <h3 className="text-lg font-medium text-[#242424] mb-4">
+            {/* Badge */}
+            <div className="mb-5">
+              <span
+                className={`inline-block px-3 py-1 rounded-full text-[11px] font-semibold tracking-widest uppercase
+                  ${plan.highlight ? "bg-[#FFFFFF1A] text-[#A8D675]" : "bg-[#F0F5EF] text-[#60935D]"}
+                `}
+              >
                 {plan.name}
-              </h3>
-              <div className="flex items-end justify-center gap-1 mb-2">
-                <span
-                  className={`text-[56px] font-medium leading-none ${plan.highlight ? "text-[#649351]" : "text-[#242424]"}`}
-                >
-                  {plan.price}
-                </span>
-              </div>
-              <p className="text-[#242424] font-medium text-base">
-                {plan.period}
-              </p>
+              </span>
             </div>
 
-            <ul className="space-y-4 mb-10 flex-1">
+            {/* Price */}
+            <div className="flex items-end gap-1 mb-3">
+              <span
+                className={`text-[3.25rem] font-bold leading-none ${plan.highlight ? "text-white" : "text-[#131313]"}`}
+              >
+                {plan.price}
+              </span>
+              <span
+                className={`text-base mb-2 font-medium ${plan.highlight ? "text-[#A8D675]" : "text-[#606060]"}`}
+              >
+                {plan.period}
+              </span>
+            </div>
+
+            {/* Description */}
+            <p
+              className={`text-sm mb-6 leading-relaxed ${plan.highlight ? "text-white/70" : "text-[#606060]"}`}
+            >
+              {plan.description}
+            </p>
+
+            {/* Divider */}
+            <div
+              className={`w-full h-px mb-6 ${plan.highlight ? "bg-white/20" : "bg-[#EAEAEA]"}`}
+            />
+
+            {/* Features */}
+            <ul className="space-y-3 mb-8 flex-1">
               {plan.features.map((feature, fIdx) => (
-                <li key={fIdx} className="flex items-center gap-3">
+                <li key={fIdx} className="flex items-start gap-3">
                   <span
-                    style={{
-                      background: "rgba(100, 147, 81, 0.2)",
-                    }}
-                    className="  w-[17px] h-[17px] rounded-full flex items-center justify-center "
+                    className={`mt-0.5 w-[18px] h-[18px] rounded-full flex items-center justify-center shrink-0
+                      ${plan.highlight ? "bg-[#649351]" : "bg-[#649351]/15"}
+                    `}
                   >
-                    <GrayCheckIcon color={"#649351"} />
+                    <Check
+                      className={`w-3 h-3 ${plan.highlight ? "text-white" : "text-[#649351]"}`}
+                      strokeWidth={2.5}
+                    />
                   </span>
-                  <span className="text-black text-base font-medium ">
+                  <span
+                    className={`text-sm leading-relaxed ${plan.highlight ? "text-white/90" : "text-[#242424]"}`}
+                  >
                     {feature}
                   </span>
                 </li>
               ))}
             </ul>
 
+            {/* Button */}
             <Button
               variant={plan.highlight ? "regular" : "outline"}
-              className={`w-full  h-12 text-base font-medium ${
-                plan.highlight
-                  ? " hover:bg-[#4E7D4C] text-white border-none"
-                  : "bg-gray-100 border-[#2C2D47] border text-[#242424]  "
-              }`}
+              className={`w-full h-12 text-sm font-medium rounded-[12px]
+                ${
+                  plan.highlight
+                    ? "bg-[#60935D] hover:bg-[#4E7D4C] text-white border-none"
+                    : "bg-[#F4F7F3] border border-[#D0DFD0] text-[#1F4842] hover:bg-[#F5F5F5]"
+                }
+              `}
             >
               {plan.buttonText}
             </Button>
-          </div>
+          </motion.div>
         ))}
-      </div>
+      </motion.div>
     </section>
   );
 }

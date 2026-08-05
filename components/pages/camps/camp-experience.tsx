@@ -36,7 +36,7 @@ export function CampExperience() {
     [];
 
   return (
-    <section className="w-full bg-[#0F2318] py-16 lg:py-24">
+    <section id="camp-services" className="w-full bg-[#0F2318] py-16 lg:py-24">
       <div className="w-11/12 mx-auto max-w-7xl">
         {/* Header */}
         <motion.div

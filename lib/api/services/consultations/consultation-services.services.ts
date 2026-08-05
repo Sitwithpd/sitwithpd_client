@@ -12,7 +12,7 @@ export interface ConsultationService {
   price: number;
   priceMinor: number;
   duration: number; // minutes
-  calEventTypeId: string | null;
+  calEventTypeId: number | string | null;
   calBookingUrl: string;
   isActive: boolean;
   currency: string;
@@ -21,11 +21,11 @@ export interface ConsultationService {
   audience: string[];
   whatsIncluded: string[];
   /** Single FORMAT tag, lifted out of the FK by the API serializer. */
-  format: Tag | null;
-  formatTagId: string | null;
+  format?: Tag | null;
+  formatTagId?: string | null;
   /** Short reusable TOPIC pills. */
-  tags: Tag[];
-  createdAt: string;
+  tags?: Tag[];
+  createdAt?: string;
   updatedAt?: string;
 }
 

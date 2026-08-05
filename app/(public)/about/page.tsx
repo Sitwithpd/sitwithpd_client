@@ -63,7 +63,7 @@ export default function AboutPage() {
         }}
       />
       <AboutHero />
-        <SitWithPD />
+      <SitWithPD />
       <div className="w-11/12 k mx-auto">
         <OurMission />
       </div>
@@ -71,22 +71,22 @@ export default function AboutPage() {
       <CoreValuesNew />
       <TherapeuticApproach />
       <OurStory />
-  
-        <ReusableCta
-              subtitle=""
-              title="Ready to Reconnect With Yourself?"
-              description="Whether you're facing uncertainty, seeking clarity, or ready for deeper transformation  your journey begins with a single step."
-              buttons={[
-                {
-                  text: "Explore Programs",
-                  href: "/programs",
-                },
-                {
-                  text: "Book a Consultation",
-                  href: "/consultation#consultation-cta",
-                },
-              ]}
-            />
+
+      <ReusableCta
+        subtitle=""
+        title="Ready to Reconnect With Yourself?"
+        description="Whether you're facing uncertainty, seeking clarity, or ready for deeper transformation  your journey begins with a single step."
+        buttons={[
+          {
+            text: "Explore Programs",
+            href: "/programs",
+          },
+          {
+            text: "Book a Consultation",
+            href: "/consultation#consultation-services",
+          },
+        ]}
+      />
     </div>
   );
 }

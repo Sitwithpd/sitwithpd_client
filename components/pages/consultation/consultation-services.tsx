@@ -1,99 +1,48 @@
 "use client";
 
+import React from "react";
+import Image from "next/image";
+import Link from "next/link";
 import { useGetAllConsultationServices } from "@/lib/api/hooks/consultations/consultation-services.hooks";
-import { getCalApi } from "@calcom/embed-react";
 import { motion } from "motion/react";
 import { Button } from "@/components/ui/button";
 import { Skeleton } from "@/components/ui/skeleton";
-import { formatCurrency } from "@/lib/utils";
 import { Pill } from "@/components/ui/pill";
 import CaretRight from "@/pd-icons/caret-right";
-import { Clock } from "lucide-react";
-import { useAuthStore } from "@/store/use-auth-store";
+import { formatCurrency } from "@/lib/utils";
 
-import { useModalStore } from "@/components/store/use-modal-store";
-import {
-  SignInRequiredModal,
-  SIGN_IN_MODAL_ID,
-} from "@/components/sign-in-required-modal";
-import {
-  PolicyAgreementModal,
-  POLICY_AGREEMENT_MODAL_ID,
-} from "@/components/policy-agreement-modal";
+// Swiper imports
+import { Swiper, SwiperSlide } from "swiper/react";
+import { Autoplay, Pagination } from "swiper/modules";
+import "swiper/css";
+import "swiper/css/pagination";
+import { fadeInUp, staggerContainerSlow } from "@/lib/motion-variants";
 
 export function ConsultationServices() {
-  const isAuthenticated = useAuthStore((state) => state.isAuthenticated);
-  const openModal = useModalStore((state) => state.openModal);
-
   const { data, isLoading } = useGetAllConsultationServices();
-
-  const handleBookCard = async (bookingUrl: string) => {
-    if (!isAuthenticated) {
-      openModal(
-        SIGN_IN_MODAL_ID,
-        <SignInRequiredModal
-          message="You need to be signed in to book a consultation session. Sign in to your account so we can set everything up for you."
-          callbackUrl="/consultation#consultation-cta"
-        />,
-      );
-      return;
-    }
-
-    openModal(
-      POLICY_AGREEMENT_MODAL_ID,
-      <PolicyAgreementModal
-        title="Consultation Agreement"
-        description="Please review and accept our consultation policies."
-        onConfirm={async () => {
-          const cal = await getCalApi({ namespace: "consultation" });
-          cal("modal", {
-            calLink: bookingUrl,
-            config: { layout: "month_view", useSlotsViewOnSmallScreen: "true" },
-          });
-        }}
-      />,
-    );
-  };
-
-  const containerVariants = {
-    hidden: {},
-    visible: {
-      transition: {
-        staggerChildren: 0.1,
-      },
-    },
-  } as const;
-
-  const cardVariants = {
-    hidden: { opacity: 0, y: 20 },
-    visible: {
-      opacity: 1,
-      y: 0,
-      transition: { duration: 0.5, ease: "easeOut" },
-    },
-  } as const;
 
   if (isLoading) {
     return (
-      <section className="py-20 bg-white" id="consultation-cta">
-        <div className="container mx-auto px-4 lg:px-8 max-w-6xl">
+      <section className="py-20 bg-white" id="consultation-services">
+        <div className="w-11/12 max-w-7xl mx-auto flex flex-col items-center">
           <div className="flex flex-col items-center text-center mb-12">
             <Skeleton className="h-6 w-32 rounded-full mb-4" />
             <Skeleton className="h-10 w-3/4 lg:w-1/2 mb-2" />
           </div>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 w-full">
             {[1, 2, 3].map((i) => (
               <div
                 key={i}
-                className="p-8 rounded-2xl border border-slate-100 bg-white shadow-sm"
+                className="rounded-[20px] w-full overflow-hidden border border-slate-100 bg-[#A8D6751A] shadow-sm flex flex-col"
               >
-                <Skeleton className="h-8 w-3/4 mb-4" />
-                <Skeleton className="h-20 w-full mb-6" />
-                <div className="flex justify-between items-center mb-6">
-                  <Skeleton className="h-6 w-24" />
-                  <Skeleton className="h-6 w-24" />
+                <Skeleton className="h-52 w-full" />
+                <div className="p-6 flex flex-col flex-1">
+                  <Skeleton className="h-8 w-12 mb-3" />
+                  <Skeleton className="h-6 w-28 rounded-full mb-4" />
+                  <Skeleton className="h-7 w-3/4 mb-3" />
+                  <Skeleton className="h-12 w-full mb-6" />
+                  <Skeleton className="h-10 w-full rounded-xl mt-auto" />
                 </div>
-                <Skeleton className="h-12 w-full rounded-xl" />
               </div>
             ))}
           </div>
@@ -103,83 +52,170 @@ export function ConsultationServices() {
   }
 
   const services =
-    data?.data.filter((service) => service.calBookingUrl !== null) || [];
+    data?.data?.filter((service) => service.calBookingUrl !== null) || [];
 
   return (
-    <section className="py-20 lg:pt-20  bg-white" id="consultation-cta">
-      <div className="container mx-auto px-4 sm:max-w-[400px] md:max-w-7xl flex flex-col items-center">
-        <div className="flex flex-col items-center text-center mb-16">
-          <Pill text="Our Services" className="mb-4" />
-          <h2 className="heading-2 max-w-2xl">
+    <section
+      className="py-20 bg-white overflow-hidden w-full "
+      id="consultation-services"
+    >
+      <div className="w-11/12 max-w-7xl mx-auto flex flex-col items-center">
+        {/* Header */}
+        <motion.div
+          variants={staggerContainerSlow}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, amount: 0.3 }}
+          className="flex flex-col items-center text-center mb-14"
+        >
+          <motion.span
+            variants={fadeInUp}
+            className="text-regular-button font-semibold text-sm tracking-[2.5px] uppercase block "
+          >
+            Our Services
+          </motion.span>
+          <motion.h2
+            variants={fadeInUp}
+            className="heading-2 max-w-2xl text-[#131313]"
+          >
             Choose a consultation package that fits your needs
-          </h2>
-        </div>
+          </motion.h2>
+        </motion.div>
 
         {services.length === 0 ? (
           <div className="text-center py-20 bg-slate-50 rounded-3xl w-full border border-dashed border-slate-200">
-            <p className="heading-2 mb-12 max-w-2xl text-center">
+            <p className="heading-2 mb-4 max-w-2xl text-center mx-auto text-[#606060]">
               No consultation services are available at the moment. Please check
               back later.
             </p>
           </div>
         ) : (
-          <motion.div
-            className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 w-full"
-            variants={containerVariants}
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true, amount: 0.1 }}
-          >
-            {services.map((service) => (
-              <motion.div
-                key={service.id}
-                variants={cardVariants}
-                className="group flex flex-col p-4 rounded-[16px] border border-[#F3F4F6] bg-white shadow-sm hover:shadow-lg hover:border-[#EBFDF3] hover:scale-105 transition-all duration-300 relative overflow-hidden"
-              >
-                {/* Decorative background element */}
-                <div className="absolute -top-12 -right-12 w-24 h-24 bg-emerald-50 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+          <div className="w-full">
+            <Swiper
+              modules={[Autoplay, Pagination]}
+              loop={services.length > 1}
+              slidesPerView={1}
+              spaceBetween={24}
+              breakpoints={{
+                640: {
+                  slidesPerView: 1,
+                  spaceBetween: 24,
+                },
+                768: {
+                  slidesPerView: 1.2,
+                  spaceBetween: 28,
+                },
+                1024: {
+                  slidesPerView: 1.5,
+                  spaceBetween: 32,
+                },
+              }}
+              autoplay={{ delay: 5000, disableOnInteraction: false }}
+              pagination={{ clickable: true }}
+              className="w-full consultation-swiper pb-14!"
+            >
+              {services.map((service, index) => {
+                const formattedNumber = (index + 1).toString().padStart(2, "0");
 
-                <h3 className="text-[#101828] font-medium text-lg mb-3 pr-6">
-                  {service.title}
-                </h3>
-                <p className="text-[#4A5565] text-base line-clamp-2 leading-[1.425rem] mb-3 grow">
-                  {service.description}
-                </p>
+                const badgeText =
+                  service.format?.name ||
+                  service.tags?.[0]?.name ||
+                  "CONSULTATION";
 
-                <div className="flex items-center justify-between py-6 border-t border-slate-50 mb-2">
-                  <div className="flex items-center gap-2 text-slate-500">
-                    <Clock className="w-4 h-4 text-regular-button" />
-                    <span className="text-sm font-medium">
-                      {service.duration} mins
-                    </span>
-                  </div>
-                  <div className="text-right">
-                    <div className="text-regular-button font-bold text-lg">
-                      {formatCurrency(service.price, service.currency)}
-                    </div>
-                  </div>
-                </div>
+                const bullets =
+                  service.whatsIncluded && service.whatsIncluded.length > 0
+                    ? service.whatsIncluded
+                    : service.audience && service.audience.length > 0
+                      ? service.audience
+                      : service.tags?.map((t) => t.name) || [];
 
-                <Button
-                  onClick={() =>
-                    handleBookCard(
-                      service.calBookingUrl.replace(
-                        /^https:\/\/cal\.com\//,
-                        "",
-                      ),
-                    )
-                  }
-                  variant="regular"
-                  className="w-full  group/btn"
-                >
-                  Book Session
-                  <CaretRight className="ml-2 w-4 h-4 group-hover/btn:translate-x-1 transition-transform" />
-                </Button>
-              </motion.div>
-            ))}
-          </motion.div>
+                return (
+                  <SwiperSlide key={service.id} className="h-auto! flex">
+                    <motion.div
+                      initial={{ opacity: 0, y: 20 }}
+                      whileInView={{ opacity: 1, y: 0 }}
+                      viewport={{ once: true, amount: 0.2 }}
+                      className="flex flex-col flex-1 rounded-[20px] overflow-hidden shadow-sm border border-[#E8E8E8] transition-all duration-300 hover:shadow-md group"
+                    >
+                      <div className="relative w-full aspect-video bg-slate-100 overflow-hidden shrink-0">
+                        <Image
+                          src={
+                            service.coverImageUrl || "/images/contact-image.png"
+                          }
+                          alt={service.title}
+                          fill
+                          className="object-cover group-hover:scale-105 transition-transform duration-500"
+                        />
+                      </div>
+
+                      <div className="flex flex-col flex-1 p-6 lg:p-8 bg-[#A8D6751A] justify-between">
+                        <div>
+                          <div className="text-4xl lg:text-5xl font-extrabold text-[#60935D]/30 mb-3 tracking-tight select-none">
+                            {formattedNumber}
+                          </div>
+
+                          <div className="mb-3">
+                            <span className="inline-block px-3.5 py-1 rounded-full text-xs font-semibold tracking-wider text-[#1F4842] bg-[#60935D]/20 uppercase">
+                              {badgeText}
+                            </span>
+                          </div>
+
+                          <h3 className="text-xl lg:text-2xl font-bold text-[#131313] mb-3 leading-snug">
+                            {service.title}
+                          </h3>
+
+                          <p className="text-[#475467] text-sm lg:text-base line-clamp-2 leading-relaxed mb-6">
+                            {service.description}
+                          </p>
+                        </div>
+
+                        <div className="pt-4 border-t border-[#60935D]/15 mt-4">
+                          <div className="flex items-center justify-between mb-4">
+                            <span className="text-xs lg:text-sm text-[#606060]">
+                              Duration: {service.duration} mins
+                            </span>
+                            <span className="text-base lg:text-lg font-bold text-[#1F4842]">
+                              {formatCurrency(service.price, service.currency)}
+                            </span>
+                          </div>
+
+                          <Link
+                            href={`/consultation/${service.id}`}
+                            className="w-full block"
+                          >
+                            <Button
+                              variant="regular"
+                              className="w-full rounded-[10px]! font-medium py-3 flex items-center justify-center gap-2 group/btn"
+                            >
+                              View more details
+                              <CaretRight className="w-4 h-4 group-hover/btn:translate-x-1 transition-transform" />
+                            </Button>
+                          </Link>
+                        </div>
+                      </div>
+                    </motion.div>
+                  </SwiperSlide>
+                );
+              })}
+            </Swiper>
+          </div>
         )}
       </div>
+
+      {/* make pagination dots white */}
+      <style jsx global>{`
+        .swiper-pagination-bullet {
+          background: #eee !important;
+          opacity: 1 !important;
+          width: 0.75rem !important;
+          height: 0.75rem !important;
+        }
+        .swiper-pagination-bullet-active {
+          background: #60935d !important;
+          width: 2rem !important;
+          border-radius: 1rem !important;
+        }
+      `}</style>
     </section>
   );
 }

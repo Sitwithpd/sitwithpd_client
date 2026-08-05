@@ -66,19 +66,17 @@ export function CampHero() {
             variants={fadeInRight}
             className="flex flex-col sm:flex-row justify-start md:justify-start  w-full gap-4 mt-4"
           >
-            <Link href={"/contact"}>
               <Button
-              // onClick={() =>
-              //   document
-              //     .getElementById("camp-services")
-              //     ?.scrollIntoView({ behavior: "smooth" })
-              // }
-              className="w-full"
+              onClick={() =>
+                document
+                  .getElementById("camp-services")
+                  ?.scrollIntoView({ behavior: "smooth" })
+              }
+              className=""
               variant={"regular"}
             >
               Apply Now <CaretRight />
             </Button>
-            </Link>
           
             <Link href={"/about"}>
               <Button variant={"outline"} className="w-full ">

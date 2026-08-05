@@ -19,7 +19,7 @@ export function TherapeuticApproach() {
   ];
 
   return (
-    <section className="container bg-[#F7FBF6] mx-auto  py-18 ">
+    <section className=" bg-[#F7FBF6] mx-auto  py-18 ">
       <div className="flex flex-col items-center w-11/12 mx-auto">
       <motion.div
         variants={staggerContainerDelayed}
