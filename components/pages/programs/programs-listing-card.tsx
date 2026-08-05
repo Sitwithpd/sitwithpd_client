@@ -22,6 +22,7 @@ import { formatCurrency } from "@/lib/utils";
 import { Program } from "@/types/programs.types";
 import { VideoHighlights } from "@/components/shared/video-highlights";
 import type { VideoItem } from "@/components/shared/video-highlights";
+import { openCheckout } from "@/lib/checkout";
 
 // Badge colour config keyed by category
 const CATEGORY_BADGE: Record<
@@ -106,8 +107,6 @@ export default function ProgramsListingCard({ program }: { program: Program }) {
 
   // ---- Payment ----
   const startPayment = () => {
-    const paymentTab = window.open("", "_blank");
-
     const payload: CreatePaymentPayload = {
       itemId: id,
       type: "PROGRAM",
@@ -116,13 +115,10 @@ export default function ProgramsListingCard({ program }: { program: Program }) {
     createPayment(payload, {
       onSuccess: (data) => {
         closeModal("loading");
-        if (paymentTab) {
-          paymentTab.location.href = data?.data?.authorizationUrl;
-        }
+        openCheckout(data?.data?.authorizationUrl);
       },
       onError: () => {
         closeModal("loading");
-        paymentTab?.close();
         localStorage.removeItem("pending_enrollment");
       },
     });

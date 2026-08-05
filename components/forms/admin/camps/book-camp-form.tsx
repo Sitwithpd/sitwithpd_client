@@ -32,6 +32,7 @@ import LearningObjectivesField from "../program/learning-objectives-field";
 import { useCreatePayment } from "@/lib/api/hooks/payments/payments.hooks";
 import { getMyCampRegistrations } from "@/lib/api/services/camps/camps.services";
 import { usePlatformSettingsStore } from "@/store/use-platform-settings-store";
+import { openCheckout } from "@/lib/checkout";
 
 // Modal shown when user has a pending application and needs to complete payment
 function PendingRegistrationModal({
@@ -53,8 +54,6 @@ function PendingRegistrationModal({
       const registrationId = mine.data.actionable?.id ?? mine.data.registrations[0]?.id;
       if (!registrationId) throw new Error("No registration to pay for.");
 
-      const paymentTab = window.open("", "_blank");
-
       createPayment(
         {
           type: "CAMP" as const,
@@ -62,13 +61,8 @@ function PendingRegistrationModal({
         },
         {
           onSuccess: (paymentData: any) => {
-            if (paymentTab) {
-              paymentTab.location.href = paymentData?.data?.authorizationUrl;
-            }
+            openCheckout(paymentData?.data?.authorizationUrl);
             closeModal("pending-registration");
-          },
-          onError: () => {
-            paymentTab?.close();
           },
         },
       );
@@ -222,8 +216,6 @@ export default function BookCampForm({
       },
     };
 
-    const paymentTab = window.open("", "_blank");
-
     bookACamp(
       { campId, payload },
       {
@@ -247,21 +239,16 @@ export default function BookCampForm({
 
           createPayment(paymentPayload, {
             onSuccess: (paymentData) => {
-              if (paymentTab) {
-                paymentTab.location.href = paymentData?.data?.authorizationUrl;
-              }
-
+              openCheckout(paymentData?.data?.authorizationUrl);
               closeModal("loading");
             },
             onError: () => {
               closeModal("loading");
-              paymentTab?.close();
             },
           });
         },
         onError: (error: any) => {
           closeModal("loading");
-          paymentTab?.close();
 
           // Detect pending application error and show recovery modal
           const isPendingApplication = error?.message

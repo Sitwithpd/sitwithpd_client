@@ -11,9 +11,7 @@ import { formatCurrency } from "@/lib/utils";
 import {
   Calendar,
   Check,
-  CheckCircle,
   Clock10Icon,
-  Lightbulb,
 } from "lucide-react";
 import { Checkbox } from "@/components/ui/checkbox";
 import { PaymentSecurityBadge } from "@/components/payment-security-badge";
@@ -32,7 +30,7 @@ import { useGetDashboardData } from "@/lib/api/hooks/dashboard/dashboard.hooks";
 import { Purchase } from "@/lib/api/services/dashboard/dashboard.services";
 import { CreatePaymentPayload } from "@/lib/api/services/payments/payments.services";
 import { notFound } from "next/navigation";
-import { usePlatformSettingsStore } from "@/store/use-platform-settings-store";
+import { openCheckout } from "@/lib/checkout";
 
 function ProgramDetailsWrapper({ id }: { id: string }) {
   const [agreedPolicies, setAgreedPolicies] = useState(false);
@@ -43,8 +41,7 @@ function ProgramDetailsWrapper({ id }: { id: string }) {
   const {
     data: programData,
     isLoading,
-    isError,
-    isFetching,
+    isError
   } = useGetProgramById(id);
   const { mutate: createPayment, isPending: isCreatingPayment } =
     useCreatePayment();
@@ -90,9 +87,6 @@ function ProgramDetailsWrapper({ id }: { id: string }) {
 
   // submit enrollment
   const startPayment = () => {
-    // Open tab immediately to avoid popup blockers
-    const paymentTab = window.open("", "_blank");
-
     const payload: CreatePaymentPayload = {
       itemId: id,
       type: "PROGRAM",
@@ -101,13 +95,10 @@ function ProgramDetailsWrapper({ id }: { id: string }) {
     createPayment(payload, {
       onSuccess: (data) => {
         closeModal("loading");
-        if (paymentTab) {
-          paymentTab.location.href = data?.data?.authorizationUrl;
-        }
+        openCheckout(data?.data?.authorizationUrl);
       },
       onError: () => {
         closeModal("loading");
-        paymentTab?.close();
         // Clear pending enrollment if payment init fails
         localStorage.removeItem("pending_enrollment");
       },
