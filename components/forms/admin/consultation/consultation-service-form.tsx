@@ -43,6 +43,14 @@ export default function ConsultationServiceForm({
             className="bg-white"
           />
 
+          <FormFieldComp
+            name="category"
+            control={form.control}
+            label="Category *"
+            placeholder="e.g. Career Coaching"
+            className="bg-white"
+          />
+
           <Controller
             control={form.control}
             name="description"

@@ -103,6 +103,18 @@ const ConsultationServicesColumn = (): ColumnDef<ConsultationService>[] => [
     size: 200,
   },
   {
+    accessorKey: "category",
+    header: "Category",
+    cell: ({ row }) =>
+      row.original.category ? (
+        <Badge variant="secondary" className="font-normal">
+          {row.original.category}
+        </Badge>
+      ) : (
+        <span className="text-xs text-secondary-text">—</span>
+      ),
+  },
+  {
     accessorKey: "description",
     header: "Description",
     cell: ({ row }) => (
