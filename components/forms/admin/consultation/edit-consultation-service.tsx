@@ -30,6 +30,7 @@ export default function EditConsultationServiceModal({
     mode: "onChange",
     defaultValues: {
       title: service.title ?? "",
+      category: service.category ?? "",
       description: service.description ?? "",
       price: service.price?.toString() ?? "",
       duration: service.duration?.toString() ?? "",

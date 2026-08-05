@@ -11,6 +11,7 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
+import { openCheckout } from "@/lib/checkout";
 import {
   User,
   Users,
@@ -51,18 +52,11 @@ export default function CampRegistrationDetails({ campId }: CampRegistrationDeta
   const { mutate: createPayment, isPending: isCreatingPayment } = useCreatePayment();
 
   const handlePayNow = () => {
-    const paymentTab = window.open("", "_blank");
-
     createPayment(
       { type: "CAMP" as const, itemId: registration!.id },
       {
         onSuccess: (paymentData: any) => {
-          if (paymentTab) {
-            paymentTab.location.href = paymentData?.data?.authorizationUrl;
-          }
-        },
-        onError: () => {
-          paymentTab?.close();
+          openCheckout(paymentData?.data?.authorizationUrl);
         },
       },
     );

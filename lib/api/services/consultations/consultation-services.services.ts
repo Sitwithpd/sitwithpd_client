@@ -7,6 +7,8 @@ import type { Tag } from "@/lib/api/services/tags/tags.services";
 export interface ConsultationService {
   id: string;
   title: string;
+  /** Single free-text phrase. Null on services created before the field existed. */
+  category: string | null;
   description: string;
   /** Localised presentment price; the currency comes from X-Req-Currency. */
   price: number;

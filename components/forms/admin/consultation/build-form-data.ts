@@ -14,6 +14,7 @@ export function buildConsultationServiceFormData(
   const formData = new FormData();
 
   formData.append("title", data.title);
+  formData.append("category", data.category);
   formData.append("description", data.description);
   formData.append("price", String(Number(data.price)));
   formData.append("duration", String(Number(data.duration)));

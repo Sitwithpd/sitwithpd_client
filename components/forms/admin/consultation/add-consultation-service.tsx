@@ -23,6 +23,7 @@ export default function AddConsultationServiceModal() {
     mode: "onChange",
     defaultValues: {
       title: "",
+      category: "",
       calBookingUrl: "",
       description: "",
       price: "",

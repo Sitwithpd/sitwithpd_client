@@ -36,10 +36,12 @@ export default function ConsultationServicesOverview() {
   // filter the table data using search bar or filter component 
 const filteredData = useMemo(() => {
   return (data?.data ?? []).filter((service) => {
+    const q = search.toLowerCase();
     const matchesSearch =
       !search ||
-      service.title.toLowerCase().includes(search.toLowerCase()) ||
-      service.description.toLowerCase().includes(search.toLowerCase());
+      service.title.toLowerCase().includes(q) ||
+      service.description.toLowerCase().includes(q) ||
+      (service.category ?? "").toLowerCase().includes(q);
 
     const matchesFilter =
       !filteredItem ||
