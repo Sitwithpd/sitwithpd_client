@@ -113,7 +113,7 @@ function TeamMemberModal({
           </p>
 
           {/* Bio content */}
-          <div className="flex flex-col gap-3 text-[#444444] text-base leading-relaxed overflow-y-auto max-h-[300px] pr-1">
+          <div className="flex flex-col gap-3 whitespace-pre-wrap text-[#444444] text-base leading-relaxed overflow-y-auto max-h-75 pr-1">
             {detailLoading ? (
               // Skeleton while fetching detail
               <div className="flex flex-col gap-3">
