@@ -64,6 +64,31 @@ export default function TeamForm({
           )}
         />
 
+        {/* Bio — long-form, so a textarea that keeps the admin's line breaks */}
+        <Controller
+          control={control}
+          name="bio"
+          render={({ field, fieldState }) => (
+            <Field data-invalid={fieldState.invalid}>
+              <FieldLabel htmlFor="bio">Bio</FieldLabel>
+              <textarea
+                {...field}
+                value={field.value ?? ""}
+                id="bio"
+                rows={8}
+                placeholder={
+                  "A few paragraphs about this member.\n\nLeave a blank line between paragraphs — line breaks are kept."
+                }
+                className="bg-white dark:bg-input/30 border border-[#EAECF0] dark:border-border rounded-[5px] w-full text-sm text-primary-text placeholder:text-[#98A2B3] px-3 py-3 outline-none focus-visible:ring-0 resize-y min-h-40 whitespace-pre-wrap"
+              />
+              <p className="text-xs text-secondary-text">
+                {(field.value?.length ?? 0).toLocaleString()} / 5,000 characters
+              </p>
+              {fieldState.invalid && <FieldError errors={[fieldState.error]} />}
+            </Field>
+          )}
+        />
+
         {/* Display Order */}
         <Controller
           control={control}

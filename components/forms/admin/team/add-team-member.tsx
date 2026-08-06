@@ -19,6 +19,7 @@ export default function AddTeamMemberModal() {
     defaultValues: {
       name: "",
       role: "",
+      bio: "",
       order: "0",
       isPublished: false,
       image: undefined,
@@ -29,6 +30,7 @@ export default function AddTeamMemberModal() {
     const formData = new FormData();
     formData.append("name", data.name);
     formData.append("role", data.role);
+    formData.append("bio", data.bio ?? "");
     formData.append("order", String(data.order));
     formData.append("isPublished", String(data.isPublished));
     if (data.image instanceof File) {

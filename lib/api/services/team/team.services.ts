@@ -5,6 +5,8 @@ export interface TeamMember {
   id: string;
   name: string;
   role: string;
+  /** Long-form copy; newlines are paragraph breaks. Null when never set. */
+  bio: string | null;
   isPublished: boolean;
   order: number;
   photoUrl: string;
