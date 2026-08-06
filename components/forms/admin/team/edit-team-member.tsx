@@ -26,7 +26,9 @@ export default function EditTeamMemberModal({
     defaultValues: {
       name: member.name,
       role: member.role,
-      bio: member.bio ?? "",
+      bio: Array.isArray(member.bio)
+        ? member.bio.join("\n")
+        : (member.bio ?? ""),
       order: String(member.order),
       isPublished: member.isPublished,
       image: member.photoUrl, // Pass current image URL as initial value

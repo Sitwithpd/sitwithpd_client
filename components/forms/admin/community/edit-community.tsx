@@ -2,7 +2,10 @@
 
 import { FormProvider, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { CommunityFormValues, communitySchema } from "@/schemas/community-schema";
+import {
+  CommunityFormValues,
+  communitySchema,
+} from "@/schemas/community-schema";
 import CommunityForm from "./community-form";
 import { useUpdateCommunity } from "@/lib/api/hooks/communities/communities.hooks";
 import { useModalStore } from "@/components/store/use-modal-store";
@@ -28,7 +31,6 @@ export default function EditCommunityModal({
       subtitle: community.subtitle,
       description: community.description,
       whatsappLink: community.whatsappLink,
-      iconKey: community.iconKey ?? "",
       gains: community.gains ?? [],
       videoLinks: community.videoLinks ?? [],
       tags: (community.tags ?? []).map((t) => t.name),
@@ -44,7 +46,6 @@ export default function EditCommunityModal({
         subtitle: data.subtitle,
         description: data.description,
         whatsappLink: data.whatsappLink,
-        iconKey: data.iconKey || null,
         gains: cleanBulletList(data.gains),
         videoLinks: cleanVideoLinks(data.videoLinks),
         tags: data.tags ?? [],

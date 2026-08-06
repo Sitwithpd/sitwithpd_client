@@ -1,5 +1,6 @@
 "use client";
 
+import React from "react";
 import { motion } from "motion/react";
 import {
   fadeInUp,
@@ -14,31 +15,58 @@ import {
 } from "@/components/ui/accordion";
 import { Pill } from "@/components/ui/pill";
 
-const faqs = [
+const faqs: { question: string; answer: React.ReactNode }[] = [
   {
-    question: "Can I change my membership tier?",
+    question: "What is a Sit With PD Membership?",
     answer:
-      "Yes! You can upgrade or downgrade your membership at any time. Changes take effect at the start of your next billing cycle.",
+      "A Sit With PD Membership is your gateway into a transformational community dedicated to Purpose, Direction, and Personal Discovery. Members gain access to exclusive resources, guided growth experiences, therapeutic programmes, meaningful relationships, and opportunities designed to help them thrive personally, professionally, and purposefully.",
   },
   {
-    question: "Is there a long-term commitment required?",
+    question: "What benefits do members receive?",
     answer:
-      "No, all our memberships are billed month-to-month and you can cancel anytime without any hidden penalty fees.",
+      "Membership benefits vary by plan but may include access to exclusive events, therapeutic camps, live masterclasses, digital resources, mentorship opportunities, networking with like-minded individuals, member-only community groups, discounts on programmes, and priority access to new initiatives and experiences.",
   },
   {
-    question: "What payment methods do you accept?",
+    question: "Can I upgrade or change my membership plan?",
     answer:
-      "We accept all major credit cards including Visa, Mastercard, American Express, and Discover.",
+      "Yes. You can upgrade your membership at any time to enjoy additional benefits and opportunities. If you wish to change your plan, simply log into your account or contact our support team for assistance.",
   },
   {
-    question: "Do you offer annual discounts?",
+    question: "Is the membership available internationally?",
     answer:
-      "Yes, members who choose to be billed annually receive a 15% discount equivalent to almost 2 months free.",
+      "Absolutely. Sit With PD welcomes members from around the world. Whether you join from Africa, Europe, North America, Asia, or anywhere else, you'll be part of a global community committed to growth, healing, purpose, and impact.",
   },
   {
-    question: "What if I want to cancel my membership?",
+    question: "How long does my membership last?",
     answer:
-      "You can easily cancel your membership through your account settings or by contacting our support team.",
+      "Your membership remains active for the duration of your chosen subscription plan. To continue enjoying uninterrupted access to member benefits, simply renew your membership before it expires.",
+  },
+  {
+    question: "Who should become a Sit With PD member?",
+    answer:
+      "Sit With PD Membership is for anyone seeking greater clarity, purpose, personal growth, emotional wellness, meaningful relationships, and lasting transformation. Whether you're a student, entrepreneur, professional, leader, or someone navigating life's next chapter, there's a place for you in our community.",
+  },
+  {
+    question: "What payment methods are accepted?",
+    answer: (
+      <span>
+        We offer flexible and secure payment options to make your membership
+        experience seamless. Accepted payment methods include:
+        <ul className="list-disc pl-5 mt-2 space-y-1">
+          <li>Credit and debit cards (Visa, Mastercard, American Express)</li>
+          <li>Bank transfers (local and international, where applicable)</li>
+          <li>Mobile money payments (available in select regions)</li>
+          <li>
+            Online payment gateways (such as PayPal and other secure processors)
+          </li>
+          <li>Instalment payment options for selected membership plans</li>
+        </ul>
+        <span className="block mt-2">
+          All payments are processed through secure, encrypted systems to ensure
+          your financial information remains safe and protected at all times.
+        </span>
+      </span>
+    ),
   },
 ];
 
@@ -54,9 +82,9 @@ export function MembershipFaq() {
         className="flex flex-col items-center text-center mb-12 lg:mb-16"
       >
         <motion.div variants={fadeInUp}>
-       <span className="bg-[#E8F0E6] text-[#1F4842] font-semibold text-sm mb-4 flex justify-center items-center py-2 px-4 rounded-full">
+          <span className="bg-[#E8F0E6] text-[#1F4842] font-semibold text-sm mb-4 flex justify-center items-center py-2 px-4 rounded-full">
             FAQ
-           </span>
+          </span>
         </motion.div>
         <motion.h2 variants={fadeInUp} className="heading-2 text-center mb-3">
           Membership FAQ
