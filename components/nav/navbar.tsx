@@ -28,6 +28,7 @@ const navLinks = [
     ],
   },
   { label: "Community", href: "/community" },
+  { label: "Membership", href: "/membership" },
   { label: "Contact", href: "/contact" },
   { label: "Blog", href: "/blog" },
 ];

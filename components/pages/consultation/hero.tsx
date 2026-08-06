@@ -84,7 +84,11 @@ export function Hero() {
             className="flex flex-col sm:flex-row justify-start sm:justify-center md:justify-start w-full gap-4 mt-4"
           >
             <Button
-              onClick={() => handleBookingClick("sitwithpd/consultation")}
+              onClick={() =>
+                document
+                  .getElementById("consultation-services")
+                  ?.scrollIntoView({ behavior: "smooth" })
+              }
               variant={"regular"}
             >
               Book a Consultation <CaretRight />

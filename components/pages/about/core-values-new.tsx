@@ -38,7 +38,7 @@ const coreValues = [
     title: "Purpose",
     description:
       "We believe every person has the capacity to live a meaningful and impactful life. Our mission is to help people discover what truly matters and align their lives with greater intention and purpose.",
-    image: "/images/about-core-values.png",
+    image: "/images/about-purpose.webp",
   },
   {
     label: "COMMUNITY",

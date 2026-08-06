@@ -150,11 +150,11 @@ export default function ConsultationPage() {
         <ProcessCards />
         <Resources />
         </div> */}
-      {/* <ConsultationServices /> */}
       <ConsultationHighlights />
       <ConsultationApproach />
       <WhatToExpect />
       <WhoCanBook />
+       <ConsultationServices />
       <ConsultationTestimonials />
       <ConsultationFaq />
       <ReusableCta

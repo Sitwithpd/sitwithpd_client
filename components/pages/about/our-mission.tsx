@@ -6,7 +6,7 @@ import Image from "next/image";
 
 export function OurMission() {
   return (
-    <section className="container mx-auto  py-10 lg:py-20 ">
+    <section className="  py-10 lg:py-20 ">
       <motion.div
         variants={staggerContainerSlow}
         initial="hidden"

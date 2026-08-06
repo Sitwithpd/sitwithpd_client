@@ -142,13 +142,13 @@ export function OurStory() {
   ];
 
   return (
-    <section className=" py-10 lg:pt-24 w-full">
+    <section className=" py-10 lg:pt-24 w-full ">
       <motion.div
         variants={staggerContainer}
         initial="hidden"
         whileInView="visible"
         viewport={{ once: true, amount: 0.2 }}
-        className="container mx-auto  flex flex-col items-center"
+        className="w-full   flex flex-col items-center"
       >
         
         <motion.h2 variants={fadeInUp} className="heading-2 text-center ">

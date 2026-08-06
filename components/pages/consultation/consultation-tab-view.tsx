@@ -101,7 +101,9 @@ export function ConsultationTabView({ currentTab }: { currentTab: string }) {
               >
                 Most Popular
               </span>
-              <span className="text-[#606060] text-sm">{content?.format?.name}</span>
+              <span className="text-[#606060] text-sm">
+                {content?.format?.name}
+              </span>
             </motion.div>
             {/* Title */}
             <motion.h1
@@ -122,7 +124,6 @@ export function ConsultationTabView({ currentTab }: { currentTab: string }) {
                   </motion.p>
                 ))}
             </div>
-          
 
             {/* Image Banner */}
             <motion.div
@@ -139,24 +140,23 @@ export function ConsultationTabView({ currentTab }: { currentTab: string }) {
                 className="object-cover"
               />
               <div className="absolute inset-0 bg-linear-to-t from-[#0F2318B2]  to-[#00000000] flex flex-col justify-end p-4 md:p-10">
-                  {content.tags.length > 0 && (
+                {content?.tags && content?.tags?.length > 0 && (
                   <div className="flex flex-wrap gap-2.5">
-                    {content.tags.slice(0, 3).map((tag, i) => (
-                      <div className="flex items-center gap-2">
-                        <p
-                          key={`${tag}-${i}`}
-                          className="text-[#A8D675] tracking-[2px] text-xs  "
-                        >
+                    {content?.tags?.slice(0, 3).map((tag, i) => (
+                      <div
+                        key={`${tag.name}-${i}`}
+                        className="flex items-center gap-2"
+                      >
+                        <p className="text-[#A8D675] tracking-[2px] text-xs">
                           {tag.name}
                         </p>
-                        <span
-                          className={`bg-[#A8D675] w-0.5 h-0.5 rounded-full  ${i === content.tags.length - 1 ? "hidden" : ""} `}
-                        />
+                        {i < (content?.tags?.length ?? 0) - 1 && (
+                          <span className="bg-[#A8D675] w-0.5 h-0.5 rounded-full" />
+                        )}
                       </div>
                     ))}
                   </div>
                 )}
-               
               </div>
             </motion.div>
 

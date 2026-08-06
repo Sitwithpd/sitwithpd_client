@@ -12,15 +12,30 @@ export const metadata: Metadata = {
 };
 
 import { notFound } from "next/navigation";
+import { ReusableCta } from "@/components/shared/reusable-cta";
 
 export default function MembershipPage() {
- 
-  return(
+  return (
     <section>
       <MembershipHero />
       <WhyJoin />
       <MembershipPricing />
       <MembershipFaq />
+      <ReusableCta
+        subtitle=""
+        title="Ready to Begin Your Membership Journey?"
+        description="Choose your plan today and join thousands of members committed to presence-based healing and personal transformation."
+        buttons={[
+          {
+            text: "Contact Us",
+            href: "/contact",
+          },
+          {
+            text: "Book a Consultation",
+            href: "/consultation",
+          },
+        ]}
+      />
       {/* <CtaBlock /> */}
     </section>
   );
