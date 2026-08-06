@@ -108,7 +108,8 @@ export function MembershipPricing() {
         </motion.p>
       </motion.div>
 
-      {/* Billing cadence */}
+      {/* Billing cadence — pointless while there are no plans to apply it to. */}
+      {(isLoading || plans.length > 0) && (
       <div className="mb-12 inline-flex items-center gap-1 rounded-full bg-white border border-[#D0DFD0] p-1">
         {(["MONTHLY", "ANNUAL"] as const).map((value) => (
           <button
@@ -131,11 +132,16 @@ export function MembershipPricing() {
           </button>
         ))}
       </div>
+      )}
 
-      {isError ? (
-        <p className="text-sm text-[#697586]">
-          Membership plans are unavailable right now. Please try again shortly.
-        </p>
+      {isError || (!isLoading && plans.length === 0) ? (
+        <div className="w-11/12 xl:max-w-3xl mx-auto text-center py-20 bg-white rounded-[16px] border border-dashed border-slate-200">
+          <p className="text-lg text-[#667085] max-w-xl mx-auto">
+            {isError
+              ? "We couldn't load our membership plans just now. Please refresh the page or try again shortly."
+              : "Membership plans are being finalised. Please check back soon."}
+          </p>
+        </div>
       ) : (
         <motion.div
           variants={staggerContainerDelayed}

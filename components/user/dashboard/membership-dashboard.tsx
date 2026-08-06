@@ -160,7 +160,11 @@ export default function MembershipDashboard() {
     searchParams.get("interval") === "ANNUAL" ? "ANNUAL" : "MONTHLY",
   );
 
-  const { data: plansRes, isLoading: plansLoading } = useMembershipPlans();
+  const {
+    data: plansRes,
+    isLoading: plansLoading,
+    isError: plansError,
+  } = useMembershipPlans();
   const { data: subRes, isLoading: subLoading } = useMySubscription();
   const subscribe = useSubscribeToPlan();
   const changePlan = useChangeMyPlan();
@@ -266,6 +270,17 @@ export default function MembershipDashboard() {
         </div>
       </div>
 
+      {plansError || (!plansLoading && plans.length === 0) ? (
+        <div className="text-center py-16 rounded-[12px] border border-dashed border-border">
+          <p className="text-sm text-secondary-text max-w-md mx-auto">
+            {plansError
+              ? "We couldn't load the membership plans. Please refresh and try again."
+              : entitled
+                ? "There are no other plans to move to right now."
+                : "Membership plans are being finalised. Please check back soon."}
+          </p>
+        </div>
+      ) : (
       <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-5">
         {plansLoading
           ? Array.from({ length: 3 }).map((_, i) => (
@@ -327,6 +342,7 @@ export default function MembershipDashboard() {
               );
             })}
       </div>
+      )}
     </div>
   );
 }
