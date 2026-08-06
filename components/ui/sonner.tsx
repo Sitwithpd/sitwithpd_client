@@ -15,7 +15,7 @@ const Toaster = ({ ...props }: ToasterProps) => {
 
   return (
     <Sonner
-      theme={theme as ToasterProps["theme"]}
+      // theme={theme as ToasterProps["theme"]}
       className="toaster group"
       position="top-center"
       toastOptions={{
@@ -23,9 +23,9 @@ const Toaster = ({ ...props }: ToasterProps) => {
           toast: [
             "group toast flex items-center gap-3 w-full p-4 rounded-xl shadow-lg border transition-all",
             "bg-white text-[#181D27] border-[#EAECF0]",
-            "dark:bg-[#1C1C1C] dark:text-[#F3F4F6] dark:border-[#2E372E]",
+            // "dark:bg-[#1C1C1C] dark:text-[#F3F4F6] dark:border-[#2E372E]",
           ].join(" "),
-          title: "text-sm font-semibold leading-snug",
+          title: "text-sm font-semibold leading-snug pl-4",
           description: "text-xs text-[#667085] dark:text-[#98A2B3]",
           actionButton:
             "bg-[#60935D] text-white rounded-lg text-xs px-3 py-1.5 font-medium",
@@ -42,7 +42,7 @@ const Toaster = ({ ...props }: ToasterProps) => {
           </div>
         ),
         error: (
-          <div className="flex items-center justify-center w-8 h-8 rounded-full bg-[#FEE4E2] dark:bg-[#450A0A] text-[#D92D20] shrink-0">
+          <div className="flex items-center justify-center w-8 h-8 rounded-full  dark:bg-[#450A0A] text-[#D92D20] shrink-0">
             <AlertCircle className="w-5 h-5 text-[#D92D20]" />
           </div>
         ),
