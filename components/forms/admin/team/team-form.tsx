@@ -18,11 +18,9 @@ export default function TeamForm({
   isLoading,
   submitLabel,
 }: TeamFormProps) {
-  const { control, handleSubmit, setValue, watch } =
+  const { control, handleSubmit } =
     useFormContext<TeamFormValues>();
 
-  const image = watch("image");
-  const isPublished = watch("isPublished");
   const closeModal = useModalStore((state) => state.closeModal);
 
   return (
@@ -59,6 +57,31 @@ export default function TeamForm({
                 placeholder="e.g. Founder & CEO"
                 className="bg-white border-[#EAECF0] dark:border-border h-11 focus-visible:ring-0"
               />
+              {fieldState.invalid && <FieldError errors={[fieldState.error]} />}
+            </Field>
+          )}
+        />
+
+        {/* Bio — long-form, so a textarea that keeps the admin's line breaks */}
+        <Controller
+          control={control}
+          name="bio"
+          render={({ field, fieldState }) => (
+            <Field data-invalid={fieldState.invalid}>
+              <FieldLabel htmlFor="bio">Bio</FieldLabel>
+              <textarea
+                {...field}
+                value={field.value ?? ""}
+                id="bio"
+                rows={8}
+                placeholder={
+                  "A few paragraphs about this member.\n\nLeave a blank line between paragraphs"
+                }
+                className="bg-white dark:bg-input/30 border border-[#EAECF0] dark:border-border rounded-[5px] w-full text-sm text-primary-text placeholder:text-[#98A2B3] px-3 py-3 outline-none focus-visible:ring-0 resize-y min-h-40 whitespace-pre-wrap"
+              />
+              <p className="text-xs text-secondary-text">
+                {(field.value?.length ?? 0).toLocaleString()} / 5,000 characters
+              </p>
               {fieldState.invalid && <FieldError errors={[fieldState.error]} />}
             </Field>
           )}

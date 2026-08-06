@@ -26,6 +26,7 @@ export default function EditTeamMemberModal({
     defaultValues: {
       name: member.name,
       role: member.role,
+      bio: member.bio ?? "",
       order: String(member.order),
       isPublished: member.isPublished,
       image: member.photoUrl, // Pass current image URL as initial value
@@ -36,6 +37,8 @@ export default function EditTeamMemberModal({
     const formData = new FormData();
     formData.append("name", data.name);
     formData.append("role", data.role);
+    // Always sent: "" is how the API is told to clear an existing bio.
+    formData.append("bio", data.bio ?? "");
     formData.append("order", String(data.order));
     formData.append("isPublished", String(data.isPublished));
 
