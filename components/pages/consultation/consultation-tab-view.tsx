@@ -96,14 +96,18 @@ export function ConsultationTabView({ currentTab }: { currentTab: string }) {
               variants={fadeInUpSlower}
               className="flex flex-wrap items-center gap-3 mb-6"
             >
-              <span
-                className={`px-3 py-1 rounded-full text-[11px] font-medium text-white bg-regular-button`}
-              >
-                Most Popular
-              </span>
-              <span className="text-[#606060] text-sm">
-                {content?.format?.name}
-              </span>
+              {content.category && (
+                <span
+                  className={`px-3 py-1 rounded-full text-[11px] font-medium text-white bg-regular-button`}
+                >
+                  {content.category}
+                </span>
+              )}
+              {content?.format?.name && (
+                <span className="text-[#606060] text-sm">
+                  {content?.format?.name}
+                </span>
+              )}
             </motion.div>
             {/* Title */}
             <motion.h1
@@ -296,6 +300,13 @@ export function ConsultationTabView({ currentTab }: { currentTab: string }) {
                       }}
                       className="bg-white rounded-[12px] p-5   border-[0.67px] border-[#E4EBE4]  hover:border-transparent transition-all group flex flex-col h-full"
                     >
+                      {tab.category && (
+                        <div className="mb-3">
+                          <span className="inline-block px-3.5 py-1 rounded-full text-xs font-semibold tracking-wider text-[#1F4842] bg-[#60935D]/20 uppercase">
+                            {tab.category}
+                          </span>
+                        </div>
+                      )}
                       <h3 className="text-[17px] font-semibold text-[#131313] mb-2 group-hover:text-[#567F57] transition-colors leading-snug">
                         {tab.title}
                       </h3>

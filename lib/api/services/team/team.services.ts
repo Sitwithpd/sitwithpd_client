@@ -5,6 +5,7 @@ export interface TeamMember {
   id: string;
   name: string;
   role: string;
+  bio: string | string[] | null;
   isPublished: boolean;
   order: number;
   photoUrl: string;

@@ -1,10 +1,8 @@
-"use client"
+"use client";
 
 import { Control, FieldPath, FieldValues, Controller } from "react-hook-form";
-
 import { Input } from "@/components/ui/input";
 import { useState } from "react";
-import { Button } from "./ui/button";
 import { Eye, EyeOff } from "lucide-react";
 import clsx from "clsx";
 import { Field, FieldError, FieldLabel } from "@/components/ui/field";
@@ -49,53 +47,50 @@ export default function FormFieldComp<T extends FieldValues>({
       name={name}
       render={({ field, fieldState }) => (
         <Field data-invalid={fieldState.invalid}>
-          <div className=" ">
-            <FieldLabel
-              className={clsx("text-secondary-text dark:font-medium  text-[14px] mb-2")}
-              htmlFor={name}
-            >
-              {label}
-            </FieldLabel>
-            <div className="relative">
+          <div>
+            {label && (
+              <FieldLabel
+                className={clsx(
+                  "text-secondary-text dark:font-medium text-[14px] mb-2 block",
+                )}
+                htmlFor={name}
+              >
+                {label}
+              </FieldLabel>
+            )}
+            <div className="relative flex items-center">
               <Input
-                type={isPassword && showPassword ? "text" : type}
+                type={isPassword ? (showPassword ? "text" : "password") : type}
                 placeholder={placeholder}
                 disabled={disabled}
                 id={name}
                 {...field}
                 inputMode={inputMode}
-                autoComplete="one-time-code"
+                autoComplete={
+                  autoComplete || (isPassword ? "current-password" : undefined)
+                }
                 className={clsx(
-                  // #EAECF0 is near-white; without a dark counterpart every
-                  // field outlines itself brightly against the dark surface.
-                  "pr-10  border-[0.75px]  border-[#EAECF0] dark:border-input bg-[#F2F4F7] rounded-[5px] w-full text-[12px]   font-medium text-primary-text placeholder:text-[#98A2B3] placeholder:text-[12px] placeholder:font-normal  py-4 h-11 focus-visible:border-none focus-visible:ring-0 ",
-                  isPassword &&
-                    !showPassword &&
-                    "  [-webkit-text-security:disc] text-primary-text ",
+                  "border-[0.75px] border-[#EAECF0] dark:border-input bg-[#F2F4F7] rounded-[5px] w-full text-[12px] font-medium text-primary-text placeholder:text-[#98A2B3] placeholder:text-[12px] placeholder:font-normal py-4 h-11 focus-visible:border-none focus-visible:ring-0",
+                  isPassword ? "pr-10" : "",
                   className,
                 )}
               />
               {isPassword && (
-                <Button
+                <button
                   type="button"
-                  variant="ghost"
-                  size="icon"
-                  className="absolute border-none  right-1 top-1/2 h-full -translate-y-1/2 hover:bg-transparent cursor-pointer"
+                  tabIndex={-1}
+                  disabled={disabled}
+                  onMouseDown={(e) => e.preventDefault()}
                   onClick={() => setShowPassword((prev) => !prev)}
+                  className="absolute right-2.5 z-10 p-1 text-[#344054] hover:text-[#181D27] focus:outline-none transition-colors cursor-pointer"
+                  aria-label={showPassword ? "Hide password" : "Show password"}
                 >
-                  <EyeOff
-                    className={clsx(
-                      "h-5 w-5 text-[#344054]",
-                      showPassword ? "block" : "hidden",
-                    )}
-                  />
-                  <Eye
-                    className={clsx(
-                      "h-5 w-5 text-[#344054]",
-                      !showPassword ? "block" : "hidden",
-                    )}
-                  />
-                </Button>
+                  {showPassword ? (
+                    <EyeOff className="h-5 w-5" />
+                  ) : (
+                    <Eye className="h-5 w-5" />
+                  )}
+                </button>
               )}
             </div>
           </div>

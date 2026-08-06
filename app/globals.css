@@ -370,17 +370,21 @@ html[data-direction="back"] ::view-transition-new(root) {
   display: flex !important;
 }
 
-/* Sonner ships a negative icon margin (--toast-icon-margin-start: -3px) and a
-   4px gap, which pulls the icon over the first character of the title. */
-[data-sonner-toaster] {
-  --toast-icon-margin-start: 0px;
-  --toast-icon-margin-end: 12px;
+/* Sonner toast icon layout fixes */
+[data-sonner-toaster] [data-sonner-toast] {
+  --toast-icon-margin-start: 0px !important;
+  --toast-icon-margin-end: 10px !important;
 }
 
-.cn-toast [data-icon] {
-  align-self: center;
+[data-sonner-toaster] [data-sonner-toast] [data-icon] {
+  flex-shrink: 0;
+  margin: 0 !important;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
-.cn-toast [data-content] {
+[data-sonner-toaster] [data-sonner-toast] [data-content] {
+  flex: 1;
   min-width: 0;
 }

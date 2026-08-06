@@ -71,9 +71,9 @@ export function MembershipPricing() {
         className="flex flex-col items-center text-center mb-14"
       >
         <motion.div variants={fadeInUp}>
-         <span className="bg-[#1F4842] text-[#A8D675] font-semibold text-sm mb-4 flex justify-center items-center py-2 px-4 rounded-full">
+          <span className="bg-[#1F4842] text-[#A8D675] font-semibold text-sm mb-4 flex justify-center items-center py-2 px-4 rounded-full">
             PRICING
-           </span>
+          </span>
         </motion.div>
         <motion.h2 variants={fadeInUp} className="heading-2 text-center mb-4">
           Choose a Plan That Supports Your Growth
@@ -149,7 +149,7 @@ export function MembershipPricing() {
               {plan.features.map((feature, fIdx) => (
                 <li key={fIdx} className="flex items-start gap-3">
                   <span
-                    className={`mt-0.5 w-[18px] h-[18px] rounded-full flex items-center justify-center shrink-0
+                    className={`mt-0.5 w-4.5 h-4.5 rounded-full flex items-center justify-center shrink-0
                       ${plan.highlight ? "bg-[#649351]" : "bg-[#649351]/15"}
                     `}
                   >

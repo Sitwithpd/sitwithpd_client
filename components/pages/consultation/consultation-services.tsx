@@ -118,9 +118,7 @@ export function ConsultationServices() {
                 const formattedNumber = (index + 1).toString().padStart(2, "0");
 
                 const badgeText =
-                  service.format?.name ||
-                  service.tags?.[0]?.name ||
-                  "CONSULTATION";
+                  service.category;
 
                 const bullets =
                   service.whatsIncluded && service.whatsIncluded.length > 0
@@ -153,12 +151,13 @@ export function ConsultationServices() {
                           <div className="text-4xl lg:text-5xl font-extrabold text-[#60935D]/30 mb-3 tracking-tight select-none">
                             {formattedNumber}
                           </div>
-
-                          <div className="mb-3">
-                            <span className="inline-block px-3.5 py-1 rounded-full text-xs font-semibold tracking-wider text-[#1F4842] bg-[#60935D]/20 uppercase">
-                              {badgeText}
-                            </span>
-                          </div>
+                          {service.category && (
+                            <div className="mb-3">
+                              <span className="inline-block px-3.5 py-1 rounded-full text-xs font-semibold tracking-wider text-[#1F4842] bg-[#60935D]/20 uppercase">
+                                {service.category}
+                              </span>
+                            </div>
+                          )}
 
                           <h3 className="text-xl lg:text-2xl font-bold text-[#131313] mb-3 leading-snug">
                             {service.title}
