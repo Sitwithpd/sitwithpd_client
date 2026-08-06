@@ -4,17 +4,9 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Field, FieldError, FieldLabel } from "@/components/ui/field";
 import { Switch } from "@/components/ui/switch";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
 import { TagInput } from "@/components/shared/tag-input";
 import { BulletListInput } from "@/components/shared/bullet-list-input";
 import { VideoLinksInput } from "@/components/shared/video-links-input";
-import { COMMUNITY_ICON_OPTIONS } from "@/components/pages/community/icon-map";
 import { useModalStore } from "@/components/store/use-modal-store";
 
 interface CommunityFormProps {
@@ -102,35 +94,9 @@ export default function CommunityForm({
                 className="border-input h-11 focus-visible:ring-0"
               />
               <p className="text-xs text-secondary-text">
-                Emailed automatically to each applicant. It is never shown on the
-                public site.
+                Emailed automatically to each applicant. It is never shown on
+                the public site.
               </p>
-              {fieldState.invalid && <FieldError errors={[fieldState.error]} />}
-            </Field>
-          )}
-        />
-
-        <Controller
-          control={control}
-          name="iconKey"
-          render={({ field, fieldState }) => (
-            <Field data-invalid={fieldState.invalid}>
-              <FieldLabel htmlFor="iconKey">Card Icon</FieldLabel>
-              <Select value={field.value || ""} onValueChange={field.onChange}>
-                <SelectTrigger
-                  id="iconKey"
-                  className="h-11"
-                >
-                  <SelectValue placeholder="Select an icon" />
-                </SelectTrigger>
-                <SelectContent>
-                  {COMMUNITY_ICON_OPTIONS.map((opt) => (
-                    <SelectItem key={opt.value} value={opt.value}>
-                      {opt.label}
-                    </SelectItem>
-                  ))}
-                </SelectContent>
-              </Select>
               {fieldState.invalid && <FieldError errors={[fieldState.error]} />}
             </Field>
           )}
@@ -198,7 +164,9 @@ export default function CommunityForm({
                 type="text"
                 inputMode="numeric"
                 placeholder="0"
-                onChange={(e) => field.onChange(e.target.value.replace(/\D/g, ""))}
+                onChange={(e) =>
+                  field.onChange(e.target.value.replace(/\D/g, ""))
+                }
                 className="border-input h-11 focus-visible:ring-0"
               />
               {fieldState.invalid && <FieldError errors={[fieldState.error]} />}

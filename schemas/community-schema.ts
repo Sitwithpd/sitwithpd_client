@@ -17,7 +17,6 @@ export const communitySchema = z.object({
     .min(1, "WhatsApp group link is required")
     .url("Enter a valid URL")
     .refine((v) => v.startsWith("https://"), "Link must start with https://"),
-  iconKey: z.string().optional(),
   gains: z.array(z.string()).optional(),
   // Ordered YouTube links; the array index is the display order.
   videoLinks: z.array(z.string()).optional(),
