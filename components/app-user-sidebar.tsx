@@ -15,6 +15,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import {
   BookOpen,
+  CreditCard,
   LayoutDashboard,
   LogOut,
   MapPin,
@@ -44,6 +45,11 @@ const data = {
       title: "Camps",
       url: "/dashboard/camps",
       icon: <MapPin size={20} />,
+    },
+    {
+      title: "Membership",
+      url: "/dashboard/membership",
+      icon: <CreditCard size={20} />,
     },
     {
       title: "Settings",
