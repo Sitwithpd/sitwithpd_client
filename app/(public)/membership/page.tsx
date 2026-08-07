@@ -31,8 +31,8 @@ export default function MembershipPage() {
             href: "/contact",
           },
           {
-            text: "Book a Consultation",
-            href: "/consultation",
+            text: "Apply For Membership",
+            href: "/membership#pricing",
           },
         ]}
       />

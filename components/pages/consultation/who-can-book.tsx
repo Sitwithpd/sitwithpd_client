@@ -57,7 +57,9 @@ export function WhoCanBook() {
             corporate teams, government agencies, and non-profit organisations.
           </motion.p>
           <motion.div variants={fadeInUp} className="mt-">
-            <Button onClick={() => handleBookingClick("sitwithpd/consultation")} variant="regular">Book your sesion </Button>
+            <Button onClick={() =>  document
+                  .getElementById("consultation-services")
+                  ?.scrollIntoView({ behavior: "smooth" })} variant="regular">Book your sesion </Button>
           </motion.div>
         </motion.div>
 

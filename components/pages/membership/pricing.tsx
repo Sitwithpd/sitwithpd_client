@@ -61,7 +61,7 @@ const pricingPlans = [
 
 export function MembershipPricing() {
   return (
-    <section className="py-20 bg-[#F4F7F3] flex flex-col items-center">
+    <section id="pricing" className="py-20 bg-[#F4F7F3] flex flex-col items-center">
       {/* Header */}
       <motion.div
         variants={staggerContainerSlow}

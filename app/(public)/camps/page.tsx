@@ -131,7 +131,7 @@ export default async function CampsPage() {
         description="You don't need to have it all figured out. Discover the camp that's right for you and take the next step toward becoming all you were created to be.."
         buttons={[
           {
-            text: "Apply Now",
+            text: "Contact Us",
             href: "/contact",
           },
           {

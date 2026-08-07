@@ -99,7 +99,7 @@ export default function ContactPage() {
           buttons={[
             {
               text: "Book a Consultation",
-              action: "book-consultation",
+              href: "/consultation#consultation-services",
             },
             {
               text: "Explore Programs",

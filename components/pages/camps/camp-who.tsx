@@ -135,14 +135,16 @@ export function CampWho() {
 
               {
                 i === lastCamp && (
-                <Link href="/contact">
                   <Button
                     className="mt-4 bg-[#A8D675] text-[#1F4842] w-full"
-                    onClick={() => {}}
+                    onClick={() =>
+                      document
+                        .getElementById("camp-services")
+                        ?.scrollIntoView({ behavior: "smooth" })
+                    }
                   >
                     Apply Now <CaretRight color="#1F4842" />
                   </Button>
-                </Link>
                 )
               }
             </motion.div>
