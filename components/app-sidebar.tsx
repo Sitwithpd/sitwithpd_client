@@ -92,6 +92,11 @@ const data = {
       icon: <CreditCard />,
     },
     {
+      title: "Memberships",
+      url: "/admin/memberships",
+      icon: <CreditCard size={20} />,
+    },
+    {
       title: "Team Members",
       url: "/admin/team",
       icon: <Users />,
