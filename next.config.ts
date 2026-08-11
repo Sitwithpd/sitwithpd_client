@@ -22,7 +22,7 @@ const nextConfig: NextConfig = {
     return [
       {
         source: "/api/:path*",
-        destination: "https://sit-with-pd-global-therapeutic-web-app-2f1l.onrender.com/api/:path*",
+        destination: `${process.env.BACKEND_URL}/:path*`,
       },
     ];
   },

@@ -87,9 +87,9 @@ export function MembershipPricing() {
       {/* Header */}
       <motion.div
         variants={staggerContainerSlow}
-        initial="hidden"
+        initial="visible"
         whileInView="visible"
-        viewport={{ once: true, amount: 0.4 }}
+        viewport={{ once: false, amount: 0.4 }}
         className="flex flex-col items-center text-center mb-10"
       >
         <motion.div variants={fadeInUp}>
@@ -146,9 +146,9 @@ export function MembershipPricing() {
       ) : (
         <motion.div
           variants={staggerContainerDelayed}
-          initial="hidden"
+          initial="visible"
           whileInView="visible"
-          viewport={{ once: true, amount: 0.2 }}
+          viewport={{ once: false, amount: 0.2 }}
           className="flex flex-col lg:flex-row gap-6 xl:max-w-6xl w-11/12 mx-auto"
         >
           {isLoading
