@@ -15,11 +15,6 @@ import { ColumnDef } from "@tanstack/react-table";
 import Image from "next/image";
 import Link from "next/link";
 
-import {
-  Tooltip,
-  TooltipContent,
-  TooltipTrigger,
-} from "@/components/ui/tooltip";
 import { Trash2 } from "lucide-react";
 import { EllipsisVertical } from "lucide-react";
 import { formatCurrency } from "@/lib/utils";
@@ -109,15 +104,12 @@ const ActionCell = ({
           </Link>
         </DropdownMenuItem>
         {row.original.isPublished && (
-          <DropdownMenuItem
-            onClick={() =>
-              router.push(`/admin/program/${row.original.id}/edit`)
-            }
-            className="py-3 px-4"
-          >
-            {" "}
-            <FilePenLine className="text-[#344054] dark:text-white" /> Edit
-          </DropdownMenuItem>
+        <DropdownMenuItem
+          onClick={() => router.push(`/admin/program/${row.original.id}/edit`)}
+          className="py-3 px-4"
+        >
+          <FilePenLine className="text-[#344054] dark:text-white" /> Edit
+        </DropdownMenuItem>
         )}
         {row.original._count.purchases === 0 && (
           <DropdownMenuItem

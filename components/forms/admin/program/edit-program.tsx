@@ -106,7 +106,7 @@ function EditProgramForm({ id }: { id: string }) {
       {
         onSuccess: () => {
           closeModal("loading");
-          // router.push("/admin/program");
+          router.push("/admin/program");
           form.reset();
         },
         onError: () => {
@@ -127,7 +127,11 @@ function EditProgramForm({ id }: { id: string }) {
         duration: program.data.durationWeeks?.toString() || "0",
         hoursPerWeek: (program.data as any).hoursPerWeek?.toString() || "",
         thumbnail: (program.data as any).thumbnail || "",
-        date: toIsoDateString(new Date(program.data.startDate)) || "",
+        date:
+          program.data.startDate &&
+          !isNaN(new Date(program.data.startDate).getTime())
+            ? toIsoDateString(new Date(program.data.startDate))
+            : "",
         facilitatorName: (program.data as any).facilitatorName || "",
         facilitatorEmail: (program.data as any).facilitatorEmail || "",
         weeks: ((program.data as any).weeks || []).map((week: any) => ({

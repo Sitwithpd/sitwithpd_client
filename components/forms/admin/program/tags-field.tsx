@@ -7,6 +7,7 @@ import { Button } from "@/components/ui/button";
 import { X } from "lucide-react";
 import type { ProgramFormSchema } from "@/schemas/programs-schema";
 import { FieldError } from "@/components/ui/field";
+import clsx from "clsx";
 
 export default function TagsField() {
   const {
@@ -39,11 +40,11 @@ export default function TagsField() {
 
   const fieldError = errors.tags;
   const errorMessage =
-    typeof fieldError?.message === "string"
-      ? fieldError.message
-      : Array.isArray(fieldError)
-        ? fieldError.find((e) => typeof e?.message === "string")?.message
-        : undefined;
+    fieldError?.message ||
+    (fieldError as any)?.root?.message ||
+    (Array.isArray(fieldError)
+      ? fieldError.find((e: any) => e?.message)?.message
+      : undefined);
 
   return (
     <div className="flex flex-col gap-3">
@@ -80,9 +81,13 @@ export default function TagsField() {
           value={inputValue}
           onChange={(e) => setInputValue(e.target.value)}
           onKeyDown={handleKeyDown}
+          aria-invalid={!!errorMessage}
           placeholder="Add a tag (max 6)..."
           disabled={fields.length >= 6}
-          className="border-[0.67px] border-[#D0D5DD] dark:border-border bg-white rounded-[5px] flex-1 text-[12px] font-medium text-primary-text placeholder:text-[#98A2B3] placeholder:text-[12px] py-4 h-11 focus-visible:border-none focus-visible:ring-0"
+          className={clsx(
+            "border-[0.67px] border-[#D0D5DD] dark:border-border bg-white rounded-[5px] flex-1 text-[12px] font-medium text-primary-text placeholder:text-[#98A2B3] placeholder:text-[12px] py-4 h-11 focus-visible:border-none focus-visible:ring-0",
+            errorMessage && "border-destructive ring-1 ring-destructive",
+          )}
         />
         <Button
           type="button"
@@ -94,7 +99,7 @@ export default function TagsField() {
           Add Tag
         </Button>
       </div>
-      {errorMessage && <FieldError errors={[errorMessage]} />}
+      {errorMessage && <FieldError>{errorMessage}</FieldError>}
     </div>
   );
 }

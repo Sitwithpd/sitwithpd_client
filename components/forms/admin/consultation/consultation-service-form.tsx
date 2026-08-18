@@ -10,6 +10,7 @@ import CalEventTypeSelect from "./cal-event-type-select";
 import ImageUpload from "@/components/image-upload";
 import { TagInput, SingleTagInput } from "@/components/shared/tag-input";
 import { BulletListInput } from "@/components/shared/bullet-list-input";
+import clsx from "clsx";
 
 interface ConsultationServiceFormProps {
   onSubmit: SubmitHandler<ConsultationServiceFormValues>;
@@ -17,14 +18,11 @@ interface ConsultationServiceFormProps {
   isLoading?: boolean;
 }
 
-
 export default function ConsultationServiceForm({
   onSubmit,
   onCancel,
   isLoading,
 }: ConsultationServiceFormProps) {
-
-
   const form = useFormContext<ConsultationServiceFormValues>();
 
   return (
@@ -32,7 +30,9 @@ export default function ConsultationServiceForm({
       {/* One continuous form. Sections are plain headed groups on the modal
           surface — a filled card here would read as a second, separate form. */}
       <div className="bg-transparent rounded-[12px]">
-        <header className="text-primary-text font-semibold text-base mb-6">Service Details</header>
+        <header className="text-primary-text font-semibold text-base mb-6">
+          Service Details
+        </header>
 
         <div className="space-y-6">
           <FormFieldComp
@@ -57,17 +57,27 @@ export default function ConsultationServiceForm({
             render={({ field, fieldState }) => (
               <Field data-invalid={fieldState.invalid}>
                 <div className="flex flex-col">
-                  <FieldLabel className="dark:text-secondary-text text-primary-text text-[14px] mb-2" htmlFor="description">
+                  <FieldLabel
+                    className="dark:text-secondary-text text-primary-text text-[14px] mb-2"
+                    htmlFor="description"
+                  >
                     Description *
                   </FieldLabel>
                   <textarea
                     id="description"
                     {...field}
+                    aria-invalid={fieldState.invalid}
                     placeholder="Describe the service, what to expect, and any requirements..."
-                    className="border-[0.75px] border-[#EAECF0] dark:border-input bg-transparent dark:bg-input/30 rounded-[5px] w-full text-[12px] font-medium text-primary-text placeholder:text-[#98A2B3] py-4 min-h-30 outline-none px-3 resize-none"
+                    className={clsx(
+                      "border-[0.75px] border-[#EAECF0] dark:border-input bg-transparent dark:bg-input/30 rounded-[5px] w-full text-[12px] font-medium text-primary-text placeholder:text-[#98A2B3] py-4 min-h-30 outline-none px-3 resize-none",
+                      fieldState.invalid &&
+                        "border-destructive ring-1 ring-destructive",
+                    )}
                   />
                 </div>
-                {fieldState.invalid && <FieldError errors={[fieldState.error]} />}
+                {fieldState.invalid && (
+                  <FieldError errors={[fieldState.error]} />
+                )}
               </Field>
             )}
           />
@@ -77,12 +87,16 @@ export default function ConsultationServiceForm({
             name="coverImage"
             render={({ field, fieldState }) => (
               <Field data-invalid={fieldState.invalid}>
-                <FieldLabel className="dark:text-secondary-text text-primary-text text-[14px] mb-2">Cover Image</FieldLabel>
+                <FieldLabel className="dark:text-secondary-text text-primary-text text-[14px] mb-2">
+                  Cover Image
+                </FieldLabel>
                 <ImageUpload
                   value={field.value}
                   onChange={(file) => field.onChange(file)}
                 />
-                {fieldState.invalid && <FieldError errors={[fieldState.error]} />}
+                {fieldState.invalid && (
+                  <FieldError errors={[fieldState.error]} />
+                )}
               </Field>
             )}
           />
@@ -90,7 +104,9 @@ export default function ConsultationServiceForm({
       </div>
 
       <div className="bg-transparent rounded-[12px]">
-        <header className="text-primary-text font-semibold text-base mb-6">Delivery &amp; Booking</header>
+        <header className="text-primary-text font-semibold text-base mb-6">
+          Delivery &amp; Booking
+        </header>
 
         <div className="space-y-6">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -99,7 +115,9 @@ export default function ConsultationServiceForm({
               name="format"
               render={({ field }) => (
                 <Field>
-                  <FieldLabel className="dark:text-secondary-text text-primary-text text-[14px] mb-2">Format</FieldLabel>
+                  <FieldLabel className="dark:text-secondary-text text-primary-text text-[14px] mb-2">
+                    Format
+                  </FieldLabel>
                   <SingleTagInput
                     value={field.value ?? ""}
                     onChange={field.onChange}
@@ -124,12 +142,17 @@ export default function ConsultationServiceForm({
             name="calBookingUrl"
             render={({ field, fieldState }) => (
               <Field data-invalid={fieldState.invalid}>
-                <FieldLabel className="dark:text-secondary-text text-primary-text text-[14px] mb-2">Cal.com Event Type *</FieldLabel>
+                <FieldLabel className="dark:text-secondary-text text-primary-text text-[14px] mb-2">
+                  Cal.com Event Type *
+                </FieldLabel>
                 <CalEventTypeSelect
                   value={field.value}
                   onChange={field.onChange}
+                  isInvalid={fieldState.invalid}
                 />
-                {fieldState.invalid && <FieldError errors={[fieldState.error]} />}
+                {fieldState.invalid && (
+                  <FieldError errors={[fieldState.error]} />
+                )}
               </Field>
             )}
           />
@@ -137,7 +160,9 @@ export default function ConsultationServiceForm({
       </div>
 
       <div className="bg-transparent rounded-[12px]">
-        <header className="text-primary-text font-semibold text-base mb-6">Pricing</header>
+        <header className="text-primary-text font-semibold text-base mb-6">
+          Pricing
+        </header>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           <FormFieldComp
@@ -153,7 +178,9 @@ export default function ConsultationServiceForm({
       </div>
 
       <div className="bg-transparent rounded-[12px]">
-        <header className="text-primary-text font-semibold text-base mb-6">Page Content</header>
+        <header className="text-primary-text font-semibold text-base mb-6">
+          Page Content
+        </header>
 
         <div className="space-y-6">
           <Controller
@@ -161,7 +188,9 @@ export default function ConsultationServiceForm({
             name="audience"
             render={({ field }) => (
               <Field>
-                <FieldLabel className="dark:text-secondary-text text-primary-text text-[14px] mb-2">Who&apos;s It For</FieldLabel>
+                <FieldLabel className="dark:text-secondary-text text-primary-text text-[14px] mb-2">
+                  Who&apos;s It For
+                </FieldLabel>
                 <BulletListInput
                   value={field.value ?? []}
                   onChange={field.onChange}
@@ -177,7 +206,9 @@ export default function ConsultationServiceForm({
             name="whatsIncluded"
             render={({ field }) => (
               <Field>
-                <FieldLabel className="dark:text-secondary-text text-primary-text text-[14px] mb-2">What&apos;s Included</FieldLabel>
+                <FieldLabel className="dark:text-secondary-text text-primary-text text-[14px] mb-2">
+                  What&apos;s Included
+                </FieldLabel>
                 <BulletListInput
                   value={field.value ?? []}
                   onChange={field.onChange}
@@ -193,7 +224,9 @@ export default function ConsultationServiceForm({
             name="tags"
             render={({ field }) => (
               <Field>
-                <FieldLabel className="dark:text-secondary-text text-primary-text text-[14px] mb-2">Topics</FieldLabel>
+                <FieldLabel className="dark:text-secondary-text text-primary-text text-[14px] mb-2">
+                  Topics
+                </FieldLabel>
                 <TagInput
                   value={field.value ?? []}
                   onChange={field.onChange}
@@ -215,10 +248,7 @@ export default function ConsultationServiceForm({
         >
           Cancel
         </Button>
-        <Button
-          variant={"regular"}
-          disabled={!form.formState.isValid || isLoading}
-        >
+        <Button variant={"regular"} disabled={isLoading}>
           {isLoading ? "Submitting..." : "Save Service"}
         </Button>
       </div>

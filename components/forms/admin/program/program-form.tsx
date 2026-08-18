@@ -9,6 +9,7 @@ import { ProgramFormSchema } from "@/schemas/programs-schema";
 import ProgramWeeksSection from "./weeks/program-weeks-section";
 import LearningObjectivesField from "./learning-objectives-field";
 import SelectDateComp from "@/components/date-selector";
+import clsx from "clsx";
 import {
   Select,
   SelectContent,
@@ -118,12 +119,17 @@ export default function ProgramForm({
                     type="text"
                     inputMode="decimal"
                     autoComplete="one-time-code"
+                    aria-invalid={fieldState.invalid}
                     onChange={(e) => {
                       const formatted = formatAmount(e.target.value);
                       field.onChange(formatted);
                     }}
                     placeholder="0.00"
-                    className="pr-10  border-[0.75px] border-[#EAECF0] bg-white rounded-[5px] w-full text-[12px]   font-medium text-primary-text placeholder:text-[#98A2B3] placeholder:text-[12px] placeholder:font-normal  py-4 h-11 focus-visible:border-none focus-visible:ring-0"
+                    className={clsx(
+                      "pr-10 border-[0.75px] border-[#EAECF0] bg-white rounded-[5px] w-full text-[12px] font-medium text-primary-text placeholder:text-[#98A2B3] placeholder:text-[12px] placeholder:font-normal py-4 h-11 focus-visible:border-none focus-visible:ring-0",
+                      fieldState.invalid &&
+                        "border-destructive ring-1 ring-destructive",
+                    )}
                   />
                   {fieldState.invalid && (
                     <FieldError errors={[fieldState.error]} />
@@ -161,7 +167,12 @@ export default function ProgramForm({
                     onValueChange={field.onChange}
                   >
                     <SelectTrigger
-                      className="bg-dash-secondary-bg text-primary-text"
+                      aria-invalid={fieldState.invalid}
+                      className={clsx(
+                        "bg-dash-secondary-bg text-primary-text",
+                        fieldState.invalid &&
+                          "border-destructive ring-1 ring-destructive",
+                      )}
                       id="type"
                     >
                       <SelectValue
@@ -203,8 +214,13 @@ export default function ProgramForm({
                   <textarea
                     id="description"
                     {...field}
+                    aria-invalid={fieldState.invalid}
                     placeholder="Describe the program, its goal and who it's for..."
-                    className="border-[0.75px] border-[#EAECF0] bg-dash-secondary-bg rounded-[5px] w-full text-[12px] font-medium text-primary-text placeholder:text-[#98A2B3] py-4 min-h-30 outline-none px-3 resize-none"
+                    className={clsx(
+                      "border-[0.75px] border-[#EAECF0] bg-dash-secondary-bg rounded-[5px] w-full text-[12px] font-medium text-primary-text placeholder:text-[#98A2B3] py-4 min-h-30 outline-none px-3 resize-none",
+                      fieldState.invalid &&
+                        "border-destructive ring-1 ring-destructive",
+                    )}
                   />
                 </div>
                 {fieldState.invalid && (
@@ -248,11 +264,16 @@ export default function ProgramForm({
         <Controller
           control={form.control}
           name="videoLinks"
-          render={({ field }) => (
-            <VideoLinksInput
-              value={field.value ?? []}
-              onChange={field.onChange}
-            />
+          render={({ field, fieldState }) => (
+            <Field data-invalid={fieldState.invalid}>
+              <VideoLinksInput
+                value={field.value ?? []}
+                onChange={field.onChange}
+              />
+              {fieldState.invalid && (
+                <FieldError>{fieldState.error?.message}</FieldError>
+              )}
+            </Field>
           )}
         />
       </div>
@@ -294,7 +315,11 @@ export default function ProgramForm({
                 Thumbnail
               </FieldLabel>
               <ImageUpload value={field.value} onChange={field.onChange} />
-              {fieldState.invalid && <FieldError errors={[fieldState.error]} />}
+              {fieldState.invalid && (
+                <FieldError>
+                  {fieldState.error?.message || "Thumbnail is required"}
+                </FieldError>
+              )}
             </Field>
           )}
         />
@@ -304,10 +329,7 @@ export default function ProgramForm({
         <Button variant={"outline"} type="button">
           Cancel
         </Button>
-        <Button
-          variant={"regular"}
-          disabled={!form.formState.isValid || form.formState.isSubmitting}
-        >
+        <Button variant={"regular"} disabled={form.formState.isSubmitting}>
           {form.formState.isSubmitting ? "Submitting..." : "Save Program"}
         </Button>
       </div>
