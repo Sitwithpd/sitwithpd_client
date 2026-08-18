@@ -15,11 +15,13 @@ import { Loader2 } from "lucide-react";
 interface CalEventTypeSelectProps {
   value?: string;
   onChange?: (value: string) => void;
+  isInvalid?: boolean;
 }
 
 export default function CalEventTypeSelect({
   value,
   onChange,
+  isInvalid,
 }: CalEventTypeSelectProps) {
   const { data, isLoading, isError } = useGetCalEventTypes();
 
@@ -31,10 +33,11 @@ export default function CalEventTypeSelect({
     }));
   }, [data]);
 
-  
   return (
     <Select value={value} onValueChange={onChange} disabled={isLoading}>
-      <SelectTrigger className="bg-white dark:bg-transparent  border-[0.75px] border-[#EAECF0] dark:border-border rounded-[5px] w-full text-[12px] font-medium text-primary-text h-[54px] focus-visible:ring-0">
+      <SelectTrigger
+        className={`bg-white dark:bg-transparent border-[0.75px] border-[#EAECF0] dark:border-border rounded-[5px] w-full text-[12px] font-medium text-primary-text h-[54px] focus-visible:ring-0 ${isInvalid ? "border-destructive ring-1 ring-destructive" : ""}`}
+      >
         {isLoading ? (
           <div className="flex items-center gap-2">
             <Loader2 className="h-4 w-4 animate-spin text-regular-button" />

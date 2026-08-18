@@ -64,6 +64,7 @@ export default function FormFieldComp<T extends FieldValues>({
                 placeholder={placeholder}
                 disabled={disabled}
                 id={name}
+                aria-invalid={fieldState.invalid}
                 {...field}
                 inputMode={inputMode}
                 autoComplete={

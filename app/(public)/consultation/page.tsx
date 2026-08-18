@@ -12,8 +12,6 @@ import { WhoCanBook } from "@/components/pages/consultation/who-can-book";
 import { WhatToExpect } from "@/components/pages/consultation/what-to-expect";
 import { ConsultationTestimonials } from "@/components/pages/consultation/consultation-testimonials";
 import { WhyBookConsultation } from "@/components/pages/consultation/why-book-consultation";
-import { ReusableCta } from "@/components/shared/reusable-cta";
-import { handleBookingClick } from "@/lib/utils";
 
 export const metadata: Metadata = {
   title: "Professional Consultation — Confidential, Practical & Personalised",
@@ -154,25 +152,10 @@ export default function ConsultationPage() {
       <ConsultationApproach />
       <WhatToExpect />
       <WhoCanBook />
-       <ConsultationServices />
+      <ConsultationServices />
       <ConsultationTestimonials />
       <ConsultationFaq />
-      <ReusableCta
-        subtitle="BEGIN YOUR GROWTH JOURNEY"
-        title="Every breakthrough begins with a willingness to seek clarity."
-        description="Whether you're facing an important decision, leading through change, building a vision, or simply looking for trusted guidance, your next step starts with one conversation.."
-        buttons={[
-          {
-            text: "Book a Consultation",
-            action: "book-consultation",
-          },
-          {
-            text: "Contact Our Team",
-            href: "/contact",
-          },
-        ]}
-      />
-      {/* <ConsultationCta /> */}
+      <ConsultationCta />
     </main>
   );
 }

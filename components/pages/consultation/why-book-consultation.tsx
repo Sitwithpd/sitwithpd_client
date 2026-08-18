@@ -42,10 +42,7 @@ export function WhyBookConsultation() {
             Why Book a Consultation?
           </motion.span>
 
-          <motion.h2
-            variants={fadeInUp}
-            className="heading-2"
-          >
+          <motion.h2 variants={fadeInUp} className="heading-2">
             Every challenge carries an opportunity for growth.
           </motion.h2>
 
@@ -60,9 +57,15 @@ export function WhyBookConsultation() {
           </motion.p>
 
           <motion.div variants={fadeInUp}>
-            <Button onClick={() =>  document
+            <Button
+              onClick={() =>
+                document
                   .getElementById("consultation-services")
-                  ?.scrollIntoView({ behavior: "smooth" })} variant="regular" className="lg:flex hidden  items-center gap-2">
+                  ?.scrollIntoView({ behavior: "smooth" })
+              }
+              variant="regular"
+              className="lg:flex hidden  items-center gap-2"
+            >
               Book Your Consultation Today
               <ChevronRight className="w-4 h-4" />
             </Button>
@@ -89,15 +92,21 @@ export function WhyBookConsultation() {
               </span>
             </motion.div>
           ))}
-
-         
         </motion.div>
-         <motion.div variants={fadeInUp}>
-            <Button onClick={() => handleBookingClick("sitwithpd/consultation")} variant="regular" className="flex lg:hidden items-center gap-2">
-              Book Your Consultation Today
-              <ChevronRight className="w-4 h-4" />
-            </Button>
-          </motion.div>
+        <motion.div variants={fadeInUp}>
+          <Button
+            onClick={() =>
+              document
+                .getElementById("consultation-services")
+                ?.scrollIntoView({ behavior: "smooth" })
+            }
+            variant="regular"
+            className="flex lg:hidden items-center gap-2"
+          >
+            Book Your Consultation Today
+            <ChevronRight className="w-4 h-4" />
+          </Button>
+        </motion.div>
       </div>
     </section>
   );

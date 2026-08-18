@@ -5,6 +5,7 @@ import { Button } from "@/components/ui/button";
 import ImageUpload from "@/components/image-upload";
 import { CampFormSchema } from "@/schemas/camps-schema";
 import SelectDateComp from "@/components/date-selector";
+import clsx from "clsx";
 
 export default function CampForm({
   onSubmit,
@@ -38,32 +39,7 @@ export default function CampForm({
               placeholder="Yankari Game Reserve"
               className="bg-white"
             />
-            {/* <Controller
-              control={form.control}
-              name="price"
-              render={({ field, fieldState }) => (
-                <Field data-invalid={fieldState.invalid} className="">
-                  <FieldLabel className="text-[#344054] dark:text-secondary-text text-sm mb-2">
-                    Price (GBP) *
-                  </FieldLabel>
-                  <Input
-                    {...field}
-                    type="text"
-                    inputMode="decimal"
-                    autoComplete="one-time-code"
-                    onChange={(e) => {
-                      const formatted = formatAmount(e.target.value);
-                      field.onChange(formatted);
-                    }}
-                    placeholder="0.00"
-                    className="pr-10 border-[0.75px] border-[#EAECF0] dark:border-border bg-white rounded-[5px] w-full text-[12px] font-medium text-primary-text placeholder:text-[#98A2B3] placeholder:text-[12px] placeholder:font-normal py-4 h-[54px] focus-visible:border-none focus-visible:ring-0"
-                  />
-                  {fieldState.invalid && (
-                    <FieldError errors={[fieldState.error]} />
-                  )}
-                </Field>
-              )}
-            /> */}
+
             <FormFieldComp
               name="category"
               control={form.control}
@@ -109,8 +85,13 @@ export default function CampForm({
                   <textarea
                     id="description"
                     {...field}
+                    aria-invalid={fieldState.invalid}
                     placeholder="Describe the camp, activities, and what to expect..."
-                    className="border-[0.75px] border-[#EAECF0] dark:border-input bg-transparent dark:bg-input/30 rounded-[5px] w-full text-[12px] font-medium text-primary-text placeholder:text-[#98A2B3] py-4 min-h-30 outline-none px-3 resize-none"
+                    className={clsx(
+                      "border-[0.75px] border-[#EAECF0] dark:border-input bg-transparent dark:bg-input/30 rounded-[5px] w-full text-[12px] font-medium text-primary-text placeholder:text-[#98A2B3] py-4 min-h-30 outline-none px-3 resize-none",
+                      fieldState.invalid &&
+                        "border-destructive ring-1 ring-destructive",
+                    )}
                   />
                 </div>
                 {fieldState.invalid && (
@@ -144,10 +125,7 @@ export default function CampForm({
         <Button variant={"outline"} type="button" onClick={onCancel}>
           Cancel
         </Button>
-        <Button
-          variant={"regular"}
-          disabled={!form.formState.isValid || form.formState.isSubmitting}
-        >
+        <Button variant={"regular"} disabled={form.formState.isSubmitting}>
           {form.formState.isSubmitting ? "Submitting..." : "Save Camp"}
         </Button>
       </div>

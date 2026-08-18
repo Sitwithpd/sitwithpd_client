@@ -12,7 +12,12 @@ export const CampSchema = z
     //   },
     //   { message: "Price must be a positive number" }
     // ),
-    capacity: z.string().min(1, "Capacity must be at least 1"),
+    capacity: z
+      .string()
+      .min(1, "Capacity is required")
+      .refine((val) => !isNaN(Number(val)) && Number(val) >= 1, {
+        message: "Capacity must be at least 1",
+      }),
     startDate: z.string().min(1, "Start date is required"),
     endDate: z.string().min(1, "End date is required"),
     thumbnail: z.union([z.string(), z.any()]).optional(),
@@ -24,8 +29,10 @@ export const CampSchema = z
   })
   .refine(
     (data) => {
+      if (!data.startDate || !data.endDate) return true;
       const start = new Date(data.startDate);
       const end = new Date(data.endDate);
+      if (isNaN(start.getTime()) || isNaN(end.getTime())) return true;
       return end >= start;
     },
     {

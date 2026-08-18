@@ -15,7 +15,10 @@ import type {
 } from "@/schemas/programs-schema";
 
 export default function ProgramWeeksSection() {
-  const { control, formState: { errors } } = useFormContext<ProgramFormSchema>();
+  const {
+    control,
+    formState: { errors },
+  } = useFormContext<ProgramFormSchema>();
   const openModal = useModalStore((state) => state.openModal);
 
   const { fields, append, remove } = useFieldArray({
@@ -102,7 +105,13 @@ export default function ProgramWeeksSection() {
             ))}
           </div>
         )}
-        {errors.weeks && <FieldError errors={[errors.weeks as any]} />}
+        {errors.weeks && (
+          <FieldError>
+            {(errors.weeks as any)?.message ||
+              (errors.weeks as any)?.root?.message ||
+              "Please check program weeks for errors"}
+          </FieldError>
+        )}
       </div>
 
       {/* Modules section — rendered outside the week card, below the week list */}

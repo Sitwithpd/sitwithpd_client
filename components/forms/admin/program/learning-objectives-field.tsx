@@ -7,9 +7,13 @@ import { Button } from "@/components/ui/button";
 import { Check, X } from "lucide-react";
 import type { ProgramFormSchema } from "@/schemas/programs-schema";
 import { FieldError } from "@/components/ui/field";
+import clsx from "clsx";
 
 export default function LearningObjectivesField() {
-  const { control, formState: { errors } } = useFormContext<ProgramFormSchema>();
+  const {
+    control,
+    formState: { errors },
+  } = useFormContext<ProgramFormSchema>();
   const { fields, append, remove } = useFieldArray({
     control,
     name: "learningObjectives",
@@ -32,11 +36,15 @@ export default function LearningObjectivesField() {
   };
 
   const fieldError = errors.learningObjectives;
-  
-  // Flatten nested errors if it's an array of objects
-  const flattenedErrors = Array.isArray(fieldError) 
-    ? fieldError.map(err => (err as any)?.text).filter(Boolean)
-    : fieldError ? [fieldError] : [];
+
+  const errorMessage =
+    fieldError?.message ||
+    (fieldError as any)?.root?.message ||
+    (Array.isArray(fieldError)
+      ? fieldError
+          .map((e: any) => e?.text?.message || e?.message)
+          .filter(Boolean)[0]
+      : undefined);
 
   return (
     <div className="flex flex-col gap-3">
@@ -70,8 +78,12 @@ export default function LearningObjectivesField() {
           value={objectiveInput}
           onChange={(e) => setObjectiveInput(e.target.value)}
           onKeyDown={handleObjectiveKeyDown}
+          aria-invalid={!!errorMessage}
           placeholder="Add a learning objective..."
-          className="border-[0.67px] border-[#D0D5DD] dark:border-border bg-white rounded-[5px] flex-1 text-[12px] font-medium text-primary-text placeholder:text-[#98A2B3] placeholder:text-[12px] py-4 h-11 focus-visible:border-none focus-visible:ring-0"
+          className={clsx(
+            "border-[0.67px] border-[#D0D5DD] dark:border-border bg-white rounded-[5px] flex-1 text-[12px] font-medium text-primary-text placeholder:text-[#98A2B3] placeholder:text-[12px] py-4 h-11 focus-visible:border-none focus-visible:ring-0",
+            errorMessage && "border-destructive ring-1 ring-destructive",
+          )}
         />
         <Button
           type="button"
@@ -82,7 +94,7 @@ export default function LearningObjectivesField() {
           Add
         </Button>
       </div>
-      {flattenedErrors.length > 0 && <FieldError errors={flattenedErrors as any} />}
+      {errorMessage && <FieldError>{errorMessage}</FieldError>}
     </div>
   );
 }
