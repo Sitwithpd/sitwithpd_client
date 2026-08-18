@@ -31,6 +31,9 @@ export default function ParticipantDetailModal({
   const user = participant.user || {};
   const tier = participant.tier || {};
   const payment = participant.payment || {};
+  // The price agreed at booking, which is what this row owes — not tier.price,
+  // which is today's list price and diverges once a tier is repriced.
+  const unitPrice = participant.unitPrice || {};
 
   const infoSection = (
     title: string,
@@ -182,7 +185,7 @@ export default function ParticipantDetailModal({
           <>
             {detailItem(
               "Amount Due",
-              formatCurrency(tier.price || 0, participant.currency),
+              formatCurrency(unitPrice.price || 0, unitPrice.currency),
             )}
             {detailItem("Payment Sstatus", payment.status)}
             {detailItem(

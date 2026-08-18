@@ -111,7 +111,7 @@ export default function CampRegistrationDetails({ campId }: CampRegistrationDeta
     data.data;
   // The unit still awaiting payment leads; otherwise show the most recent.
   const registration = actionable ?? registrations[0];
-  const { applicantDetails, camp, tier, payment } = registration;
+  const { applicantDetails, camp, tier, payment, unitPrice } = registration;
   const status = statusConfig[registration.status] || statusConfig.PENDING_PAYMENT;
   const StatusIcon = status.icon;
   const isExpired = new Date(registration.paymentExpiresAt) < new Date();
@@ -226,12 +226,17 @@ export default function CampRegistrationDetails({ campId }: CampRegistrationDeta
           <div>
             <p className={labelClass}>Price</p>
             <p className={valueClass}>
-              {!tier.price ? "Free" : formatCurrency(tier.price, tier.currency)}
+              {!unitPrice.price
+                ? "Free"
+                : formatCurrency(unitPrice.price, unitPrice.currency)}
             </p>
           </div>
           <div>
             <p className={labelClass}>Participants</p>
-            <p className={valueClass}>{registration.participantCount} / {tier.seatsPerUnit} seats</p>
+            <p className={valueClass}>
+              {registration.participantCount}{" "}
+              {registration.participantCount === 1 ? "seat" : "seats"}
+            </p>
           </div>
           <div>
             <p className={labelClass}>Camp Dates</p>

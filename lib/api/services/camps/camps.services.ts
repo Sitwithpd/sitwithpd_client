@@ -373,6 +373,12 @@ export interface CampRegistration {
     currency?: string;
     seatsPerUnit: number;
   };
+  /** Price agreed when the hold was taken. The tier may have been repriced since. */
+  unitPrice: {
+    price: number;
+    priceMinor: number;
+    currency: string;
+  };
   participants?: CampParticipant[];
   payment: {
     id?: string;
