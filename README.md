@@ -1,6 +1,6 @@
 # Sit With PD - Holistic Wellness & Personal Development Platform
 
-Sit With PD is a comprehensive platform designed to facilitate holistic wellness, personal growth, and professional development through curated programs, immersive camps, and expert consultations.
+Sit With PD is a comprehensive platform designed to facilitate holistic wellness, personal growth, and professional development through curated programs, immersive camps, and expert consultations..
 
 ## 🌟 Overview
 
