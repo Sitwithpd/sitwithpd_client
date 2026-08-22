@@ -259,7 +259,7 @@ export function Footer() {
 
         <div className="mt-12 pt-6 border-t border-white/10 flex flex-col-reverse sm:flex-row items-center justify-between gap-5">
           <p className="text-[#F2F8EC] text-sm text-center sm:text-left">
-            © 2026 {settings?.platformName || "Sit-with-PD"}. All rights
+            © 026 {settings?.platformName || "Sit-with-PD"}. All rights
             reserved.
           </p>
 
