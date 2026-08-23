@@ -22,7 +22,7 @@ const nextConfig: NextConfig = {
     return [
       {
         source: "/api/:path*",
-        destination: `https://api.sitwithpd.com/api/:path*`,
+        destination: `${process.env.BACKEND_URL}/:path*`,
       },
     ];
   },
